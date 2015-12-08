@@ -1,0 +1,253 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC5591041897162C00391CFF /* nckHttpServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC5591021897162C00391CFF /* nckHttpServer.cpp */; };
+		CC5591051897162C00391CFF /* nckIPAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC5591031897162C00391CFF /* nckIPAddress.cpp */; };
+		CC5591091897163300391CFF /* nckHttpServer.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591061897163300391CFF /* nckHttpServer.h */; };
+		CC55910A1897163300391CFF /* nckIPAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591071897163300391CFF /* nckIPAddress.h */; };
+		CC55910B1897163300391CFF /* nckNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591081897163300391CFF /* nckNetworkConfig.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CC5591021897162C00391CFF /* nckHttpServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckHttpServer.cpp; path = ../../../source/network/nckHttpServer.cpp; sourceTree = "<group>"; };
+		CC5591031897162C00391CFF /* nckIPAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckIPAddress.cpp; path = ../../../source/network/nckIPAddress.cpp; sourceTree = "<group>"; };
+		CC5591061897163300391CFF /* nckHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckHttpServer.h; path = ../../../source/network/nckHttpServer.h; sourceTree = "<group>"; };
+		CC5591071897163300391CFF /* nckIPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckIPAddress.h; path = ../../../source/network/nckIPAddress.h; sourceTree = "<group>"; };
+		CC5591081897163300391CFF /* nckNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckNetworkConfig.h; path = ../../../source/network/nckNetworkConfig.h; sourceTree = "<group>"; };
+		CCC9B5A51897118800771D4E /* libNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCC9B5A21897118800771D4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CCC9B59C1897118800771D4E = {
+			isa = PBXGroup;
+			children = (
+				CCC9B614189712F800771D4E /* Source */,
+				CCC9B5A61897118800771D4E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCC9B5A61897118800771D4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9B5A51897118800771D4E /* libNetwork.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCC9B614189712F800771D4E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CC5591021897162C00391CFF /* nckHttpServer.cpp */,
+				CC5591061897163300391CFF /* nckHttpServer.h */,
+				CC5591031897162C00391CFF /* nckIPAddress.cpp */,
+				CC5591071897163300391CFF /* nckIPAddress.h */,
+				CC5591081897163300391CFF /* nckNetworkConfig.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CCC9B5A31897118800771D4E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC55910B1897163300391CFF /* nckNetworkConfig.h in Headers */,
+				CC5591091897163300391CFF /* nckHttpServer.h in Headers */,
+				CC55910A1897163300391CFF /* nckIPAddress.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CCC9B5A41897118800771D4E /* Network */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCC9B5A91897118800771D4E /* Build configuration list for PBXNativeTarget "Network" */;
+			buildPhases = (
+				CCC9B5A11897118800771D4E /* Sources */,
+				CCC9B5A21897118800771D4E /* Frameworks */,
+				CCC9B5A31897118800771D4E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Network;
+			productName = Network;
+			productReference = CCC9B5A51897118800771D4E /* libNetwork.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCC9B59D1897118800771D4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCC9B5A01897118800771D4E /* Build configuration list for PBXProject "Network" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCC9B59C1897118800771D4E;
+			productRefGroup = CCC9B5A61897118800771D4E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCC9B5A41897118800771D4E /* Network */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCC9B5A11897118800771D4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC5591051897162C00391CFF /* nckIPAddress.cpp in Sources */,
+				CC5591041897162C00391CFF /* nckHttpServer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CCC9B5A71897118800771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCC9B5A81897118800771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCC9B5AA1897118800771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/core/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCC9B5AB1897118800771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/core/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCC9B5A01897118800771D4E /* Build configuration list for PBXProject "Network" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5A71897118800771D4E /* Debug */,
+				CCC9B5A81897118800771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCC9B5A91897118800771D4E /* Build configuration list for PBXNativeTarget "Network" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5AA1897118800771D4E /* Debug */,
+				CCC9B5AB1897118800771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCC9B59D1897118800771D4E /* Project object */;
+}

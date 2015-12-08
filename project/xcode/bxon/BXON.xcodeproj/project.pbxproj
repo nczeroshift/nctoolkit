@@ -1,0 +1,250 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC39BECB1B676B1D0001365F /* bxon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC39BEC91B676B1D0001365F /* bxon.cpp */; };
+		CC39BECC1B676B1D0001365F /* bxon.hpp in Headers */ = {isa = PBXBuildFile; fileRef = CC39BECA1B676B1D0001365F /* bxon.hpp */; };
+		CC431F461B72BFAE004BD7D9 /* bxonDataIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC431F451B72BFAE004BD7D9 /* bxonDataIO.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CC39BEC21B676AC10001365F /* libBXON.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBXON.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC39BEC91B676B1D0001365F /* bxon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bxon.cpp; path = ../../../source/bxon/bxon.cpp; sourceTree = "<group>"; };
+		CC39BECA1B676B1D0001365F /* bxon.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = bxon.hpp; path = ../../../source/bxon/bxon.hpp; sourceTree = "<group>"; };
+		CC431F441B72BF8B004BD7D9 /* bxonDataIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = bxonDataIO.h; path = ../../../source/bxon/bxonDataIO.h; sourceTree = "<group>"; };
+		CC431F451B72BFAE004BD7D9 /* bxonDataIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bxonDataIO.cpp; path = ../../../source/bxon/bxonDataIO.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC39BEBF1B676AC10001365F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC39BEB91B676AC10001365F = {
+			isa = PBXGroup;
+			children = (
+				CC431F451B72BFAE004BD7D9 /* bxonDataIO.cpp */,
+				CC431F441B72BF8B004BD7D9 /* bxonDataIO.h */,
+				CC39BEC91B676B1D0001365F /* bxon.cpp */,
+				CC39BECA1B676B1D0001365F /* bxon.hpp */,
+				CC39BEC31B676AC10001365F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CC39BEC31B676AC10001365F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC39BEC21B676AC10001365F /* libBXON.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CC39BEC01B676AC10001365F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC39BECC1B676B1D0001365F /* bxon.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CC39BEC11B676AC10001365F /* BXON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CC39BEC61B676AC10001365F /* Build configuration list for PBXNativeTarget "BXON" */;
+			buildPhases = (
+				CC39BEBE1B676AC10001365F /* Sources */,
+				CC39BEBF1B676AC10001365F /* Frameworks */,
+				CC39BEC01B676AC10001365F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BXON;
+			productName = bxon;
+			productReference = CC39BEC21B676AC10001365F /* libBXON.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CC39BEBA1B676AC10001365F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = nczeroshift;
+				TargetAttributes = {
+					CC39BEC11B676AC10001365F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = CC39BEBD1B676AC10001365F /* Build configuration list for PBXProject "BXON" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CC39BEB91B676AC10001365F;
+			productRefGroup = CC39BEC31B676AC10001365F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CC39BEC11B676AC10001365F /* BXON */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC39BEBE1B676AC10001365F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC431F461B72BFAE004BD7D9 /* bxonDataIO.cpp in Sources */,
+				CC39BECB1B676B1D0001365F /* bxon.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CC39BEC41B676AC10001365F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../source/math/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CC39BEC51B676AC10001365F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../source/math/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CC39BEC71B676AC10001365F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CC39BEC81B676AC10001365F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CC39BEBD1B676AC10001365F /* Build configuration list for PBXProject "BXON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC39BEC41B676AC10001365F /* Debug */,
+				CC39BEC51B676AC10001365F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CC39BEC61B676AC10001365F /* Build configuration list for PBXNativeTarget "BXON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CC39BEC71B676AC10001365F /* Debug */,
+				CC39BEC81B676AC10001365F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CC39BEBA1B676AC10001365F /* Project object */;
+}

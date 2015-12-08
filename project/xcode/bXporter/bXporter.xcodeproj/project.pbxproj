@@ -1,0 +1,439 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CCCC819318E8464C009A74C7 /* bXAnimationGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC816F18E8464C009A74C7 /* bXAnimationGraph.cpp */; };
+		CCCC819418E8464C009A74C7 /* bXAnimationGraph.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817018E8464C009A74C7 /* bXAnimationGraph.h */; };
+		CCCC819518E8464C009A74C7 /* bXArmature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817118E8464C009A74C7 /* bXArmature.cpp */; };
+		CCCC819618E8464C009A74C7 /* bXArmature.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817218E8464C009A74C7 /* bXArmature.h */; };
+		CCCC819718E8464C009A74C7 /* bXAuxiliar.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817318E8464C009A74C7 /* bXAuxiliar.h */; };
+		CCCC819818E8464C009A74C7 /* bXCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817418E8464C009A74C7 /* bXCamera.cpp */; };
+		CCCC819918E8464C009A74C7 /* bXCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817518E8464C009A74C7 /* bXCamera.h */; };
+		CCCC819A18E8464C009A74C7 /* bXConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817618E8464C009A74C7 /* bXConfig.h */; };
+		CCCC819B18E8464C009A74C7 /* bXCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817718E8464C009A74C7 /* bXCurve.cpp */; };
+		CCCC819C18E8464C009A74C7 /* bXCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817818E8464C009A74C7 /* bXCurve.h */; };
+		CCCC819D18E8464C009A74C7 /* bXDatablock.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817918E8464C009A74C7 /* bXDatablock.h */; };
+		CCCC819E18E8464C009A74C7 /* bXExportSupport.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817A18E8464C009A74C7 /* bXExportSupport.cpp */; };
+		CCCC819F18E8464C009A74C7 /* bXExportSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817B18E8464C009A74C7 /* bXExportSupport.h */; };
+		CCCC81A018E8464C009A74C7 /* bXFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817C18E8464C009A74C7 /* bXFile.cpp */; };
+		CCCC81A118E8464C009A74C7 /* bXFile.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817D18E8464C009A74C7 /* bXFile.h */; };
+		CCCC81A218E8464C009A74C7 /* bXLamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC817E18E8464C009A74C7 /* bXLamp.cpp */; };
+		CCCC81A318E8464C009A74C7 /* bXLamp.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC817F18E8464C009A74C7 /* bXLamp.h */; };
+		CCCC81A418E8464C009A74C7 /* bXMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818018E8464C009A74C7 /* bXMaterial.cpp */; };
+		CCCC81A518E8464C009A74C7 /* bXMaterial.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818118E8464C009A74C7 /* bXMaterial.h */; };
+		CCCC81A618E8464C009A74C7 /* bXMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818218E8464C009A74C7 /* bXMesh.cpp */; };
+		CCCC81A718E8464C009A74C7 /* bXMesh.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818318E8464C009A74C7 /* bXMesh.h */; };
+		CCCC81A818E8464C009A74C7 /* bXMeshMaterialMixer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818418E8464C009A74C7 /* bXMeshMaterialMixer.cpp */; };
+		CCCC81A918E8464C009A74C7 /* bXMeshTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818518E8464C009A74C7 /* bXMeshTools.cpp */; };
+		CCCC81AA18E8464C009A74C7 /* bXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818618E8464C009A74C7 /* bXObject.cpp */; };
+		CCCC81AB18E8464C009A74C7 /* bXObject.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818718E8464C009A74C7 /* bXObject.h */; };
+		CCCC81AC18E8464C009A74C7 /* bXProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818818E8464C009A74C7 /* bXProperties.cpp */; };
+		CCCC81AD18E8464C009A74C7 /* bXProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818918E8464C009A74C7 /* bXProperties.h */; };
+		CCCC81AE18E8464C009A74C7 /* bXScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818A18E8464C009A74C7 /* bXScene.cpp */; };
+		CCCC81AF18E8464C009A74C7 /* bXScene.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818B18E8464C009A74C7 /* bXScene.h */; };
+		CCCC81B018E8464C009A74C7 /* bXTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818C18E8464C009A74C7 /* bXTexture.cpp */; };
+		CCCC81B118E8464C009A74C7 /* bXTexture.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818D18E8464C009A74C7 /* bXTexture.h */; };
+		CCCC81B218E8464C009A74C7 /* bXTextureMapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC818E18E8464C009A74C7 /* bXTextureMapping.cpp */; };
+		CCCC81B318E8464C009A74C7 /* bXTextureMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC818F18E8464C009A74C7 /* bXTextureMapping.h */; };
+		CCCC81B418E8464C009A74C7 /* bXUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC819018E8464C009A74C7 /* bXUtilities.h */; };
+		CCCC81B518E8464C009A74C7 /* bXVectorMath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCCC819118E8464C009A74C7 /* bXVectorMath.cpp */; };
+		CCCC81B618E8464C009A74C7 /* bXVectorMath.h in Headers */ = {isa = PBXBuildFile; fileRef = CCCC819218E8464C009A74C7 /* bXVectorMath.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC508F7718E849620025EC26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC508F7318E849620025EC26 /* XML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183A21895CC2B00908E7A;
+			remoteInfo = XML;
+		};
+		CC508F7918E849640025EC26 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC508F7318E849620025EC26 /* XML.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD183A11895CC2B00908E7A;
+			remoteInfo = XML;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC508F7318E849620025EC26 /* XML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XML.xcodeproj; path = ../XML/XML.xcodeproj; sourceTree = "<group>"; };
+		CCCC816718E845BE009A74C7 /* libbXporter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libbXporter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCCC816F18E8464C009A74C7 /* bXAnimationGraph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXAnimationGraph.cpp; path = ../../../source/bxporter/bXAnimationGraph.cpp; sourceTree = "<group>"; };
+		CCCC817018E8464C009A74C7 /* bXAnimationGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXAnimationGraph.h; path = ../../../source/bxporter/bXAnimationGraph.h; sourceTree = "<group>"; };
+		CCCC817118E8464C009A74C7 /* bXArmature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXArmature.cpp; path = ../../../source/bxporter/bXArmature.cpp; sourceTree = "<group>"; };
+		CCCC817218E8464C009A74C7 /* bXArmature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXArmature.h; path = ../../../source/bxporter/bXArmature.h; sourceTree = "<group>"; };
+		CCCC817318E8464C009A74C7 /* bXAuxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXAuxiliar.h; path = ../../../source/bxporter/bXAuxiliar.h; sourceTree = "<group>"; };
+		CCCC817418E8464C009A74C7 /* bXCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXCamera.cpp; path = ../../../source/bxporter/bXCamera.cpp; sourceTree = "<group>"; };
+		CCCC817518E8464C009A74C7 /* bXCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXCamera.h; path = ../../../source/bxporter/bXCamera.h; sourceTree = "<group>"; };
+		CCCC817618E8464C009A74C7 /* bXConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXConfig.h; path = ../../../source/bxporter/bXConfig.h; sourceTree = "<group>"; };
+		CCCC817718E8464C009A74C7 /* bXCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXCurve.cpp; path = ../../../source/bxporter/bXCurve.cpp; sourceTree = "<group>"; };
+		CCCC817818E8464C009A74C7 /* bXCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXCurve.h; path = ../../../source/bxporter/bXCurve.h; sourceTree = "<group>"; };
+		CCCC817918E8464C009A74C7 /* bXDatablock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXDatablock.h; path = ../../../source/bxporter/bXDatablock.h; sourceTree = "<group>"; };
+		CCCC817A18E8464C009A74C7 /* bXExportSupport.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXExportSupport.cpp; path = ../../../source/bxporter/bXExportSupport.cpp; sourceTree = "<group>"; };
+		CCCC817B18E8464C009A74C7 /* bXExportSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXExportSupport.h; path = ../../../source/bxporter/bXExportSupport.h; sourceTree = "<group>"; };
+		CCCC817C18E8464C009A74C7 /* bXFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXFile.cpp; path = ../../../source/bxporter/bXFile.cpp; sourceTree = "<group>"; };
+		CCCC817D18E8464C009A74C7 /* bXFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXFile.h; path = ../../../source/bxporter/bXFile.h; sourceTree = "<group>"; };
+		CCCC817E18E8464C009A74C7 /* bXLamp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXLamp.cpp; path = ../../../source/bxporter/bXLamp.cpp; sourceTree = "<group>"; };
+		CCCC817F18E8464C009A74C7 /* bXLamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXLamp.h; path = ../../../source/bxporter/bXLamp.h; sourceTree = "<group>"; };
+		CCCC818018E8464C009A74C7 /* bXMaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXMaterial.cpp; path = ../../../source/bxporter/bXMaterial.cpp; sourceTree = "<group>"; };
+		CCCC818118E8464C009A74C7 /* bXMaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXMaterial.h; path = ../../../source/bxporter/bXMaterial.h; sourceTree = "<group>"; };
+		CCCC818218E8464C009A74C7 /* bXMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXMesh.cpp; path = ../../../source/bxporter/bXMesh.cpp; sourceTree = "<group>"; };
+		CCCC818318E8464C009A74C7 /* bXMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXMesh.h; path = ../../../source/bxporter/bXMesh.h; sourceTree = "<group>"; };
+		CCCC818418E8464C009A74C7 /* bXMeshMaterialMixer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXMeshMaterialMixer.cpp; path = ../../../source/bxporter/bXMeshMaterialMixer.cpp; sourceTree = "<group>"; };
+		CCCC818518E8464C009A74C7 /* bXMeshTools.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXMeshTools.cpp; path = ../../../source/bxporter/bXMeshTools.cpp; sourceTree = "<group>"; };
+		CCCC818618E8464C009A74C7 /* bXObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXObject.cpp; path = ../../../source/bxporter/bXObject.cpp; sourceTree = "<group>"; };
+		CCCC818718E8464C009A74C7 /* bXObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXObject.h; path = ../../../source/bxporter/bXObject.h; sourceTree = "<group>"; };
+		CCCC818818E8464C009A74C7 /* bXProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXProperties.cpp; path = ../../../source/bxporter/bXProperties.cpp; sourceTree = "<group>"; };
+		CCCC818918E8464C009A74C7 /* bXProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXProperties.h; path = ../../../source/bxporter/bXProperties.h; sourceTree = "<group>"; };
+		CCCC818A18E8464C009A74C7 /* bXScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXScene.cpp; path = ../../../source/bxporter/bXScene.cpp; sourceTree = "<group>"; };
+		CCCC818B18E8464C009A74C7 /* bXScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXScene.h; path = ../../../source/bxporter/bXScene.h; sourceTree = "<group>"; };
+		CCCC818C18E8464C009A74C7 /* bXTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXTexture.cpp; path = ../../../source/bxporter/bXTexture.cpp; sourceTree = "<group>"; };
+		CCCC818D18E8464C009A74C7 /* bXTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXTexture.h; path = ../../../source/bxporter/bXTexture.h; sourceTree = "<group>"; };
+		CCCC818E18E8464C009A74C7 /* bXTextureMapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXTextureMapping.cpp; path = ../../../source/bxporter/bXTextureMapping.cpp; sourceTree = "<group>"; };
+		CCCC818F18E8464C009A74C7 /* bXTextureMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXTextureMapping.h; path = ../../../source/bxporter/bXTextureMapping.h; sourceTree = "<group>"; };
+		CCCC819018E8464C009A74C7 /* bXUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXUtilities.h; path = ../../../source/bxporter/bXUtilities.h; sourceTree = "<group>"; };
+		CCCC819118E8464C009A74C7 /* bXVectorMath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bXVectorMath.cpp; path = ../../../source/bxporter/bXVectorMath.cpp; sourceTree = "<group>"; };
+		CCCC819218E8464C009A74C7 /* bXVectorMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bXVectorMath.h; path = ../../../source/bxporter/bXVectorMath.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCCC816418E845BE009A74C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC508F7218E849530025EC26 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC508F7318E849620025EC26 /* XML.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CC508F7418E849620025EC26 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC508F7818E849620025EC26 /* libXML.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCCC815E18E845BD009A74C7 = {
+			isa = PBXGroup;
+			children = (
+				CC508F7218E849530025EC26 /* Frameworks */,
+				CCCC816E18E84635009A74C7 /* Source */,
+				CCCC816818E845BE009A74C7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCCC816818E845BE009A74C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCCC816718E845BE009A74C7 /* libbXporter.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCCC816E18E84635009A74C7 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CCCC816F18E8464C009A74C7 /* bXAnimationGraph.cpp */,
+				CCCC817018E8464C009A74C7 /* bXAnimationGraph.h */,
+				CCCC817118E8464C009A74C7 /* bXArmature.cpp */,
+				CCCC817218E8464C009A74C7 /* bXArmature.h */,
+				CCCC817318E8464C009A74C7 /* bXAuxiliar.h */,
+				CCCC817418E8464C009A74C7 /* bXCamera.cpp */,
+				CCCC817518E8464C009A74C7 /* bXCamera.h */,
+				CCCC817618E8464C009A74C7 /* bXConfig.h */,
+				CCCC817718E8464C009A74C7 /* bXCurve.cpp */,
+				CCCC817818E8464C009A74C7 /* bXCurve.h */,
+				CCCC817918E8464C009A74C7 /* bXDatablock.h */,
+				CCCC817A18E8464C009A74C7 /* bXExportSupport.cpp */,
+				CCCC817B18E8464C009A74C7 /* bXExportSupport.h */,
+				CCCC817C18E8464C009A74C7 /* bXFile.cpp */,
+				CCCC817D18E8464C009A74C7 /* bXFile.h */,
+				CCCC817E18E8464C009A74C7 /* bXLamp.cpp */,
+				CCCC817F18E8464C009A74C7 /* bXLamp.h */,
+				CCCC818018E8464C009A74C7 /* bXMaterial.cpp */,
+				CCCC818118E8464C009A74C7 /* bXMaterial.h */,
+				CCCC818218E8464C009A74C7 /* bXMesh.cpp */,
+				CCCC818318E8464C009A74C7 /* bXMesh.h */,
+				CCCC818418E8464C009A74C7 /* bXMeshMaterialMixer.cpp */,
+				CCCC818518E8464C009A74C7 /* bXMeshTools.cpp */,
+				CCCC818618E8464C009A74C7 /* bXObject.cpp */,
+				CCCC818718E8464C009A74C7 /* bXObject.h */,
+				CCCC818818E8464C009A74C7 /* bXProperties.cpp */,
+				CCCC818918E8464C009A74C7 /* bXProperties.h */,
+				CCCC818A18E8464C009A74C7 /* bXScene.cpp */,
+				CCCC818B18E8464C009A74C7 /* bXScene.h */,
+				CCCC818C18E8464C009A74C7 /* bXTexture.cpp */,
+				CCCC818D18E8464C009A74C7 /* bXTexture.h */,
+				CCCC818E18E8464C009A74C7 /* bXTextureMapping.cpp */,
+				CCCC818F18E8464C009A74C7 /* bXTextureMapping.h */,
+				CCCC819018E8464C009A74C7 /* bXUtilities.h */,
+				CCCC819118E8464C009A74C7 /* bXVectorMath.cpp */,
+				CCCC819218E8464C009A74C7 /* bXVectorMath.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CCCC816518E845BE009A74C7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCCC81AF18E8464C009A74C7 /* bXScene.h in Headers */,
+				CCCC81A318E8464C009A74C7 /* bXLamp.h in Headers */,
+				CCCC819F18E8464C009A74C7 /* bXExportSupport.h in Headers */,
+				CCCC819C18E8464C009A74C7 /* bXCurve.h in Headers */,
+				CCCC819718E8464C009A74C7 /* bXAuxiliar.h in Headers */,
+				CCCC81A518E8464C009A74C7 /* bXMaterial.h in Headers */,
+				CCCC81AB18E8464C009A74C7 /* bXObject.h in Headers */,
+				CCCC81A718E8464C009A74C7 /* bXMesh.h in Headers */,
+				CCCC819D18E8464C009A74C7 /* bXDatablock.h in Headers */,
+				CCCC819418E8464C009A74C7 /* bXAnimationGraph.h in Headers */,
+				CCCC81B318E8464C009A74C7 /* bXTextureMapping.h in Headers */,
+				CCCC819618E8464C009A74C7 /* bXArmature.h in Headers */,
+				CCCC819918E8464C009A74C7 /* bXCamera.h in Headers */,
+				CCCC81B118E8464C009A74C7 /* bXTexture.h in Headers */,
+				CCCC81AD18E8464C009A74C7 /* bXProperties.h in Headers */,
+				CCCC81A118E8464C009A74C7 /* bXFile.h in Headers */,
+				CCCC819A18E8464C009A74C7 /* bXConfig.h in Headers */,
+				CCCC81B618E8464C009A74C7 /* bXVectorMath.h in Headers */,
+				CCCC81B418E8464C009A74C7 /* bXUtilities.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CCCC816618E845BE009A74C7 /* bXporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCCC816B18E845BE009A74C7 /* Build configuration list for PBXNativeTarget "bXporter" */;
+			buildPhases = (
+				CCCC816318E845BE009A74C7 /* Sources */,
+				CCCC816418E845BE009A74C7 /* Frameworks */,
+				CCCC816518E845BE009A74C7 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CC508F7A18E849640025EC26 /* PBXTargetDependency */,
+			);
+			name = bXporter;
+			productName = bXporter;
+			productReference = CCCC816718E845BE009A74C7 /* libbXporter.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCCC815F18E845BD009A74C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCCC816218E845BD009A74C7 /* Build configuration list for PBXProject "bXporter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCCC815E18E845BD009A74C7;
+			productRefGroup = CCCC816818E845BE009A74C7 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC508F7418E849620025EC26 /* Products */;
+					ProjectRef = CC508F7318E849620025EC26 /* XML.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				CCCC816618E845BE009A74C7 /* bXporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC508F7818E849620025EC26 /* libXML.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libXML.a;
+			remoteRef = CC508F7718E849620025EC26 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCCC816318E845BE009A74C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCCC81A418E8464C009A74C7 /* bXMaterial.cpp in Sources */,
+				CCCC819E18E8464C009A74C7 /* bXExportSupport.cpp in Sources */,
+				CCCC819518E8464C009A74C7 /* bXArmature.cpp in Sources */,
+				CCCC819318E8464C009A74C7 /* bXAnimationGraph.cpp in Sources */,
+				CCCC81AE18E8464C009A74C7 /* bXScene.cpp in Sources */,
+				CCCC819818E8464C009A74C7 /* bXCamera.cpp in Sources */,
+				CCCC81B518E8464C009A74C7 /* bXVectorMath.cpp in Sources */,
+				CCCC81AC18E8464C009A74C7 /* bXProperties.cpp in Sources */,
+				CCCC81A818E8464C009A74C7 /* bXMeshMaterialMixer.cpp in Sources */,
+				CCCC81A618E8464C009A74C7 /* bXMesh.cpp in Sources */,
+				CCCC819B18E8464C009A74C7 /* bXCurve.cpp in Sources */,
+				CCCC81A018E8464C009A74C7 /* bXFile.cpp in Sources */,
+				CCCC81A918E8464C009A74C7 /* bXMeshTools.cpp in Sources */,
+				CCCC81B218E8464C009A74C7 /* bXTextureMapping.cpp in Sources */,
+				CCCC81B018E8464C009A74C7 /* bXTexture.cpp in Sources */,
+				CCCC81AA18E8464C009A74C7 /* bXObject.cpp in Sources */,
+				CCCC81A218E8464C009A74C7 /* bXLamp.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CC508F7A18E849640025EC26 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = XML;
+			targetProxy = CC508F7918E849640025EC26 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CCCC816918E845BE009A74C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCCC816A18E845BE009A74C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCCC816C18E845BE009A74C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/xml/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCCC816D18E845BE009A74C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/xml/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCCC816218E845BD009A74C7 /* Build configuration list for PBXProject "bXporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCCC816918E845BE009A74C7 /* Debug */,
+				CCCC816A18E845BE009A74C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCCC816B18E845BE009A74C7 /* Build configuration list for PBXNativeTarget "bXporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCCC816C18E845BE009A74C7 /* Debug */,
+				CCCC816D18E845BE009A74C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCCC815F18E845BD009A74C7 /* Project object */;
+}

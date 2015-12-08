@@ -1,0 +1,10 @@
+body{
+	background-color:#CCC;	
+	font-family:"Courier New",Courier,monospace;
+	font-size:12px;
+}
+
+.selected{
+	border:solid 3px #F00;
+}
+

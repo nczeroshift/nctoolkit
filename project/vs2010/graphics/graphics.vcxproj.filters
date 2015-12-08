@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files\dx9">
+      <UniqueIdentifier>{8d66f7cf-106e-46d4-85e2-65e87bf8fc47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dx9">
+      <UniqueIdentifier>{76cc09ee-281c-4b61-ac9b-9b0b6f8b8d27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gl2">
+      <UniqueIdentifier>{05586d2c-7678-49bb-8985-13d5c56a9bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gl2">
+      <UniqueIdentifier>{0c8f02c0-0b0f-422e-980e-b8d0e5823c23}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckGraphics_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckMesh_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckOccquery_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckRTmanager_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckShader_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\dx9\nckTexture_dx9.cpp">
+      <Filter>Source Files\dx9</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckGraphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckTextureCache.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\nckShaderParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\gl2\nckExtensions_gl2.cpp">
+      <Filter>Source Files\gl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\gl2\nckGraphics_gl2.cpp">
+      <Filter>Source Files\gl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\gl2\nckMesh_gl2.cpp">
+      <Filter>Source Files\gl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\gl2\nckShader_gl2.cpp">
+      <Filter>Source Files\gl2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\graphics\gl2\nckTexture_gl2.cpp">
+      <Filter>Source Files\gl2</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckTextureCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckVProfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckGraphicsConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\dx9\nckGraphics_dx9.h">
+      <Filter>Header Files\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\dx9\nckShaderResources_dx9.h">
+      <Filter>Header Files\dx9</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckShaderParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\nckResourceProxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\gl2\nckExtensions_gl2.h">
+      <Filter>Header Files\gl2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\gl2\nckGraphics_gl2.h">
+      <Filter>Header Files\gl2</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

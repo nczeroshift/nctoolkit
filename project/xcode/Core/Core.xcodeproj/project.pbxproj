@@ -1,0 +1,384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC12C3A118D2786F0084061C /* nckWindow_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CC12C3A018D2786F0084061C /* nckWindow_macosx.mm */; };
+		CC12C3A518D278A00084061C /* nckWindow_linux.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC12C3A318D278A00084061C /* nckWindow_linux.cpp */; };
+		CC12C3A618D278A00084061C /* nckWindow_linux.h in Headers */ = {isa = PBXBuildFile; fileRef = CC12C3A418D278A00084061C /* nckWindow_linux.h */; };
+		CC457A0A1915A4B1009EFEFC /* nckQueueBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC457A081915A4B1009EFEFC /* nckQueueBuffer.cpp */; };
+		CC457A0B1915A4B1009EFEFC /* nckQueueBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = CC457A091915A4B1009EFEFC /* nckQueueBuffer.h */; };
+		CCD183CA1895CC5700908E7A /* nckChronometer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183B61895CC5700908E7A /* nckChronometer.cpp */; };
+		CCD183CB1895CC5700908E7A /* nckChronometer.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183B71895CC5700908E7A /* nckChronometer.h */; };
+		CCD183CC1895CC5700908E7A /* nckCoreConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183B81895CC5700908E7A /* nckCoreConfig.h */; };
+		CCD183CD1895CC5700908E7A /* nckDataIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183B91895CC5700908E7A /* nckDataIO.cpp */; };
+		CCD183CE1895CC5700908E7A /* nckDataIO.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183BA1895CC5700908E7A /* nckDataIO.h */; };
+		CCD183CF1895CC5700908E7A /* nckDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183BB1895CC5700908E7A /* nckDate.cpp */; };
+		CCD183D01895CC5700908E7A /* nckDate.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183BC1895CC5700908E7A /* nckDate.h */; };
+		CCD183D11895CC5700908E7A /* nckException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183BD1895CC5700908E7A /* nckException.cpp */; };
+		CCD183D21895CC5700908E7A /* nckException.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183BE1895CC5700908E7A /* nckException.h */; };
+		CCD183D31895CC5700908E7A /* nckImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183BF1895CC5700908E7A /* nckImage.cpp */; };
+		CCD183D41895CC5700908E7A /* nckImage.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C01895CC5700908E7A /* nckImage.h */; };
+		CCD183D51895CC5700908E7A /* nckPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183C11895CC5700908E7A /* nckPoint.cpp */; };
+		CCD183D61895CC5700908E7A /* nckPoint.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C21895CC5700908E7A /* nckPoint.h */; };
+		CCD183D71895CC5700908E7A /* nckSharePtr.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C31895CC5700908E7A /* nckSharePtr.h */; };
+		CCD183D81895CC5700908E7A /* nckThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183C41895CC5700908E7A /* nckThread.cpp */; };
+		CCD183D91895CC5700908E7A /* nckThread.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C51895CC5700908E7A /* nckThread.h */; };
+		CCD183DA1895CC5700908E7A /* nckUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183C61895CC5700908E7A /* nckUtils.cpp */; };
+		CCD183DB1895CC5700908E7A /* nckUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C71895CC5700908E7A /* nckUtils.h */; };
+		CCD183DC1895CC5700908E7A /* nckWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCD183C81895CC5700908E7A /* nckWindow.cpp */; };
+		CCD183DD1895CC5700908E7A /* nckWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD183C91895CC5700908E7A /* nckWindow.h */; };
+		CCD7EF1B18D4AD3C009D1489 /* nckApplication_macosx.h in Headers */ = {isa = PBXBuildFile; fileRef = CCD7EF1918D4AD3C009D1489 /* nckApplication_macosx.h */; };
+		CCD7EF1C18D4AD3C009D1489 /* nckApplication_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CCD7EF1A18D4AD3C009D1489 /* nckApplication_macosx.mm */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CC12C39F18D278340084061C /* nckWindow_macosx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = nckWindow_macosx.h; path = ../../../source/core/macosx/nckWindow_macosx.h; sourceTree = "<group>"; };
+		CC12C3A018D2786F0084061C /* nckWindow_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = nckWindow_macosx.mm; path = ../../../source/core/macosx/nckWindow_macosx.mm; sourceTree = "<group>"; };
+		CC12C3A318D278A00084061C /* nckWindow_linux.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckWindow_linux.cpp; path = ../../../source/core/linux/nckWindow_linux.cpp; sourceTree = "<group>"; };
+		CC12C3A418D278A00084061C /* nckWindow_linux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckWindow_linux.h; path = ../../../source/core/linux/nckWindow_linux.h; sourceTree = "<group>"; };
+		CC457A081915A4B1009EFEFC /* nckQueueBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckQueueBuffer.cpp; path = ../../../source/core/nckQueueBuffer.cpp; sourceTree = "<group>"; };
+		CC457A091915A4B1009EFEFC /* nckQueueBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckQueueBuffer.h; path = ../../../source/core/nckQueueBuffer.h; sourceTree = "<group>"; };
+		CCBE3F9619126D9900E27AE7 /* nckWindow_win32.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckWindow_win32.cpp; sourceTree = "<group>"; };
+		CCBE3F9719126D9900E27AE7 /* nckWindow_win32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nckWindow_win32.h; sourceTree = "<group>"; };
+		CCBE3F9819126D9900E27AE7 /* resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = resource.h; sourceTree = "<group>"; };
+		CCBE3F9919126D9900E27AE7 /* resources.aps */ = {isa = PBXFileReference; lastKnownFileType = file; path = resources.aps; sourceTree = "<group>"; };
+		CCBE3F9A19126D9900E27AE7 /* resources.rc */ = {isa = PBXFileReference; lastKnownFileType = text; path = resources.rc; sourceTree = "<group>"; };
+		CCCC815D18E844C0009A74C7 /* icon256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon256.png; path = ../../../source/core/macosx/icon256.png; sourceTree = "<group>"; };
+		CCD183901895CBFC00908E7A /* libCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD183B61895CC5700908E7A /* nckChronometer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckChronometer.cpp; path = ../../../source/core/nckChronometer.cpp; sourceTree = "<group>"; };
+		CCD183B71895CC5700908E7A /* nckChronometer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckChronometer.h; path = ../../../source/core/nckChronometer.h; sourceTree = "<group>"; };
+		CCD183B81895CC5700908E7A /* nckCoreConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckCoreConfig.h; path = ../../../source/core/nckCoreConfig.h; sourceTree = "<group>"; };
+		CCD183B91895CC5700908E7A /* nckDataIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDataIO.cpp; path = ../../../source/core/nckDataIO.cpp; sourceTree = "<group>"; };
+		CCD183BA1895CC5700908E7A /* nckDataIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDataIO.h; path = ../../../source/core/nckDataIO.h; sourceTree = "<group>"; };
+		CCD183BB1895CC5700908E7A /* nckDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDate.cpp; path = ../../../source/core/nckDate.cpp; sourceTree = "<group>"; };
+		CCD183BC1895CC5700908E7A /* nckDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDate.h; path = ../../../source/core/nckDate.h; sourceTree = "<group>"; };
+		CCD183BD1895CC5700908E7A /* nckException.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckException.cpp; path = ../../../source/core/nckException.cpp; sourceTree = "<group>"; };
+		CCD183BE1895CC5700908E7A /* nckException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckException.h; path = ../../../source/core/nckException.h; sourceTree = "<group>"; };
+		CCD183BF1895CC5700908E7A /* nckImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckImage.cpp; path = ../../../source/core/nckImage.cpp; sourceTree = "<group>"; };
+		CCD183C01895CC5700908E7A /* nckImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckImage.h; path = ../../../source/core/nckImage.h; sourceTree = "<group>"; };
+		CCD183C11895CC5700908E7A /* nckPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckPoint.cpp; path = ../../../source/core/nckPoint.cpp; sourceTree = "<group>"; };
+		CCD183C21895CC5700908E7A /* nckPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckPoint.h; path = ../../../source/core/nckPoint.h; sourceTree = "<group>"; };
+		CCD183C31895CC5700908E7A /* nckSharePtr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckSharePtr.h; path = ../../../source/core/nckSharePtr.h; sourceTree = "<group>"; };
+		CCD183C41895CC5700908E7A /* nckThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckThread.cpp; path = ../../../source/core/nckThread.cpp; sourceTree = "<group>"; };
+		CCD183C51895CC5700908E7A /* nckThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckThread.h; path = ../../../source/core/nckThread.h; sourceTree = "<group>"; };
+		CCD183C61895CC5700908E7A /* nckUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckUtils.cpp; path = ../../../source/core/nckUtils.cpp; sourceTree = "<group>"; };
+		CCD183C71895CC5700908E7A /* nckUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckUtils.h; path = ../../../source/core/nckUtils.h; sourceTree = "<group>"; };
+		CCD183C81895CC5700908E7A /* nckWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckWindow.cpp; path = ../../../source/core/nckWindow.cpp; sourceTree = "<group>"; };
+		CCD183C91895CC5700908E7A /* nckWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckWindow.h; path = ../../../source/core/nckWindow.h; sourceTree = "<group>"; };
+		CCD7EF1918D4AD3C009D1489 /* nckApplication_macosx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckApplication_macosx.h; path = ../../../source/core/macosx/nckApplication_macosx.h; sourceTree = "<group>"; };
+		CCD7EF1A18D4AD3C009D1489 /* nckApplication_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = nckApplication_macosx.mm; path = ../../../source/core/macosx/nckApplication_macosx.mm; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCD1838D1895CBFC00908E7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC12C39E18D277D70084061C /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+				CCCC815D18E844C0009A74C7 /* icon256.png */,
+				CCD7EF1918D4AD3C009D1489 /* nckApplication_macosx.h */,
+				CCD7EF1A18D4AD3C009D1489 /* nckApplication_macosx.mm */,
+				CC12C39F18D278340084061C /* nckWindow_macosx.h */,
+				CC12C3A018D2786F0084061C /* nckWindow_macosx.mm */,
+			);
+			name = macosx;
+			sourceTree = "<group>";
+		};
+		CC12C3A218D278960084061C /* linux */ = {
+			isa = PBXGroup;
+			children = (
+				CC12C3A318D278A00084061C /* nckWindow_linux.cpp */,
+				CC12C3A418D278A00084061C /* nckWindow_linux.h */,
+			);
+			name = linux;
+			sourceTree = "<group>";
+		};
+		CCBE3F9519126D9900E27AE7 /* win32 */ = {
+			isa = PBXGroup;
+			children = (
+				CCBE3F9619126D9900E27AE7 /* nckWindow_win32.cpp */,
+				CCBE3F9719126D9900E27AE7 /* nckWindow_win32.h */,
+				CCBE3F9819126D9900E27AE7 /* resource.h */,
+				CCBE3F9919126D9900E27AE7 /* resources.aps */,
+				CCBE3F9A19126D9900E27AE7 /* resources.rc */,
+			);
+			name = win32;
+			path = ../../../source/core/win32;
+			sourceTree = "<group>";
+		};
+		CCD183871895CBFC00908E7A = {
+			isa = PBXGroup;
+			children = (
+				CCD183971895CC0300908E7A /* Source */,
+				CCD183911895CBFC00908E7A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCD183911895CBFC00908E7A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCD183901895CBFC00908E7A /* libCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCD183971895CC0300908E7A /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CCBE3F9519126D9900E27AE7 /* win32 */,
+				CC12C3A218D278960084061C /* linux */,
+				CC12C39E18D277D70084061C /* macosx */,
+				CCD183B61895CC5700908E7A /* nckChronometer.cpp */,
+				CCD183B71895CC5700908E7A /* nckChronometer.h */,
+				CCD183B81895CC5700908E7A /* nckCoreConfig.h */,
+				CCD183B91895CC5700908E7A /* nckDataIO.cpp */,
+				CCD183BA1895CC5700908E7A /* nckDataIO.h */,
+				CCD183BB1895CC5700908E7A /* nckDate.cpp */,
+				CCD183BC1895CC5700908E7A /* nckDate.h */,
+				CCD183BD1895CC5700908E7A /* nckException.cpp */,
+				CCD183BE1895CC5700908E7A /* nckException.h */,
+				CCD183BF1895CC5700908E7A /* nckImage.cpp */,
+				CCD183C01895CC5700908E7A /* nckImage.h */,
+				CCD183C11895CC5700908E7A /* nckPoint.cpp */,
+				CCD183C21895CC5700908E7A /* nckPoint.h */,
+				CCD183C31895CC5700908E7A /* nckSharePtr.h */,
+				CCD183C41895CC5700908E7A /* nckThread.cpp */,
+				CCD183C51895CC5700908E7A /* nckThread.h */,
+				CCD183C61895CC5700908E7A /* nckUtils.cpp */,
+				CCD183C71895CC5700908E7A /* nckUtils.h */,
+				CCD183C81895CC5700908E7A /* nckWindow.cpp */,
+				CCD183C91895CC5700908E7A /* nckWindow.h */,
+				CC457A081915A4B1009EFEFC /* nckQueueBuffer.cpp */,
+				CC457A091915A4B1009EFEFC /* nckQueueBuffer.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CCD1838E1895CBFC00908E7A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD183D71895CC5700908E7A /* nckSharePtr.h in Headers */,
+				CCD183CC1895CC5700908E7A /* nckCoreConfig.h in Headers */,
+				CCD183D41895CC5700908E7A /* nckImage.h in Headers */,
+				CC457A0B1915A4B1009EFEFC /* nckQueueBuffer.h in Headers */,
+				CCD183DB1895CC5700908E7A /* nckUtils.h in Headers */,
+				CCD183D01895CC5700908E7A /* nckDate.h in Headers */,
+				CCD183D61895CC5700908E7A /* nckPoint.h in Headers */,
+				CC12C3A618D278A00084061C /* nckWindow_linux.h in Headers */,
+				CCD183CE1895CC5700908E7A /* nckDataIO.h in Headers */,
+				CCD183D21895CC5700908E7A /* nckException.h in Headers */,
+				CCD183CB1895CC5700908E7A /* nckChronometer.h in Headers */,
+				CCD7EF1B18D4AD3C009D1489 /* nckApplication_macosx.h in Headers */,
+				CCD183D91895CC5700908E7A /* nckThread.h in Headers */,
+				CCD183DD1895CC5700908E7A /* nckWindow.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CCD1838F1895CBFC00908E7A /* Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCD183941895CBFC00908E7A /* Build configuration list for PBXNativeTarget "Core" */;
+			buildPhases = (
+				CCD1838C1895CBFC00908E7A /* Sources */,
+				CCD1838D1895CBFC00908E7A /* Frameworks */,
+				CCD1838E1895CBFC00908E7A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Core;
+			productName = Core;
+			productReference = CCD183901895CBFC00908E7A /* libCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCD183881895CBFC00908E7A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCD1838B1895CBFC00908E7A /* Build configuration list for PBXProject "Core" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCD183871895CBFC00908E7A;
+			productRefGroup = CCD183911895CBFC00908E7A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCD1838F1895CBFC00908E7A /* Core */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCD1838C1895CBFC00908E7A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD183D11895CC5700908E7A /* nckException.cpp in Sources */,
+				CCD183D31895CC5700908E7A /* nckImage.cpp in Sources */,
+				CCD183DA1895CC5700908E7A /* nckUtils.cpp in Sources */,
+				CC12C3A518D278A00084061C /* nckWindow_linux.cpp in Sources */,
+				CCD183CD1895CC5700908E7A /* nckDataIO.cpp in Sources */,
+				CCD183CF1895CC5700908E7A /* nckDate.cpp in Sources */,
+				CCD7EF1C18D4AD3C009D1489 /* nckApplication_macosx.mm in Sources */,
+				CC457A0A1915A4B1009EFEFC /* nckQueueBuffer.cpp in Sources */,
+				CCD183DC1895CC5700908E7A /* nckWindow.cpp in Sources */,
+				CC12C3A118D2786F0084061C /* nckWindow_macosx.mm in Sources */,
+				CCD183CA1895CC5700908E7A /* nckChronometer.cpp in Sources */,
+				CCD183D51895CC5700908E7A /* nckPoint.cpp in Sources */,
+				CCD183D81895CC5700908E7A /* nckThread.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CCD183921895CBFC00908E7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCD183931895CBFC00908E7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCD183951895CBFC00908E7A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../extern/macosx/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../extern/macosx/lib_64/";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCD183961895CBFC00908E7A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../extern/macosx/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../extern/macosx/lib_64/";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCD1838B1895CBFC00908E7A /* Build configuration list for PBXProject "Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD183921895CBFC00908E7A /* Debug */,
+				CCD183931895CBFC00908E7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCD183941895CBFC00908E7A /* Build configuration list for PBXNativeTarget "Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCD183951895CBFC00908E7A /* Debug */,
+				CCD183961895CBFC00908E7A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCD183881895CBFC00908E7A /* Project object */;
+}

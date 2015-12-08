@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:App/App.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Libraries">
+      <FileRef
+         location = "group:Core/Core.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Graphics/Graphics.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Math/Math.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:GUI/GUI.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Scene/Scene.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Audio/Audio.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:XML/XML.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Network/Network.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:IO/IO.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:Video/Video.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:bxon/BXON.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>

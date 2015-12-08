@@ -1,0 +1,305 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC0087121930B66900A9B5D6 /* nckDeviceAudioQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC00870E1930B66900A9B5D6 /* nckDeviceAudioQueue.cpp */; };
+		CC0087131930B66900A9B5D6 /* nckDeviceAudioQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = CC00870F1930B66900A9B5D6 /* nckDeviceAudioQueue.h */; };
+		CC1088801916A7B70086C781 /* nckDeviceAlsa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC10887E1916A7B70086C781 /* nckDeviceAlsa.cpp */; };
+		CC1088811916A7B70086C781 /* nckDeviceAlsa.h in Headers */ = {isa = PBXBuildFile; fileRef = CC10887F1916A7B70086C781 /* nckDeviceAlsa.h */; };
+		CCAEA3A31B70BD0600508912 /* nckDeviceWaveOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCAEA3A11B70BD0600508912 /* nckDeviceWaveOut.cpp */; };
+		CCAEA3A41B70BD0600508912 /* nckDeviceWaveOut.h in Headers */ = {isa = PBXBuildFile; fileRef = CCAEA3A21B70BD0600508912 /* nckDeviceWaveOut.h */; };
+		CCC9B52F1897107600771D4E /* nckAudioConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B52A1897107600771D4E /* nckAudioConfig.h */; };
+		CCC9B5301897107600771D4E /* nckAudioDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B52B1897107600771D4E /* nckAudioDevice.cpp */; };
+		CCC9B5311897107600771D4E /* nckAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B52C1897107600771D4E /* nckAudioDevice.h */; };
+		CCC9B5321897107600771D4E /* nckOggStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B52D1897107600771D4E /* nckOggStream.cpp */; };
+		CCC9B5331897107600771D4E /* nckOggStream.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B52E1897107600771D4E /* nckOggStream.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		CC00870E1930B66900A9B5D6 /* nckDeviceAudioQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = nckDeviceAudioQueue.cpp; sourceTree = "<group>"; };
+		CC00870F1930B66900A9B5D6 /* nckDeviceAudioQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nckDeviceAudioQueue.h; sourceTree = "<group>"; };
+		CC10887E1916A7B70086C781 /* nckDeviceAlsa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDeviceAlsa.cpp; path = ../../../source/audio/alsa/nckDeviceAlsa.cpp; sourceTree = "<group>"; };
+		CC10887F1916A7B70086C781 /* nckDeviceAlsa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDeviceAlsa.h; path = ../../../source/audio/alsa/nckDeviceAlsa.h; sourceTree = "<group>"; };
+		CCAEA3A11B70BD0600508912 /* nckDeviceWaveOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDeviceWaveOut.cpp; path = ../../../../../git/nctoolkit/source/audio/windows/nckDeviceWaveOut.cpp; sourceTree = "<group>"; };
+		CCAEA3A21B70BD0600508912 /* nckDeviceWaveOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDeviceWaveOut.h; path = ../../../../../git/nctoolkit/source/audio/windows/nckDeviceWaveOut.h; sourceTree = "<group>"; };
+		CCC9B5211897104400771D4E /* libAudio.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAudio.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCC9B52A1897107600771D4E /* nckAudioConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckAudioConfig.h; path = ../../../source/audio/nckAudioConfig.h; sourceTree = "<group>"; };
+		CCC9B52B1897107600771D4E /* nckAudioDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckAudioDevice.cpp; path = ../../../source/audio/nckAudioDevice.cpp; sourceTree = "<group>"; };
+		CCC9B52C1897107600771D4E /* nckAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckAudioDevice.h; path = ../../../source/audio/nckAudioDevice.h; sourceTree = "<group>"; };
+		CCC9B52D1897107600771D4E /* nckOggStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckOggStream.cpp; path = ../../../source/audio/nckOggStream.cpp; sourceTree = "<group>"; };
+		CCC9B52E1897107600771D4E /* nckOggStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckOggStream.h; path = ../../../source/audio/nckOggStream.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCC9B51E1897104400771D4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC00870D1930B66900A9B5D6 /* apple */ = {
+			isa = PBXGroup;
+			children = (
+				CC00870E1930B66900A9B5D6 /* nckDeviceAudioQueue.cpp */,
+				CC00870F1930B66900A9B5D6 /* nckDeviceAudioQueue.h */,
+			);
+			name = apple;
+			path = ../../../source/audio/apple;
+			sourceTree = "<group>";
+		};
+		CCBE3F901912598900E27AE7 /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				CCAEA3A11B70BD0600508912 /* nckDeviceWaveOut.cpp */,
+				CCAEA3A21B70BD0600508912 /* nckDeviceWaveOut.h */,
+			);
+			name = windows;
+			path = ../../../../../Desktop/nctoolkit/source/audio/windows;
+			sourceTree = "<group>";
+		};
+		CCC9B5181897104400771D4E = {
+			isa = PBXGroup;
+			children = (
+				CCC9B5281897104A00771D4E /* Source */,
+				CCC9B5221897104400771D4E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCC9B5221897104400771D4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9B5211897104400771D4E /* libAudio.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCC9B5281897104A00771D4E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CC00870D1930B66900A9B5D6 /* apple */,
+				CCBE3F901912598900E27AE7 /* windows */,
+				CCC9B5341897107E00771D4E /* alsa */,
+				CCC9B52A1897107600771D4E /* nckAudioConfig.h */,
+				CCC9B52B1897107600771D4E /* nckAudioDevice.cpp */,
+				CCC9B52C1897107600771D4E /* nckAudioDevice.h */,
+				CCC9B52D1897107600771D4E /* nckOggStream.cpp */,
+				CCC9B52E1897107600771D4E /* nckOggStream.h */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		CCC9B5341897107E00771D4E /* alsa */ = {
+			isa = PBXGroup;
+			children = (
+				CC10887E1916A7B70086C781 /* nckDeviceAlsa.cpp */,
+				CC10887F1916A7B70086C781 /* nckDeviceAlsa.h */,
+			);
+			name = alsa;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CCC9B51F1897104400771D4E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCC9B5311897107600771D4E /* nckAudioDevice.h in Headers */,
+				CC0087131930B66900A9B5D6 /* nckDeviceAudioQueue.h in Headers */,
+				CCC9B5331897107600771D4E /* nckOggStream.h in Headers */,
+				CCAEA3A41B70BD0600508912 /* nckDeviceWaveOut.h in Headers */,
+				CCC9B52F1897107600771D4E /* nckAudioConfig.h in Headers */,
+				CC1088811916A7B70086C781 /* nckDeviceAlsa.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CCC9B5201897104400771D4E /* Audio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCC9B5251897104400771D4E /* Build configuration list for PBXNativeTarget "Audio" */;
+			buildPhases = (
+				CCC9B51D1897104400771D4E /* Sources */,
+				CCC9B51E1897104400771D4E /* Frameworks */,
+				CCC9B51F1897104400771D4E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Audio;
+			productName = Audio;
+			productReference = CCC9B5211897104400771D4E /* libAudio.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCC9B5191897104400771D4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCC9B51C1897104400771D4E /* Build configuration list for PBXProject "Audio" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCC9B5181897104400771D4E;
+			productRefGroup = CCC9B5221897104400771D4E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CCC9B5201897104400771D4E /* Audio */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCC9B51D1897104400771D4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCC9B5321897107600771D4E /* nckOggStream.cpp in Sources */,
+				CC0087121930B66900A9B5D6 /* nckDeviceAudioQueue.cpp in Sources */,
+				CCC9B5301897107600771D4E /* nckAudioDevice.cpp in Sources */,
+				CCAEA3A31B70BD0600508912 /* nckDeviceWaveOut.cpp in Sources */,
+				CC1088801916A7B70086C781 /* nckDeviceAlsa.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CCC9B5231897104400771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCC9B5241897104400771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCC9B5261897104400771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../project/extern/include/macosx",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCC9B5271897104400771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../project/extern/include/macosx",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCC9B51C1897104400771D4E /* Build configuration list for PBXProject "Audio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5231897104400771D4E /* Debug */,
+				CCC9B5241897104400771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCC9B5251897104400771D4E /* Build configuration list for PBXNativeTarget "Audio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B5261897104400771D4E /* Debug */,
+				CCC9B5271897104400771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCC9B5191897104400771D4E /* Project object */;
+}

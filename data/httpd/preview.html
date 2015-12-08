@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>nctoolkit</title>
+<script type="text/javascript" src="jquery-1.6.4.min.js"></script> 
+<link rel="stylesheet" href="index.css" type="text/css">
+
+<style type="text/css">
+
+.screenImage{
+	position:absolute;
+	left:0px;
+	right:0px;
+	width:640px;
+	height:480px;
+	display:none;
+}
+
+</style>
+
+</head>
+<body>
+<canvas id="mainCanvas" width="640px" height="480px"></canvas>
+
+<script type="text/javascript">
+var id = 0;
+$(document).ready(function(){
+	var canvas = $("#mainCanvas")[0];
+	var context = canvas.getContext("2d");
+
+	function paintImage(){
+		var img = new Image();
+		img.onload = function(){
+			context.drawImage(img,0,0);
+			setTimeout(paintImage,1);
+		}
+		img.src="/x/data.jpg?id="+id;
+		id+=1;
+	}
+
+	paintImage();
+});
+
+</script>
+
+</body>
+</html>

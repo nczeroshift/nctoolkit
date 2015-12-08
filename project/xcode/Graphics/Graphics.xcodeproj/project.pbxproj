@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CC1E5F9418D7B1530075840B /* nckGLView_macosx.m in Sources */ = {isa = PBXBuildFile; fileRef = CC1E5F9318D7AF250075840B /* nckGLView_macosx.m */; };
+		CC6F45AB18DD146400CA21AC /* nckShader_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC6F45AA18DD146400CA21AC /* nckShader_gl2.cpp */; };
+		CCBBB72B18DD128700430F06 /* nckGLBind_macosx.mm in Sources */ = {isa = PBXBuildFile; fileRef = CCBBB72A18DD128700430F06 /* nckGLBind_macosx.mm */; };
+		CCC9B4E618970E0000771D4E /* nckGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4DC18970E0000771D4E /* nckGraphics.cpp */; };
+		CCC9B4E718970E0000771D4E /* nckGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4DD18970E0000771D4E /* nckGraphics.h */; };
+		CCC9B4E818970E0000771D4E /* nckGraphicsConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4DE18970E0000771D4E /* nckGraphicsConfig.h */; };
+		CCC9B4EA18970E0000771D4E /* nckResourceProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4E018970E0000771D4E /* nckResourceProxy.h */; };
+		CCC9B4EB18970E0000771D4E /* nckShaderParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4E118970E0000771D4E /* nckShaderParser.cpp */; };
+		CCC9B4EC18970E0000771D4E /* nckShaderParser.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4E218970E0000771D4E /* nckShaderParser.h */; };
+		CCC9B4ED18970E0000771D4E /* nckTextureCache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4E318970E0000771D4E /* nckTextureCache.cpp */; };
+		CCC9B4EE18970E0000771D4E /* nckTextureCache.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4E418970E0000771D4E /* nckTextureCache.h */; };
+		CCC9B4EF18970E0000771D4E /* nckVProfile.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4E518970E0000771D4E /* nckVProfile.h */; };
+		CCC9B4FE18970ED800771D4E /* nckExtensions_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4F718970ED800771D4E /* nckExtensions_gl2.cpp */; };
+		CCC9B4FF18970ED800771D4E /* nckExtensions_gl2.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4F818970ED800771D4E /* nckExtensions_gl2.h */; };
+		CCC9B50018970ED800771D4E /* nckGraphics_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4F918970ED800771D4E /* nckGraphics_gl2.cpp */; };
+		CCC9B50118970ED800771D4E /* nckGraphics_gl2.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B4FA18970ED800771D4E /* nckGraphics_gl2.h */; };
+		CCC9B50218970ED800771D4E /* nckMesh_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4FB18970ED800771D4E /* nckMesh_gl2.cpp */; };
+		CCC9B50318970ED800771D4E /* nckProxy_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4FC18970ED800771D4E /* nckProxy_gl2.cpp */; };
+		CCC9B50418970ED800771D4E /* nckTexture_gl2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B4FD18970ED800771D4E /* nckTexture_gl2.cpp */; };
+		CCD7EF1E18D528D4009D1489 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1D18D528D4009D1489 /* OpenGL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CC27B3831899C7B1005F37E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6113F61899BD9D003538E8 /* Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183901895CBFC00908E7A;
+			remoteInfo = Core;
+		};
+		CC27B3861899C7B1005F37E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6113F71899BDA3003538E8 /* Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CCD183421895CAAA00908E7A;
+			remoteInfo = Math;
+		};
+		CCF7752018D62E0B000D6EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6113F61899BD9D003538E8 /* Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD1838F1895CBFC00908E7A;
+			remoteInfo = Core;
+		};
+		CCF7752418D62E12000D6EAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CC6113F71899BDA3003538E8 /* Math.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CCD183411895CAAA00908E7A;
+			remoteInfo = Math;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CC1E5F9218D7AF250075840B /* nckGLView_macosx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nckGLView_macosx.h; sourceTree = "<group>"; };
+		CC1E5F9318D7AF250075840B /* nckGLView_macosx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = nckGLView_macosx.m; sourceTree = "<group>"; };
+		CC6113F61899BD9D003538E8 /* Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Core.xcodeproj; path = ../Core/Core.xcodeproj; sourceTree = "<group>"; };
+		CC6113F71899BDA3003538E8 /* Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Math.xcodeproj; path = ../Math/Math.xcodeproj; sourceTree = "<group>"; };
+		CC6F45AA18DD146400CA21AC /* nckShader_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckShader_gl2.cpp; path = ../../../source/graphics/gl2/nckShader_gl2.cpp; sourceTree = "<group>"; };
+		CCBBB72918DD126000430F06 /* nckGLBind_macosx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nckGLBind_macosx.h; sourceTree = "<group>"; };
+		CCBBB72A18DD128700430F06 /* nckGLBind_macosx.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = nckGLBind_macosx.mm; sourceTree = "<group>"; };
+		CCBE3F9C191299A200E27AE7 /* nckGraphics_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckGraphics_dx9.cpp; sourceTree = "<group>"; };
+		CCBE3F9D191299A200E27AE7 /* nckGraphics_dx9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nckGraphics_dx9.h; sourceTree = "<group>"; };
+		CCBE3F9E191299A200E27AE7 /* nckMesh_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckMesh_dx9.cpp; sourceTree = "<group>"; };
+		CCBE3F9F191299A200E27AE7 /* nckOccquery_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckOccquery_dx9.cpp; sourceTree = "<group>"; };
+		CCBE3FA0191299A200E27AE7 /* nckRTmanager_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckRTmanager_dx9.cpp; sourceTree = "<group>"; };
+		CCBE3FA1191299A200E27AE7 /* nckShader_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckShader_dx9.cpp; sourceTree = "<group>"; };
+		CCBE3FA2191299A200E27AE7 /* nckShaderResources_dx9.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nckShaderResources_dx9.h; sourceTree = "<group>"; };
+		CCBE3FA3191299A200E27AE7 /* nckTexture_dx9.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = nckTexture_dx9.cpp; sourceTree = "<group>"; };
+		CCC9B4D318970DC400771D4E /* libGraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCC9B4DC18970E0000771D4E /* nckGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckGraphics.cpp; path = ../../../source/graphics/nckGraphics.cpp; sourceTree = "<group>"; };
+		CCC9B4DD18970E0000771D4E /* nckGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckGraphics.h; path = ../../../source/graphics/nckGraphics.h; sourceTree = "<group>"; };
+		CCC9B4DE18970E0000771D4E /* nckGraphicsConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckGraphicsConfig.h; path = ../../../source/graphics/nckGraphicsConfig.h; sourceTree = "<group>"; };
+		CCC9B4E018970E0000771D4E /* nckResourceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckResourceProxy.h; path = ../../../source/graphics/nckResourceProxy.h; sourceTree = "<group>"; };
+		CCC9B4E118970E0000771D4E /* nckShaderParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckShaderParser.cpp; path = ../../../source/graphics/nckShaderParser.cpp; sourceTree = "<group>"; };
+		CCC9B4E218970E0000771D4E /* nckShaderParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckShaderParser.h; path = ../../../source/graphics/nckShaderParser.h; sourceTree = "<group>"; };
+		CCC9B4E318970E0000771D4E /* nckTextureCache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckTextureCache.cpp; path = ../../../source/graphics/nckTextureCache.cpp; sourceTree = "<group>"; };
+		CCC9B4E418970E0000771D4E /* nckTextureCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckTextureCache.h; path = ../../../source/graphics/nckTextureCache.h; sourceTree = "<group>"; };
+		CCC9B4E518970E0000771D4E /* nckVProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckVProfile.h; path = ../../../source/graphics/nckVProfile.h; sourceTree = "<group>"; };
+		CCC9B4F718970ED800771D4E /* nckExtensions_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckExtensions_gl2.cpp; path = ../../../source/graphics/gl2/nckExtensions_gl2.cpp; sourceTree = "<group>"; };
+		CCC9B4F818970ED800771D4E /* nckExtensions_gl2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckExtensions_gl2.h; path = ../../../source/graphics/gl2/nckExtensions_gl2.h; sourceTree = "<group>"; };
+		CCC9B4F918970ED800771D4E /* nckGraphics_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckGraphics_gl2.cpp; path = ../../../source/graphics/gl2/nckGraphics_gl2.cpp; sourceTree = "<group>"; };
+		CCC9B4FA18970ED800771D4E /* nckGraphics_gl2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckGraphics_gl2.h; path = ../../../source/graphics/gl2/nckGraphics_gl2.h; sourceTree = "<group>"; };
+		CCC9B4FB18970ED800771D4E /* nckMesh_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckMesh_gl2.cpp; path = ../../../source/graphics/gl2/nckMesh_gl2.cpp; sourceTree = "<group>"; };
+		CCC9B4FC18970ED800771D4E /* nckProxy_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckProxy_gl2.cpp; path = ../../../source/graphics/gl2/nckProxy_gl2.cpp; sourceTree = "<group>"; };
+		CCC9B4FD18970ED800771D4E /* nckTexture_gl2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckTexture_gl2.cpp; path = ../../../source/graphics/gl2/nckTexture_gl2.cpp; sourceTree = "<group>"; };
+		CCD7EF1D18D528D4009D1489 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CCC9B4D018970DC400771D4E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCD7EF1E18D528D4009D1489 /* OpenGL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CC1E5F9118D7AF250075840B /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+				CC1E5F9218D7AF250075840B /* nckGLView_macosx.h */,
+				CC1E5F9318D7AF250075840B /* nckGLView_macosx.m */,
+				CCBBB72918DD126000430F06 /* nckGLBind_macosx.h */,
+				CCBBB72A18DD128700430F06 /* nckGLBind_macosx.mm */,
+			);
+			name = macosx;
+			path = ../../../source/graphics/gl2/macosx;
+			sourceTree = "<group>";
+		};
+		CC27B37A1899C7B1005F37E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC27B3871899C7B1005F37E5 /* libMath.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC27B37E1899C7B1005F37E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC27B3841899C7B1005F37E5 /* libCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CC27B3941899CA4E005F37E5 /* OpenGL2 */ = {
+			isa = PBXGroup;
+			children = (
+				CC1E5F9118D7AF250075840B /* macosx */,
+				CCC9B4F718970ED800771D4E /* nckExtensions_gl2.cpp */,
+				CCC9B4F818970ED800771D4E /* nckExtensions_gl2.h */,
+				CCC9B4F918970ED800771D4E /* nckGraphics_gl2.cpp */,
+				CCC9B4FA18970ED800771D4E /* nckGraphics_gl2.h */,
+				CCC9B4FB18970ED800771D4E /* nckMesh_gl2.cpp */,
+				CC6F45AA18DD146400CA21AC /* nckShader_gl2.cpp */,
+				CCC9B4FC18970ED800771D4E /* nckProxy_gl2.cpp */,
+				CCC9B4FD18970ED800771D4E /* nckTexture_gl2.cpp */,
+			);
+			name = OpenGL2;
+			sourceTree = "<group>";
+		};
+		CC6113F51899BD8F003538E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CCD7EF1D18D528D4009D1489 /* OpenGL.framework */,
+				CC6113F71899BDA3003538E8 /* Math.xcodeproj */,
+				CC6113F61899BD9D003538E8 /* Core.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CCBE3F9B191299A200E27AE7 /* DX9 */ = {
+			isa = PBXGroup;
+			children = (
+				CCBE3F9C191299A200E27AE7 /* nckGraphics_dx9.cpp */,
+				CCBE3F9D191299A200E27AE7 /* nckGraphics_dx9.h */,
+				CCBE3F9E191299A200E27AE7 /* nckMesh_dx9.cpp */,
+				CCBE3F9F191299A200E27AE7 /* nckOccquery_dx9.cpp */,
+				CCBE3FA0191299A200E27AE7 /* nckRTmanager_dx9.cpp */,
+				CCBE3FA1191299A200E27AE7 /* nckShader_dx9.cpp */,
+				CCBE3FA2191299A200E27AE7 /* nckShaderResources_dx9.h */,
+				CCBE3FA3191299A200E27AE7 /* nckTexture_dx9.cpp */,
+			);
+			name = DX9;
+			path = ../../../source/graphics/dx9;
+			sourceTree = "<group>";
+		};
+		CCC9B4CA18970DC400771D4E = {
+			isa = PBXGroup;
+			children = (
+				CC6113F51899BD8F003538E8 /* Frameworks */,
+				CCC9B4DA18970DCA00771D4E /* Source */,
+				CCC9B4D418970DC400771D4E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CCC9B4D418970DC400771D4E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9B4D318970DC400771D4E /* libGraphics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CCC9B4DA18970DCA00771D4E /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				CCBE3F9B191299A200E27AE7 /* DX9 */,
+				CC27B3941899CA4E005F37E5 /* OpenGL2 */,
+				CCC9B4DD18970E0000771D4E /* nckGraphics.h */,
+				CCC9B4DE18970E0000771D4E /* nckGraphicsConfig.h */,
+				CCC9B4E018970E0000771D4E /* nckResourceProxy.h */,
+				CCC9B4E218970E0000771D4E /* nckShaderParser.h */,
+				CCC9B4E418970E0000771D4E /* nckTextureCache.h */,
+				CCC9B4E518970E0000771D4E /* nckVProfile.h */,
+				CCC9B4DC18970E0000771D4E /* nckGraphics.cpp */,
+				CCC9B4E118970E0000771D4E /* nckShaderParser.cpp */,
+				CCC9B4E318970E0000771D4E /* nckTextureCache.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		CCC9B4D118970DC400771D4E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCC9B50118970ED800771D4E /* nckGraphics_gl2.h in Headers */,
+				CCC9B4E818970E0000771D4E /* nckGraphicsConfig.h in Headers */,
+				CCC9B4FF18970ED800771D4E /* nckExtensions_gl2.h in Headers */,
+				CCC9B4EE18970E0000771D4E /* nckTextureCache.h in Headers */,
+				CCC9B4E718970E0000771D4E /* nckGraphics.h in Headers */,
+				CCC9B4EA18970E0000771D4E /* nckResourceProxy.h in Headers */,
+				CCC9B4EF18970E0000771D4E /* nckVProfile.h in Headers */,
+				CCC9B4EC18970E0000771D4E /* nckShaderParser.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		CCC9B4D218970DC400771D4E /* Graphics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCC9B4D718970DC400771D4E /* Build configuration list for PBXNativeTarget "Graphics" */;
+			buildPhases = (
+				CCC9B4CF18970DC400771D4E /* Sources */,
+				CCC9B4D018970DC400771D4E /* Frameworks */,
+				CCC9B4D118970DC400771D4E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CCF7752518D62E12000D6EAD /* PBXTargetDependency */,
+				CCF7752118D62E0B000D6EAD /* PBXTargetDependency */,
+			);
+			name = Graphics;
+			productName = Graphics;
+			productReference = CCC9B4D318970DC400771D4E /* libGraphics.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CCC9B4CB18970DC400771D4E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = polyelectron;
+			};
+			buildConfigurationList = CCC9B4CE18970DC400771D4E /* Build configuration list for PBXProject "Graphics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CCC9B4CA18970DC400771D4E;
+			productRefGroup = CCC9B4D418970DC400771D4E /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CC27B37E1899C7B1005F37E5 /* Products */;
+					ProjectRef = CC6113F61899BD9D003538E8 /* Core.xcodeproj */;
+				},
+				{
+					ProductGroup = CC27B37A1899C7B1005F37E5 /* Products */;
+					ProjectRef = CC6113F71899BDA3003538E8 /* Math.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				CCC9B4D218970DC400771D4E /* Graphics */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CC27B3841899C7B1005F37E5 /* libCore.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCore.a;
+			remoteRef = CC27B3831899C7B1005F37E5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CC27B3871899C7B1005F37E5 /* libMath.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMath.a;
+			remoteRef = CC27B3861899C7B1005F37E5 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CCC9B4CF18970DC400771D4E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CCC9B50218970ED800771D4E /* nckMesh_gl2.cpp in Sources */,
+				CCC9B4E618970E0000771D4E /* nckGraphics.cpp in Sources */,
+				CCBBB72B18DD128700430F06 /* nckGLBind_macosx.mm in Sources */,
+				CCC9B4ED18970E0000771D4E /* nckTextureCache.cpp in Sources */,
+				CCC9B50318970ED800771D4E /* nckProxy_gl2.cpp in Sources */,
+				CCC9B4EB18970E0000771D4E /* nckShaderParser.cpp in Sources */,
+				CCC9B50018970ED800771D4E /* nckGraphics_gl2.cpp in Sources */,
+				CCC9B50418970ED800771D4E /* nckTexture_gl2.cpp in Sources */,
+				CC6F45AB18DD146400CA21AC /* nckShader_gl2.cpp in Sources */,
+				CC1E5F9418D7B1530075840B /* nckGLView_macosx.m in Sources */,
+				CCC9B4FE18970ED800771D4E /* nckExtensions_gl2.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CCF7752118D62E0B000D6EAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Core;
+			targetProxy = CCF7752018D62E0B000D6EAD /* PBXContainerItemProxy */;
+		};
+		CCF7752518D62E12000D6EAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Math;
+			targetProxy = CCF7752418D62E12000D6EAD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CCC9B4D518970DC400771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		CCC9B4D618970DC400771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CCC9B4D818970DC400771D4E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../source/math/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		CCC9B4D918970DC400771D4E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../source/core/",
+					"$(SRCROOT)/../../../source/math/",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CCC9B4CE18970DC400771D4E /* Build configuration list for PBXProject "Graphics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B4D518970DC400771D4E /* Debug */,
+				CCC9B4D618970DC400771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CCC9B4D718970DC400771D4E /* Build configuration list for PBXNativeTarget "Graphics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CCC9B4D818970DC400771D4E /* Debug */,
+				CCC9B4D918970DC400771D4E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CCC9B4CB18970DC400771D4E /* Project object */;
+}

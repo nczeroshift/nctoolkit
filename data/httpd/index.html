@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>nctoolkit</title>
+<script type="text/javascript" src="jquery-1.6.4.min.js"></script> 
+<link rel="stylesheet" href="index.css" type="text/css">
+</head>
+<body>
+<h1>nctoolkit test page<h1>
+<hr/>
+<h2>Introduction</h2>
+This is the test webpage to the nctoolkit builtin http server, it will load <a href="http://jquery.com/">jquery</a>, css and a photo.<br>
+The javascript is used to test the json data interface between the server and the webpage.
+<br/>
+<h2>Contents</h2>
+<hr/>
+<h3>Photo</h3>
+<img src="photo.jpg" id="photo"/>
+<h3>Javascript</h3>
+<input type="button" id="testButton" value="Test Java Script"/>
+<h3>Javascript & JSON</h3>
+<input type="button" id="testButton_Default" value="Default"/>
+<input type="button" id="testButton_Yellow" value="Yellow"/></br>
+<p id="output"/>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$("#testButton").click(function(){
+		if($("#photo").hasClass("selected"))
+			$("#photo").removeClass("selected");
+		else
+			$("#photo").addClass("selected");	
+	});
+
+	$("#testButton_Default").click(function(){
+		$.ajax({
+			url:"data.json",
+			data:{background:"default"},
+			dataType:"json",
+			success: function(data) {
+				//console.warn(data.state);
+				$("#output").html("server response -> " + data.state);
+			}
+		});
+	});
+
+	$("#testButton_Yellow").click(function(){
+		$.ajax({
+			url:"data.json",
+			data:{background:"yellow"},
+			dataType:"json",
+			success: function(data) {
+				//console.warn(data.state);
+				$("#output").html("server response -> " +data.state);
+			}
+		});	
+	});
+});
+
+</script>
+
+</body>
+</html>
