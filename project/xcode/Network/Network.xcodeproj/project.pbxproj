@@ -8,17 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		CC5591041897162C00391CFF /* nckHttpServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC5591021897162C00391CFF /* nckHttpServer.cpp */; };
-		CC5591051897162C00391CFF /* nckIPAddress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC5591031897162C00391CFF /* nckIPAddress.cpp */; };
 		CC5591091897163300391CFF /* nckHttpServer.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591061897163300391CFF /* nckHttpServer.h */; };
-		CC55910A1897163300391CFF /* nckIPAddress.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591071897163300391CFF /* nckIPAddress.h */; };
 		CC55910B1897163300391CFF /* nckNetworkConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CC5591081897163300391CFF /* nckNetworkConfig.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC5591021897162C00391CFF /* nckHttpServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckHttpServer.cpp; path = ../../../source/network/nckHttpServer.cpp; sourceTree = "<group>"; };
-		CC5591031897162C00391CFF /* nckIPAddress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckIPAddress.cpp; path = ../../../source/network/nckIPAddress.cpp; sourceTree = "<group>"; };
 		CC5591061897163300391CFF /* nckHttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckHttpServer.h; path = ../../../source/network/nckHttpServer.h; sourceTree = "<group>"; };
-		CC5591071897163300391CFF /* nckIPAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckIPAddress.h; path = ../../../source/network/nckIPAddress.h; sourceTree = "<group>"; };
 		CC5591081897163300391CFF /* nckNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckNetworkConfig.h; path = ../../../source/network/nckNetworkConfig.h; sourceTree = "<group>"; };
 		CCC9B5A51897118800771D4E /* libNetwork.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNetwork.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -55,8 +51,6 @@
 			children = (
 				CC5591021897162C00391CFF /* nckHttpServer.cpp */,
 				CC5591061897163300391CFF /* nckHttpServer.h */,
-				CC5591031897162C00391CFF /* nckIPAddress.cpp */,
-				CC5591071897163300391CFF /* nckIPAddress.h */,
 				CC5591081897163300391CFF /* nckNetworkConfig.h */,
 			);
 			name = Source;
@@ -71,7 +65,6 @@
 			files = (
 				CC55910B1897163300391CFF /* nckNetworkConfig.h in Headers */,
 				CC5591091897163300391CFF /* nckHttpServer.h in Headers */,
-				CC55910A1897163300391CFF /* nckIPAddress.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +119,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC5591051897162C00391CFF /* nckIPAddress.cpp in Sources */,
 				CC5591041897162C00391CFF /* nckHttpServer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
