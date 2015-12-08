@@ -109,5 +109,8 @@
     <ClInclude Include="..\..\..\source\math\nckTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckTimeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

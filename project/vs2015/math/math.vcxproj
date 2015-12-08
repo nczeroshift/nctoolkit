@@ -40,6 +40,7 @@
     <ClInclude Include="..\..\..\source\math\nckQuat.h" />
     <ClInclude Include="..\..\..\source\math\nckRange.h" />
     <ClInclude Include="..\..\..\source\math\nckStatistics.h" />
+    <ClInclude Include="..\..\..\source\math\nckTimeline.h" />
     <ClInclude Include="..\..\..\source\math\nckTransform.h" />
     <ClInclude Include="..\..\..\source\math\nckTriangle.h" />
     <ClInclude Include="..\..\..\source\math\nckVec2.h" />

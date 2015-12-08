@@ -11,6 +11,142 @@
 #include "nckMat44.h"
 #include "nckException.h"
 #include "nckUtils.h"
+#include "nckTimeline.h"
+
+//
+//template < typename T >
+//class TimelineItem {
+//public:
+//	TimelineItem(float start, float end, T object) {
+//		mStart = start;
+//		mEnd = end;
+//		mObject = object;
+//	}
+//
+//	~TimelineItem() {
+//
+//	}
+//
+//	float GetStart() const {
+//		return mStart;
+//	}
+//
+//	float GetEnd() const {
+//		return mEnd;
+//	}
+//
+//	T GetObject() const {
+//		return mObject;
+//	}
+//private:
+//	T mObject;
+//	float mStart;
+//	float mEnd;
+//};
+//
+//template < typename T >
+//class TimelineNode {
+//public:
+//	TimelineNode() {
+//		mA = NULL;
+//		mB = NULL;
+//		mStart = 0.0;
+//		mEnd = 0.0;
+//	}
+//
+//
+//	TimelineNode(float start, float end) {
+//		mA = NULL;
+//		mB = NULL;
+//		mStart = start;
+//		mEnd = end;
+//	}
+//
+//	~TimelineNode() {
+//		SafeDelete(mA);
+//		SafeDelete(mB);
+//	}
+//
+//	float GetStart() const {
+//		return mStart;
+//	}
+//
+//	float GetEnd() const {
+//		return mEnd;
+//	}
+//
+//	void Insert(TimelineItem<T> item) {
+//		mItems.push_back(item);
+//	}
+//
+//	void AddToList(std::list<TimelineItem<T>> * list) {
+//		Core::ListFor(TimelineItem, mItem, i) {
+//			list->push_back(*i);
+//		}
+//	}
+//
+//	bool IsEmpty() const {
+//		return mItems.size() == 0 && mA == NULL && mB == NULL;
+//	}
+//
+//	void Build(const int depth = 0, int const maxDepth = 4) {
+//		bool inited = false;
+//		float s, e;
+//		
+//		if (mItems.size() == 0)
+//			return;
+//
+//		ListFor(TimelineItem<T>, mItems, i) {
+//			if (!inited) {
+//				s = i->GetStart();
+//				e = i->GetEnd();
+//				inited = true;
+//			}
+//			else {
+//				s = MIN(s, i->GetStart());
+//				e = MAX(s, i->GetEnd());
+//			}
+//		}
+//
+//		mStart = s;
+//		mEnd = e;
+//
+//		float split = (s + e) / 2.0f;
+//
+//		if (depth + 1 < maxDepth) {
+//			mA = new TimelineNode<T>(mStart, split);
+//			mB = new TimelineNode<T>(split, mEnd);
+//
+//			std::list<TimelineItem<T>> keep;
+//			ListFor(TimelineItem<T>, mItems, i) {
+//				if (i->GetStart() >= mA->GetStart() && i->GetEnd() <= mA->GetEnd())
+//					mA->Insert(*i);
+//				else if (i->GetStart() >= mB->GetStart() && i->GetEnd() <= mB->GetEnd())
+//					mB->Insert(*i);
+//				else
+//					keep.push_back(*i);
+//			}
+//
+//			mA->Build(depth + 1, maxDepth);
+//			mB->Build(depth + 1, maxDepth);
+//
+//			if (mA->IsEmpty()) 
+//				SafeDelete(mA);
+//			
+//			if (mB->IsEmpty()) 
+//				SafeDelete(mB);
+//
+//			mItems.clear();
+//			mItems = keep;
+//		}
+//	}
+//
+//private:
+//	std::list<TimelineItem<T>> mItems;
+//	float mStart;
+//	float mEnd;
+//	TimelineNode<T> * mA, * mB;
+//};
 
 class GraphicRendering : public virtual Core::Threadable
 {
@@ -36,6 +172,16 @@ public:
 			SafeDelete(dev);
 			return;
 		}
+
+		Math::TimelineNode<float> items;
+		items.Insert(Math::TimelineItem<float>(0, 10, 1.0));
+		items.Insert(Math::TimelineItem<float>(8, 9.5, 2.0,1));
+		items.Insert(Math::TimelineItem<float>(10, 20, 1.0));
+		items.Build();
+
+		std::list<Math::TimelineItem<float>> res;
+		items.Get(9, &res);
+
 
 		while(!IsTearingDown())
 		{
