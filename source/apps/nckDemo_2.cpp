@@ -60,13 +60,13 @@ void Demo2::Load(){
 	dev->Enable(Graph::STATE_DEPTH_TEST);
 	dev->BlendFunc(Graph::BLEND_SRC_ALPHA,Graph::BLEND_INV_SRC_ALPHA);
 	
-	fontTexture = dev->LoadTexture("texture://tex2d_font_ubuntu.png");
+	fontTexture = dev->LoadTexture("texture://sans_serif.png");
 	fontTexture->SetFilter(Graph::FILTER_MIPMAPPING,Graph::FILTER_NEAREST);
 	fontTexture->SetFilter(Graph::FILTER_MAGNIFICATION,Graph::FILTER_NEAREST);
 	fontTexture->SetFilter(Graph::FILTER_MINIFICATION,Graph::FILTER_NEAREST);
 
 	fontMap = new Gui::FontMap(dev);
-	fontMap->Load("script://font_ubuntu.txt");
+	fontMap->Load("script://sans_serif.txt");
 	fontMap->SetPositionAccuracy(Gui::FONT_POSITION_ACCURACY_INTEGER);
 
 	shpRender = new Gui::ShapeRenderer(dev);

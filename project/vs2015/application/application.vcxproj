@@ -44,14 +44,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>../../extern/windows/libs_32/debug/;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\..\extern\windows\libs_32\debug\;$(LibraryPath)</LibraryPath>
     <ExecutablePath>$(ExecutablePath)</ExecutablePath>
-    <IncludePath>../../extern/windows/include;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\extern\windows\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>../../extern/windows/libs_32/release;$(LibraryPath)</LibraryPath>
-    <IncludePath>../../extern/windows/include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\extern\windows\libs_32\release;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\extern\windows\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_DLL|Win32'">
     <IncludePath>../../extern/include;$(IncludePath)</IncludePath>
@@ -65,7 +65,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\source\bxon\;$(SolutionDir)\..\..\source\core\;$(SolutionDir)\..\..\source\graphics\;$(SolutionDir)\..\..\source\audio;$(SolutionDir)\..\..\source\gui;$(SolutionDir)\..\..\source\math;$(SolutionDir)\..\..\source\scene;$(SolutionDir)\..\..\source\network;$(SolutionDir)\..\..\source\xml;$(SolutionDir)\..\..\source\bxporter;$(SolutionDir)\..\..\source\video;$(SolutionDir)\..\..\source\io</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\..\source\bxon\;$(ProjectDir)\..\..\..\source\core\;$(ProjectDir)\..\..\..\source\graphics\;$(ProjectDir)\..\..\..\source\audio;$(ProjectDir)\..\..\..\source\gui;$(ProjectDir)\..\..\..\source\math;$(ProjectDir)\..\..\..\source\scene;$(ProjectDir)\..\..\..\source\network;$(ProjectDir)\..\..\..\source\xml;$(ProjectDir)\..\..\..\source\video;$(ProjectDir)\..\..\..\source\io</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

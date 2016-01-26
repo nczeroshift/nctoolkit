@@ -47,6 +47,9 @@ public:
 	/// Constructor.
 	FontMap(Graph::Device *dev);
 
+	/// Constructor.
+	FontMap(Graph::Device *dev, float density);
+
 	/// Destructor.
 	~FontMap();
 
@@ -92,6 +95,8 @@ private:
 
 	/// Normal and bold characters map.
 	std::map<unsigned int,Character> m_CharactersMap[2];
+
+	float m_Density;
 };
 
 _GUI_END

@@ -53,6 +53,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bxon", "bxon\bxon.vcxproj",
 		{7FE95AC8-8993-429D-A961-5AC145B5EEAB} = {7FE95AC8-8993-429D-A961-5AC145B5EEAB}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "autobfont", "autobfont\autobfont.vcxproj", "{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -161,6 +163,16 @@ Global
 		{7EF41192-D2D5-4A3E-AED9-FEC97C599A79}.Release|Win32.Build.0 = Release|Win32
 		{7EF41192-D2D5-4A3E-AED9-FEC97C599A79}.Release|x64.ActiveCfg = Release|x64
 		{7EF41192-D2D5-4A3E-AED9-FEC97C599A79}.Release|x64.Build.0 = Release|x64
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Debug|ARM.ActiveCfg = Debug|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Debug|Win32.Build.0 = Debug|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Debug|x64.ActiveCfg = Debug|x64
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Debug|x64.Build.0 = Debug|x64
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Release|ARM.ActiveCfg = Release|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Release|Win32.ActiveCfg = Release|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Release|Win32.Build.0 = Release|Win32
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Release|x64.ActiveCfg = Release|x64
+		{4E05F81E-48C9-499E-82B7-EF1C0B5B8D46}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

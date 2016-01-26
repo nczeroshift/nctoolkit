@@ -73,14 +73,20 @@ public:
 		return mEnd;
 	}
 
-	void Insert(TimelineItem<T> item) {
+	T Insert(TimelineItem<T> item) {
 		mItems.push_back(item);
+		return item.GetObject();
 	}
 		
 	bool IsEmpty() const {
 		return mItems.size() == 0 && mA == NULL && mB == NULL;
 	}
 
+    void GetAll(std::list<T> * items) {
+        ListFor(TimelineItem<T>, mItems, i) {
+            items->push_back(i->GetObject());
+        }
+    }
 
 	void Get(float time, std::list<TimelineItem<T>> * items) {
 

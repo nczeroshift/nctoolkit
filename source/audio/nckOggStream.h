@@ -24,11 +24,14 @@ public:
 	int GetChannelsCount();
 	Format GetFormat();
 	int64_t GetDuration();
+	int64_t GetTime();
+	void SetTime(int64_t position);
 	int64_t Seek(int64_t position);
 	int Read(int dataSize, uint8_t * dataBuffer); 
 	static OggStream * Load(const std::string & filename);
     static OggStream * Load(Core::DataReader * reader);
 private:
+	int64_t currentTime;
 	int64_t fLength;
 	Core::DataReader * reader;
 	ogg_sync_state   oy;

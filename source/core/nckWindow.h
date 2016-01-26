@@ -95,6 +95,9 @@ public:
 
 	/// Set mouse cursor visibility.
 	virtual void SetCursorVisiblity(bool visible)=0;
+
+	/// Get display density at app start.
+	static float GetDisplayDensity();
 };
 
 /// Create graphic window. 

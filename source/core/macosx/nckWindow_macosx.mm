@@ -237,6 +237,10 @@ void Window_MacOSX::SetCursorVisiblity(bool visiblity){
         [NSCursor unhide];
 }
 
+float Window::GetDisplayDensity() {
+	return 1.0;
+}
+
 Window_MacOSX *CreateWindow_MacOSX(const std::string & Title, unsigned int Width, unsigned int Height, bool FullScreen)
 {
     Window_MacOSX * ret = new Window_MacOSX();

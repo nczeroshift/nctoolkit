@@ -18,9 +18,10 @@
 	#include <crtdbg.h>
 #endif
 
-Core::Mutex * p_WindowMutex = NULL;
-std::list<Core::Window_Win32*> *p_WindowManager = NULL;
-std::map<Core::KeyboardButton,int> *p_KeyboardButtons = NULL;
+static Core::Mutex * p_WindowMutex = NULL;
+static std::list<Core::Window_Win32*> *p_WindowManager = NULL;
+static std::map<Core::KeyboardButton,int> *p_KeyboardButtons = NULL;
+static float p_DisplayDensity = -1;
 
 extern void initAppDataFolder();
 extern void releaseAppDataFolder();
@@ -344,11 +345,11 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 
 	m_Window->m_TmpTitle = m_Window->m_Title = Title;
 	m_Window->m_TmpWidth = m_Window->m_Width;
-	m_Window->m_TmpHeight = m_Window->m_TmpHeight;
+	m_Window->m_TmpHeight = m_Window->m_Height;
 
 	// Create the application's window
 	m_Window->m_Handle = CreateWindowEx( WS_EX_APPWINDOW, "Application", Title.c_str(), m_Window->m_Flags,
-		( ( GetSystemMetrics(SM_CXSCREEN) - Width ) / 2 ), ( ( GetSystemMetrics(SM_CYSCREEN) - Height ) / 2), 
+		( ( GetSystemMetrics(SM_CXSCREEN) - Width ) / 2 )-1, ( ( GetSystemMetrics(SM_CYSCREEN) - Height ) / 2)-1, 
 		rc.right - rc.left, rc.bottom - rc.top, GetDesktopWindow(), NULL, m_Window->m_Instance, NULL );
 
 	if (!m_Window->m_Handle)
@@ -366,6 +367,19 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 
 	return m_Window;
 }
+
+
+float Window::GetDisplayDensity() {
+	const float DEFAULT_DPI = 96.0;
+	if (p_DisplayDensity < 0.0){
+		HDC screen = GetDC(0);
+		FLOAT dpiX = static_cast<FLOAT>(GetDeviceCaps(screen, LOGPIXELSX));
+		ReleaseDC(0, screen);
+		p_DisplayDensity = dpiX / DEFAULT_DPI;
+	}
+	return p_DisplayDensity;
+}
+
 
 _CORE_END
 

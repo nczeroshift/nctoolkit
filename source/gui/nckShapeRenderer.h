@@ -31,11 +31,13 @@ public:
 	}RoundMode;
 
 	ShapeRenderer(Graph::Device * dev);
+	ShapeRenderer(Graph::Device * dev, float density);
 	~ShapeRenderer();
 
 	void SetRoundMode(RoundMode mode);
 	RoundMode GetRoundMode();
 
+	float GetDensity();
 	void SetRoundRadius(float radius);
 	float GetRoundRadius();
 
@@ -66,6 +68,8 @@ private:
 	Graph::Device * device;
 	/// Rounded corner rendering shaders.
 	Graph::Program * rsProgram[5];
+	// Screen density
+	float m_Density;
 };
 
 _GUI_END

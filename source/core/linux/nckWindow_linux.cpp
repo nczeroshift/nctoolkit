@@ -318,6 +318,11 @@ Window_Linux *CreateWindow_Linux(const std::string & Title, unsigned int Width, 
 	return wnd;
 }
 
+float Window::GetDisplayDensity() {
+	return 1.0;
+}
+
+
 _CORE_END
 
 int main(int argc, char *argv[])

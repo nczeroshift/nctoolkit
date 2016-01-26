@@ -30,6 +30,8 @@ OggStream::OggStream(Core::DataReader * srcReader){
 	memset(&vb,0,sizeof(vorbis_block));
 	memset(&vd,0,sizeof(vorbis_dsp_state));
 	memset(&os,0,sizeof(ogg_stream_state));
+
+	currentTime = -1;
 }
 
 void OggStream::Init()
@@ -200,6 +202,8 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 				}
 
 				if(ogg_page_eos(&og)){
+					//os.granulepos
+					currentTime += retSize / (GetSampleRate() * GetChannelsCount() * 2);
 					return retSize;
 				}
 			}
@@ -210,10 +214,12 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 		ogg_sync_wrote(&oy,bytes);
 
 		if(bytes==0){
+			currentTime += retSize / (GetSampleRate() * GetChannelsCount() * 2);
 			return retSize;
 		}
 	}
 
+	currentTime += 1e6 * retSize / (GetSampleRate() * GetChannelsCount() * 2);
 	return retSize;
 }
  
@@ -251,6 +257,17 @@ OggStream * OggStream::Load(Core::DataReader * reader){
 
 int64_t OggStream::GetDuration(){
 	return 8 * (1e6 * fLength) / vi.bitrate_nominal;
+}
+
+int64_t OggStream::GetTime() {
+	return currentTime;
+}
+
+void OggStream::SetTime(int64_t position) {
+	int64_t bytes = position * 2 * GetChannelsCount() * GetSampleRate();
+	reader->Seek(bytes, Core::SEEK_OFFSET_BEGIN);
+	ogg_stream_reset(&os);
+	vorbis_synthesis_restart(&vd);
 }
 
 #endif

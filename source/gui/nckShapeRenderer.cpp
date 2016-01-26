@@ -68,6 +68,10 @@ Graph::Texture2D* ShapeRenderer::UpdateCheckCache(int size)
 }
 
 void ShapeRenderer::CheckSymbol(float x,float y,float size,const Math::Color4ub & col){
+	x *= m_Density;
+	y *= m_Density;
+	size *= m_Density;
+
 	Graph::Texture2D * tex = UpdateCheckCache(size);
 	tex->Enable();
 	device->Begin(Graph::PRIMITIVE_QUADS);
@@ -89,6 +93,10 @@ void ShapeRenderer::CheckSymbol(float x,float y,float size,const Math::Color4ub 
 
 
 void ShapeRenderer::CircleShape(float x,float y,float size,const Math::Color4ub & col){
+	x *= m_Density;
+	y *= m_Density;
+	size *= m_Density;
+
 	Graph::Texture2D * tex = UpdateCircleCache(size);
 	tex->Enable();
 	device->Begin(Graph::PRIMITIVE_QUADS);
@@ -140,12 +148,21 @@ Graph::Texture2D* ShapeRenderer::UpdateCircleCache(int size)
 ShapeRenderer::ShapeRenderer(Graph::Device * dev){
 	device = dev;
 	roundMode = ROUND_NONE;
-	
+	m_Density = 1.0;
+
 	rsProgram[ROUND_ALL] = device->LoadProgram("shader://gui/roundall.cpp");
 	rsProgram[ROUND_TOP] = device->LoadProgram("shader://gui/roundtop.cpp");
 	rsProgram[ROUND_LEFT] = device->LoadProgram("shader://gui/roundleft.cpp");
 	rsProgram[ROUND_RIGHT] = device->LoadProgram("shader://gui/roundright.cpp");
 	rsProgram[ROUND_BOTTOM] = device->LoadProgram("shader://gui/roundbottom.cpp");
+}
+
+float ShapeRenderer::GetDensity() {
+	return m_Density;
+}
+
+ShapeRenderer::ShapeRenderer(Graph::Device * dev, float density) : ShapeRenderer(dev) {
+	m_Density = density;
 }
 
 ShapeRenderer::~ShapeRenderer(){
@@ -162,6 +179,10 @@ ShapeRenderer::~ShapeRenderer(){
 }
 
 void ShapeRenderer::Square(float x,float y,float w, float h, const Math::Color4ub & col1){
+	x *= m_Density;
+	y *= m_Density;
+	w *= m_Density;
+	h *= m_Density;
 	if(roundMode==ROUND_NONE){
 		device->Color(col1.GetR(),col1.GetG(),col1.GetB(),col1.GetA());
 		device->Begin(Graph::PRIMITIVE_QUADS);
@@ -198,6 +219,11 @@ void ShapeRenderer::Square(float x,float y,float w, float h, const Math::Color4u
 }
 
 void ShapeRenderer::SquareVGrad(float x,float y,float w, float h,const Math::Color4ub & col1,const Math::Color4ub & col2){
+	x *= m_Density;
+	y *= m_Density;
+	w *= m_Density;
+	h *= m_Density;
+
 	if(roundMode == ROUND_NONE){
 	device->Begin(Graph::PRIMITIVE_QUADS);
 	device->Color(col1.GetR(),col1.GetG(),col1.GetB(),col1.GetA());
@@ -238,6 +264,11 @@ void ShapeRenderer::SquareVGrad(float x,float y,float w, float h,const Math::Col
 }
 
 void ShapeRenderer::SquareHGrad(float x,float y,float w, float h,const Math::Color4ub & col1,const Math::Color4ub & col2){
+	x *= m_Density;
+	y *= m_Density;
+	w *= m_Density;
+	h *= m_Density;
+
 	if(roundMode == ROUND_NONE){
 		device->Begin(Graph::PRIMITIVE_QUADS);
 		device->Color(col1.GetR(),col1.GetG(),col1.GetB(),col1.GetA());
@@ -278,6 +309,11 @@ void ShapeRenderer::SquareHGrad(float x,float y,float w, float h,const Math::Col
 
 void ShapeRenderer::Triangle(float x,float y,float w,float h, const Math::Color4ub &col, bool side)
 {
+	x *= m_Density;
+	y *= m_Density;
+	w *= m_Density;
+	h *= m_Density;
+
 	device->Color(col.GetR(),col.GetG(),col.GetB(),col.GetA() );
 	device->Begin(Graph::PRIMITIVE_TRIANGLES);
 	if(side){

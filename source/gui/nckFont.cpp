@@ -36,6 +36,11 @@ FontMap::FontMap(Graph::Device *dev)
 {
 	m_PositionAccuracy = FONT_POSITION_ACCURACY_FLOAT;
 	m_gDevice = dev;
+	m_Density = 1.0;
+}
+
+FontMap::FontMap(Graph::Device *dev, float density) : FontMap(dev) {
+	m_Density = density;
 }
 
 FontMap::~FontMap()
@@ -215,6 +220,10 @@ bool FontMap::DrawChar(unsigned int ch, float &dx,float &dy,float size, bool bol
 
 void FontMap::Draw(float x, float y,float size,std::string str,bool bold,FontAlignment align)
 {
+	x *= m_Density;
+	y *= m_Density;
+	size *= m_Density;
+
 	float dx = x;
 	float dy = y;
 
@@ -238,18 +247,31 @@ void FontMap::Draw(float x, float y,float size,std::string str,bool bold,FontAli
 
 	for(unsigned int i = 0; i<temp_str.length();i++)
 	{
-		if(str[i] == L'\n'){
-
+		if(str[i] == L'\n')
+		{
 			dx = x;
-			/*temp_str = temp_str.substr(i+1);
+	
+			if (i + 1 < temp_str.length()) {
+				std::string sStr = temp_str.substr(i + 1);
 
-			if(temp_str.find("\n")!=std::string::npos)
-				dx = x- GetLength(size,temp_str.substr(0,temp_str.find("\n")),bold)/2;
-			else
-				dx = x-GetLength(size,temp_str,bold)/2;
-				*/
+				if (align == FONT_ALIGNMENT_MIDDLE)
+				{
+					if (sStr.find("\n") != std::string::npos)
+						dx -= GetLength(size, sStr.substr(i, sStr.find("\n")), bold) / 2;
+					else
+						dx -= GetLength(size, sStr, bold) / 2;
+				}
+
+				if (align == FONT_ALIGNMENT_RIGHT)
+				{
+					if (sStr.find("\n") != std::string::npos)
+						dx -= GetLength(size, sStr.substr(i, sStr.find("\n")), bold);
+					else
+						dx -= GetLength(size, sStr, bold);
+				}
+			}
+
 			dy+=size;
-
 
 			continue;
 		}

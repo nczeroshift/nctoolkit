@@ -52,6 +52,8 @@ class SeekStream{
 public:
 	virtual ~SeekStream(){};
 	virtual int64_t GetDuration() = 0;
+	virtual int64_t GetTime() = 0;
+	virtual void SetTime(int64_t position) = 0;
 };
 
 /**

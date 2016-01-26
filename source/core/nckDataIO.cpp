@@ -36,6 +36,9 @@ _CORE_BEGIN
 
 std::string GetDataFolder()
 {
+	if (app_data_folder == NULL)
+		initAppDataFolder();
+
 	if(app_data_folder->length() == 0)
 	{
 #if defined(NCK_MACOSX)
