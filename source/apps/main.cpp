@@ -16,6 +16,7 @@
 #include "nckDemo_8.h"
 #include "nckDemo_9.h"
 #include "nckDemo_11.h"
+#include "nckDemo_10.h"
 
 #define FRONTEND
 
@@ -62,7 +63,7 @@ public:
 			((DemoSelector*)tmp)->SetCallback(this);
 			demoSelector = tmp;
 #else
-			tmp = CreateDemo_4(wnd,dev);
+			tmp = CreateDemo_10(wnd,dev);
 			tmp->Load();
 			demoActive = tmp;
 #endif
@@ -161,8 +162,8 @@ public:
 				case 7: tmp = new Demo7(wnd,dev); break;
 				case 8: tmp = new Demo8(wnd,dev); break;
 				case 9: tmp = new Demo9(wnd,dev); break;
-                case 10: tmp = new Demo11(wnd,dev); break;
-				//case 10: tmp = new Demo10(wnd,dev); break;
+                case 10: tmp = new Demo10(wnd,dev); break;
+				case 11: tmp = new Demo11(wnd,dev); break;
 			};
 		}
 		catch(const Core::Exception & ex){
@@ -184,7 +185,7 @@ private:
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
 	// Create a window.
-	Core::Window * wnd = Core::CreateWindow("nctoolkit",1024,768,false);
+	Core::Window * wnd = Core::CreateWindow("nctoolkit",800,600,false);
 
 	// Create the thread where the graphics rendering will run.
 	GraphicRendering * grThread = new GraphicRendering(wnd);

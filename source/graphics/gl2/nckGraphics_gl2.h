@@ -127,6 +127,11 @@ public:
 
 	bool m_LockFlag;
 	GLubyte * m_LockData;
+
+    bool m_Mipmap;
+    int64_t m_LastModified;
+    std::string m_Filename;
+    int Reload();
 };
 
 /**
@@ -364,8 +369,13 @@ public:
 
 	bool m_ToRemove;
 	
+    int Reload();
+
 protected:
-	GLint m_ViewMatrix;
+    std::string m_Filename;
+    int64_t m_LastModified;
+	
+    GLint m_ViewMatrix;
 	GLint m_ModelMatrix;				// ModelMatrix
 	GLint m_ModelViewMatrix;			// ModelViewMatrix
 	GLint m_ProjectionModelViewMatrix;	// ProjectionModelViewMatrix
@@ -510,6 +520,8 @@ public:
 		ShaderModelType model = SHADER_MODEL_2, Program *global = NULL);
 	OcclusionQuery *CreateOcclusionQuery();
 	bool Capture(int x, int y, int width, int height, Format colorFormat, unsigned char * buffer);
+    int ReloadPrograms(int * reloaded, std::list<std::string> * errors);
+    int ReloadTextures(int * reloaded, std::list<std::string> * errors);
 
 	/// FBO rendering flag.
 	bool m_InsideFBO;

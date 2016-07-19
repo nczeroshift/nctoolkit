@@ -18,6 +18,7 @@ public:
     QueueBuffer(int64_t maxCapacity);
     ~QueueBuffer();
     
+    void Clear();
     int64_t Push(void * data, int64_t size);
     int64_t Size();
     int64_t Pop(void * targetData, int64_t targetSize);

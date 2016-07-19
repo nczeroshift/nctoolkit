@@ -31,6 +31,8 @@ public:
 	static OggStream * Load(const std::string & filename);
     static OggStream * Load(Core::DataReader * reader);
 private:
+    void updateGranulate(int dataSize);
+    int64_t lastGranulate;
 	int64_t currentTime;
 	int64_t fLength;
 	Core::DataReader * reader;

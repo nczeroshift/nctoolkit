@@ -7,6 +7,7 @@
 #include "nckCompound.h"
 #include "nckUtils.h"
 #include "nckException.h"
+#include "bxonDataIO.h"
 
 _SCENE_BEGIN
 
@@ -502,21 +503,43 @@ Compound_Basic::~Compound_Basic()
 
 void Compound_Basic::Load(const std::string &filename)
 {
-    Core::DataReader * f = Core::FileReader::Open(filename);
+    Core::FileReader * f = Core::FileReader::Open(filename);
     
     if(!f){
-        THROW_EXCEPTION("Unable to open compound file \"" + filename + "\"");
+        THROW_EXCEPTION("Unable to open file \"" + filename + "\"");
     }
     
-    try{
-        Read(f);
+    if (Core::FindExtension(filename) == "bxon") {
+        BXON::ReaderContext * frCtx = NULL; 
+        BXON::Object * obj = NULL;
+        BXON::Map * map = NULL;
+        try {
+            frCtx = new BXON::ReaderContext(f);
+            obj = BXON::Object::Parse(dynamic_cast<BXON::Context*>(frCtx));
+            map = dynamic_cast<BXON::Map*>(obj);
+            ReadBXON(map);
+        }
+        catch (const Core::Exception & e) {
+            SafeDelete(obj);
+            SafeDelete(frCtx);
+            delete f;
+            throw e;
+        }
+
+        SafeDelete(obj);
+        SafeDelete(frCtx);
     }
-    catch(Core::Exception & ex)
-    {
-        delete f;
-        throw ex;
-    }		
-    
+    else {
+        try {
+            Read(f);
+        }
+        catch (Core::Exception & ex)
+        {
+            delete f;
+            throw ex;
+        }
+    }
+
     delete f;
     
     Math::BoundBox tmpBB;

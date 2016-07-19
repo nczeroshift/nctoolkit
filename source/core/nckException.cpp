@@ -98,4 +98,25 @@ void Exception::PrintStackTrace() const
 #endif
 }
 
+
+std::string Exception::ToString() const{
+    std::string ret;
+
+    std::list<Exception> tmpList;
+    GetStack(&tmpList);
+
+    tmpList.push_front(*this);
+
+    for (std::list<Exception>::iterator i = tmpList.begin(); i != tmpList.end(); i++)
+    {
+        char line[64] = "";
+        sprintf(line, "%d", +(*i).GetLine());
+        if (i != tmpList.begin())
+            ret += "\n";
+        ret += "Exception, " + (*i).GetSource() + "," + (*i).GetMethod() + "," + std::string(line) + "," + (*i).GetText().c_str();
+    }
+
+    return ret;
+}
+
 _CORE_END

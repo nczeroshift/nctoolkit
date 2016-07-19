@@ -12,6 +12,7 @@
 #define _PINBALL_PHSYICS_DEMO_H_
 
 #include "nckDemo.h"
+#include "nckGeometry.h"
 
 #define _PBDEMO_BEGIN namespace PbDemo{
 #define _PBDEMO_END }
@@ -22,7 +23,7 @@
 #define BALL_DIAMETER		0.022f		// 0.0254f - 2.54 cm
 #define MACHINE_WIDTH		0.5588f		// 55.88 cm
 #define MACHINE_HEIGHT		1.2954f		// 1.2954 m
-#define MACHINE_INCLINATION	12.6f		// 12.6� = asin((47-35)/55)*180/pi
+#define MACHINE_INCLINATION	12.6f		// 12.6º = asin((47-35)/55)*180/pi
 
 #define bXToVec3(v)	Math::Vec3(v.x,v.y,v.z)
 
@@ -98,20 +99,20 @@ protected:
 */
 class Edge{
 public:
-	Edge(bX::VertexIterator a, bX::VertexIterator b,bX::FaceIterator end);
+	Edge(Geometry::VertexIterator a, Geometry::VertexIterator b, Geometry::FaceIterator end);
 	~Edge();
 
 	bool Compare(const Edge & edge);
 
-	bX::VertexIterator va,vb;
-	bX::FaceIterator fa,fb;
+    Geometry::VertexIterator va,vb;
+    Geometry::FaceIterator fa,fb;
 };
 
 // Compute non manifold edges(edges with only one assigned face) from bXporter mesh.
-int ComputeMeshNonManifold(bX::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Line> * lines); 
+int ComputeMeshNonManifold(Geometry::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Line> * lines);
 
 // Compute triangulated mesh from bXporter mesh.
-int ConvertMeshToTris(bX::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Triangle> * triangles);
+int ConvertMeshToTris(Geometry::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Triangle> * triangles);
 
 /**
 * Collision detection/prediction helper class.
@@ -181,10 +182,15 @@ public:
 	void Reset();
 	void Render(Graph::Device * dev);
 
+    void PreSimulate(float dt = 1.0 / 60.0f);
+
 	std::list<Math::Line> walls;
 	World * world;
 	QtNode * node;
 	Object * ball;
+
+    Math::Vec3 oldPosition;
+    Math::Vec3 oldVelocity;
 
 	Math::Vec3 prevIntersectPoint;
 	Math::Vec3 prevPoint;
@@ -209,6 +215,8 @@ public:
 	PbDemo::Simulation * sim;
 	Graph::Texture * fntTex;
 	Gui::FontMap * fntMap;
+
+
 };
 
 Demo * CreateDemo_10(Core::Window * wnd, Graph::Device * dev);

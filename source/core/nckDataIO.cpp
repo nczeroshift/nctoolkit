@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include "nckUtils.h"
 #include <fstream>
+#include <time.h>
 
 #if defined(NCK_LINUX)
     #include <unistd.h>
@@ -369,6 +370,43 @@ std::string FindExtension(const std::string & filename){
 		return filename.substr(extPos+1,filename.length()-extPos-1);				
 	}
 	return "";
+}
+
+int64_t GetFileLastModified(const std::string & filename) {
+    std::string path = ResolveFilename(filename);
+#if defined _WIN32 || defined _WIN64
+    HANDLE hFile = CreateFile(path.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL,
+        OPEN_EXISTING, 0, NULL);
+
+    if (hFile == INVALID_HANDLE_VALUE)
+      return 0;
+    
+    FILETIME ftCreate, ftAccess, ftWrite;
+    if (!GetFileTime(hFile, &ftCreate, &ftAccess, &ftWrite))
+        return FALSE;
+
+    SYSTEMTIME stUTC, stLocal;
+    FileTimeToSystemTime(&ftWrite, &stUTC);
+    SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
+
+    tm t;
+    memset(&t, 0, sizeof(tm));
+    t.tm_year = stLocal.wYear-1900;
+    t.tm_mon = stLocal.wMonth-1;
+    t.tm_mday = stLocal.wDay;
+    t.tm_hour = stLocal.wHour;
+    t.tm_min = stLocal.wMinute;
+    t.tm_sec = stLocal.wSecond;
+    t.tm_isdst = -1;
+
+    CloseHandle(hFile);
+
+    time_t tt = mktime(&t);
+
+    return tt;
+#else
+    return 0;
+#endif
 }
 
 _CORE_END

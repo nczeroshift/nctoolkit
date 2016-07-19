@@ -179,12 +179,18 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
 	d9->AddKeyword("IO");
 	d9->AddKeyword("Arduino");
 
-	/*DemoDetails * d10 = new DemoDetails();
+	DemoDetails * d10 = new DemoDetails();
 	d10->SetDescription("Simple 2D physics simulation");
 	d10->AddKeyword("Advanced");
 	d10->AddKeyword("Physics");
 	d10->AddKeyword("Simulation");
-	d10->AddKeyword("WIP");*/
+	d10->AddKeyword("WIP");
+
+    DemoDetails * d11 = new DemoDetails();
+    d11->SetDescription("BXON Models & Animation");
+    d11->AddKeyword("Model");
+    d11->AddKeyword("Animation");
+    d11->AddKeyword("BXON");
 
 	m_DemoDetails.push_back(d1);
 	m_DemoDetails.push_back(d2);
@@ -195,12 +201,7 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
 	m_DemoDetails.push_back(d7);
 	m_DemoDetails.push_back(d8);
 	m_DemoDetails.push_back(d9);
-    
-    DemoDetails * d11 = new DemoDetails();
-    d11->SetDescription("BXON Models & Animation");
-    d11->AddKeyword("Model");
-    d11->AddKeyword("Animation");
-    d11->AddKeyword("BXON");
+    m_DemoDetails.push_back(d10);  
 	m_DemoDetails.push_back(d11);
 }
 

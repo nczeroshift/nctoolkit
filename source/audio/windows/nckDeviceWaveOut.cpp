@@ -6,6 +6,7 @@
 
 #include "nckDeviceWaveOut.h"
 #include "../nckOggStream.h"
+#include <sstream>
 
 #if defined(NCK_WAVEOUT)
 
@@ -102,15 +103,17 @@ void DeviceWaveOut::Play(){
 		return;
 	}
 
-	// Prime buffers ?
+	// Prime waveout with empty buffers just to start playback.
 	for(int i = 0;i<m_BufferCount;i++)
 	{
 		WAVEHDR * wh = m_Buffers[i];
-
+        
 		MMRESULT result = waveOutPrepareHeader(m_Device, wh, sizeof(WAVEHDR));
 		if (result != MMSYSERR_NOERROR) {
 			THROW_EXCEPTION("Error preparing header");
 		}
+        
+        wh->dwBufferLength = 0;
 
 		result = waveOutWrite(m_Device, wh, sizeof(WAVEHDR));
 		if (result != MMSYSERR_NOERROR) {
@@ -118,23 +121,14 @@ void DeviceWaveOut::Play(){
 		}
 	}
 
-    m_CurrentTime = 0;
 	Start();
 	m_CurrentState = STATE_PLAYING;
-
 }
 
 void DeviceWaveOut::Stop(){
 	TearDownAndJoin();
 
-	waveOutReset(m_Device);
-	for(int i = 0;i < m_Buffers.size(); i++){
-		WAVEHDR * wh = m_Buffers[i];
-		if (wh->dwFlags & WHDR_PREPARED || wh->dwFlags & WHDR_DONE) {
-			waveOutUnprepareHeader(m_Device, wh, sizeof(wh));
-		}
-	}
-
+    waveOutReset(m_Device);
 	m_CurrentState = STATE_STOPPED;
 }
 
@@ -181,13 +175,29 @@ void DeviceWaveOut::Run(){
 					if (result != MMSYSERR_NOERROR) {
 						Core::DebugLog("Error writing data");
 					}
-                    
-                    m_CurrentTime += (int64_t)bufferTime;
 				}
 			}
 		}
         Core::Thread::Wait(1); 
 	}
+}
+
+int64_t DeviceWaveOut::GetTime() {
+    MMTIME time;
+    if (MMSYSERR_NOERROR == waveOutGetPosition(m_Device, &time, sizeof(time)))
+    {
+        if (time.wType == TIME_BYTES) {
+            int bytesPerSample = sizeof(int16_t) * GetChannelsCount();
+            return (1e6 * (time.u.cb / bytesPerSample)) / GetSampleRate();
+        }
+        else if (time.wType == TIME_MS) {
+            return 1000 * time.u.ms ;
+        }
+        else if (time.wType == TIME_SAMPLES) {
+            return (1e6 * time.u.sample) / GetSampleRate();
+        }
+    }
+    return 0;
 }
 
 Stream * DeviceWaveOut::LoadStream(const std::string & filename){

@@ -365,6 +365,13 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 	ShowWindow( m_Window->m_Handle, SW_SHOW );
 	UpdateWindow( m_Window->m_Handle );
 
+    /*SetWindowPos(m_Window->m_Handle,       // handle to window
+        HWND_TOPMOST,  // placement-order handle
+        1000,     // horizontal position
+        140,      // vertical position
+        rc.right - rc.left, rc.bottom - rc.top,
+        SWP_SHOWWINDOW); // window-positioning options);
+      */  
 	return m_Window;
 }
 

@@ -22,6 +22,7 @@ public:
 	Chronometer_LowRes(){
 		m_Start=0;
 		m_Stop=0;
+        m_Running = false;
 	}
 
 	virtual ~Chronometer_LowRes(){}
@@ -29,21 +30,30 @@ public:
 	void Clear(){
 		m_Start=0;
 		m_Stop=0;
+        m_Running = false;
 	}
 
 	void Start(){
 		time(&m_Start);
+        m_Running = true;
 	}
 
 	void Stop(){
+        m_Running = false;
 		time(&m_Stop);
 	}
 
 	double GetElapsedTime(){
-		return (double)difftime (m_Stop,m_Start);
+        time(&m_Stop);
+		return (double)difftime (m_Stop,m_Start)*1e6;
 	}
 
+    bool IsRunning() {
+        return m_Running;
+    }
+
 private:
+    bool m_Running;
 	time_t	m_Start;
 	time_t	m_Stop;
 };
@@ -64,8 +74,8 @@ public:
 	}
 
 	void Start(){
-		m_Running = true;
 		QueryPerformanceCounter(&m_Start);
+        m_Running = true;
 	}
 
 	void Stop(){
@@ -78,14 +88,18 @@ public:
 			LARGE_INTEGER thisInstant,freq;
 			QueryPerformanceCounter(&thisInstant);
 			QueryPerformanceFrequency(&freq);
-			return 1000.0*(double)(thisInstant.QuadPart-m_Start.QuadPart)/(double)(freq.QuadPart);
+			return 1e6*(double)(thisInstant.QuadPart-m_Start.QuadPart)/(double)(freq.QuadPart);
 		}
 		else{
 			LARGE_INTEGER freq;
 			QueryPerformanceFrequency(&freq);
-			return 1000.0*(double)(m_Stop.QuadPart-m_Start.QuadPart)/(double)(freq.QuadPart);
+			return 1e6*(double)(m_Stop.QuadPart-m_Start.QuadPart)/(double)(freq.QuadPart);
 		}
 	}
+
+    bool IsRunning() {
+        return m_Running;
+    }
 private:
 	bool m_Running;
 	LARGE_INTEGER	m_Start;
@@ -130,6 +144,10 @@ public:
 			return diff/1.0e3;
 		}
 	}
+    
+    bool IsRunning() {
+        return IsRunning;
+    }
 
 private:
 	bool m_Running;

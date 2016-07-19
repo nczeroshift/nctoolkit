@@ -29,6 +29,9 @@ std::string FindExtension(const std::string & filename);
  */
 std::string ResolveFilename(const std::string & filename);
 
+/* Get file last modified date */
+int64_t GetFileLastModified(const std::string & filename);
+
 /**
  * File seek mode.
  */

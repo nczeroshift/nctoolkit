@@ -15,6 +15,7 @@
     <ClInclude Include="..\..\..\source\core\nckChronometer.h" />
     <ClInclude Include="..\..\..\source\core\nckCoreConfig.h" />
     <ClInclude Include="..\..\..\source\core\nckDataIO.h" />
+    <ClInclude Include="..\..\..\source\core\nckDate.h" />
     <ClInclude Include="..\..\..\source\core\nckException.h" />
     <ClInclude Include="..\..\..\source\core\nckImage.h" />
     <ClInclude Include="..\..\..\source\core\nckPoint.h" />
@@ -30,6 +31,7 @@
     <ClCompile Include="..\..\..\source\core\linux\nckWindow_linux.cpp" />
     <ClCompile Include="..\..\..\source\core\nckChronometer.cpp" />
     <ClCompile Include="..\..\..\source\core\nckDataIO.cpp" />
+    <ClCompile Include="..\..\..\source\core\nckDate.cpp" />
     <ClCompile Include="..\..\..\source\core\nckException.cpp" />
     <ClCompile Include="..\..\..\source\core\nckImage.cpp" />
     <ClCompile Include="..\..\..\source\core\nckPoint.cpp" />

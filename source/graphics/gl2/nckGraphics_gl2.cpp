@@ -7,6 +7,7 @@
 #include "nckGraphics_gl2.h"
 #include "nckException.h"
 #include "nckMat44.h"
+#include "nckTweaks_gl2.h"
 #include <algorithm>
 #include <stdio.h>
 
@@ -68,7 +69,9 @@ Device_GL2::Device_GL2(Core::Window * wnd,
 
 	nckInitExtensionsGL2();
 
-	wglSwapIntervalExt(1);
+#ifdef GL_SWAP_INTERVAL
+	wglSwapIntervalExt(GL_SWAP_INTERVAL);
+#endif
 
 #elif defined(NCK_LINUX)
 
@@ -917,6 +920,39 @@ bool Device_GL2::Capture(int x, int y, int width, int height, Format colorFormat
 	};
 	glReadPixels(x,y,width,height,format,type,buffer);
 	return true;
+}
+
+int Device_GL2::ReloadPrograms(int * reloaded, std::list<std::string> * errors) {
+    int total = 0;
+    MapFor(std::string, ResourceProxy<Program_GL2>*, m_ProgramProxys, i) {
+        try {
+            if(i->second->GetReference()->Reload())
+                (*reloaded)++;
+        }
+        catch (const Core::Exception & e) {
+            errors->push_back(e.ToString());
+        }
+        total++;
+      
+    }
+    return total;
+}
+
+int Device_GL2::ReloadTextures(int * reloaded, std::list<std::string> * errors) {
+    int total = 0;
+    MapFor(std::string, ResourceProxy<Texture_GL2>*, m_TextureProxys, i) {
+        if (i->second->GetReference()->GetType() == Graph::TextureType::TEXTURE_2D) {
+            try {
+                if (dynamic_cast<Texture2D_GL2*>(i->second->GetReference())->Reload()) 
+                    (*reloaded)++;
+            }
+            catch (const Core::Exception & e) {
+                errors->push_back(e.ToString());
+            }
+            total++;
+        }
+    }
+    return total;
 }
 
 void Device_GL2::UpdateMatrix(){

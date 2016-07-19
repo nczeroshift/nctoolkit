@@ -172,6 +172,12 @@ public:
     static Array * WithCapacity(uint32_t capacity = 10);
     static Array * WithType(NativeType type, uint32_t capacity = 10);
     
+    static Array * WithVec3(const Math::Vec3 & value);
+    static Array * WithVec4(const Math::Vec4 & value);
+    static Array * WithMat44(const Math::Mat44 & value);
+    static Array * WithQuat(const Math::Quat & value);
+    static Array * WithColor4f(const Math::Color4f & value);
+
     virtual bool IsNil (int i) = 0;
     virtual bool GetBoolean (int i) = 0;
     virtual uint8_t GetByte (int i) = 0;
@@ -199,6 +205,8 @@ public:
     Array * GetArray (const std::string & key);
     Map *  GetMap (const std::string & key);
     
+    Object * Put(const std::string & key, Object * obj);
+   
     bool IsNil (const std::string & key);
     bool GetBoolean (const std::string & key);
     uint8_t GetByte (const std::string & key);
@@ -207,7 +215,7 @@ public:
     float GetFloat (const std::string & key);
     double GetDouble (const std::string & key);
     std::string GetString (const std::string & key);
-    
+
     Math::Vec2 GetVec2(const std::string & key);
     Math::Vec3 GetVec3(const std::string & key);
     Math::Vec4 GetVec4(const std::string & key);

@@ -10,7 +10,9 @@
 #include "nckGraphicsConfig.h"
 #include "nckWindow.h"
 #include "nckVProfile.h"
+
 #include <string>
+#include <list>
 
 _GRAPHICS_BEGIN
 
@@ -659,6 +661,9 @@ public:
 
 	/// Capture device color buffer to an image.
 	virtual bool Capture(int x, int y, int width, int height, Format colorFormat, unsigned char * buffer) = 0;
+
+    virtual int ReloadTextures(int * reloaded, std::list<std::string> * errors) = 0;
+    virtual int ReloadPrograms(int * reloaded, std::list<std::string> * errors) = 0;
 };
 
 /// Available graphic devices types.

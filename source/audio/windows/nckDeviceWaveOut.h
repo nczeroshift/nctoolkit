@@ -26,6 +26,7 @@ public:
 	DeviceWaveOut(int sampleRate, int channels, Format format,int buffers, int buffersSize);
 	~DeviceWaveOut();
 	
+    int64_t GetTime();
 	int GetSampleRate();
 	int GetChannelsCount();
 	Format GetDataFormat();
@@ -49,7 +50,7 @@ private:
 	
 	int m_BufferCount;
 	int m_BufferSize;
-    int64_t m_CurrentTime;
+
 	State m_CurrentState;
 };
 

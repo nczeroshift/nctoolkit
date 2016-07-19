@@ -32,6 +32,8 @@ public:
 	/// Get elapsed time between start and stop events.
 	/// @return Elapsed time in seconds.
 	virtual double GetElapsedTime() = 0;
+
+    virtual bool IsRunning() = 0;
 };
 
 /**

@@ -52,29 +52,39 @@ void Thread::Wait(unsigned int time){
 class Thread_Win32: public Thread{
 public:
 	Thread_Win32(Thread_Function func, void *args){
-		m_Handle = WinCreateThread((LPTHREAD_START_ROUTINE)func,args);
+        m_Args = args;
+        m_Func = func;
 		m_Started = false;
+        m_Handle = NULL;
 	}
 
 	virtual ~Thread_Win32(){
 		if(m_Handle){
-			CloseHandle(m_Handle);
-			TerminateThread(m_Handle,1);
+            CloseHandle(m_Handle);
+            TerminateThread(m_Handle, 1);
 		}
 	}
 
 	void Start(){
 		if(!m_Started){
-			ResumeThread(m_Handle);
+            m_Handle = WinCreateThread((LPTHREAD_START_ROUTINE)m_Func, m_Args);
+            ResumeThread(m_Handle);
 			m_Started = true;
 		}
 	}
 
 	void Join(){
 		WaitForSingleObject(m_Handle, INFINITE);
+        
+        CloseHandle(m_Handle);
+        TerminateThread(m_Handle, 1);
+        
+        m_Handle = NULL;
 		m_Started = false;
 	}
 
+    Thread_Function m_Func;
+    void * m_Args;
 	bool m_Started;
 	HANDLE m_Handle;
 };
@@ -199,6 +209,7 @@ Threadable::~Threadable(){
 
 void Threadable::Start(){
 	m_IsRunning = true;
+    m_Teardown = false;
 	m_Thread->Start();
 }
 

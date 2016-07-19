@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\..\source\graphics\dx9\nckShaderResources_dx9.h" />
     <ClInclude Include="..\..\..\source\graphics\gl2\nckExtensions_gl2.h" />
     <ClInclude Include="..\..\..\source\graphics\gl2\nckGraphics_gl2.h" />
+    <ClInclude Include="..\..\..\source\graphics\gl2\nckTweaks_gl2.h" />
     <ClInclude Include="..\..\..\source\graphics\nckGraphics.h" />
     <ClInclude Include="..\..\..\source\graphics\nckGraphicsConfig.h" />
     <ClInclude Include="..\..\..\source\graphics\nckResourceProxy.h" />

@@ -58,6 +58,8 @@ public:
 	/// Print exception stack trace to output streams.
 	void PrintStackTrace() const;
 
+    /// Convert exception stack to string
+    std::string ToString() const;
 private:
 	int m_Code;
 

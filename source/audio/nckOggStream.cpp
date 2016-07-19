@@ -7,10 +7,11 @@
 #include "nckOggStream.h"
 #include "nckUtils.h"
 #include "nckException.h"
-
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+
+#include <sstream>
 
 _AUDIO_BEGIN
 
@@ -31,7 +32,8 @@ OggStream::OggStream(Core::DataReader * srcReader){
 	memset(&vd,0,sizeof(vorbis_dsp_state));
 	memset(&os,0,sizeof(ogg_stream_state));
 
-	currentTime = -1;
+	currentTime = 0;
+    lastGranulate = -1;
 }
 
 void OggStream::Init()
@@ -94,8 +96,6 @@ void OggStream::Init()
 
 	if(vorbis_synthesis_init(&vd,&vi)==0)
 		vorbis_block_init(&vd,&vb);
-	
-
 }
 
 OggStream::~OggStream(){
@@ -165,7 +165,7 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 
 						while((samples=vorbis_synthesis_pcmout(&vd,&pcm))>0)
 						{
-							int j;
+                            int j;
 							//int clipflag=0;
 							int bout=(samples<convsize?samples:convsize);
 
@@ -202,8 +202,7 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 				}
 
 				if(ogg_page_eos(&og)){
-					//os.granulepos
-					currentTime += retSize / (GetSampleRate() * GetChannelsCount() * 2);
+                    updateGranulate(retSize);
 					return retSize;
 				}
 			}
@@ -214,15 +213,20 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 		ogg_sync_wrote(&oy,bytes);
 
 		if(bytes==0){
-			currentTime += retSize / (GetSampleRate() * GetChannelsCount() * 2);
+            updateGranulate(retSize);
 			return retSize;
 		}
 	}
 
-	currentTime += 1e6 * retSize / (GetSampleRate() * GetChannelsCount() * 2);
+    updateGranulate(retSize);
+
 	return retSize;
 }
- 
+
+void OggStream::updateGranulate(int dataSize) {
+    currentTime = vorbis_granule_time(&vd, vd.granulepos) * 1e6;
+}
+
 OggStream * OggStream::Load(const std::string & filename)
 {
 	Core::FileReader * f = Core::FileReader::Open(filename);
@@ -241,7 +245,6 @@ OggStream * OggStream::Load(const std::string & filename)
 
 	return stream;
 }
-
 
 OggStream * OggStream::Load(Core::DataReader * reader){
 	OggStream * stream = new OggStream(reader);
@@ -264,10 +267,10 @@ int64_t OggStream::GetTime() {
 }
 
 void OggStream::SetTime(int64_t position) {
-	int64_t bytes = position * 2 * GetChannelsCount() * GetSampleRate();
+    int64_t bytes = (fLength * position) / GetDuration();
 	reader->Seek(bytes, Core::SEEK_OFFSET_BEGIN);
-	ogg_stream_reset(&os);
-	vorbis_synthesis_restart(&vd);
+    ogg_stream_reset(&os);
+	vorbis_synthesis_restart(&vd);   
 }
 
 #endif

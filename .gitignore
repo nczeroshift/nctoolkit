@@ -5,6 +5,8 @@
 *.o
 *.dia
 *.d
+*.opendb
+*.db
 
 !*.lib
 !*.a
@@ -24,6 +26,3 @@
 
 */xcode/*/build/*
 xcuserdata
-
-
-

@@ -238,6 +238,7 @@ Texture2D_GL2::Texture2D_GL2(Device_GL2 *dev) : Texture_GL2(dev){
 	m_LockData = NULL;
 	m_LockFlag = false;
 	m_Target = GL_TEXTURE_2D;
+    m_LastModified = 0;
 }
 
 Texture2D_GL2::~Texture2D_GL2(){
@@ -304,8 +305,6 @@ void Texture2D_GL2::Disable(unsigned int sampler_id)
 	m_Device->m_TextureCache.SetTexture((Graph::Texture2D*)(this),false,sampler_id);
 }
 
-
-
 void *Texture2D_GL2::Lock(unsigned int level)
 {
 	glEnable(m_Target);
@@ -363,6 +362,61 @@ void Texture2D_GL2::Unlock(unsigned int level){
 	m_LockFlag = false;
 }
 
+
+int Texture2D_GL2::Reload() {
+    int64_t currentModified = Core::GetFileLastModified(m_Filename);
+
+    if (m_LastModified == 0 || currentModified - m_LastModified < 10) {
+        return 0;
+    }
+
+    Core::Image * img = NULL;
+    try{
+        img = Core::Image::Load(m_Filename);
+    }
+    catch (const Core::Exception & e) {
+        THROW_EXCEPTION_STACK("Unable to load texture " + m_Filename, e);
+    }
+
+    int width = img->GetWidth();
+    int height = img->GetHeight();
+
+    Graph::Format imgFormat;
+    if (img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
+        imgFormat = Graph::FORMAT_A_8B;
+    else if (img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
+        imgFormat = Graph::FORMAT_RGBA_8B;
+    else if (img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
+        imgFormat = Graph::FORMAT_RGB_8B;
+
+    GLuint target;
+    glEnable(this->m_Target);
+    glGenTextures(1, &target);
+    glBindTexture(this->m_Target, target);
+
+    int components = 3;
+    GLenum format = GL_RGB;
+    GLenum datatype = GL_UNSIGNED_BYTE;
+    GLenum intFormat = GL_RGB8;
+
+    GetGLPropertiesFromFormat(imgFormat, &components, &intFormat, &format, &datatype);
+
+    if (m_Mipmap)
+        glTexParameteri(target, GL_GENERATE_MIPMAP, GL_TRUE);
+    else
+        glTexParameteri(target, GL_GENERATE_MIPMAP, GL_FALSE);
+
+    glTexImage2D(target, 0, intFormat, img->GetWidth(), img->GetHeight(), 0, format, datatype, img->GetData());
+    
+    glBindTexture(target, GL_ZERO);
+
+    SafeDelete(img);
+
+    m_LastModified = currentModified;
+
+    return 1;
+}
+
 Texture2D_GL2 * Texture2D_GL2::Load(Device_GL2 *dev,const std::string & filename, bool mipmaps){
 	Texture2D_GL2 * tex = new Texture2D_GL2(dev);
 
@@ -408,6 +462,8 @@ Texture2D_GL2 * Texture2D_GL2::Load(Device_GL2 *dev,const std::string & filename
 		glTexParameteri(tex->m_Target, GL_GENERATE_MIPMAP, GL_TRUE);
 	else
 		glTexParameteri(tex->m_Target, GL_GENERATE_MIPMAP, GL_FALSE);
+
+    tex->m_Mipmap = mipmaps;
 
 	glTexImage2D(tex->m_Target,0,intFormat,tex->m_Width,tex->m_Height,0,format,datatype,img->GetData());
 

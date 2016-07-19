@@ -63,6 +63,13 @@ public:
     double GetDouble (int i);
     std::string GetString (int i);
     
+    void SetBoolean(int i, bool value);
+    void SetByte(int i, uint8_t value);
+    void SetInteger(int i, int value);
+    void SetLong(int i, int64_t value);
+    void SetFloat(int i, float value);
+    void SetDouble(int i, double value);
+
 protected:
     void Read(const Header & hdr,Context * ctx);
     uint32_t nativeLen;
@@ -519,6 +526,29 @@ void NativeArray::Read(const Header & hdr,Context * ctx){
     size = (int32_t)(len / nativeLen);
 }
 
+void NativeArray::SetBoolean(int i, bool value){
+
+}
+
+void NativeArray::SetByte(int i, uint8_t value){
+
+}
+
+void NativeArray::SetInteger(int i, int value){
+
+}
+
+void NativeArray::SetLong(int i, int64_t value){
+
+}
+
+void NativeArray::SetFloat(int i, float value){
+
+}
+
+void NativeArray::SetDouble(int i, double value){
+
+}
 
 Array * Array::WithCapacity(uint32_t capacity){
     return new ObjectArray(capacity);
@@ -526,6 +556,44 @@ Array * Array::WithCapacity(uint32_t capacity){
 
 Array * Array::WithType(NativeType type, uint32_t capacity){
     return new NativeArray(type,capacity);
+}
+
+Array * Array::WithVec3(const Math::Vec3 & value) {
+    NativeArray * ret = new NativeArray(TYPE_FLOAT, 3);
+    ret->SetFloat(0, value.GetX());
+    ret->SetFloat(1, value.GetY());
+    ret->SetFloat(2, value.GetZ());
+    return ret;
+}
+Array * Array::WithVec4(const Math::Vec4 & value) {
+    NativeArray * ret = new NativeArray(TYPE_FLOAT, 4);
+    ret->SetFloat(0, value.GetX());
+    ret->SetFloat(1, value.GetY());
+    ret->SetFloat(2, value.GetZ());
+    ret->SetFloat(3, value.GetW());
+    return ret;
+}
+Array * Array::WithMat44(const Math::Mat44 & value) {
+    NativeArray * ret = new NativeArray(TYPE_FLOAT, 16);
+    for (int i = 0; i < 16;i++)
+         ret->SetFloat(i, ((float*)&value)[i]);
+    return ret;
+}
+Array * Array::WithQuat(const Math::Quat & value) {
+    NativeArray * ret = new NativeArray(TYPE_FLOAT, 4);
+    ret->SetFloat(0, value.GetX());
+    ret->SetFloat(1, value.GetY());
+    ret->SetFloat(2, value.GetZ());
+    ret->SetFloat(3, value.GetW());
+    return ret;
+}
+Array * Array::WithColor4f(const Math::Color4f & value) {
+    NativeArray * ret = new NativeArray(TYPE_FLOAT, 4);
+    ret->SetFloat(0, value.GetR());
+    ret->SetFloat(1, value.GetG());
+    ret->SetFloat(2, value.GetB());
+    ret->SetFloat(3, value.GetA());
+    return ret;
 }
 
 ObjectArray::ObjectArray(){
@@ -914,6 +982,10 @@ Math::Color4f Map::GetColor4f(const std::string & key){
     throw EXCEPTION_WRONG_TYPE;
 }
 
+Object * Map::Put(const std::string & key, Object * obj) {
+    map.insert(std::pair<std::string, Object*>(key, obj));
+    return obj;
+}
 
 static std::string printSpaces(int depth, int spaces){
     std::string ret;

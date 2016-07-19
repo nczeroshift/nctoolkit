@@ -36,7 +36,8 @@ std::string FloatToString(float value, int decimal_precision);
 
 /// Convert integer to string.
 std::string IntToString(int value);
-
+std::string IntToString(int value, int leading);
+std::string TimeToString(int64_t v);
 
 _MATH_END
 

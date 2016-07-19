@@ -24,6 +24,7 @@ Program_GL2::Program_GL2(Device_GL2 *dev){
 	m_Active = false;
 	m_ToRemove = false;
 
+    m_LastModified = 0;
 	m_ViewMatrix = -1;
 	m_ModelMatrix = -1;
 	m_ModelViewMatrix = -1;
@@ -184,6 +185,59 @@ void Program_GL2::Load(const std::string & source){
 	m_ViewMatrix = glGetUniformLocation(m_Program,"gphViewMatrix");
 }
 
+int Program_GL2::Reload() {
+    int64_t currentModified = Core::GetFileLastModified(m_Filename);
+
+    if (m_LastModified == 0 || currentModified - m_LastModified < 10) {
+        return 0;
+    }
+
+    Core::DataReader * f = Core::FileReader::Open(m_Filename);
+
+    if (!f) {
+        THROW_EXCEPTION("File not found: " + m_Filename);
+    }
+
+    int size = (int)Core::FileReader::Size(m_Filename);
+
+    char * buffer = new char[size + 1];
+
+    f->Read(buffer, size);
+
+    buffer[size] = '\0';
+
+    delete f;
+
+    std::string source = std::string(buffer);
+
+    delete[] buffer;
+
+    GLint oldProgram = m_Program;
+    GLint oldVsh = m_VertexShader;
+    GLint oldFsh = m_FragmentShader;
+    try{
+        Load(source);
+    }
+    catch (const Core::Exception & e) {
+        THROW_EXCEPTION_STACK("Unable to reload shader" + m_Filename, e);
+    }
+
+    if (oldProgram != m_Program) {
+        if (m_Device->m_ActiveProgram == this) 
+            DisableInternal();
+
+        if (oldVsh) glDeleteShader(oldVsh);
+        if (oldFsh) glDeleteShader(oldFsh);
+        if (oldProgram) glDeleteShader(oldProgram);
+
+        m_LastModified = currentModified;
+
+        return 1;
+    } 
+
+    return -1;
+}
+
 void Program_GL2::LoadFromFilename(const std::string & filename)
 {
 #ifdef NCK_GRAPH_RES_PROXY
@@ -223,6 +277,8 @@ void Program_GL2::LoadFromFilename(const std::string & filename)
 	if(!f)
 		THROW_EXCEPTION("File not found");
 
+    m_Filename = filename;
+    m_LastModified = Core::GetFileLastModified(filename);
 
 	int size = (int)Core::FileReader::Size(filename);
 

@@ -97,6 +97,8 @@ private:
 	std::map<unsigned int,Character> m_CharactersMap[2];
 
 	float m_Density;
+
+    bool m_Relative;
 };
 
 _GUI_END

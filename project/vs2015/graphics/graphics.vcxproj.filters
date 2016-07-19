@@ -97,5 +97,8 @@
     <ClInclude Include="..\..\..\source\graphics\gl2\nckGraphics_gl2.h">
       <Filter>Header Files\gl2</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\graphics\gl2\nckTweaks_gl2.h">
+      <Filter>Header Files\gl2</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

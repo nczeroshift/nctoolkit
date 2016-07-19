@@ -26,6 +26,11 @@ QueueBuffer::~QueueBuffer(){
     uint8_t * d = (uint8_t*)m_Buffer;
     SafeArrayDelete( d );
 }
+
+void QueueBuffer::Clear() {
+    m_Size = 0;
+    memset(m_Buffer, 0, m_Capacity);
+}
     
 int64_t QueueBuffer::Push(void * data, int64_t size){
     if(m_Size+size > m_Capacity)
@@ -44,7 +49,8 @@ int64_t QueueBuffer::Size(){
 int64_t QueueBuffer::Pop(void * targetData, int64_t targetSize){
     int64_t ret = MIN(targetSize,m_Size);
     
-    memcpy(targetData, m_Buffer, ret);
+    if(targetData!=NULL)
+        memcpy(targetData, m_Buffer, ret);
     
     m_Size -= ret;
     

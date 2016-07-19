@@ -9,6 +9,7 @@
 */
 
 #include "nckDemo_10.h"
+#include "bxonDataIO.h"
 
 _PBDEMO_BEGIN
 		
@@ -33,6 +34,52 @@ void RenderDot(Graph::Device * dev,Math::Vec3 p,float size){
 	dev->Vertex(p.GetX()+size,p.GetY()-size,p.GetZ());
 	dev->Vertex(p.GetX()+size,p.GetY()+size,p.GetZ());
 	dev->End();
+}
+
+void RenderBB(Graph::Device * dev, const Math::BoundBox & bb) {
+    Math::Vec3 b = bb.GetMin();
+    Math::Vec3 a = bb.GetMax();
+    
+    dev->Begin(Graph::PRIMITIVE_LINES);
+    // bottom
+    dev->Vertex(b.GetX(),a.GetY(),b.GetZ());
+    dev->Vertex(b.GetX(),b.GetY(),b.GetZ());
+    
+    dev->Vertex(b.GetX(),b.GetY(),b.GetZ());
+    dev->Vertex(a.GetX(),b.GetY(),b.GetZ());
+    
+    dev->Vertex(a.GetX(),b.GetY(),b.GetZ());
+    dev->Vertex(a.GetX(),a.GetY(),b.GetZ());
+    
+    dev->Vertex(a.GetX(),a.GetY(),b.GetZ());
+    dev->Vertex(b.GetX(),a.GetY(),b.GetZ());
+    
+    // top
+    dev->Vertex(b.GetX(),a.GetY(),a.GetZ());
+    dev->Vertex(b.GetX(),b.GetY(),a.GetZ());
+    
+    dev->Vertex(b.GetX(),b.GetY(),a.GetZ());
+    dev->Vertex(a.GetX(),b.GetY(),a.GetZ());
+    
+    dev->Vertex(a.GetX(),b.GetY(),a.GetZ());
+    dev->Vertex(a.GetX(),a.GetY(),a.GetZ());
+    
+    dev->Vertex(a.GetX(),a.GetY(),a.GetZ());
+    dev->Vertex(b.GetX(),a.GetY(),a.GetZ());
+    
+    // sides
+    dev->Vertex(b.GetX(),a.GetY(),a.GetZ());
+    dev->Vertex(b.GetX(),a.GetY(),b.GetZ());
+    
+    dev->Vertex(a.GetX(),a.GetY(),a.GetZ());
+    dev->Vertex(a.GetX(),a.GetY(),b.GetZ());
+    
+    dev->Vertex(a.GetX(),b.GetY(),a.GetZ());
+    dev->Vertex(a.GetX(),b.GetY(),b.GetZ());
+    
+    dev->Vertex(b.GetX(),b.GetY(),a.GetZ());
+    dev->Vertex(b.GetX(),b.GetY(),b.GetZ());
+    dev->End();
 }
 
 void RenderCircle(Graph::Device * dev, const Math::Vec3 & p, float radius){
@@ -122,7 +169,7 @@ float Object::GetMass() const{
 	return m_Mass;
 }
 
-Edge::Edge(bX::VertexIterator a, bX::VertexIterator b,bX::FaceIterator end){
+Edge::Edge(Geometry::VertexIterator a, Geometry::VertexIterator b,Geometry::FaceIterator end){
 	va = a;
 	vb = b;
 	fa = end;
@@ -139,28 +186,28 @@ bool Edge::Compare(const Edge & edge){
 	return false;
 }
 
-int ComputeMeshNonManifold(bX::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Line> * lines)
+int ComputeMeshNonManifold(Geometry::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Line> * lines)
 {
 	if(mesh && lines)
 	{
 		std::list<Edge*> allEdges;
 		std::list<std::list<Edge*> *> edgeListsPerVert;
 
-		ListFor(bX::Face*,mesh->m_Faces,i)
+		ListFor(Geometry::Face*,mesh->m_Faces,i)
 		{
 			for(int j = 0;j<(*i)->m_Verts.size();j++)
 			{
-				bX::VertexIterator v1 = (*i)->m_Verts[j];
+				Geometry::VertexIterator v1 = (*i)->m_Verts[j];
 
 				std::list<Edge*> *el1 = (std::list<Edge*>*)(*v1)->m_Auxiliar;
 				if(el1 == NULL){
 					el1 = new std::list<Edge*>();
 					edgeListsPerVert.push_back(el1);
-					(*v1)->m_Auxiliar = (bX::Auxiliar*)el1;
+					(*v1)->m_Auxiliar = (Geometry::Auxiliar*)el1;
 				}
 
 
-				bX::VertexIterator v2;
+				Geometry::VertexIterator v2;
 				if(j < (*i)->m_Verts.size()-1)
 					v2 = (*i)->m_Verts[j+1];
 				else
@@ -170,7 +217,7 @@ int ComputeMeshNonManifold(bX::Mesh * mesh,const Math::Mat44 & transform, std::l
 				if(el2 == NULL){
 					el2 = new std::list<Edge*>();
 					edgeListsPerVert.push_back(el2);
-					(*v2)->m_Auxiliar = (bX::Auxiliar*)el2;
+					(*v2)->m_Auxiliar = (Geometry::Auxiliar*)el2;
 				}
 
 
@@ -227,12 +274,12 @@ int ComputeMeshNonManifold(bX::Mesh * mesh,const Math::Mat44 & transform, std::l
 		// Remove edges with two faces.
 		ListFor(Edge*,allEdges,i){
 			if((*i)->fb == mesh->m_Faces.end()){
-				lines->push_back(Math::Line(bXToVec3((*(*i)->va)->m_Pos),bXToVec3((*(*i)->vb)->m_Pos)));
+				lines->push_back(Math::Line((*(*i)->va)->m_Pos,(*(*i)->vb)->m_Pos));
 			}
 			delete (*i);
 		}
 
-		ListFor(bX::Vertex*,mesh->m_Vertices,i){
+		ListFor(Geometry::Vertex*,mesh->m_Vertices,i){
 			(*i)->m_Auxiliar = NULL;
 		}
 	}
@@ -240,23 +287,23 @@ int ComputeMeshNonManifold(bX::Mesh * mesh,const Math::Mat44 & transform, std::l
 	return -1;
 }
 
-int ConvertMeshToTris(bX::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Triangle> * triangles){
+int ConvertMeshToTris(Geometry::Mesh * mesh,const Math::Mat44 & transform, std::list<Math::Triangle> * triangles){
 	if(mesh && triangles){
-		ListFor(bX::Face*,mesh->m_Faces,i){
+		ListFor(Geometry::Face*,mesh->m_Faces,i){
 			if((*i)->m_Verts.size()==3){
-				Math::Triangle t(bXToVec3((*(*i)->m_Verts[0])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[1])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[2])->m_Pos));
+				Math::Triangle t(((*(*i)->m_Verts[0])->m_Pos),
+					((*(*i)->m_Verts[1])->m_Pos),
+					((*(*i)->m_Verts[2])->m_Pos));
 				triangles->push_back(t);
 			}else if((*i)->m_Verts.size()==4){
-				Math::Triangle t1(bXToVec3((*(*i)->m_Verts[0])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[1])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[3])->m_Pos));
+				Math::Triangle t1(((*(*i)->m_Verts[0])->m_Pos),
+					((*(*i)->m_Verts[1])->m_Pos),
+					((*(*i)->m_Verts[3])->m_Pos));
 				triangles->push_back(t1);
 
-				Math::Triangle t2(bXToVec3((*(*i)->m_Verts[1])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[2])->m_Pos),
-					bXToVec3((*(*i)->m_Verts[3])->m_Pos));
+				Math::Triangle t2(((*(*i)->m_Verts[1])->m_Pos),
+					((*(*i)->m_Verts[2])->m_Pos),
+					((*(*i)->m_Verts[3])->m_Pos));
 				triangles->push_back(t2);
 			}
 		}
@@ -303,8 +350,8 @@ bool Collision::TestCollision(const Math::Line & limit, const Math::Line & movem
 
 	// Extend limit to "infinite"
 	Math::Line extLimit = Math::Line(
-		limit.GetStart()-limit.GetDirection()*10,
-		limit.GetEnd()+limit.GetDirection()*10);
+		limit.GetStart(),
+		limit.GetEnd());
 
 	// Extend movement to "infinite"
 	//Math::Line extMovement = Math::Line(
@@ -314,10 +361,36 @@ bool Collision::TestCollision(const Math::Line & limit, const Math::Line & movem
 	// Edge-Edge-Circle Colision - Path intersection test with a circle shape.
 	bool didColide = false;
 
-	bool tmpColide = NearestPointToIntersection(extLimit,movement,
-		radius,&intPoint,&prevTOIPoint);
+	//bool tmpColide = NearestPointToIntersection(extLimit,movement,
+	//	radius,&intPoint,&prevTOIPoint);
 
-	if(tmpColide){
+    float limitStart = (movement.GetEnd() - extLimit.GetStart()).Length();
+    float limitEnd = (movement.GetEnd() - extLimit.GetEnd()).Length();
+
+    if (MIN(limitStart,limitEnd) < radius) {
+
+        if (limitStart > limitEnd) {
+            col->m_Distance = limitEnd;
+            col->m_Intersection = extLimit.GetEnd();
+        }
+        else {
+            col->m_Distance = limitStart;
+            col->m_Intersection = extLimit.GetStart();
+        }
+
+        col->m_prevTOIPoint = col->m_Intersection;
+
+        Core::DebugLog(Math::FloatToString(col->m_Distance));
+        didColide = true;
+    }
+
+    float dist = 0;
+    bool yeah = Math::NearestPoint(extLimit, movement.GetEnd(), &intPoint, &dist);
+
+    if (yeah) {
+        Core::DebugLog(Math::FloatToString(dist));
+    }
+	/*if(tmpColide){
 		float dist1 = (intPoint - movement.GetStart()).Length();
 		float dist2 = movement.Length();
 
@@ -339,7 +412,7 @@ bool Collision::TestCollision(const Math::Line & limit, const Math::Line & movem
 		col->m_prevTOIPoint = prevTOIPoint;
 		col->m_Intersection = intPoint;
 		col->m_Limit = limit;
-	}
+	}*/
 
 	return didColide;
 }
@@ -417,7 +490,7 @@ Simulation::Simulation(){
 	ball = new PbDemo::Object(world);
 	ball->SetRadius(BALL_DIAMETER/2.0);
 	ball->SetLinearPosition(Math::Vec3(0,0,0));
-	ball->SetLinearVelocity(Math::Vec3(Math::RandomValue(-1,1),Math::RandomValue(-1,1),0)*2);
+	ball->SetLinearVelocity(Math::Vec3(-0.23,1,0));
 }
 
 Simulation::~Simulation(){
@@ -427,55 +500,61 @@ Simulation::~Simulation(){
 }
 
 void Simulation::Load(){
-	bX::File * pinballFile = bX::OpenFileStream(Core::ResolveFilename("model://demo_pinball_test.bx"));
-	if(pinballFile){
-		bX::Scene * scene = new bX::Scene();
-		bool success = scene->Read(pinballFile);
-		if(success){
-			bX::Mesh * mesh = scene->GetMesh("machine");
-			if(mesh){
-				Math::Mat44 mat;
-				PbDemo::ComputeMeshNonManifold(mesh,mat,&walls);
+    Core::FileReader * fr = Core::FileReader::Open("model://pinball.bxon");
+    BXON::ReaderContext * frCtx = new BXON::ReaderContext(fr);
+    BXON::Object * obj = BXON::Object::Parse(dynamic_cast<BXON::Context*>(frCtx));
 
-				Math::BoundBox bb;
-				ListFor(Math::Line, walls,i){
-					bb.Insert(i->GetStart());
-					bb.Insert(i->GetEnd());
-				}
+    BXON::Array * mArray = dynamic_cast<BXON::Map*>(obj)->GetArray("mesh");
+    		
+    Geometry::Mesh * mesh = Geometry::Mesh::Parse(mArray->GetMap(0));
+   
+	Math::Mat44 mat;
+	PbDemo::ComputeMeshNonManifold(mesh,mat,&walls);
 
-				node = new PbDemo::QtNode(bb);
-				ListFor(Math::Line, walls,i){
-					node->Insert(*i);
-				}
-			}
-		}
-		SafeDelete(scene);
+	Math::BoundBox bb;
+	ListFor(Math::Line, walls,i){
+		bb.Insert(i->GetStart());
+		bb.Insert(i->GetEnd());
 	}
-	SafeDelete(pinballFile);
+
+	node = new PbDemo::QtNode(bb);
+	ListFor(Math::Line, walls,i){
+		node->Insert(*i);
+	}
+			
+    SafeDelete(obj);
+    SafeDelete(frCtx);
+    SafeDelete(fr);
+}
+Math::BoundBox deslBB;
+
+void Simulation::PreSimulate(float dt) {
+
+    if (ball->GetLinearVelocity().Length()>5)
+        ball->SetLinearVelocity(Math::Normalize(ball->GetLinearVelocity())*5.0);
+
+    oldPosition = ball->GetLinearPosition();
+    oldVelocity = ball->GetLinearVelocity();
+
+    ball->LinearStep(dt);
 }
 
 bool Simulation::Simulate(float dt, int depth)
 {
-	if(ball->GetLinearVelocity().Length()>5)
-		ball->SetLinearVelocity(Math::Normalize(ball->GetLinearVelocity())*5.0);
-
-	Math::Vec3 oldPosition = ball->GetLinearPosition();
-	Math::Vec3 oldVelocity = ball->GetLinearVelocity();
 
 
-	ball->LinearStep(dt);
-
-	if(depth == 8) // Stop at 8 recursive calls
-		return true;
+	//if(depth == 8) // Stop at 8 recursive calls
+	//	return true;
 
 	Math::Line desl(oldPosition,ball->GetLinearPosition());
 
-	Math::BoundBox deslBB;
 
-	deslBB.Insert(desl.GetStart());
-	deslBB.Insert(desl.GetEnd());
+    deslBB = Math::BoundBox();
+	//deslBB.Insert(desl.GetStart());
+	//deslBB.Insert(desl.GetEnd());
+    deslBB.Insert(ball->GetLinearPosition());
 
-	Math::Vec3 bbNorm = Math::Vec3(0.707,0.707,0);
+	Math::Vec3 bbNorm = Math::Vec3(1,1,0);
 	deslBB.Insert(deslBB.GetMax()+bbNorm*ball->GetRadius());
 	deslBB.Insert(deslBB.GetMin()-bbNorm*ball->GetRadius());
 
@@ -490,7 +569,7 @@ bool Simulation::Simulate(float dt, int depth)
 	// Narrowphase Collision detection
 	{
 		double subStep = 0;
-		const int maxIter = 10;
+		const int maxIter = 1;
 		float a = 0.0;
 		float b = 1.0;
 
@@ -526,10 +605,12 @@ bool Simulation::Simulate(float dt, int depth)
 				prevPoint = oldPosition;
 				prevTOIPoint = colision.getprevTOIPoint();
 				subStep = ((double)(colision.getprevTOIPoint()-oldPosition).Length()) / (double)ball->GetLinearVelocity().Length();
-				b = (a+b)*0.5;
+				//b = (a+b)*0.5;
 			}else{
-				a = (a+b)*0.5;
+				//a = (a+b)*0.5;
 			}
+
+            a = 1.0 / maxIter;
 		}
 
 		if(didColide){
@@ -550,10 +631,12 @@ bool Simulation::Simulate(float dt, int depth)
 
 			prevExitVector = ball->GetLinearVelocity();
 
-			if(subStep<dt && subStep>0)
+			/*
+            if(subStep<dt && subStep>0)
 				return Simulate(dt-subStep,++depth);
 			else
 				Core::DebugLog("Ops!\n");
+            */
 		}
 
 	}
@@ -624,11 +707,11 @@ void Demo10::Render(float dt){
 	dev->MatrixMode(Graph::MATRIX_MODEL);
 	dev->Identity();
 
-	dev->Translate(0,0,-2);
+	dev->Translate(-sim->ball->GetLinearPosition().GetX(), -sim->ball->GetLinearPosition().GetY(),-1);
 
 	dev->Disable(Graph::STATE_DEPTH_TEST);
 
-	sim->Simulate();
+	sim->PreSimulate(1.0/240.0f);
 
 	dev->Color(0,0,0);
 	PbDemo::RenderLine(dev,Math::Line(sim->prevTOIPoint,sim->ball->GetLinearPosition()));
@@ -651,6 +734,9 @@ void Demo10::Render(float dt){
 
 	sim->Render(dev);
 
+    dev->Color(0, 255, 255);
+    PbDemo::RenderBB(dev, PbDemo::deslBB);
+
 	dev->MatrixMode(Graph::MATRIX_PROJECTION);
 	dev->Identity();
 	dev->Ortho2D(wnd->GetWidth(),wnd->GetHeight());
@@ -667,6 +753,8 @@ void Demo10::Render(float dt){
 
 	// Finish rendering and present the graphics.
 	dev->PresentAll();
+
+    sim->Simulate(1.0 / 240.0f);
 }
 
 void Demo10::UpdateWndEvents(){

@@ -13,7 +13,7 @@
 #include "../nckConfig.h"
 
 // Enable proxy resources to reuse loaded textures/programs
-//#define NCK_GRAPH_RES_PROXY
+#define NCK_GRAPH_RES_PROXY
 
 // Convert "source" to text string
 #define NCK_CODE(A) #A

@@ -37,6 +37,7 @@ FontMap::FontMap(Graph::Device *dev)
 	m_PositionAccuracy = FONT_POSITION_ACCURACY_FLOAT;
 	m_gDevice = dev;
 	m_Density = 1.0;
+    m_Relative = true;
 }
 
 FontMap::FontMap(Graph::Device *dev, float density) : FontMap(dev) {
@@ -61,7 +62,7 @@ void FontMap::Load(const std::string & filename)
 
 	bool bold_flag = false;
 	float dimensions = 1024;
-
+ 
 	while(reader->Read(&ch,1)>0)
 	{
 		if(ch == '\r')
@@ -119,9 +120,13 @@ void FontMap::Load(const std::string & filename)
 					}
 					else if(attribute == "Bold")
 					{
-						if(value == "True")
+						if(value == "true")
 							bold_flag = true;
 					}	
+                    else if (attribute == "Relative") {
+                        if (value == "false")
+                            m_Relative = false;
+                    }
 
 				}
 
@@ -167,53 +172,80 @@ bool FontMap::DrawChar(unsigned int ch, float &dx,float &dy,float size, bool bol
 
 	c = entry->second;
 
-	const float off = 0.0625f;
-	const float ioff = 16.0f;
+    if (m_Relative) {
+        const float off = 0.0625f;
+        const float ioff = 16.0f;
 
-	// 0.75f -> Center
-	// 0.5f -> Top
-	// 1.0f -> Bottom
-	float valign = 0.75;
+        // 0.75f -> Center
+        // 0.5f -> Top
+        // 1.0f -> Bottom
+        float valign = 0.75;
 
 
-	float yoff =  size*((1.0f - c.redline*ioff)-valign) ;
-	float xoff = size*c.left*ioff;
+        float yoff = size*((1.0f - c.redline*ioff) - valign);
+        float xoff = size*c.left*ioff;
 
-	if(m_PositionAccuracy == FONT_POSITION_ACCURACY_FLOAT)
-	{
-		m_gDevice->Begin(Graph::PRIMITIVE_QUADS);
-		m_gDevice->TexCoord(c.x,c.y);
-		m_gDevice->Vertex(dx-xoff,dy+yoff);
+        if (m_PositionAccuracy == FONT_POSITION_ACCURACY_FLOAT)
+        {
+            m_gDevice->Begin(Graph::PRIMITIVE_QUADS);
+            m_gDevice->TexCoord(c.x, c.y);
+            m_gDevice->Vertex(dx - xoff, dy + yoff);
 
-		m_gDevice->TexCoord(c.x,c.y+off);
-		m_gDevice->Vertex(dx-xoff,dy+size+yoff);
+            m_gDevice->TexCoord(c.x, c.y + off);
+            m_gDevice->Vertex(dx - xoff, dy + size + yoff);
 
-		m_gDevice->TexCoord(c.x+off,c.y+off);
-		m_gDevice->Vertex(dx+size-xoff,dy+size+yoff);
+            m_gDevice->TexCoord(c.x + off, c.y + off);
+            m_gDevice->Vertex(dx + size - xoff, dy + size + yoff);
 
-		m_gDevice->TexCoord(c.x+off,c.y);
-		m_gDevice->Vertex(dx+size-xoff,dy+yoff);
-		m_gDevice->End();
-	}
-	else
-	{
-		m_gDevice->Begin(Graph::PRIMITIVE_QUADS);
-		m_gDevice->TexCoord(c.x,c.y);
-		m_gDevice->Vertex((int)(dx-xoff),(int)(dy+yoff));
+            m_gDevice->TexCoord(c.x + off, c.y);
+            m_gDevice->Vertex(dx + size - xoff, dy + yoff);
+            m_gDevice->End();
+        }
+        else
+        {
+            m_gDevice->Begin(Graph::PRIMITIVE_QUADS);
+            m_gDevice->TexCoord(c.x, c.y);
+            m_gDevice->Vertex((int)(dx - xoff), (int)(dy + yoff));
 
-		m_gDevice->TexCoord(c.x,c.y+off);
-		m_gDevice->Vertex((int)(dx-xoff),(int)(dy+size+yoff));
+            m_gDevice->TexCoord(c.x, c.y + off);
+            m_gDevice->Vertex((int)(dx - xoff), (int)(dy + size + yoff));
 
-		m_gDevice->TexCoord(c.x+off,c.y+off);
-		m_gDevice->Vertex((int)(dx+size-xoff),int(dy+size+yoff));
+            m_gDevice->TexCoord(c.x + off, c.y + off);
+            m_gDevice->Vertex((int)(dx + size - xoff), int(dy + size + yoff));
 
-		m_gDevice->TexCoord(c.x+off,c.y);
-		m_gDevice->Vertex((int)(dx+size-xoff),(int)(dy+yoff));
-		m_gDevice->End();
-	}
+            m_gDevice->TexCoord(c.x + off, c.y);
+            m_gDevice->Vertex((int)(dx + size - xoff), (int)(dy + yoff));
+            m_gDevice->End();
+        }
 
-	dx+= size*(c.right - c.left)*ioff + 1.0f*size/16.0f;
+        dx += size*(c.right - c.left)*ioff + 1.0f*size / 16.0f;
+    }
+    else {
+        float u = c.left;
+        float v = c.top;
+        float u_w = c.right-c.left;
+        float v_h = c.bottom-c.top;
+        
+        float xoff = -size / 2;
+        float yoff = -size / 2;
 
+        
+        m_gDevice->Begin(Graph::PRIMITIVE_QUADS);
+        m_gDevice->TexCoord(u, v);
+        m_gDevice->Vertex(dx + xoff, dy + yoff);
+
+        m_gDevice->TexCoord(u, v + v_h);
+        m_gDevice->Vertex(dx + xoff, dy + size + yoff);
+
+        m_gDevice->TexCoord(u + u_w, v + v_h);
+        m_gDevice->Vertex(dx + size + xoff, dy + size + yoff);
+
+        m_gDevice->TexCoord(u + u_w, v);
+        m_gDevice->Vertex(dx + size + xoff, dy + yoff);
+        m_gDevice->End();
+
+        dx += size/2;
+    }
 	return true;
 
 }

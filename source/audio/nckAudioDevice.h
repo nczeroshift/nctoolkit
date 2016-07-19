@@ -72,6 +72,7 @@ class Device{
 public:
 	virtual ~Device(){};
 	
+    virtual int64_t GetTime() = 0;
 	virtual int GetSampleRate() = 0;
 	virtual int GetChannelsCount() = 0;
 	virtual Format GetDataFormat() = 0;
