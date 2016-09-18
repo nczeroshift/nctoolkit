@@ -13,6 +13,7 @@
 #include "nckFrustum.h"
 #include "nckLamp.h"
 #include "nckArmature.h"
+#include "nckGeometry.h"
 #include <list>
 
 _SCENE_BEGIN
@@ -34,7 +35,7 @@ public:
     bool Read(Core::DataReader *f);
     
 #ifdef NCK_BXON
-    bool ReadBXON(BXON::Map * entry);
+    bool ReadBXON(BXON::Map * entry, Processor * processor = NULL);
 #endif
     
     /// Get datablock reference by type and name.
@@ -88,9 +89,9 @@ public:
     
     /// Load models data from file.
     /// @throws Exception
-    void Load(const std::string & filename);
+    void Load(const std::string & filename, Processor * processor = NULL);
     
-    void Load(BXON::Map * entry);
+    void Load(BXON::Map * entry, Processor * processor = NULL);
     
     Math::BoundBox GetBoundBox();
     

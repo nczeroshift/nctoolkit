@@ -39,6 +39,7 @@
     <ClInclude Include="..\..\..\source\scene\nckMaterial.h" />
     <ClInclude Include="..\..\..\source\scene\nckModel.h" />
     <ClInclude Include="..\..\..\source\scene\nckObject.h" />
+    <ClInclude Include="..\..\..\source\scene\nckProcessor.h" />
     <ClInclude Include="..\..\..\source\scene\nckSceneConfig.h" />
     <ClInclude Include="..\..\..\source\scene\nckTexture.h" />
   </ItemGroup>

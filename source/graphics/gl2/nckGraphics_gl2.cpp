@@ -41,7 +41,12 @@ Device_GL2::Device_GL2(Core::Window * wnd,
 	m_AmbientColor[3] = 1.0;
 
 	m_ClearFlags = GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT;
-    
+
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_1D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_2D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_3D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_CUBE_MAP, 0));
+
 #if defined(NCK_WINDOWS)
     
 	GLuint pxFormat;
@@ -226,6 +231,15 @@ void Device_GL2::ClearColor(float r,float g,float b,float a){
 }
 
 void Device_GL2::PresentAll(){
+    if (m_ActiveProgram)
+        m_ActiveProgram->DisableInternal();
+    m_ActiveProgram = NULL;
+
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_1D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_2D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_3D, 0));
+    m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_CUBE_MAP, 0));
+
 #if defined(NCK_WINDOWS)
 	SwapBuffers(m_DrawingContext);
 #elif defined(NCK_LINUX)

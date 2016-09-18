@@ -273,6 +273,8 @@ void Texture2D_GL2::Enable(unsigned int sampler_id)
 			m_Device->m_TextureCache.GetTexture(sampler_id)->Disable(sampler_id);
 		}
 
+        m_Device->m_SamplersPerTarget.find(m_Target)->second++;
+       
 		// Enable this texture.
 		glEnable(m_Target);
 		glActiveTexture(GL_TEXTURE0+sampler_id);
@@ -291,13 +293,19 @@ void Texture2D_GL2::Disable(unsigned int sampler_id)
 	// Unbind texture if it was scheduled to be disabled.
 	if(!m_Device->m_TextureCache.GetTextureState(sampler_id))
 	{
-		glDisable(m_Target);
+        GLuint count = m_Device->m_SamplersPerTarget.find(m_Target)->second;
+        if (count > 0) count--;
+        m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
+
+        if (count == 0)
+            glDisable(m_Target);
+
 		glActiveTexture(GL_TEXTURE0+sampler_id);
 		glBindTexture(m_Target,0);
 
 		// Remove from cache
 		m_Device->m_TextureCache.SetTexture(NULL,false,sampler_id);
-
+     
 		return;
 	}
 
@@ -541,9 +549,19 @@ TextureCubemap_GL2::~TextureCubemap_GL2(){
 
 void TextureCubemap_GL2::Enable(unsigned int sampler_id){
 	if(sampler_id >= 8)	return;
-	if(m_Device->m_TextureCache.GetTexture(sampler_id) != (Texture2D*)this){
+	
+    if(m_Device->m_TextureCache.GetTexture(sampler_id) != (Texture2D*)this)
+    {
+        // Disable previous texture.
+        if (m_Device->m_TextureCache.GetTexture(sampler_id)) {
+            m_Device->m_TextureCache.GetTexture(sampler_id)->Disable(sampler_id);
+        }
+
+        m_Device->m_SamplersPerTarget.find(m_Target)->second++;
+       
+        glEnable(m_Target);
 		glActiveTexture(GL_TEXTURE0+sampler_id);
-		glBindTexture(GL_TEXTURE_CUBE_MAP,m_Texture);
+		glBindTexture(m_Target,m_Texture);
 	}
 	SetFilterAndWrapping();
 	m_Device->m_TextureCache.SetTexture((Texture2D*)this,true,sampler_id);
@@ -551,9 +569,22 @@ void TextureCubemap_GL2::Enable(unsigned int sampler_id){
 
 void TextureCubemap_GL2::Disable(unsigned int sampler_id){
 	if(sampler_id >= 8)	return;
-	if(!m_Device->m_TextureCache.GetTextureState(sampler_id)){
+	
+    if(!m_Device->m_TextureCache.GetTextureState(sampler_id))
+    {
+        if (m_Device->m_TextureCache.GetTexture(sampler_id)) {
+            m_Device->m_TextureCache.GetTexture(sampler_id)->Disable(sampler_id);
+        }
+
+        GLuint count = m_Device->m_SamplersPerTarget.find(m_Target)->second;
+        if (count > 0)
+            count--;
+        m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
+
+        if (count == 0)
+            glDisable(m_Target);
 		glActiveTexture(GL_TEXTURE0+sampler_id);
-		glBindTexture(GL_TEXTURE_CUBE_MAP,0);
+		glBindTexture(m_Target,0);
 	}
 	m_Device->m_TextureCache.SetTexture((Texture2D*)this,false,sampler_id);
 }
@@ -793,7 +824,9 @@ void Texture3D_GL2::Enable(unsigned int sampler_id){
 		if(m_Device->m_TextureCache.GetTexture(sampler_id)){
 			m_Device->m_TextureCache.GetTexture(sampler_id)->Disable(sampler_id);
 		}
-
+        
+        m_Device->m_SamplersPerTarget.find(m_Target)->second++;
+        
 		// Enable this texture.
 		glEnable(m_Target);
 		glActiveTexture(GL_TEXTURE0+sampler_id);
@@ -811,13 +844,19 @@ void Texture3D_GL2::Disable(unsigned int sampler_id){
 	// Unbind texture if it was scheduled to be disabled.
 	if(!m_Device->m_TextureCache.GetTextureState(sampler_id))
 	{
-		glDisable(m_Target);
+        GLuint count = m_Device->m_SamplersPerTarget.find(m_Target)->second;
+        if (count > 0)
+            count--;
+        m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
+
+        if (count == 0)
+            glDisable(m_Target);
+
 		glActiveTexture(GL_TEXTURE0+sampler_id);
 		glBindTexture(m_Target,0);
 
 		// Remove from cache
 		m_Device->m_TextureCache.SetTexture(NULL,false,sampler_id);
-
 		return;
 	}
 

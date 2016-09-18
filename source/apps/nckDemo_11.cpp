@@ -12,10 +12,13 @@
 Demo11::Demo11(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
 	this->wnd = wnd;
+    basic = NULL;
+    scene = NULL;
 }
 
 Demo11::~Demo11(){
-    
+    SafeDelete(scene);
+    SafeDelete(basic);
 }
 
 void Demo11::Load(){

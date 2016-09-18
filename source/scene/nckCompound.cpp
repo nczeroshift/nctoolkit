@@ -50,7 +50,7 @@ DatablockType Compound::GetType(){
 
 #ifdef NCK_BXON
 
-bool Compound::ReadBXON(BXON::Map * entry){
+bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
     
     std::map<std::string,Datablock *> tex_map;
     std::map<std::string,Datablock *> mat_map;
@@ -77,6 +77,8 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 THROW_EXCEPTION_STACK("Unable to load compound texture resource",ex);
             }
             
+            if (processor) tex = processor->HandleTexture(tex);
+
             m_Textures.push_back(tex);
         }
     }
@@ -98,6 +100,8 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 THROW_EXCEPTION_STACK("Unable to load material material resource",ex);
             }
             
+            if (processor) mat = processor->HandleMaterial(mat);
+
             m_Materials.push_back(mat);
         }
     }
@@ -119,6 +123,8 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 THROW_EXCEPTION_STACK("Unable to load compound armature resource",ex);
             }
             
+            if (processor) arm = processor->HandleArmature(arm);
+
             m_Armatures.push_back(arm);
         }
     }
@@ -132,7 +138,7 @@ bool Compound::ReadBXON(BXON::Map * entry){
             BXON::Map * entry = models->GetMap(i);
             
             try{
-                mod->Read(entry, mat_map, arm_map);
+                mod->Read(entry, mat_map, arm_map, processor);
                 mod_map.insert(std::pair<std::string, Datablock *>(mod->GetName(), mod));
             }
             catch(Core::Exception & ex){
@@ -161,6 +167,8 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 THROW_EXCEPTION_STACK("Unable to load compound camera resource",ex);
             }
             
+            if (processor) cam = processor->HandleCamera(cam);
+
             m_Cameras.push_back(cam);
         }
     }
@@ -181,6 +189,8 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 THROW_EXCEPTION_STACK("Unable to load compound lamp resource",ex);
             }
             
+            if (processor) lamp = processor->HandleLamp(lamp);
+
             m_Lamps.push_back(lamp);
         }
     }
@@ -226,6 +236,9 @@ bool Compound::ReadBXON(BXON::Map * entry){
                 };
                 
             }
+
+            if (processor) 
+                processor->HandleObject(obj);
         }
         
     }
@@ -501,7 +514,7 @@ Compound_Basic::~Compound_Basic()
     m_MObjects.clear();
 }
 
-void Compound_Basic::Load(const std::string &filename)
+void Compound_Basic::Load(const std::string & filename, Processor * processor)
 {
     Core::FileReader * f = Core::FileReader::Open(filename);
     
@@ -516,8 +529,9 @@ void Compound_Basic::Load(const std::string &filename)
         try {
             frCtx = new BXON::ReaderContext(f);
             obj = BXON::Object::Parse(dynamic_cast<BXON::Context*>(frCtx));
+            if (processor) obj = processor->HandleData(obj);
             map = dynamic_cast<BXON::Map*>(obj);
-            ReadBXON(map);
+            ReadBXON(map,processor);
         }
         catch (const Core::Exception & e) {
             SafeDelete(obj);
@@ -559,7 +573,7 @@ Math::BoundBox Compound_Basic::GetBoundBox(){
     return m_Boundbox;
 }
 
-void Compound_Basic::Load(BXON::Map * entry){
+void Compound_Basic::Load(BXON::Map * entry, Processor * processor){
     ReadBXON(entry);
     
     Math::BoundBox tmpBB;

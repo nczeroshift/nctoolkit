@@ -101,5 +101,8 @@
     <ClInclude Include="..\..\..\source\scene\nckGeometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\scene\nckProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

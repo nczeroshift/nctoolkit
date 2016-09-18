@@ -370,6 +370,7 @@ public:
 	bool m_ToRemove;
 	
     int Reload();
+    void BindUniforms();
 
 protected:
     std::string m_Filename;
@@ -609,7 +610,9 @@ public:
 	bool RemoveProgramProxy(Program_GL2 * prog);
 #endif
 
-	/// Update various matrix for shaders.
+    std::map<GLuint, GLuint> m_SamplersPerTarget;
+	
+    /// Update various matrix for shaders.
 	void UpdateMatrix();
 
 	/// Face culling mode.

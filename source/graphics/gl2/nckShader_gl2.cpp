@@ -159,36 +159,40 @@ void Program_GL2::Load(const std::string & source){
 		THROW_EXCEPTION(std::string("Program link error : ")+std::string(buffer));
 	}
 
-	m_TextureSampler[0] = glGetUniformLocation(m_Program,"gphTexture0");
-	m_TextureSampler[1] = glGetUniformLocation(m_Program,"gphTexture1");
-	m_TextureSampler[2] = glGetUniformLocation(m_Program,"gphTexture2");
-	m_TextureSampler[3] = glGetUniformLocation(m_Program,"gphTexture3");
-	m_TextureSampler[4] = glGetUniformLocation(m_Program,"gphTexture4");
-	m_TextureSampler[5] = glGetUniformLocation(m_Program,"gphTexture5");
-	m_TextureSampler[6] = glGetUniformLocation(m_Program,"gphTexture6");
-	m_TextureSampler[7] = glGetUniformLocation(m_Program,"gphTexture7");
+    BindUniforms();
+}
 
-	for(int i = 0;i<8;i++)
-		if(m_TextureSampler[i] != -1)
-			glUniform1i(m_TextureSampler[i],i);
+void Program_GL2::BindUniforms() {
+    m_TextureSampler[0] = glGetUniformLocation(m_Program, "gphTexture0");
+    m_TextureSampler[1] = glGetUniformLocation(m_Program, "gphTexture1");
+    m_TextureSampler[2] = glGetUniformLocation(m_Program, "gphTexture2");
+    m_TextureSampler[3] = glGetUniformLocation(m_Program, "gphTexture3");
+    m_TextureSampler[4] = glGetUniformLocation(m_Program, "gphTexture4");
+    m_TextureSampler[5] = glGetUniformLocation(m_Program, "gphTexture5");
+    m_TextureSampler[6] = glGetUniformLocation(m_Program, "gphTexture6");
+    m_TextureSampler[7] = glGetUniformLocation(m_Program, "gphTexture7");
 
-	m_DiffuseColor = glGetUniformLocation(m_Program,"gphDiffuseColor");
-	m_SpecularColor = glGetUniformLocation(m_Program,"gphSpecularColor");
-	m_SpecularPower = glGetUniformLocation(m_Program,"gphSpecularPower");
-	m_AmbientColor = glGetUniformLocation(m_Program,"gphAmbientColor");
-	m_ModelMatrix = glGetUniformLocation(m_Program,"gphModelMatrix");
-	m_ModelViewMatrix = glGetUniformLocation(m_Program,"gphModelViewMatrix");
-	m_NormalMatrix = glGetUniformLocation(m_Program,"gphNormalMatrix");
+    for (int i = 0; i<8; i++)
+        if (m_TextureSampler[i] != -1)
+            glUniform1i(m_TextureSampler[i], i);
 
-	m_ProjectionModelViewMatrix = glGetUniformLocation(m_Program,"gphPMVMatrix");
-	m_ProjectionViewMatrix = glGetUniformLocation(m_Program,"gphProjectionViewMatrix");
-	m_ViewMatrix = glGetUniformLocation(m_Program,"gphViewMatrix");
+    m_DiffuseColor = glGetUniformLocation(m_Program, "gphDiffuseColor");
+    m_SpecularColor = glGetUniformLocation(m_Program, "gphSpecularColor");
+    m_SpecularPower = glGetUniformLocation(m_Program, "gphSpecularPower");
+    m_AmbientColor = glGetUniformLocation(m_Program, "gphAmbientColor");
+    m_ModelMatrix = glGetUniformLocation(m_Program, "gphModelMatrix");
+    m_ModelViewMatrix = glGetUniformLocation(m_Program, "gphModelViewMatrix");
+    m_NormalMatrix = glGetUniformLocation(m_Program, "gphNormalMatrix");
+
+    m_ProjectionModelViewMatrix = glGetUniformLocation(m_Program, "gphPMVMatrix");
+    m_ProjectionViewMatrix = glGetUniformLocation(m_Program, "gphProjectionViewMatrix");
+    m_ViewMatrix = glGetUniformLocation(m_Program, "gphViewMatrix");
 }
 
 int Program_GL2::Reload() {
     int64_t currentModified = Core::GetFileLastModified(m_Filename);
 
-    if (m_LastModified == 0 || currentModified - m_LastModified < 10) {
+    if (m_LastModified == 0 || currentModified - m_LastModified < 1) {
         return 0;
     }
 
@@ -223,8 +227,16 @@ int Program_GL2::Reload() {
     }
 
     if (oldProgram != m_Program) {
+        
+        for (std::map<std::string, Shader_GL2_Variable*>::iterator i = m_Variables.begin(); i != m_Variables.end(); i++) {
+            SafeDelete(i->second);
+        }
+        m_Variables.clear();
+
         if (m_Device->m_ActiveProgram == this) 
             DisableInternal();
+
+        BindUniforms();
 
         if (oldVsh) glDeleteShader(oldVsh);
         if (oldFsh) glDeleteShader(oldFsh);

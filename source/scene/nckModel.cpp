@@ -345,7 +345,7 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
 }
 
 #ifdef NCK_BXON
-void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & mMap, const std::map<std::string, Datablock*> & aMap)
+void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & mMap, const std::map<std::string, Datablock*> & aMap, Processor  * processor)
 {
     m_Name = entry->GetString("name");
     
@@ -374,7 +374,9 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
     }
     
     Geometry::Mesh * msh = Geometry::Mesh::Parse(entry);
-    
+
+    if (processor) msh = processor->HandleGeometry(msh);
+
     if(msh->m_UVLayers.size() > 0)
     {
         for(unsigned int i = 0;i<msh->m_UVLayers.size();i++)

@@ -50,7 +50,7 @@ Texture* TextureCache::GetTexture(unsigned int sampler)
 void TextureCache::Check()
 {
 	unsigned int last=0;
-
+    
 	for(unsigned int i = 0;i<m_MaxEnabled;i++){
 		if(!m_Status[i] && m_Textures[i]){
 			m_Textures[i]->Disable(i);
@@ -61,6 +61,7 @@ void TextureCache::Check()
 
 	m_MaxEnabled = last;
 }
+
 
 bool TextureCache::GetTextureState(unsigned int sampler)
 {

@@ -9,6 +9,7 @@
 
 #include "nckMaterial.h"
 #include "nckBoundBox.h"
+#include "nckProcessor.h"
 
 _SCENE_BEGIN
 
@@ -29,7 +30,7 @@ public:
     void Read(Core::DataReader * f,std::vector<Material *> * mat_vec);
     
 #ifdef NCK_BXON
-    void Read(BXON::Map * entry, const std::map<std::string, Datablock *> & mMap, const std::map<std::string, Datablock*> & aMap);
+    void Read(BXON::Map * entry, const std::map<std::string, Datablock *> & mMap, const std::map<std::string, Datablock*> & aMap, Processor  * processor = NULL);
 #endif
     
     /// Render model
