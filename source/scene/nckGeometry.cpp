@@ -176,6 +176,93 @@ void ShapeKey::Parse(BXON::Map * mesh, const std::vector<VertexIterator*> & vIte
 }
 #endif
 
+FaceUV::FaceUV() {
+
+}
+
+FaceUV::~FaceUV() {
+}
+
+void FaceUV::Check(int layer, int vid) {
+    if (layer >= m_Channels.size()) {
+        for (int i = m_Channels.size(); i <= layer; i++) {
+            m_Channels.push_back(0);
+            m_Coordinates.push_back(std::vector<Math::Vec4>());
+        }
+    }
+
+    if (vid >= m_Coordinates[layer].size()) {
+        for (int i = m_Coordinates[layer].size(); i <= vid; i++) {
+            m_Coordinates[layer].push_back(Math::Vec4());
+        }
+    }
+}
+
+void FaceUV::SetUV(int layer, int vId, float u, float v) {
+    Check(layer, vId);
+    m_Channels[layer] = 2;
+    m_Coordinates[layer][vId] = Math::Vec4(u, v, 0, 0);
+}
+
+void FaceUV::SetUV(int layer, int vId, const Math::Vec2 & uv) {
+    Check(layer, vId);
+    m_Channels[layer] = 2;
+    m_Coordinates[layer][vId] = Math::Vec4(uv.GetX(), uv.GetY(), 0, 0);
+}
+
+Math::Vec2 FaceUV::GetUV(int layer, int vId) {
+    if (layer < m_Coordinates.size())
+        if (vId < m_Coordinates[layer].size())
+            return m_Coordinates[layer][vId];
+    return Math::Vec2();
+}
+
+void FaceUV::SetUVZ(int layer, int vId, float u, float v, float z) {
+    Check(layer, vId);
+    m_Channels[layer] = 3;
+    m_Coordinates[layer][vId] = Math::Vec4(u, v, z, 0);
+}
+
+void FaceUV::SetUVZ(int layer, int vId, const Math::Vec3 & uvz) {
+    Check(layer, vId);
+    m_Channels[layer] = 3;
+    m_Coordinates[layer][vId] = Math::Vec4(uvz.GetX(), uvz.GetY(), uvz.GetZ(), 0);
+}
+
+Math::Vec3 FaceUV::GetUVZ(int layer, int vId) {
+    if (layer < m_Coordinates.size())
+        if (vId < m_Coordinates[layer].size())
+            return m_Coordinates[layer][vId];
+    return Math::Vec3();
+}
+
+void FaceUV::SetUVZW(int layer, int vId, float u, float v, float z, float w) {
+    Check(layer, vId);
+    m_Channels[layer] = 3;
+    m_Coordinates[layer][vId] = Math::Vec4(u, v, z, 0);
+}
+
+void FaceUV::SetUVZW(int layer, int vId, const Math::Vec4 & uvzw) {
+    Check(layer, vId);
+    m_Channels[layer] = 3;
+    m_Coordinates[layer][vId] = Math::Vec4(uvzw.GetX(), uvzw.GetY(), uvzw.GetZ(), uvzw.GetW());
+}
+
+Math::Vec4 FaceUV::GetUVZW(int layer, int vId) {
+    if (layer < m_Coordinates.size())
+        if (vId < m_Coordinates[layer].size())
+            return m_Coordinates[layer][vId];
+    return Math::Vec4();
+}
+
+int FaceUV::GetLayers() {
+    return m_Coordinates.size();
+}
+
+int FaceUV::GetChannels(int layer) {
+    return m_Channels[layer];
+}
+
 Face::Face()
 {
     m_Id = 0;

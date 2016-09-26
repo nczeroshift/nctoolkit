@@ -185,6 +185,31 @@ public:
 #endif
 };
 
+class FaceUV {
+public:
+    FaceUV();
+    ~FaceUV();
+
+    void SetUV(int layer,int vId, float u, float v);
+    void SetUV(int layer,int vId, const Math::Vec2 & uv);
+    Math::Vec2 GetUV(int layer, int vId);
+
+    void SetUVZ(int layer, int vId, float u, float v, float z);
+    void SetUVZ(int layer, int vId, const Math::Vec3 & uvz);
+    Math::Vec3 GetUVZ(int layer, int vId);
+
+    void SetUVZW(int layer, int vId, float u, float v, float z, float w);
+    void SetUVZW(int layer, int vId, const Math::Vec4 & uvzw);
+    Math::Vec4 GetUVZW(int layer, int vId);
+
+    int GetLayers();
+    int GetChannels(int layer);
+private:
+
+    void Check(int layer, int vid);
+    std::vector<int> m_Channels;
+    std::vector<std::vector<Math::Vec4>> m_Coordinates;
+};
 
 /**
  * Mesh face, with 3 or 4 vertices plus uv and color values.
@@ -207,6 +232,8 @@ public:
     /// Assigned uv mapping coordinates.
     std::vector<std::vector<Math::Vec2>> m_UV;
     
+    FaceUV m_fUV;
+
     /// Assigned vertex color values.
     std::vector<std::vector<Math::Color4ub>> m_Color;
     
