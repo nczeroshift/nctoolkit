@@ -404,6 +404,8 @@ int64_t GetFileLastModified(const std::string & filename) {
     time_t tt = mktime(&t);
 
     return tt;
+#elif defined(NCK_MACOSX)
+    return FileModified_MacOSX(path);
 #else
     return 0;
 #endif

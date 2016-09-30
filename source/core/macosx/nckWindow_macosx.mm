@@ -23,6 +23,12 @@ std::string Application_Filename_MacOSX(){
     return ret;
 }
 
+int64_t FileModified_MacOSX(const std::string & filename){
+    NSDictionary * dic = [[NSFileManager defaultManager] attributesOfItemAtPath:[NSString stringWithUTF8String:filename.c_str()] error:nil];
+    NSDate * d = [dic objectForKey:NSFileModificationDate];
+    return [d timeIntervalSince1970] * 1e3;
+}
+
 @interface CustomNSWindow : NSWindow<NSWindowDelegate>
 @property (nonatomic, readwrite) Core::Window_MacOSX * m_Wrapper;
 @end

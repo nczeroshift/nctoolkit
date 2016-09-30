@@ -11,8 +11,9 @@
 #include <list>
 
 #include "nckSceneConfig.h"
-#include "nckVec3.h"
 #include "nckVec2.h"
+#include "nckVec3.h"
+#include "nckVec4.h"
 #include "nckBoundBox.h"
 #include "nckUtils.h"
 
@@ -185,6 +186,9 @@ public:
 #endif
 };
 
+/**
+ * Store face uv data.
+ */
 class FaceUV {
 public:
     FaceUV();
@@ -322,6 +326,7 @@ public:
     
     /// UV layers names.
     std::vector<std::string> m_UVLayers;
+    std::vector<std::pair<std::string,uint32_t>> m_UVLayers2;
     
     // Color layers names.
     std::vector<std::string> m_ColorLayers;
@@ -364,6 +369,10 @@ public:
      * @param layer_id UV layer id.
      */
     friend void GetTextureCoords(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
+    
+    friend void GetTextureCoordsUV(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
+    friend void GetTextureCoordsUVZ(Mesh * mesh, Math::Vec3 ** uv, unsigned int layer_id);
+    friend void GetTextureCoordsUVZW(Mesh * mesh, Math::Vec4 ** uv, unsigned int layer_id);
     
     /**
      * Solve mesh seams issues by creating new vertices to store
@@ -413,6 +422,7 @@ void GetVertexSkinning(Mesh * mesh, const std::map<std::string, int> & boneIds, 
 void GetVertexColor(Mesh * mesh, Math::Color4ub **col);
 void GetTextureCoords(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
 unsigned int OptimizeSeams(Mesh * mesh, unsigned int layer_id);
+unsigned int OptimizeSeams2(Mesh * mesh, unsigned int layer_id);
 void MaterialBlending(Mesh * mesh, float factor, bool border_scale);
 void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int *face_count, bool sort);
 void GetTangentVectorBuffer(int vertices,int faces,Math::Vec3 * vb, Math::Vec3 * nb, Math::Vec2 * uv, XTriangleFace *fcb, Math::Vec4 ** t_coords);

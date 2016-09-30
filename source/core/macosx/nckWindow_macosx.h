@@ -52,6 +52,8 @@ void Application_Main_MacOSX(const std::vector<std::string> & CmdLine);
 _CORE_END
 
 std::string Application_Filename_MacOSX();
+int64_t FileModified_MacOSX(const std::string & filename);
+
 void * AutoReleasePool_Create_MacOSX();
 void AutoReleasePool_Destroy_MacOSX(void * pool);
 void MessageBox_MacOSX(const std::string & msg, const std::string & title);

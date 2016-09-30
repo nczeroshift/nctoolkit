@@ -185,14 +185,14 @@ FaceUV::~FaceUV() {
 
 void FaceUV::Check(int layer, int vid) {
     if (layer >= m_Channels.size()) {
-        for (int i = m_Channels.size(); i <= layer; i++) {
+        for (size_t i = m_Channels.size(); i <= layer; i++) {
             m_Channels.push_back(0);
             m_Coordinates.push_back(std::vector<Math::Vec4>());
         }
     }
 
     if (vid >= m_Coordinates[layer].size()) {
-        for (int i = m_Coordinates[layer].size(); i <= vid; i++) {
+        for (size_t i = m_Coordinates[layer].size(); i <= vid; i++) {
             m_Coordinates[layer].push_back(Math::Vec4());
         }
     }
@@ -213,7 +213,7 @@ void FaceUV::SetUV(int layer, int vId, const Math::Vec2 & uv) {
 Math::Vec2 FaceUV::GetUV(int layer, int vId) {
     if (layer < m_Coordinates.size())
         if (vId < m_Coordinates[layer].size())
-            return m_Coordinates[layer][vId];
+            return Math::Vec2(Math::Vec3(m_Coordinates[layer][vId]));
     return Math::Vec2();
 }
 
@@ -364,6 +364,7 @@ void Face::Parse(BXON::Map * mesh, std::list<Face*> * fOut, const std::vector<Ve
                 
                 for(int uvl = 0;uvl < uvlCount; uvl++){
                     f->m_UV[uvl].push_back(Math::Vec2(x,y));
+                    f->m_fUV.SetUV(uvl, j, x, y);
                 }
             }
         }
@@ -498,7 +499,52 @@ void GetTextureCoords(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id)
         for(int fv_id = 0;fv_id < (int)(*f)->m_Verts.size();fv_id++)
         {
             int v_id = (*(*f)->m_Verts[fv_id])->m_Id;
-            uvt[v_id] = (*f)->m_UV[layer_id][fv_id];
+            uvt[v_id] = (*f)->m_UV[layer_id][fv_id]; // (*f)->m_fUV.GetUV(layer_id, fv_id)
+        }
+    }
+    
+    *uv = uvt;
+}
+
+void GetTextureCoordsUV(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id){
+    Math::Vec2 * uvt = new Math::Vec2[mesh->m_Vertices.size()];
+    
+    ListFor(Face*,mesh->m_Faces,f)
+    {
+        for(int fv_id = 0;fv_id < (int)(*f)->m_Verts.size();fv_id++)
+        {
+            int v_id = (*(*f)->m_Verts[fv_id])->m_Id;
+            uvt[v_id] = (*f)->m_fUV.GetUV(layer_id, fv_id);
+        }
+    }
+    
+    *uv = uvt;
+}
+
+void GetTextureCoordsUVZ(Mesh * mesh, Math::Vec3 ** uv, unsigned int layer_id){
+    Math::Vec3 * uvt = new Math::Vec3[mesh->m_Vertices.size()];
+    
+    ListFor(Face*,mesh->m_Faces,f)
+    {
+        for(int fv_id = 0;fv_id < (int)(*f)->m_Verts.size();fv_id++)
+        {
+            int v_id = (*(*f)->m_Verts[fv_id])->m_Id;
+            uvt[v_id] = (*f)->m_fUV.GetUVZ(layer_id, fv_id);
+        }
+    }
+    
+    *uv = uvt;
+}
+
+void GetTextureCoordsUVZW(Mesh * mesh, Math::Vec4 ** uv, unsigned int layer_id){
+    Math::Vec4 * uvt = new Math::Vec4[mesh->m_Vertices.size()];
+    
+    ListFor(Face*,mesh->m_Faces,f)
+    {
+        for(int fv_id = 0;fv_id < (int)(*f)->m_Verts.size();fv_id++)
+        {
+            int v_id = (*(*f)->m_Verts[fv_id])->m_Id;
+            uvt[v_id] = (*f)->m_fUV.GetUVZW(layer_id, fv_id);
         }
     }
     
@@ -516,7 +562,7 @@ public:
     /// @param uv First face uv coordinate
     /// @param v Reference to vertice which will be assigned
     /// with the first uv coordinate.
-    Vertex_Optimizer_Seams(Math::Vec2 uv, Vertex *v)
+    Vertex_Optimizer_Seams(const Math::Vec4 & uv, Vertex *v)
     {
         m_Coords.push_front(uv);
         m_Original=v;
@@ -535,15 +581,18 @@ public:
     /// @param uv The uv coordinate to test.
     /// @return True if a new vertex was added to the mesh to hold
     /// the new uv coordinate.
-    bool Check(Face * fc,unsigned int id, std::list<Vertex*> &vert_list,Math::Vec2 uv)
+    bool Check(Face * fc,unsigned int id, std::list<Vertex*> &vert_list, const Math::Vec4 & uv)
     {
         // Search if the uv already exists.
         bool found = false;
         int v_uv_id = 0;
         
-        ListFor(Math::Vec2,m_Coords,co)
+        ListFor(Math::Vec4,m_Coords,co)
         {
-            if((*co).GetX() == uv.GetX() && (*co).GetY() == uv.GetY())
+            if((*co).GetX() == uv.GetX() &&
+               (*co).GetY() == uv.GetY() &&
+               (*co).GetZ() == uv.GetZ() &&
+               (*co).GetW() == uv.GetW() )
             {
                 found = true;
                 break;
@@ -588,7 +637,7 @@ public:
     /// Reference to the first vertex.
     Vertex *m_Original;
     /// List of uv coordinates.
-    std::list<Math::Vec2> m_Coords;
+    std::list<Math::Vec4> m_Coords;
     /// List of new vertices added.
     std::list<VertexIterator> m_Vertices;
 };
@@ -606,11 +655,13 @@ unsigned int OptimizeSeams(Mesh * mesh, unsigned int layer_id)
             
             if(!v->m_Auxiliar)
             {
-                v->m_Auxiliar = new Vertex_Optimizer_Seams(f->m_UV[layer_id][i],v);
+                v->m_Auxiliar = new Vertex_Optimizer_Seams(Math::Vec4(Math::Vec3(f->m_UV[layer_id][i],0),0),v);
             }
             else
-                if(((Vertex_Optimizer_Seams*)v->m_Auxiliar)->Check(f,i,mesh->m_Vertices,f->m_UV[layer_id][i]))
+            {
+                if(((Vertex_Optimizer_Seams*)v->m_Auxiliar)->Check(f,i,mesh->m_Vertices, Math::Vec4(Math::Vec3(f->m_UV[layer_id][i],0),0)))
                     new_verts++;
+            }
         }
     }
     
@@ -627,6 +678,40 @@ unsigned int OptimizeSeams(Mesh * mesh, unsigned int layer_id)
     return new_verts;
 }
 
+unsigned int OptimizeSeams2(Mesh * mesh, unsigned int layer_id){
+    int new_verts = 0;
+    ListFor(Face*,mesh->m_Faces,f_i)
+    {
+        Face * f = (*f_i);
+        for(unsigned int i = 0;i < f->m_Verts.size() ; i++)
+        {
+            Vertex *v = (*f->m_Verts[i]);
+            Math::Vec4 uvzw = f->m_fUV.GetUVZW(layer_id, i);
+            
+            if(!v->m_Auxiliar)
+            {
+                v->m_Auxiliar = new Vertex_Optimizer_Seams(uvzw,v);
+            }
+            else
+            {
+                if(((Vertex_Optimizer_Seams*)v->m_Auxiliar)->Check(f,i,mesh->m_Vertices, uvzw))
+                    new_verts++;
+            }
+        }
+    }
+    
+    // Cleanup
+    ListFor(Vertex *, mesh->m_Vertices,v)
+    {
+        if((*v)->m_Auxiliar)
+        {
+            delete (*v)->m_Auxiliar;
+            (*v)->m_Auxiliar = NULL;
+        }
+    }
+    
+    return new_verts;
+}
 
 void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int * face_count, bool sort)
 {

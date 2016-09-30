@@ -136,17 +136,17 @@ public:
 			gettimeofday(&thisInstant, NULL);
 			long int diff = (thisInstant.tv_usec + 1000000 * thisInstant.tv_sec) -
 										(m_Start.tv_usec + 1000000 * m_Start.tv_sec);
-			return diff/1.0e3;
+			return diff;
 		}
 		else{
 			long int diff = (m_Stop.tv_usec + 1000000 * m_Stop.tv_sec) -
 							(m_Start.tv_usec + 1000000 * m_Start.tv_sec);
-			return diff/1.0e3;
+			return diff;
 		}
 	}
     
     bool IsRunning() {
-        return IsRunning;
+        return m_Running;
     }
 
 private:
