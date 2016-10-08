@@ -186,9 +186,6 @@ public:
 #endif
 };
 
-/**
- * Store face uv data.
- */
 class FaceUV {
 public:
     FaceUV();
@@ -196,18 +193,18 @@ public:
 
     void SetUV(int layer,int vId, float u, float v);
     void SetUV(int layer,int vId, const Math::Vec2 & uv);
-    Math::Vec2 GetUV(int layer, int vId);
+    Math::Vec2 GetUV(int layer, int vId) const;
 
     void SetUVZ(int layer, int vId, float u, float v, float z);
     void SetUVZ(int layer, int vId, const Math::Vec3 & uvz);
-    Math::Vec3 GetUVZ(int layer, int vId);
+    Math::Vec3 GetUVZ(int layer, int vId) const;
 
     void SetUVZW(int layer, int vId, float u, float v, float z, float w);
     void SetUVZW(int layer, int vId, const Math::Vec4 & uvzw);
-    Math::Vec4 GetUVZW(int layer, int vId);
+    Math::Vec4 GetUVZW(int layer, int vId) const;
 
-    int GetLayers();
-    int GetChannels(int layer);
+    int GetLayers() const;
+    int GetChannels(int layer) const;
 private:
 
     void Check(int layer, int vid);
@@ -234,10 +231,9 @@ public:
     int m_MatIndex;
     
     /// Assigned uv mapping coordinates.
-    std::vector<std::vector<Math::Vec2>> m_UV;
-    
     FaceUV m_fUV;
-
+    //std::vector<std::vector<Math::Vec2>> m_UV;
+      
     /// Assigned vertex color values.
     std::vector<std::vector<Math::Color4ub>> m_Color;
     
@@ -326,8 +322,10 @@ public:
     
     /// UV layers names.
     std::vector<std::string> m_UVLayers;
-    std::vector<std::pair<std::string,uint32_t>> m_UVLayers2;
     
+    /// Perform seams optimization per uv layer
+    std::vector<bool> m_UVOptimization;
+
     // Color layers names.
     std::vector<std::string> m_ColorLayers;
     
@@ -369,11 +367,10 @@ public:
      * @param layer_id UV layer id.
      */
     friend void GetTextureCoords(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
-    
     friend void GetTextureCoordsUV(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
     friend void GetTextureCoordsUVZ(Mesh * mesh, Math::Vec3 ** uv, unsigned int layer_id);
     friend void GetTextureCoordsUVZW(Mesh * mesh, Math::Vec4 ** uv, unsigned int layer_id);
-    
+
     /**
      * Solve mesh seams issues by creating new vertices to store
      * the problematic uv-coordinates.
@@ -421,8 +418,10 @@ void GetVertexBuffer(Mesh * mesh, Math::Vec3 **pos, Math::Vec3 ** nor);
 void GetVertexSkinning(Mesh * mesh, const std::map<std::string, int> & boneIds, XVertexSkinning ** vsk);
 void GetVertexColor(Mesh * mesh, Math::Color4ub **col);
 void GetTextureCoords(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
+void GetTextureCoordsUV(Mesh * mesh, Math::Vec2 ** uv, unsigned int layer_id);
+void GetTextureCoordsUVZ(Mesh * mesh, Math::Vec3 ** uv, unsigned int layer_id);
+void GetTextureCoordsUVZW(Mesh * mesh, Math::Vec4 ** uv, unsigned int layer_id);
 unsigned int OptimizeSeams(Mesh * mesh, unsigned int layer_id);
-unsigned int OptimizeSeams2(Mesh * mesh, unsigned int layer_id);
 void MaterialBlending(Mesh * mesh, float factor, bool border_scale);
 void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int *face_count, bool sort);
 void GetTangentVectorBuffer(int vertices,int faces,Math::Vec3 * vb, Math::Vec3 * nb, Math::Vec2 * uv, XTriangleFace *fcb, Math::Vec4 ** t_coords);

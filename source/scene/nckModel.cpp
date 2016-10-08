@@ -260,6 +260,93 @@ Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, bool tangent, bo
 }
 
 
+Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, int channels[8], bool tangent, bool m_Skinning, bool color)
+{
+    unsigned int velements = 2;
+
+    velements += uvlayers;
+
+    if (tangent)
+        velements += 1;
+
+    if (m_Skinning)
+        velements += 2;
+
+    if (color)
+        velements += 1;
+
+    Graph::VertexProfile ret(velements);
+
+    unsigned int components = 3;
+    unsigned int type = 1;
+    unsigned int offset = 0;
+    unsigned int layer = 0;
+
+
+    // Vertex
+    components = 3;
+    type = 1;
+    ret.PushBack(offset, components, type, layer);
+    offset += 4 * 3; // 3 *float
+
+    // Normal
+    components = 3;
+    type = 2;
+    ret.PushBack(offset, components, type, layer);
+    offset += 4 * 3; // 3 *float
+
+    // UV
+    type = 4;
+
+    for (unsigned int i = 0; i < uvlayers; i++)
+    {
+        ret.PushBack(offset, channels[i], type, layer);
+        offset += 4 * channels[i];
+        layer++;
+    }
+
+    // Tangent vectors
+    if (tangent)
+    {
+        // pesos dos bones
+        components = 4;
+        type = 4;
+        ret.PushBack(offset, components, type, layer);
+        offset += 4 * 4; // 4 *float
+        layer++;
+    }
+
+    // Skinning data
+    if (m_Skinning)
+    {
+        // m_Id dos bones
+        components = 4;
+        type = 4;
+        ret.PushBack(offset, components, type, layer);
+        offset += 4 * 4; // 4 *float
+        layer++;
+
+        // pesos dos bones
+        components = 4;
+        type = 4;
+        ret.PushBack(offset, components, type, layer);
+        offset += 4 * 4;  // 4 *float
+        layer++;
+    }
+
+    // Color
+    if (color)
+    {
+        components = 4;
+        type = 8;
+        layer = 0;
+        ret.PushBack(offset, components, type, layer);
+        offset += 4; // 4 * unsigned char
+    }
+
+    return ret;
+}
+
 Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
                                         Graph::VertexProfile * vp,
                                         bool useTangent,
@@ -267,11 +354,12 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
                                         uint32_t faces,
                                         Geometry::XTriangleFace * faces_buffer)
 {
-    Math::Vec2 ** vertex_uv = NULL;
-    Math::Vec4 * vertex_tangent = NULL;
-    Math::Vec3 * vertex_pos = NULL;
-    Math::Vec3 * vertex_nor = NULL;
-    Math::Color4ub * vertex_col = NULL;
+    void *                      vertex_uv[8] = { NULL };
+    int                         vertex_uv_count[8] = { 0 };
+    Math::Vec4 *                vertex_tangent = NULL;
+    Math::Vec3 *                vertex_pos = NULL;
+    Math::Vec3 *                vertex_nor = NULL;
+    Math::Color4ub *            vertex_col = NULL;
     Geometry::XVertexSkinning * vertex_skinning = NULL;
     
     bool l_UseTextures = mesh->m_UVLayers.size() > 0;
@@ -282,22 +370,34 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
     
     if(l_UseTextures)
     {
-        vertex_uv = new Math::Vec2*[mesh->m_UVLayers.size()];
-        for(unsigned int i = 0;i < mesh->m_UVLayers.size();i++){
-            Geometry::GetTextureCoords(mesh, vertex_uv+i, i);
+        for (unsigned int i = 0; i < mesh->m_UVLayers.size(); i++)
+        {
+            int channels = mesh->m_Faces.front()->m_fUV.GetChannels(i);
+
+            if (channels == 2) {
+                Geometry::GetTextureCoordsUV(mesh, (Math::Vec2**)(vertex_uv + i), i);
+                vertex_uv_count[i] = 2;
+            }
+            else if (channels == 3) {
+                Geometry::GetTextureCoordsUVZ(mesh, (Math::Vec3**)(vertex_uv + i), i);
+                vertex_uv_count[i] = 3;
+            }
+            else if (channels == 4) {
+                Geometry::GetTextureCoordsUVZW(mesh, (Math::Vec4**)(vertex_uv + i), i);
+                vertex_uv_count[i] = 4;
+            }
         }
-        
+
         if(useTangent){
-//            Geometry::XTriangleFace * faces_buffer = NULL;
-//            unsigned int faces = 0;
-            
-//            GetFaceBuffer(mesh,&faces_buffer,&faces,false);
-            
-            GetTangentVectorBuffer((uint32_t)mesh->m_Vertices.size(),
-                                   faces, vertex_pos, vertex_nor, vertex_uv[0],
-                                   faces_buffer, &vertex_tangent);
-            
-//            SafeArrayDelete(faces_buffer);
+            if (vertex_uv_count[0] == 2) {
+                GetTangentVectorBuffer((uint32_t)mesh->m_Vertices.size(),
+                    faces, vertex_pos, vertex_nor, (Math::Vec2*)(vertex_uv[0]),
+                    faces_buffer, &vertex_tangent);
+            }
+            else {
+                Core::DebugLog("Base layer is not Vec2");
+                useTangent = false;
+            }
         }
     }
     
@@ -305,7 +405,7 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
         Geometry::GetVertexSkinning(mesh, boneIds, &vertex_skinning);
     }
     
-    *vp = CreateVertexProfile((unsigned int)mesh->m_UVLayers.size(), useTangent, l_UseSkinning, l_UseColors);
+    *vp = CreateVertexProfile((unsigned int)mesh->m_UVLayers.size(), vertex_uv_count, useTangent, l_UseSkinning, l_UseColors);
     
     int vertices = (uint32_t)mesh->m_Vertices.size();
     
@@ -316,10 +416,19 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
         vertexBuffer->Push(vertex_pos+i, sizeof(Math::Vec3));
         vertexBuffer->Push(vertex_nor+i, sizeof(Math::Vec3));
         
-        for( unsigned int j = 0 ; j < mesh->m_UVLayers.size() ; j++ ){
-            Math::Vec2 m_UV = vertex_uv[j][i];
-            m_UV = Math::Vec2(m_UV.GetX(), -m_UV.GetY());
-            vertexBuffer->Push((uint8_t*)&m_UV, sizeof(Math::Vec2));
+        for( unsigned int j = 0 ; j < mesh->m_UVLayers.size() ; j++)
+        {
+            int count = vertex_uv_count[j];
+            if (count == 2) {
+                Math::Vec2 uv = ((Math::Vec2*)vertex_uv[j])[i];
+                vertexBuffer->Push((uint8_t*)&uv, sizeof(Math::Vec2));
+            } else if (count == 3) {
+                Math::Vec3 uvz = ((Math::Vec3*)vertex_uv[j])[i];
+                vertexBuffer->Push((uint8_t*)&uvz, sizeof(Math::Vec3));
+            } else if (count == 4) {
+                Math::Vec4 uvz = ((Math::Vec4*)vertex_uv[j])[i];
+                vertexBuffer->Push((uint8_t*)&uvz, sizeof(Math::Vec4));
+            }
         }
         
         if(useTangent)
@@ -334,7 +443,11 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
             vertexBuffer->Push((uint8_t*)&vertex_col[i], sizeof(Math::Color4ub));
     }
     
-    SafeArrayDelete(vertex_uv);
+
+    for (unsigned int j = 0; j < mesh->m_UVLayers.size(); j++) {
+        SafeArrayDelete(vertex_uv[j]);
+    }
+    
     SafeArrayDelete(vertex_tangent);
     SafeArrayDelete(vertex_pos);
     SafeArrayDelete(vertex_nor);
@@ -381,7 +494,8 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
     {
         for(unsigned int i = 0;i<msh->m_UVLayers.size();i++)
         {
-            Geometry::OptimizeSeams(msh, i);
+            if(msh->m_UVOptimization[i])
+                Geometry::OptimizeSeams(msh, i);
         }
     }
     

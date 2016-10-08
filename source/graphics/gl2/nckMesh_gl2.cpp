@@ -117,6 +117,7 @@ void Mesh_GL2::Enable(){
 }
 
 void Mesh_GL2::Disable(){
+    glActiveTexture(GL_TEXTURE0_ARB);
 	glBindBuffer( GL_ARRAY_BUFFER, GL_ZERO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_ZERO);
 }
