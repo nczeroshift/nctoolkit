@@ -432,7 +432,7 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
         }
         
         if(useTangent)
-            vertexBuffer->Push((uint8_t*)&vertex_tangent[i], sizeof(Math::Vec3));
+            vertexBuffer->Push((uint8_t*)&vertex_tangent[i], sizeof(Math::Vec4));
         
         if(l_UseSkinning){
             vertexBuffer->Push((uint8_t*)&vertex_skinning[i].m_Bone_Id, sizeof(int)*4);

@@ -196,6 +196,12 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
     d12->SetDescription("Multi Texture");
     d12->AddKeyword("Textures");
     
+    DemoDetails * d13 = new DemoDetails();
+    d13->SetDescription("BumpMapping");
+    d13->AddKeyword("Model");
+    d13->AddKeyword("Textures");
+    d13->AddKeyword("Shaders");
+
 	m_DemoDetails.push_back(d1);
 	m_DemoDetails.push_back(d2);
 	m_DemoDetails.push_back(d3);
@@ -208,6 +214,7 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
     m_DemoDetails.push_back(d10);  
 	m_DemoDetails.push_back(d11);
     m_DemoDetails.push_back(d12);
+    m_DemoDetails.push_back(d13);
 }
 
 DemoSelector::~DemoSelector(){

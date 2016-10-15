@@ -163,6 +163,7 @@ void Program_GL2::Load(const std::string & source){
 }
 
 void Program_GL2::BindUniforms() {
+
     m_TextureSampler[0] = glGetUniformLocation(m_Program, "gphTexture0");
     m_TextureSampler[1] = glGetUniformLocation(m_Program, "gphTexture1");
     m_TextureSampler[2] = glGetUniformLocation(m_Program, "gphTexture2");
@@ -187,6 +188,42 @@ void Program_GL2::BindUniforms() {
     m_ProjectionModelViewMatrix = glGetUniformLocation(m_Program, "gphPMVMatrix");
     m_ProjectionViewMatrix = glGetUniformLocation(m_Program, "gphProjectionViewMatrix");
     m_ViewMatrix = glGetUniformLocation(m_Program, "gphViewMatrix");
+
+    if (m_DiffuseColor > -1)
+        glUniform4f(m_DiffuseColor, m_Device->m_DiffuseColor[0],
+            m_Device->m_DiffuseColor[1],
+            m_Device->m_DiffuseColor[2],
+            m_Device->m_DiffuseColor[3]);
+
+    if (m_SpecularColor > -1)
+        glUniform4f(m_SpecularColor, m_Device->m_SpecularColor[0],
+            m_Device->m_SpecularColor[1],
+            m_Device->m_SpecularColor[2],
+            m_Device->m_SpecularColor[3]);
+
+    if (m_SpecularPower > -1)
+        glUniform1f(m_SpecularPower, m_Device->m_SpecularPower);
+
+    if (m_AmbientColor > -1)
+        glUniform4f(m_AmbientColor, m_Device->m_AmbientColor[0],
+            m_Device->m_AmbientColor[1],
+            m_Device->m_AmbientColor[2],
+            m_Device->m_AmbientColor[3]);
+
+    /*if(m_ViewMatrix>-1)
+    glUniformMatrix4fv(m_ViewMatrix,1,false,(float*)&m_Device->m_ViewMatrix);
+
+    if(m_ModelMatrix>-1)
+    glUniformMatrix4fv(m_ModelMatrix,1,false,(float*)&m_Device->m_ModelMatrix);
+
+    if(m_ModelViewMatrix>-1)
+    glUniformMatrix4fv(m_ModelViewMatrix,1,false,(float*)&m_Device->m_ModelViewMatrix);
+
+    if(m_ProjectionViewMatrix>-1)
+    glUniformMatrix4fv(m_ProjectionViewMatrix,1,false,(float*)&m_Device->m_ProjectionViewMatrix);
+
+    if(m_ProjectionModelViewMatrix>-1)
+    glUniformMatrix4fv(m_ProjectionViewMatrix,1,false,(float*)&m_Device->m_ProjectionViewModelMatrix);*/
 }
 
 int Program_GL2::Reload() {
@@ -327,43 +364,8 @@ void Program_GL2::EnableInternal(){
 		}
 	}
 
-	if(m_DiffuseColor > -1)
-		glUniform4f(m_DiffuseColor,m_Device->m_DiffuseColor[0],
-			m_Device->m_DiffuseColor[1],
-			m_Device->m_DiffuseColor[2],
-			m_Device->m_DiffuseColor[3]);
-
-	if(m_SpecularColor > -1)
-		glUniform4f(m_SpecularColor,m_Device->m_SpecularColor[0],
-			m_Device->m_SpecularColor[1],
-			m_Device->m_SpecularColor[2],
-			m_Device->m_SpecularColor[3]);
-
-	if(m_SpecularPower > -1)
-		glUniform1f(m_SpecularPower,m_Device->m_SpecularPower);
-
-	if(m_AmbientColor > -1)
-		glUniform4f(m_AmbientColor,m_Device->m_AmbientColor[0],
-			m_Device->m_AmbientColor[1],
-			m_Device->m_AmbientColor[2],
-			m_Device->m_AmbientColor[3]);
-
-	/*if(m_ViewMatrix>-1)
-		glUniformMatrix4fv(m_ViewMatrix,1,false,(float*)&m_Device->m_ViewMatrix);
-
-	if(m_ModelMatrix>-1)
-		glUniformMatrix4fv(m_ModelMatrix,1,false,(float*)&m_Device->m_ModelMatrix);
-
-	if(m_ModelViewMatrix>-1)
-		glUniformMatrix4fv(m_ModelViewMatrix,1,false,(float*)&m_Device->m_ModelViewMatrix);
-
-	if(m_ProjectionViewMatrix>-1)
-		glUniformMatrix4fv(m_ProjectionViewMatrix,1,false,(float*)&m_Device->m_ProjectionViewMatrix);
-
-	if(m_ProjectionModelViewMatrix>-1)
-		glUniformMatrix4fv(m_ProjectionViewMatrix,1,false,(float*)&m_Device->m_ProjectionViewModelMatrix);*/
-
-
+    BindUniforms();
+    
 	m_Active = true;
 }
 

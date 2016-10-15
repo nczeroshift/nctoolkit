@@ -235,6 +235,8 @@ void Device_GL2::PresentAll(){
         m_ActiveProgram->DisableInternal();
     m_ActiveProgram = NULL;
 
+    m_TextureCache.Clear();
+    
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_1D, 0));
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_2D, 0));
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_3D, 0));

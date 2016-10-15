@@ -83,6 +83,16 @@ TextureLayer::TextureLayer(Graph::Device *dev){
     m_Device = dev;
     m_Mapping = NULL;
     m_Texture = NULL;
+
+    m_Factor_Diffuse_Color = 0;
+    m_Factor_Alpha = 0;
+    m_Factor_Diffuse = 0;
+    m_Factor_Translucency = 0;
+    m_Factor_Specular = 0;
+    m_Factor_Specular_Color = 0;
+    m_Factor_Hardness = 0;
+    m_Factor_Normal = 0;
+    m_Factor_Displacement = 0;
 }
 
 TextureLayer::TextureLayer(Texture *tex, Object *manip,
@@ -222,9 +232,6 @@ void TextureLayer::Read(BXON::Map * entry, const std::map<std::string, Datablock
             m_Factor_Displacement = properties->GetFloat("displacement_factor");
         }
     }
-    
-    
-    
 }
 #endif
 

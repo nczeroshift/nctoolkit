@@ -297,11 +297,11 @@ void Texture2D_GL2::Disable(unsigned int sampler_id)
         if (count > 0) count--;
         m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
 
-        if (count == 0)
-            glDisable(m_Target);
-
 		glActiveTexture(GL_TEXTURE0+sampler_id);
 		glBindTexture(m_Target,0);
+
+        if (count == 0)
+            glDisable(m_Target);
 
 		// Remove from cache
 		m_Device->m_TextureCache.SetTexture(NULL,false,sampler_id);
@@ -581,10 +581,11 @@ void TextureCubemap_GL2::Disable(unsigned int sampler_id){
             count--;
         m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
 
-        if (count == 0)
-            glDisable(m_Target);
 		glActiveTexture(GL_TEXTURE0+sampler_id);
 		glBindTexture(m_Target,0);
+
+        if (count == 0)
+            glDisable(m_Target);
 	}
 	m_Device->m_TextureCache.SetTexture((Texture2D*)this,false,sampler_id);
 }
@@ -849,11 +850,11 @@ void Texture3D_GL2::Disable(unsigned int sampler_id){
             count--;
         m_Device->m_SamplersPerTarget.find(m_Target)->second = count;
 
-        if (count == 0)
-            glDisable(m_Target);
-
 		glActiveTexture(GL_TEXTURE0+sampler_id);
 		glBindTexture(m_Target,0);
+
+        if (count == 0)
+            glDisable(m_Target);
 
 		// Remove from cache
 		m_Device->m_TextureCache.SetTexture(NULL,false,sampler_id);

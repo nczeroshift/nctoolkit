@@ -1,0 +1,4 @@
+Source:nckimage.cpp, Method:Core::Image::Load, Line:535, Code:0
+	, Text:Unable to load image
+Source:nckimage.cpp, Method:Core::Image::Load, Line:499, Code:0
+	, Text:Unable to open image file
