@@ -407,11 +407,11 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
     
     *vp = CreateVertexProfile((unsigned int)mesh->m_UVLayers.size(), vertex_uv_count, useTangent, l_UseSkinning, l_UseColors);
     
-    int vertices = (uint32_t)mesh->m_Vertices.size();
+    size_t vertices = mesh->m_Vertices.size();
     
     Core::QueueBuffer * vertexBuffer = new Core::QueueBuffer(vertices * vp->GetVertexSize());
     
-    for(uint32_t i = 0;i < vertices; i++)
+    for(size_t i = 0;i < vertices; i++)
     {
         vertexBuffer->Push(vertex_pos+i, sizeof(Math::Vec3));
         vertexBuffer->Push(vertex_nor+i, sizeof(Math::Vec3));
@@ -517,9 +517,14 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
             }
         }
     }
+
     Core::QueueBuffer * vertexBuffer = GetMeshVertexBuffer(msh, &vp, useTangent, boneIds, m_Faces, faces_buffer);
     
-    uint32_t groupsCount = m_Materials.size() > 0 ? (uint32_t)m_Materials.size() : 1;
+    // Sanity Check
+    if(vertexBuffer->Size() != vp.GetVertexSize() * m_Vertices)
+        THROW_EXCEPTION("Invalid buffer size");
+
+    uint32_t groupsCount = MIN(m_Materials.size(), 1);
     
     std::vector<std::list<Geometry::XTriangleFace*> > facesPerGroup(groupsCount);
     
@@ -529,6 +534,7 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
     uint32_t * fbCount = new unsigned int[groupsCount];
     uint32_t ** fbVertices = new unsigned int * [groupsCount];
     
+    int maxVid = 0;
     for(unsigned int i = 0 ; i < groupsCount ; i++)
     {
         fbVertices[i] = new uint32_t[facesPerGroup[i].size() * 3];
@@ -537,12 +543,19 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
         int j = 0;
         ListFor(Geometry::XTriangleFace *, facesPerGroup[i], f_i)
         {
+            maxVid = MAX(MAX((*f_i)->m_Vertices[0], (*f_i)->m_Vertices[1]), (*f_i)->m_Vertices[2]);
+
             fbVertices[i][j++] = (*f_i)->m_Vertices[0];
             fbVertices[i][j++] = (*f_i)->m_Vertices[1];
             fbVertices[i][j++] = (*f_i)->m_Vertices[2];
         }
     }
     
+    // Sanity Check
+    if (maxVid >= m_Vertices) {
+        THROW_EXCEPTION("Invalid vertex index");
+    }
+
     try{
         m_Mesh = m_Device->CreateMesh(m_Vertices, vp, vertexBuffer->GetData(), groupsCount, fbCount, fbVertices);
     }

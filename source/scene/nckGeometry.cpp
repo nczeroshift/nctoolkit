@@ -615,7 +615,8 @@ public:
             vn->m_Id = (int)vert_list.size();
             
             vert_list.push_back(vn);
-            VertexIterator it = --vert_list.end();
+            VertexIterator it = vert_list.end();
+            it--;
             
             //
             m_Vertices.push_back(it);

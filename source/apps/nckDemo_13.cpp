@@ -38,6 +38,8 @@ void Demo13::Load() {
     basic = dev->LoadProgram("shader://bumpmap.cpp");
 
     SafeDelete(map);
+    SafeDelete(frCtx);
+    SafeDelete(fr);
 
     camera = (Scene::Camera*)scene->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera");
 }

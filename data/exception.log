@@ -1,4 +1,2 @@
-Source:nckimage.cpp, Method:Core::Image::Load, Line:535, Code:0
-	, Text:Unable to load image
-Source:nckimage.cpp, Method:Core::Image::Load, Line:499, Code:0
-	, Text:Unable to open image file
+Source:nckdemo_9.cpp, Method:Demo9::Load, Line:71, Code:0
+	, Text:Error opening serial port

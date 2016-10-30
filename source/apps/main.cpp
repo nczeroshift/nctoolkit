@@ -19,6 +19,7 @@
 #include "nckDemo_10.h"
 #include "nckDemo_12.h"
 #include "nckDemo_13.h"
+#include "nckDemo_14.h"
 
 #define FRONTEND
 
@@ -168,6 +169,7 @@ public:
 				case 11: tmp = new Demo11(wnd,dev); break;
                 case 12: tmp = new Demo12(wnd, dev); break;
                 case 13: tmp = new Demo13(wnd, dev); break;
+                case 14: tmp = new Demo14(wnd, dev); break;
 			};
 		}
 		catch(const Core::Exception & ex){

@@ -28,7 +28,7 @@ void Mesh_GL2::Load(uint32_t vertices,VertexProfile profile, void * vertexdata,
 		THROW_EXCEPTION("Unable to create vertices buffer");
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertices*profile.GetVertexSize(), vertexdata, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices * profile.GetVertexSize(), vertexdata, GL_STATIC_DRAW);
 	m_VerticeCount = vertices;
 
 	int arraysize = 0;
@@ -45,14 +45,13 @@ void Mesh_GL2::Load(uint32_t vertices,VertexProfile profile, void * vertexdata,
 		FacesGroup group;
 		group.count = face_count[i];
 
-
 		glGenBuffers(1, &group.buffer);
 
 		if(!group.buffer)
 			THROW_EXCEPTION("Unable to create triangle index buffer");
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, group.buffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER,group.count*sizeof(uint32_t)*3, faces[i], GL_STATIC_DRAW_ARB);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, group.count * sizeof(uint32_t) * 3, faces[i], GL_STATIC_DRAW_ARB);
 
 		int arraysize = 0;
 		glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &arraysize);
@@ -72,6 +71,10 @@ void Mesh_GL2::Load(uint32_t vertices,VertexProfile profile, void * vertexdata,
 
 Mesh_GL2::~Mesh_GL2()
 {
+    glActiveTexture(GL_TEXTURE0_ARB);
+    glBindBuffer(GL_ARRAY_BUFFER, GL_ZERO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_ZERO);
+
 	glDeleteBuffers(1, &m_VertexBuffer);
 
 	for(unsigned int i = 0;i<m_IndexBuffer.size();i++){
@@ -117,6 +120,29 @@ void Mesh_GL2::Enable(){
 }
 
 void Mesh_GL2::Disable(){
+    for (unsigned int i = 0; i<m_VertexProfile.Size(); i++){
+        switch (m_VertexProfile[i].type)
+        {
+            case VERTEX_POSITION:
+                glDisableClientState(GL_VERTEX_ARRAY);
+                break;
+
+            case VERTEX_NORMAL:
+                glDisableClientState(GL_NORMAL_ARRAY);
+                break;
+            
+            case VERTEX_UV:
+                glActiveTexture(GL_TEXTURE0_ARB + m_VertexProfile[i].index);
+                glClientActiveTexture(GL_TEXTURE0_ARB + m_VertexProfile[i].index);
+                glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                break;
+
+            case VERTEX_COLOR:
+                glDisableClientState(GL_COLOR_ARRAY);
+                break;
+        }
+    }
+
     glActiveTexture(GL_TEXTURE0_ARB);
 	glBindBuffer( GL_ARRAY_BUFFER, GL_ZERO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_ZERO);
@@ -124,6 +150,41 @@ void Mesh_GL2::Disable(){
 
 void Mesh_GL2::Render(unsigned int subset)
 {
+    m_Device->UpdateMatrix();
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
+    uint32_t vertexsize = m_VertexProfile.GetVertexSize();
+
+    for (unsigned int i = 0; i<m_VertexProfile.Size(); i++)
+    {
+        void *basepointer = NULL;
+
+        switch (m_VertexProfile[i].type)
+        {
+        case VERTEX_POSITION:
+            glVertexPointer(m_VertexProfile[i].components, GL_FLOAT, vertexsize, (char*)basepointer + m_VertexProfile[i].offset);
+            glEnableClientState(GL_VERTEX_ARRAY);
+            break;
+
+        case VERTEX_NORMAL:
+            glNormalPointer(GL_FLOAT, vertexsize, (char*)basepointer + m_VertexProfile[i].offset);
+            glEnableClientState(GL_NORMAL_ARRAY);
+            break;
+
+        case VERTEX_UV:
+            glActiveTexture(GL_TEXTURE0_ARB + m_VertexProfile[i].index);
+            glClientActiveTexture(GL_TEXTURE0_ARB + m_VertexProfile[i].index);
+            glTexCoordPointer(m_VertexProfile[i].components, GL_FLOAT, vertexsize, (char*)basepointer + m_VertexProfile[i].offset);
+            glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+            break;
+
+        case VERTEX_COLOR:
+            glColorPointer(m_VertexProfile[i].components, GL_UNSIGNED_BYTE, vertexsize, (char*)basepointer + m_VertexProfile[i].offset);
+            glEnableClientState(GL_COLOR_ARRAY);
+            break;
+        }
+    }
+
 	m_Device->m_TextureCache.Check();
 	
 	if(m_Device->m_ActiveProgram){
@@ -134,8 +195,8 @@ void Mesh_GL2::Render(unsigned int subset)
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,m_IndexBuffer[subset].buffer);
-	glDrawElements(GL_TRIANGLES, m_IndexBuffer[subset].count *3, GL_UNSIGNED_INT, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_ZERO);
+	glDrawElements(GL_TRIANGLES, m_IndexBuffer[subset].count * 3 , GL_UNSIGNED_INT, NULL);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_ZERO);
 }
 
 void Mesh_GL2::Unlock(){
