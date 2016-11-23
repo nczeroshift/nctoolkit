@@ -335,4 +335,55 @@ Vec3 TranslationPart(const Mat44 & mat){
 	return Vec3(mat.m_n[3][0],mat.m_n[3][1],mat.m_n[3][2]);
 }
 
+Mat44 Ortho(float left, float top, float right, float bottom, float znear, float zfar) {
+    float m[16] = {
+       2.0 / (right - left), 0, 0, 0,
+       0, 2.0 / (top - bottom), 0, 0,
+       0, 0, -2.0 / (zfar - znear), 0,
+       -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zfar + znear) / (zfar - znear), 1
+    };
+    return Mat44(m);
+}
+
+Mat44 Perspective(float aspect, float fov, float znear, float zfar) {
+    float xymax = znear * tan(fov * M_PI / 360.0);
+    float ymin = -xymax;
+    float xmin = -xymax;
+
+    float width = xymax - xmin;
+    float height = xymax - ymin;
+
+    float depth = zfar - znear;
+    float q = -(zfar + znear) / depth;
+    float qn = -2 * (zfar * znear) / depth;
+
+    float w = 2 * znear / width;
+    w = w / aspect;
+    float h = 2 * znear / height;
+
+    float m[16];
+
+    m[0] = w;
+    m[1] = 0;
+    m[2] = 0;
+    m[3] = 0;
+
+    m[4] = 0;
+    m[5] = h;
+    m[6] = 0;
+    m[7] = 0;
+
+    m[8] = 0;
+    m[9] = 0;
+    m[10] = q;
+    m[11] = -1;
+
+    m[12] = 0;
+    m[13] = 0;
+    m[14] = qn;
+    m[15] = 0;
+
+    return Mat44(m);
+}
+
 _MATH_END

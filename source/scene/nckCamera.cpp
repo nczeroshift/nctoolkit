@@ -71,8 +71,7 @@ void Camera::Enable(Graph::MatrixType mat)
 
 Math::Mat44 Camera::GetMatrix()
 {
-    Math::Mat44 mat = Math::Rotate( -m_Object->GetRotation() ) *
-    Math::Translate(-m_Object->GetPosition());
+    Math::Mat44 mat = Math::Translate(-m_Object->GetPosition()) * Math::Rotate(-m_Object->GetRotation());
     return mat;
 }
 

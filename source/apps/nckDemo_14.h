@@ -3,7 +3,7 @@
 * NCtoolKit © 2007-2016 Luís F.Loureiro, under zlib software license.
 * https://github.com/nczeroshift/nctoolkit
 *
-* Demo 14 - Normal Map
+* Demo 14 - Shadow maps
 */
 
 #ifndef _NCK_DEMO_14_H_
@@ -26,10 +26,18 @@ public:
 	void UpdateWndEvents();
     
 private:
-    Scene::Compound_Basic * scene,*scene2;
+    Scene::Compound_Basic * scene;
     Scene::Camera * camera;
-    Graph::Program * basic;
+    Scene::Lamp * lamp;
+    Graph::RTManager * rtManager;
+    Graph::Texture2D * rtTexture;
 
+    void RenderFromLight(float width, float height);
+    void CaptureLightBuffer();
+
+    Math::Mat44 lampProjViewMat;
+    
+    Graph::Program * program, * depth;
     float time;
 };
 

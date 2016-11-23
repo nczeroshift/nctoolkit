@@ -184,10 +184,17 @@ void Program_GL2::BindUniforms() {
     m_ModelMatrix = glGetUniformLocation(m_Program, "gphModelMatrix");
     m_ModelViewMatrix = glGetUniformLocation(m_Program, "gphModelViewMatrix");
     m_NormalMatrix = glGetUniformLocation(m_Program, "gphNormalMatrix");
+    m_Alpha = glGetUniformLocation(m_Program, "gphAlpha");
 
     m_ProjectionModelViewMatrix = glGetUniformLocation(m_Program, "gphPMVMatrix");
     m_ProjectionViewMatrix = glGetUniformLocation(m_Program, "gphProjectionViewMatrix");
     m_ViewMatrix = glGetUniformLocation(m_Program, "gphViewMatrix");
+
+    if (m_ModelMatrix>-1)
+        glUniformMatrix4fv(m_ModelMatrix, 1, false, (float*)&m_Device->m_ModelMatrix);
+
+    if(m_Alpha > -1)
+        glUniform1f(m_Alpha, m_Device->m_Alpha);
 
     if (m_DiffuseColor > -1)
         glUniform4f(m_DiffuseColor, m_Device->m_DiffuseColor[0],
@@ -609,10 +616,10 @@ void Shader_GL2_Variable::Bind()
 		glUniform4iv(m_Handle,m_Count,(int*)m_Data);
 		return;
 	case MATRIX:
-		glUniformMatrix4fv(m_Handle,1,true,(float*)m_Data);
+		glUniformMatrix4fv(m_Handle,1,false,(float*)m_Data);
 		return;
 	case MATRIX_ARRAY:
-		glUniformMatrix4fv(m_Handle,m_Count,true,(float*)m_Data);
+		glUniformMatrix4fv(m_Handle,m_Count,false,(float*)m_Data);
 		return;
 	}
 }

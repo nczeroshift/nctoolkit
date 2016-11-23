@@ -389,9 +389,10 @@ protected:
 	GLint m_SpecularPower;				// SpecularPower
 	GLint m_BoneMatrix;                 // BoneMatrix
 	GLint m_BoneCount;                  // BoneCount
+    GLint m_Alpha;                      // Transparency
 
 	bool m_Active;
-	
+ 
 	GLuint m_VertexShader;
 	GLuint m_FragmentShader;
 
@@ -659,6 +660,14 @@ public:
 
 	/// Current material specular shininess factor.
 	float m_SpecularPower;
+
+    /// Current material transparency.
+    float m_Alpha;
+
+    // Is model matrix active.
+    bool m_IsModelMatrixActive;
+
+    std::list<Math::Mat44> m_ModelMatrixStack;
 };
 
 Device_GL2 * CreateDevice_GL2(Core::Window *wnd,

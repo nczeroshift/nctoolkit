@@ -6,6 +6,10 @@
 
 #include "nckShaderParser.h"
 #include <set>
+#include <algorithm>
+#include "nckDataIO.h"
+#include "nckException.h"
+#include "nckUtils.h"
 
 _GRAPHICS_BEGIN
 
@@ -113,6 +117,8 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
 				{
 					if(ltoken.GetType()==ShaderToken::STRING && ltoken.GetString()=="#pragma")
 						state = 1;
+                    else if (ltoken.GetType() == ShaderToken::STRING && ltoken.GetString() == "#include")
+                        state = 4;
 				}
 				else if(state == 1)
 				{
@@ -144,19 +150,49 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
 						state = 3;
 					else // This sentence is invalid
 						state = 0;
-				}
+                }
 			}
 
-			if(state == 3 && currentIt != retMap.end())
-			{
-				if(ltoken.GetType()==ShaderToken::SPACE)
-					currentIt->second+=" ";
-				else if(ltoken.GetType()==ShaderToken::NEWLINE)
-					currentIt->second+="\n";
-				else
-					currentIt->second+=ltoken.GetString();
-			}
+            if (currentIt != retMap.end()) {
+                if (state == 3)
+                {
+                    if (ltoken.GetType() == ShaderToken::SPACE)
+                        currentIt->second += " ";
+                    else if (ltoken.GetType() == ShaderToken::NEWLINE)
+                        currentIt->second += "\n";
+                    else
+                        currentIt->second += ltoken.GetString();
+                }
+                else if (state == 4)
+                {
+                    std::string tStr = ltoken.GetString();
+                    if (tStr.find_first_of("\"") == 0 &&
+                        tStr.find_last_of("\"") == tStr.length()-1)
+                    {
+                        std::string includeName = ltoken.GetString().substr(1, tStr.length() - 2);
+                        int64_t fSize = Core::FileReader::Size("shader://include/" + includeName);
+                        Core::FileReader * fReader = Core::FileReader::Open("shader://include/" + includeName);
+                        if (fReader == NULL)
+                            THROW_EXCEPTION("Include \"" + includeName + "\" not found");
 
+                        if (fSize > 0) {
+                            char * text = new char[fSize + 1];
+                            memset(text, '\0', fSize + 1);
+
+                            fReader->Read(text, fSize);
+                            std::string tmp = std::string(text);
+                            SafeArrayDelete(text);
+                            SafeDelete(fReader)
+
+                                tmp.erase(std::remove(tmp.begin(), tmp.end(), '\n'), tmp.end());
+                            tmp.erase(std::remove(tmp.begin(), tmp.end(), '\r'), tmp.end());
+
+                            currentIt->second += tmp + "\n";
+                        }
+                        state = 3;
+                    }
+                }
+            }
 			ltoken=ShaderToken(type);
 		}
 

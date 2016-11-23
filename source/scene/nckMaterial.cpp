@@ -15,13 +15,14 @@ Material::Material(Graph::Device *dev): Datablock(dev){
     m_AlphaTestValue = 1.0f;
     m_Diffuse = Math::Color4f(1,1,1,1);
     m_Specular = Math::Color4f(1,1,1,1);
+    m_Alpha = 1.0;
     m_kDiffuse = 1.0f;
     m_kSpecular = 0.3f;
-    m_kShininess = 3.0f;
+    m_kShininess = 16.0f;
     m_kAmbient = 0.1f;
     m_AlphaBlending = false;
     m_AlphaTest = false;
-    m_CullFlag = false;
+    m_CullFlag = true;
     m_CullingMode = Graph::CULL_BACK;
     m_Program = NULL;
     
@@ -84,14 +85,15 @@ void Material::Enable(){
     if(m_AlphaTest)
         m_Device->Enable(Graph::STATE_ALPHA_TEST);
     
-    Math::Color4f diff = m_Diffuse * m_kDiffuse;
-    Math::Color4f spec = m_Specular * m_kSpecular;
+    Math::Color4f diff = Math::Color4f(m_Diffuse.GetR(), m_Diffuse.GetG(), m_Diffuse.GetB(), m_kDiffuse);
+    Math::Color4f spec = Math::Color4f(m_Specular.GetR(), m_Specular.GetG(), m_Specular.GetB(), m_kSpecular); 
     
     m_Device->Material(Graph::MATERIAL_DIFFUSE_COLOR,(float*)&(diff));
     m_Device->Material(Graph::MATERIAL_SPECULAR_COLOR,(float*)&(spec));
     m_Device->Material(Graph::MATERIAL_SHININESS,&m_kShininess);
     m_Device->Material(Graph::MATERIAL_AMBIENT,(float*)&(m_kAmbient));
-    
+    m_Device->Material(Graph::MATERIAL_ALPHA, (float*)&(m_Alpha));
+
     if(m_Program)
         m_Program->Enable();
     
@@ -224,6 +226,25 @@ Graph::Program *Material::GetProgram(){
 void Material::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap){
     m_Name = entry->GetString("name");
     
+    m_Diffuse = entry->GetColor3f("diffuse");
+    m_Specular = entry->GetColor3f("specular");
+
+    if (entry->HasKey("alpha")) {
+        m_Alpha = entry->GetFloat("alpha");
+    }
+
+    if (entry->HasKey("diffuse_intensity")) {
+        m_kDiffuse = entry->GetFloat("diffuse_intensity");
+    }
+
+    if (entry->HasKey("specular_hardness")) {
+        m_kShininess = entry->GetInteger("specular_hardness");
+    }
+
+    if (entry->HasKey("specular_intensity")) {
+        m_kSpecular = entry->GetFloat("specular_intensity");
+    }
+
     if(entry->HasKey("textures")){
         BXON::Array * textures = entry->GetArray("textures");
         

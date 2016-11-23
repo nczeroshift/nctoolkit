@@ -136,6 +136,9 @@ private:
     /// Material specular expoent factor.
     float m_kShininess;
     
+    /// Transparency value.
+    float m_Alpha;
+
     /// Material alpha blending flag.
     bool m_AlphaBlending;
     

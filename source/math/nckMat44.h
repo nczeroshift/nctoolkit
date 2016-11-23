@@ -95,10 +95,10 @@ public:
 	friend bool Invert(const Mat44 & source, Mat44 *target);
 
 	/// Compute perspective projection matrix. 
-	//friend Mat44 Perspective(float fov, float aspect,float near,float far);
+	friend Mat44 Perspective(float aspect, float fov, float znear, float zfar);
 
 	/// Compute orthogonal projection matrix. 
-	//friend Mat44 Ortho(float aspect, float near,float far);
+    Mat44 Ortho(float left, float top, float right, float bottom, float znear,float zfar);
 
 	/// Compute track to vector(or lookat) transformation matrix. 
 	//friend Mat44 TrackTo(const Vec3 & source, const Vec3 & target, 
@@ -114,7 +114,7 @@ public:
 	//friend Vec4 Project(const &Mat44 proj, const &Mat44 view, const float vp[2], const Vec4& vec);
 
 public:
-		float m_n[4][4];
+    float m_n[4][4];
 };
 
 Mat44 operator * (const Mat44 & matA, const Mat44 & matB);
@@ -136,8 +136,8 @@ Mat44 Rotate(const Quat & quat);
 Mat44 Identity();
 Mat44 Transpose(const Mat44 & mat);
 bool Invert(const Mat44 & source, Mat44 *target);
-//Mat44 Perspective(float fov, float aspect,float near,float far);
-//Mat44 Ortho(float aspect, float near,float far);
+Mat44 Perspective(float aspect, float fov, float znear, float zfar);
+Mat44 Ortho(float left, float top, float right, float bottom, float znear, float zfar);
 //Mat44 TrackTo(const Vec3 & source, const Vec3 & target, Vec3 & up_vector);
 
 _MATH_END

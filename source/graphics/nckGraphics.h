@@ -433,6 +433,7 @@ enum MaterialProperty{
 	MATERIAL_AMBIENT_COLOR,
 	MATERIAL_SHININESS,
 	MATERIAL_AMBIENT,
+    MATERIAL_ALPHA,
 };
 
 /// Point sprite properties.

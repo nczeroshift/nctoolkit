@@ -217,7 +217,7 @@ void Texture_GL2::GetGLPropertiesFromFormat(Format srcFormat, int * glComponents
 		break;
 	case FORMAT_R_32F:
 		intFormat = GL_R32F;
-		format = GL_RED;
+        format = GL_RED;
 		components = 1;
 		datatype = GL_FLOAT;
 		break;
@@ -523,7 +523,7 @@ void Texture2D_GL2::Create(unsigned int width, unsigned int height, Format forma
 
 	memset(data,0x00,out_components*datasize*width*height);
 
-	glTexImage2D(m_Target,0,out_components,m_Width,m_Height,0,out_format,out_datatype,data);
+	glTexImage2D(m_Target,0, intFormat,m_Width,m_Height,0, out_format,out_datatype,data);
 
 	SafeDelete(data);
 }

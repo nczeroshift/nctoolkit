@@ -145,13 +145,13 @@ public:
 	inline Color4f & SetR(float val){m_R = val;return *this;};
 
 	/// Set green value.
-	inline Color4f & SetG(float val){m_R = val;return *this;};
+	inline Color4f & SetG(float val){m_G = val;return *this;};
 
 	/// Set blue value.
-	inline Color4f & SetB(float val){m_R = val;return *this;};
+	inline Color4f & SetB(float val){m_B = val;return *this;};
 
 	/// Set alpha value.
-	inline Color4f & SetA(float val){m_R = val;return *this;};
+	inline Color4f & SetA(float val){m_A = val;return *this;};
 
 	/// Get color string.
 	std::string GetString();

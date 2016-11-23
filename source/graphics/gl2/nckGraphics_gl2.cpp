@@ -34,11 +34,24 @@ Device_GL2::Device_GL2(Core::Window * wnd,
 	m_CullFace_Mode = CULL_BACK;
 	m_ActiveVertex = 0;
 	m_PrimitiveType = PRIMITIVE_QUADS;
-    
-	m_AmbientColor[0] = 0.1;
-	m_AmbientColor[1] = 0.1;
-	m_AmbientColor[2] = 0.1;
-	m_AmbientColor[3] = 1.0;
+    m_IsModelMatrixActive = false;
+
+    m_Alpha = 1.0;
+
+    m_DiffuseColor[0] = 1.0;
+    m_DiffuseColor[1] = 1.0;
+    m_DiffuseColor[2] = 1.0;
+    m_DiffuseColor[3] = 1.0;
+
+    m_SpecularColor[0] = 1.0;
+    m_SpecularColor[1] = 1.0;
+    m_SpecularColor[2] = 1.0;
+    m_SpecularColor[3] = 1.0;
+
+	m_AmbientColor[0] = 0.0;
+	m_AmbientColor[1] = 0.0;
+	m_AmbientColor[2] = 0.0;
+	m_AmbientColor[3] = 0.0;
 
 	m_ClearFlags = GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT;
 
@@ -203,6 +216,8 @@ void Device_GL2::Viewport(unsigned int x,unsigned int y, unsigned int w,
 
 
 void Device_GL2::Clear(){
+    m_ModelMatrixStack.clear();
+
 #if defined(NCK_WINDOWS)
 	glClear(m_ClearFlags);
 #elif defined(NCK_LINUX)
@@ -545,10 +560,18 @@ void Device_GL2::StencilOp(OperationMode sfail,OperationMode dpmode
 
 
 void Device_GL2::CullMode(CullFaceMode mode){
-	if(mode == CULL_FRONT)
-		glCullFace(GL_FRONT);
-	else if(mode == CULL_BACK)
-		glCullFace(GL_BACK);
+    if (m_CullFace_Flip) {
+        if (mode == CULL_FRONT)
+            glCullFace(GL_BACK);
+        else if (mode == CULL_BACK)
+            glCullFace(GL_FRONT);
+    }
+    else {
+        if (mode == CULL_FRONT)
+            glCullFace(GL_FRONT);
+        else if (mode == CULL_BACK)
+            glCullFace(GL_BACK);
+    }
 }
 
 void Device_GL2::FillMode(PolygonMode mode){
@@ -564,15 +587,18 @@ void Device_GL2::DepthBias(float scale,float offset){
 
 void Device_GL2::MatrixMode(MatrixType mode){
 	GLenum mMode = GL_MODELVIEW;
+    m_IsModelMatrixActive = false;
 	switch(mode)
 	{
 	case MATRIX_MODEL:
 		mMode = GL_MODELVIEW;
+        m_IsModelMatrixActive = true;
 		break;
 	case MATRIX_PROJECTION:
 		mMode = GL_PROJECTION;
 		break;
 	case MATRIX_VIEW:
+        mMode = GL_MODELVIEW;
 		break;
 	}
 	glMatrixMode(mMode);
@@ -580,21 +606,39 @@ void Device_GL2::MatrixMode(MatrixType mode){
 
 void Device_GL2::LoadMatrix(const float *v){
 	glLoadMatrixf(v);
+    if (m_IsModelMatrixActive) {
+        m_ModelMatrix = Math::Mat44(v);
+    }
 }
 
 void Device_GL2::MultMatrix(const float *mat){
 	glMultMatrixf(mat);
+    if (m_IsModelMatrixActive) {
+        m_ModelMatrix *= Math::Mat44(mat);
+    }
 }
 
 void Device_GL2::Identity(){
-	glLoadIdentity();
+    if (m_IsModelMatrixActive) {
+        m_ModelMatrixStack.clear();
+        m_ModelMatrix = Math::Identity();
+    }
+    else
+	    glLoadIdentity();
 }
 
 void Device_GL2::PushMatrix(){
+    if (m_IsModelMatrixActive) {
+        m_ModelMatrixStack.push_front(m_ModelMatrix);
+    }
 	glPushMatrix();
 }
 
 void Device_GL2::PopMatrix(){
+    if (m_IsModelMatrixActive) {
+        m_ModelMatrix = *m_ModelMatrixStack.begin();
+        m_ModelMatrixStack.pop_front();
+    }
 	glPopMatrix();
 }
 
@@ -677,6 +721,7 @@ void Device_GL2::Material(MaterialProperty prop,const float *v){
 		m_SpecularColor[0] = v[0];
 		m_SpecularColor[1] = v[1];
 		m_SpecularColor[2] = v[2];
+        m_SpecularColor[3] = v[3];
 		break;
 	case MATERIAL_AMBIENT_COLOR:
 		m_AmbientColor[0] = v[0];
@@ -688,6 +733,9 @@ void Device_GL2::Material(MaterialProperty prop,const float *v){
 		break;
 	case MATERIAL_AMBIENT:
 		m_AmbientColor[3] = v[0];
+        break;
+    case MATERIAL_ALPHA:
+        m_Alpha = v[0];
 		break;
 	}
 }
