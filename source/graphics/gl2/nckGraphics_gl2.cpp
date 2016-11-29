@@ -587,6 +587,7 @@ void Device_GL2::DepthBias(float scale,float offset){
 
 void Device_GL2::MatrixMode(MatrixType mode){
 	GLenum mMode = GL_MODELVIEW;
+    m_CurrentMatrix = mode;
     m_IsModelMatrixActive = false;
 	switch(mode)
 	{
