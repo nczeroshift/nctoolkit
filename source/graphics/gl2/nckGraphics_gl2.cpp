@@ -217,7 +217,7 @@ void Device_GL2::Viewport(unsigned int x,unsigned int y, unsigned int w,
 
 void Device_GL2::Clear(){
     m_ModelMatrixStack.clear();
-
+    m_IsModelViewClear = false;
 #if defined(NCK_WINDOWS)
 	glClear(m_ClearFlags);
 #elif defined(NCK_LINUX)
@@ -620,11 +620,18 @@ void Device_GL2::MultMatrix(const float *mat){
 
 void Device_GL2::Identity(){
     if (m_IsModelMatrixActive) {
+        if(!m_IsModelViewClear)
+            glLoadIdentity();
+
         m_ModelMatrixStack.clear();
         m_ModelMatrix = Math::Identity();
     }
-    else
-	    glLoadIdentity();
+    else {
+        if (m_CurrentMatrix == MATRIX_VIEW)
+            m_IsModelViewClear = true;
+
+        glLoadIdentity();
+    }
 }
 
 void Device_GL2::PushMatrix(){

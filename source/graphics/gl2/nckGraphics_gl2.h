@@ -666,6 +666,9 @@ public:
 
     // Is model matrix active.
     bool m_IsModelMatrixActive;
+    bool m_IsModelViewClear;
+
+    MatrixType m_CurrentMatrix;
 
     std::list<Math::Mat44> m_ModelMatrixStack;
 };
