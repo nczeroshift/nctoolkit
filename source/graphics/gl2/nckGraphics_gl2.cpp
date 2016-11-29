@@ -229,6 +229,11 @@ void Device_GL2::Clear(){
     GLLock(m_Window);
     glClear(m_ClearFlags);
 #endif
+
+    glDisable(GL_TEXTURE_1D);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_3D);
+    glDisable(GL_TEXTURE_CUBE_MAP);
 }
 
 void Device_GL2::ClearFlags(unsigned int flags){
@@ -256,6 +261,11 @@ void Device_GL2::PresentAll(){
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_2D, 0));
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_3D, 0));
     m_SamplersPerTarget.insert(std::pair<GLuint, GLuint>(GL_TEXTURE_CUBE_MAP, 0));
+
+    glDisable(GL_TEXTURE_1D);
+    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_3D);
+    glDisable(GL_TEXTURE_CUBE_MAP);
 
 #if defined(NCK_WINDOWS)
 	SwapBuffers(m_DrawingContext);
