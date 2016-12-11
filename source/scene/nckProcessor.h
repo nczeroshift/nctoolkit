@@ -18,11 +18,12 @@
 
 _SCENE_BEGIN
 
-
+class Compound;
 class Processor {
 public:
     virtual ~Processor() {}
     virtual BXON::Object * HandleData(BXON::Object * obj) { return obj; };
+    virtual void HandleFinish(BXON::Map * map, Scene::Compound * compound) { };
     virtual Geometry::Mesh* HandleGeometry(Geometry::Mesh * mesh) { return mesh; };
     virtual Scene::Material * HandleMaterial(Scene::Material * mat) { return mat; };
     virtual Scene::Texture * HandleTexture(Scene::Texture * tex) { return tex; };

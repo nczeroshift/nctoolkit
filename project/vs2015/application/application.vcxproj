@@ -119,6 +119,7 @@
     <ClInclude Include="..\..\..\source\apps\nckDemo_12.h" />
     <ClInclude Include="..\..\..\source\apps\nckDemo_13.h" />
     <ClInclude Include="..\..\..\source\apps\nckDemo_14.h" />
+    <ClInclude Include="..\..\..\source\apps\nckDemo_15.h" />
     <ClInclude Include="..\..\..\source\apps\nckDemo_2.h" />
     <ClInclude Include="..\..\..\source\apps\nckDemo_3.h" />
     <ClInclude Include="..\..\..\source\apps\nckDemo_4.h" />
@@ -174,6 +175,7 @@
     <ClCompile Include="..\..\..\source\apps\nckDemo_12.cpp" />
     <ClCompile Include="..\..\..\source\apps\nckDemo_13.cpp" />
     <ClCompile Include="..\..\..\source\apps\nckDemo_14.cpp" />
+    <ClCompile Include="..\..\..\source\apps\nckDemo_15.cpp" />
     <ClCompile Include="..\..\..\source\apps\nckDemo_2.cpp" />
     <ClCompile Include="..\..\..\source\apps\nckDemo_3.cpp" />
     <ClCompile Include="..\..\..\source\apps\nckDemo_4.cpp" />

@@ -76,6 +76,9 @@
     <ClInclude Include="..\..\..\source\apps\nckDemo_14.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\nckDemo_15.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\apps\main.cpp">
@@ -127,6 +130,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\apps\nckDemo_14.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\nckDemo_15.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -532,6 +532,7 @@ void Compound_Basic::Load(const std::string & filename, Processor * processor)
             if (processor) obj = processor->HandleData(obj);
             map = dynamic_cast<BXON::Map*>(obj);
             ReadBXON(map,processor);
+            if (processor) processor->HandleFinish(map, this);
         }
         catch (const Core::Exception & e) {
             SafeDelete(obj);

@@ -20,6 +20,7 @@
 #include "nckDemo_12.h"
 #include "nckDemo_13.h"
 #include "nckDemo_14.h"
+#include "nckDemo_15.h"
 
 #define FRONTEND
 
@@ -66,7 +67,7 @@ public:
 			((DemoSelector*)tmp)->SetCallback(this);
 			demoSelector = tmp;
 #else
-			tmp = CreateDemo_10(wnd,dev);
+			tmp = CreateDemo_14(wnd,dev);
 			tmp->Load();
 			demoActive = tmp;
 #endif
@@ -170,6 +171,7 @@ public:
                 case 12: tmp = new Demo12(wnd, dev); break;
                 case 13: tmp = new Demo13(wnd, dev); break;
                 case 14: tmp = new Demo14(wnd, dev); break;
+                case 15: tmp = new Demo15(wnd, dev); break;
 			};
 		}
 		catch(const Core::Exception & ex){

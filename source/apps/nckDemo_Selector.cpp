@@ -208,6 +208,11 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
     d14->AddKeyword("Textures");
     d14->AddKeyword("Shaders");
 
+    DemoDetails * d15 = new DemoDetails();
+    d15->SetDescription("Timeline markers");
+    d15->AddKeyword("Animation");
+    d15->AddKeyword("Markers");
+    
 	m_DemoDetails.push_back(d1);
 	m_DemoDetails.push_back(d2);
 	m_DemoDetails.push_back(d3);
@@ -222,6 +227,7 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
     m_DemoDetails.push_back(d12);
     m_DemoDetails.push_back(d13);
     m_DemoDetails.push_back(d14);
+    m_DemoDetails.push_back(d15);
 }
 
 DemoSelector::~DemoSelector(){
