@@ -124,6 +124,10 @@ public:
     /// Get object datablock.
     Datablock * GetData();
     
+    uint8_t GetLayer() const;
+
+    void SetLayer(uint8_t layer);
+
     /// Return datablock type.
     DatablockType GetType();
     
@@ -155,6 +159,9 @@ private:
     /// Object matrix.
     Math::Mat44	m_Matrix;
     
+    /// Layer Id
+    uint8_t m_Layer;
+
     std::map<std::string,AnimationTrack*> m_Tracks;
     //ObjectAction *m_Action;
 };

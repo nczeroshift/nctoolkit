@@ -45,6 +45,7 @@ public:
     /// Get datablock type.
     DatablockType GetType();
     
+    static std::vector<std::pair<int, Scene::Camera*>> fetchCamerasWithKeyframes(BXON::Map * map, Scene::Compound * compound);
 protected:
     
     /// List of objects datablocks

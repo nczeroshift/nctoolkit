@@ -8,6 +8,7 @@
 #include "nckUtils.h"
 #include "nckException.h"
 #include "bxonDataIO.h"
+#include <algorithm>
 
 _SCENE_BEGIN
 
@@ -617,7 +618,45 @@ void Compound_Basic::Render(Math::Frustum * fr, Material *overlap)
         }
         
     }
-    
+
+}
+
+std::vector<std::pair<int, Scene::Camera*>> Compound::fetchCamerasWithKeyframes(BXON::Map * map, Scene::Compound * compound) {
+    std::vector<std::pair<int, Scene::Camera*>> ret;
+    if (map->HasKey("tl_markers")) {
+        BXON::Array * markers = map->GetArray("tl_markers");
+
+        std::vector<int> orderedFrames;
+        orderedFrames.reserve(markers->GetSize());
+
+        std::map<int, std::string> camKeyMap;
+
+        for (size_t i = 0; i < markers->GetSize(); i++) {
+            BXON::Map * entry = markers->GetMap(i);
+            int frameValue = entry->GetInteger("frame");
+            if (entry->HasKey("camera")) {
+                std::string camName = entry->GetString("camera");
+                orderedFrames.push_back(frameValue);
+                camKeyMap.insert(std::pair<int, std::string>(frameValue, camName));
+            }
+        }
+
+        std::sort(orderedFrames.begin(), orderedFrames.end());
+
+        ret.reserve(orderedFrames.size());
+
+        for (int k = 0; k < orderedFrames.size(); k++) {
+            int key = orderedFrames[k];
+            if (camKeyMap.find(key) != camKeyMap.end()) {
+                std::string name = camKeyMap.find(key)->second;
+                Scene::Camera * cam = dynamic_cast<Scene::Camera*>(compound->GetDatablock(Scene::DATABLOCK_CAMERA, name));
+                if (cam != NULL)
+                    ret.push_back(std::pair<int, Scene::Camera*>(key, cam));
+            }
+        }
+    }
+
+    return ret;
 }
 
 _SCENE_END

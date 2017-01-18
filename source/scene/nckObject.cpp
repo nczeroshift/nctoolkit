@@ -131,6 +131,7 @@ Object::Object(Graph::Device *dev) : Datablock(dev){
     m_Scale = Math::Vec3(1,1,1);
     //m_Action = NULL;
     m_Data = NULL;
+    m_Layer = 0;
 }
 
 Object::~Object(){
@@ -241,6 +242,9 @@ void Object::Parse(BXON::Map * entry, const std::map<std::string, Object *> & ob
     m_Rotation = entry->GetQuat("quaternion");
     m_Scale = entry->GetVec3("scale");
     
+    if (entry->HasKey("layer"))
+        m_Layer = entry->GetInteger("layer");
+
     if(entry->HasKey("datablock"))
     {
         BXON::Map * db = entry->GetMap("datablock");
@@ -291,6 +295,14 @@ Datablock * Object::GetData()
 DatablockType Object::GetType()
 {
     return DATABLOCK_OBJECT;
+}
+
+uint8_t Object::GetLayer() const{
+    return m_Layer;
+}
+
+void Object::SetLayer(uint8_t layer) {
+    m_Layer = layer;
 }
 
 void Object::Play(float time)

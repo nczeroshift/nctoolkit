@@ -653,7 +653,7 @@ void Device_GL2::PushMatrix(){
 }
 
 void Device_GL2::PopMatrix(){
-    if (m_IsModelMatrixActive) {
+    if (m_IsModelMatrixActive && !m_ModelMatrixStack.empty()) {
         m_ModelMatrix = *m_ModelMatrixStack.begin();
         m_ModelMatrixStack.pop_front();
     }
