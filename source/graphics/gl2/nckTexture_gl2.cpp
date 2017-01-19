@@ -795,6 +795,10 @@ bool RTManager_GL2::Disable(){
 	return true;
 }
 
+bool RTManager_GL2::InvertedY() {
+    return true;
+}
+
 Texture3D_GL2::Texture3D_GL2(Device_GL2 *dev) : Texture_GL2(dev){
 	m_Target = GL_TEXTURE_3D;
 	m_Depth = 0;

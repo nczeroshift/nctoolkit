@@ -228,7 +228,7 @@ public:
 	bool Attach(unsigned int target,Texture2D *tex);
 	bool Attach(unsigned int target,unsigned int face,TextureCubeMap *tex);
 	bool Disable();
-
+    bool InvertedY();
 protected:
 	std::list<AttachedTexture> m_Textures;
 	GLuint m_RenderBuffer;

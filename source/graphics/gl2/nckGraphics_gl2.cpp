@@ -598,16 +598,17 @@ void Device_GL2::DepthBias(float scale,float offset){
 void Device_GL2::MatrixMode(MatrixType mode){
 	GLenum mMode = GL_MODELVIEW;
     m_CurrentMatrix = mode;
-    m_IsModelMatrixActive = false;
+    //m_IsModelMatrixActive = false;
 	switch(mode)
 	{
-	case MATRIX_MODEL:
-		mMode = GL_MODELVIEW;
-        m_IsModelMatrixActive = true;
-		break;
+	
 	case MATRIX_PROJECTION:
 		mMode = GL_PROJECTION;
 		break;
+    case MATRIX_MODEL:
+       // mMode = GL_MODELVIEW;
+        //m_IsModelMatrixActive = true;
+        //break;
 	case MATRIX_VIEW:
         mMode = GL_MODELVIEW;
 		break;
@@ -702,27 +703,15 @@ void Device_GL2::Quaternion(float x,float y,float z,float w){
 }
 
 void Device_GL2::Perspective(float aspect, float fov, float znear,float zfar){
-	gluPerspective(fov,aspect,znear,zfar);
-	if(m_InsideFBO)
-		glScalef(1,-1,1);
+    gluPerspective(fov, aspect, znear, zfar);
 }
 
 void Device_GL2::Ortho(float left, float right, float bottom, float top, float znear,float zfar){
 	glOrtho(left,right,bottom,top,znear,zfar); 	
-	if(m_InsideFBO){
-		glScalef(1,-1,1);
-		glTranslatef(0,-(bottom-top),0); 
-	}
 }
-
 
 void Device_GL2::Ortho2D(float width,float height,float znear, float zfar){
 	glOrtho(0,width,height,0,znear,zfar);
-	if(m_InsideFBO){
-		// This flips the content in the y axis to make rendering coherent with directx
-		glScalef(1,-1,1); // wnd.top = -height and wnd.bottom = 0
-		glTranslatef(0,-height,0); // wnd.top = 0 and wnd.bottom = height
-	}
 }
 
 

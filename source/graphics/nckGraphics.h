@@ -161,6 +161,8 @@ public:
 
 	/// Switch back to default rendering context.
 	virtual bool Disable() = 0;
+
+    virtual bool InvertedY() = 0;
 };
 
 /**
