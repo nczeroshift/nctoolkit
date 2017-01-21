@@ -598,21 +598,22 @@ void Device_GL2::DepthBias(float scale,float offset){
 void Device_GL2::MatrixMode(MatrixType mode){
 	GLenum mMode = GL_MODELVIEW;
     m_CurrentMatrix = mode;
-    //m_IsModelMatrixActive = false;
-	switch(mode)
-	{
+    m_IsModelMatrixActive = false;
 	
-	case MATRIX_PROJECTION:
-		mMode = GL_PROJECTION;
-		break;
-    case MATRIX_MODEL:
-       // mMode = GL_MODELVIEW;
-        //m_IsModelMatrixActive = true;
-        //break;
-	case MATRIX_VIEW:
-        mMode = GL_MODELVIEW;
-		break;
+    switch(mode)
+	{
+	    case MATRIX_PROJECTION:
+		    mMode = GL_PROJECTION;
+		    break;
+
+        case MATRIX_MODEL:
+            mMode = GL_MODELVIEW;
+            m_IsModelMatrixActive = true;
+	    case MATRIX_VIEW:
+            mMode = GL_MODELVIEW;
+		    break;
 	}
+
 	glMatrixMode(mMode);
 }
 
