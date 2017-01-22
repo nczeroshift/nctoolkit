@@ -22,7 +22,7 @@ Material::Material(Graph::Device *dev): Datablock(dev){
     m_kAmbient = 0.1f;
     m_AlphaBlending = false;
     m_AlphaTest = false;
-    m_CullFlag = true;
+    m_CullFlag = false;
     m_CullingMode = Graph::CULL_BACK;
     m_Program = NULL;
     

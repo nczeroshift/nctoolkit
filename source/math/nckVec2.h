@@ -78,6 +78,9 @@ public:
 	/// Division by scalar operator.
 	friend Vec2 operator / (const Vec2 & vec, const float value);
 
+    ///  Division by vector operator.
+    friend Vec2 operator / (const Vec2 & vecA, const Vec2 & vecB );
+
 	/// Division by scalar operator.
 	friend Vec2 operator / (const float value,const Vec2 & vec);
 
@@ -126,6 +129,7 @@ Vec2 operator * (const Vec2 & vecA, const Vec2 & vecB);
 Vec2 operator * (const Vec2 & vecA, const float value);
 Vec2 operator * (const float value, const Vec2 & vec);
 Vec2 operator / (const Vec2 & vec, const float value);
+Vec2 operator / (const Vec2 & vecA, const Vec2 & vecB);
 Vec2 operator / (const float value,const Vec2 & vec);
 Vec2 operator * (const Vec2 & vec,const Mat44 & mat);
 Vec2 operator * (const Mat44 & mat,const Vec2 & vec);

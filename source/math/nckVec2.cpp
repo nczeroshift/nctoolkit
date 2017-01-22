@@ -81,6 +81,10 @@ Vec2 operator / (const Vec2 & vecA, const float value){
 	return Vec2(vecA.m_X/value,vecA.m_Y/value);
 }
 
+Vec2 operator / (const Vec2 & vecA, const Vec2 & vecB) {
+    return Vec2(vecA.m_X / vecB.m_X, vecA.m_Y / vecB.m_Y);
+}
+
 Vec2 operator / (const float value,const Vec2 & vecA){
 	return Vec2(value/vecA.m_X,value/vecA.m_Y);
 }
