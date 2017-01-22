@@ -160,6 +160,8 @@ void Object::Update()
 
 void Object::Bind(Graph::MatrixType type)
 {
+    if (m_Parent)
+        m_Parent->Bind(type);
     m_Device->MatrixMode(type);
     m_Device->MultMatrix((float*)&m_Matrix);
 }
@@ -244,6 +246,11 @@ void Object::Parse(BXON::Map * entry, const std::map<std::string, Object *> & ob
     
     if (entry->HasKey("layer"))
         m_Layer = entry->GetInteger("layer");
+
+    if (entry->HasKey("parent")) {
+        std::string parentId = entry->GetString("parent");
+        m_Parent = objMap.find(parentId)->second;
+    }
 
     if(entry->HasKey("datablock"))
     {
