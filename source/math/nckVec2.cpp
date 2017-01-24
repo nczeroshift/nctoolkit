@@ -129,7 +129,7 @@ Vec2 BezierInterpolation(const Vec2 & p0,const Vec2 & p1,const Vec2 & p2,
 Vec2 LinearInterpolation(const Vec2 & p0,const Vec2 & p1,float t){
 	if(t<0.0f) return p0;
 	if(t>1.0f) return p1;
-	return p0*(t-1.0f) + p1*t;
+	return p0*(1.0f-t) + p1*t;
 }
 
 Vec2 BezierInterpolation(const Mat44 & inv_mat,const Vec2 & p0,const Vec2 & p1,

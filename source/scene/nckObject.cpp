@@ -320,8 +320,7 @@ void Object::Play(float time)
         if(track->HasPosition(time))
             m_Local = track->GetPosition(time);
         
-        if(track->HasPosition(time))
-            
+        if(track->HasScale(time))
             m_Scale= track->GetScale(time);
         
         if(track->HasEuler(time))

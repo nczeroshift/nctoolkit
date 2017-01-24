@@ -150,7 +150,7 @@ Vec3 LinearInterpolation(const Vec3 & vecA,const Vec3 & vecB,float t){
 		return vecA;
 	if(t>1.0f)
 		return vecB;
-	return vecA*(t-1.0f) + vecB*t;
+	return vecA*(1.0f-t) + vecB*t;
 }
 
 Vec3 BezierInterpolation(const Mat44& inv_mat,const Vec3 & P0,const Vec3 & P1,

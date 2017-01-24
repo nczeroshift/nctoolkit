@@ -136,7 +136,7 @@ Vec4 LinearInterpolation(const Vec4 & p0,const Vec4 & p1,float t){
 		return p0;
 	if(t>1.0f)
 		return p1;
-	return p0*(t-1.0f) + p1*t;
+	return p0*(1.0f-t) + p1*t;
 }
 
 std::string Vec4::GetString(){
