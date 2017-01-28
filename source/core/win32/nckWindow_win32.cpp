@@ -309,7 +309,7 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 
 	if (FullScreen)
 	{
-		m_Window->m_Flags = WS_POPUPWINDOW;
+        m_Window->m_Flags = WS_POPUP;//WS_POPUPWINDOW && (~WS_THICKFRAME) && (~WS_CAPTION);
 
 		DEVMODE dmSettings;									
 		memset(&dmSettings,0,sizeof(dmSettings));			
@@ -357,6 +357,24 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 		delete m_Window;
 		THROW_EXCEPTION("Unable to create window");
 	}
+
+    if (FullScreen) {
+        /*SetWindowLong(m_Window->m_Handle, GWL_STYLE,
+            m_Window->m_Flags & ~(WS_CAPTION | WS_THICKFRAME));
+        SetWindowLong(m_Window->m_Handle, GWL_EXSTYLE,
+            m_Window->m_Flags & ~(WS_EX_DLGMODALFRAME |
+                WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE));*/
+
+        MONITORINFO monitor_info;
+        monitor_info.cbSize = sizeof(monitor_info);
+        GetMonitorInfo(MonitorFromWindow(m_Window->m_Handle, MONITOR_DEFAULTTONEAREST),
+            &monitor_info);
+        
+        RECT rect = monitor_info.rcMonitor;
+        SetWindowPos(m_Window->m_Handle, NULL, rect.left, rect.top,
+            rect.right- rect.left, rect.bottom-rect.top,
+            SWP_NOZORDER | SWP_NOACTIVATE | SWP_FRAMECHANGED);
+    }
 
 	p_WindowMutex->Lock();
 	(*p_WindowManager).push_back(m_Window);

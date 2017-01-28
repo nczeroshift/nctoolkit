@@ -835,7 +835,7 @@ Program * Device_GL2::LoadProgram(const std::string & filename, ShaderModelType 
 	}
 	catch(Core::Exception & e){
 		delete prog;
-		THROW_EXCEPTION_STACK("Load program exception",e);
+		THROW_EXCEPTION_STACK("Load program exception from file " + filename,e);
 	}
 
 	return prog;
@@ -849,7 +849,7 @@ Program * Device_GL2::LoadProgramFromText(const std::string & text, ShaderModelT
 	}
 	catch(Core::Exception & e){
 		delete prog;
-		THROW_EXCEPTION_STACK("Load program exception",e);
+		THROW_EXCEPTION_STACK("Load program exception from text ",e);
 	}
 
 	return prog;
