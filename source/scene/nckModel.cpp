@@ -1,12 +1,14 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
 #include "nckModel.h"
 #include "nckException.h"
 #include "nckUtils.h"
+
+#include "nckMathUtils.h"
 
 #include "nckArmature.h"
 
@@ -435,8 +437,33 @@ Core::QueueBuffer * GetMeshVertexBuffer(Geometry::Mesh * mesh,
             vertexBuffer->Push((uint8_t*)&vertex_tangent[i], sizeof(Math::Vec4));
         
         if(l_UseSkinning){
+            /*Core::DebugLog("ID : " +
+                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[0]) + " " +
+                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[1]) + " " +
+                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[2]) + " " +
+                Math::IntToString((int)vertex_skinning[i].m_Bone_Id[3])
+            );
+
+            Core::DebugLog(" W : " +
+                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[0],2) + " " +
+                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[1],2) + " " +
+                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[2],2) + " " +
+                Math::FloatToString(vertex_skinning[i].m_Bone_Weight[3],2) +"\n"
+            );*/
+
             vertexBuffer->Push((uint8_t*)&vertex_skinning[i].m_Bone_Id, sizeof(int)*4);
-            vertexBuffer->Push((uint8_t*)&vertex_skinning[i].m_Bone_Weight, sizeof(Math::Vec4));
+           
+            float weightSum = vertex_skinning[i].m_Bone_Weight[0]+
+                vertex_skinning[i].m_Bone_Weight[1]+
+                vertex_skinning[i].m_Bone_Weight[2]+
+                vertex_skinning[i].m_Bone_Weight[3];
+
+            if (weightSum > 1.0 || weightSum < 1.0) {
+                for (int w = 0; w < 4; w++)
+                    vertex_skinning[i].m_Bone_Weight[w] /= weightSum;
+            }
+
+            vertexBuffer->Push((uint8_t*)&vertex_skinning[i].m_Bone_Weight, sizeof(float) * 4);
         }
         
         if(l_UseColors)
@@ -524,7 +551,7 @@ void Model::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & m
     if(vertexBuffer->Size() != vp.GetVertexSize() * m_Vertices)
         THROW_EXCEPTION("Invalid buffer size");
 
-    uint32_t groupsCount = MIN(m_Materials.size(), 1);
+    uint32_t groupsCount = MAX(m_Materials.size(), 1);
     
     std::vector<std::list<Geometry::XTriangleFace*> > facesPerGroup(groupsCount);
     

@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -56,14 +56,14 @@ void Exception::PrintStackTrace() const
 	if(nckExceptionCount == 0)
 		f = fopen(logpath.c_str(),"w");
 	else 
-		f = fopen(logpath.c_str(),"wa");
+		f = fopen(logpath.c_str(),"a");
 
 	if(f == NULL)
 	{
 		if(nckExceptionCount == 0)
 			f = fopen("exception.log","w");
 		else 
-			f = fopen("exception.log","wa");
+			f = fopen("exception.log","a");
 	}
 
 	nckExceptionCount++;

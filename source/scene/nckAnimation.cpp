@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -502,5 +502,8 @@ bool AnimationTrack::HasQuaternion(float t){
     return false;
 }
 
+float GetKeyFrameForTime(float fps, float time) {
+    return time * fps;
+}
 
 _SCENE_END

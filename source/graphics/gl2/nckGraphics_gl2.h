@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -51,6 +51,7 @@ public:
 	unsigned int GetHeight();
 	void SetFilter(FilterType type,FilterMode mode);
 	void SetAdressMode(AdressMode mode);
+    void SetAnisotropyFilter(float value);
 
 #ifdef NCK_GRAPH_RES_PROXY
 	ResourceProxy<Texture_GL2> * GetProxyManager();
@@ -99,6 +100,8 @@ protected:
 
 	/// OpenGL target type id.
 	GLuint m_Target;
+
+    float m_AnisotropyValue;
 
 #ifdef NCK_GRAPH_RES_PROXY
 
@@ -150,11 +153,16 @@ public:
 	*/
 	static TextureCubemap_GL2 * Load(Device_GL2 * dev,const std::string & packageFilename, bool mipmaps);
 
+
+    void Create(unsigned int width, unsigned int height, Format format, bool renderTarget);
+
 	TextureCubemap_GL2(Device_GL2 *dev);
 	virtual ~TextureCubemap_GL2();
 
 	void Enable(unsigned int sampler_id);
 	void Disable(unsigned int sampler_id);
+    GLuint getTextureId();
+
 	TextureType GetType();
 
 	void *Lock(unsigned int face,unsigned int level);
@@ -223,10 +231,10 @@ public:
 	RTManager_GL2(Device_GL2 *dev);
 	virtual ~RTManager_GL2();
 
-	bool Enable();
+	bool Enable(int face = 0);
 	void Load(GLuint width, GLuint height);
 	bool Attach(unsigned int target,Texture2D *tex);
-	bool Attach(unsigned int target,unsigned int face,TextureCubeMap *tex);
+	bool Attach(unsigned int target,TextureCubeMap *tex);
 	bool Disable();
     bool InvertedY();
 protected:
@@ -671,6 +679,8 @@ public:
     MatrixType m_CurrentMatrix;
 
     std::list<Math::Mat44> m_ModelMatrixStack;
+
+    float m_MaxAnisotropy;
 };
 
 Device_GL2 * CreateDevice_GL2(Core::Window *wnd,

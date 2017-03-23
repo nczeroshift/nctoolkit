@@ -1,6 +1,6 @@
 ﻿
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -14,9 +14,9 @@
 #include <list>
 #include <map>
 
-#ifdef _DEBUG
-	#include <crtdbg.h>
-#endif
+//#ifdef _DEBUG
+//	#include <crtdbg.h>
+//#endif
 
 static Core::Mutex * p_WindowMutex = NULL;
 static std::list<Core::Window_Win32*> *p_WindowManager = NULL;
@@ -432,9 +432,9 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	releaseAppDataFolder();
 	SafeDelete(p_WindowMutex);
 
-	#ifdef _DEBUG
-		::_CrtDumpMemoryLeaks();
-	#endif
+	//#ifdef _DEBUG
+	//	::_CrtDumpMemoryLeaks();
+	//#endif
 
 	return 1;
 }

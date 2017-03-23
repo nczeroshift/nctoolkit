@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -129,9 +129,6 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 	int convsize = dataSize / vi.channels;
 	int retSize = 0;
 	int8_t * convbuffer = (int8_t*)dataBuffer;
-
-	if(reader->Tell() == -1)
-		return 0;
 
 	char * buffer = NULL;
 	int bytes = 0;

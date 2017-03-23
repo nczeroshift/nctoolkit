@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -138,7 +138,7 @@ Mat44 Transpose(const Mat44 & mat);
 bool Invert(const Mat44 & source, Mat44 *target);
 Mat44 Perspective(float aspect, float fov, float znear, float zfar);
 Mat44 Ortho(float left, float top, float right, float bottom, float znear, float zfar);
-//Mat44 TrackTo(const Vec3 & source, const Vec3 & target, Vec3 & up_vector);
+Mat44 CubemapTransform(const Math::Vec3 & position, int faceId);
 
 _MATH_END
 

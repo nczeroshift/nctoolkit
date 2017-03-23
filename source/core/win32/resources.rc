@@ -95,7 +95,7 @@ BEGIN
             VALUE "FileDescription", "NCtoolKit"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "resources.rc"
-            VALUE "LegalCopyright", "nctoolkit Luis F.Loureiro (C) 2007-2015 under zlib license"
+            VALUE "LegalCopyright", "nctoolkit Luis F.Loureiro (C) 2007-2017 under zlib license"
             VALUE "OriginalFilename", "resources.rc"
             VALUE "ProductName", "Development version"
             VALUE "ProductVersion", "1.0.0.1"

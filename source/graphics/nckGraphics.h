@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -78,6 +78,9 @@ public:
 	/// Set texture adress mode.
 	virtual void SetAdressMode(AdressMode mode)=0;
 	
+    /// Set anisotropy value
+    virtual void SetAnisotropyFilter(float value)=0;
+
 	/// Return texture type.
 	virtual TextureType GetType()=0;
 
@@ -146,7 +149,7 @@ public:
 	/// @param surf_id Surface ID number for cubemaps only.
 	/// @return True if the rendering context switch was successful, false
 	///otherwise.
-	virtual bool Enable() = 0;
+	virtual bool Enable(int face = 0) = 0;
 
 	/// Attach 2d texture as a render target.
 	/// @param target Render target ID, must be less than PROPERTY_MAX_SIMULTANEOUS_RT.
@@ -157,7 +160,7 @@ public:
 
 	/// Attach cubemap texture as a render target.
 	/// @param face Cubemap face ID (0 to 5).
-	virtual bool Attach(unsigned int target,unsigned int face, TextureCubeMap *tex) = 0;
+	virtual bool Attach(unsigned int target, TextureCubeMap *tex) = 0;
 
 	/// Switch back to default rendering context.
 	virtual bool Disable() = 0;

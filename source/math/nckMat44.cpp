@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Lu’s F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -384,6 +384,29 @@ Mat44 Perspective(float aspect, float fov, float znear, float zfar) {
     m[15] = 0;
 
     return Mat44(m);
+}
+
+Mat44 CubemapTransform(const Vec3 & position, int faceId) {
+    Vec3 orientation;
+    switch (faceId) {
+    case 0:
+        orientation = Math::Vec3(-180, -270, 0); break; // X+
+    case 1:
+        orientation = Math::Vec3(180, -90, 0); break;   // X-
+    case 2:
+        orientation = Math::Vec3(90, 0, 0); break;      // Y+
+    case 3:
+        orientation = Math::Vec3(-90, 0, 0); break;     // Y-
+    case 4:
+        orientation = Math::Vec3(180, 0, 0); break;     // Z+
+    case 5:
+        orientation = Math::Vec3(0, 0, 180); break;     // Z-
+    default:
+        break;
+    };
+
+    return Math::Translate(Math::Vec3(-position.GetX(), -position.GetY(), -position.GetZ())) * Math::RotateZ(-orientation.GetZ() * M_PI / 180) *
+        Math::RotateY(-orientation.GetY() * M_PI / 180) *  Math::RotateX(-orientation.GetX() * M_PI / 180);
 }
 
 _MATH_END

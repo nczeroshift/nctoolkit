@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -160,6 +160,8 @@ Device_GL2::Device_GL2(Core::Window * wnd,
     
 #endif
         
+    m_MaxAnisotropy = 0.0f;
+    glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &m_MaxAnisotropy);
 }
 
 Device_GL2::~Device_GL2()
@@ -291,6 +293,7 @@ void Device_GL2::Begin(PrimitiveType type){
 	}
 
 	m_TextureCache.Check();
+
 	switch(type)
 	{
 	case PRIMITIVE_LINES:
@@ -306,6 +309,7 @@ void Device_GL2::Begin(PrimitiveType type){
 		target = GL_POINTS;
 		break;
 	}
+
 	glBegin(target);
 }
 
@@ -802,9 +806,17 @@ Texture * Device_GL2::LoadTexture(const std::string & filename, bool genMipmap)
 Texture * Device_GL2::CreateTexture(TextureType type,unsigned int width,
 	unsigned int height,unsigned int depth,Format format, bool render_target)
 {
-	Texture2D_GL2 * tex = new Texture2D_GL2(this);
-	tex->Create(width,height,format,false);
-	return (Texture2D*)tex;
+    if (type == TEXTURE_2D) {
+        Texture2D_GL2 * tex = new Texture2D_GL2(this);
+        tex->Create(width, height, format, false);
+        return (Texture2D*)tex;
+    } 
+    else if (type == TEXTURE_CUBEMAP) {
+        TextureCubemap_GL2 * tex = new TextureCubemap_GL2(this);
+        tex->Create(width, height, format, false);
+        return (TextureCubemap_GL2*)tex;
+    }
+    return NULL;
 }
 
 RTManager * Device_GL2::CreateRTManager(unsigned int width,

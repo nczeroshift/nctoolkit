@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Lu’s F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -358,8 +358,8 @@ void Program_GL2::LoadFromFilename(const std::string & filename)
 }
 
 void Program_GL2::EnableInternal(){
-	if(!m_Active){
-		glUseProgram(m_Program);
+    if(!m_Active){
+        glUseProgram(m_Program);
 		for(std::map<std::string,Shader_GL2_Variable*>::iterator i = m_Variables.begin();i!=m_Variables.end();i++){
 			(*i).second->Bind();
 		}
@@ -578,7 +578,7 @@ bool Program_GL2::SetMatrixArray(const std::string & name,int count,const float 
 			var->m_Name = name;
 			var->m_Handle = id;
 			var->m_Type = Shader_GL2_Variable::MATRIX_ARRAY;
-			var->m_Count = 1;
+			var->m_Count = count;
 			var->m_Data = new float[16*count];
 			m_Variables.insert(std::pair<std::string,Shader_GL2_Variable*>(name,var));
 		}

@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -185,6 +185,8 @@ private:
     std::string m_Name;
     std::vector<AnimationStrip*> m_Strips;
 };
+
+float GetKeyFrameForTime(float fps, float time);
 
 _SCENE_END
 

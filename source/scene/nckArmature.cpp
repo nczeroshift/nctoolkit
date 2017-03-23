@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -15,6 +15,7 @@ Bone::Bone()
 {
     m_Scale= Math::Vec3(1,1,1);
     m_Parent = NULL;
+    m_InvBMatrix = m_BMatrix = m_Matrix = Math::Mat44();
 }
 
 Bone::~Bone()
@@ -174,7 +175,7 @@ void Armature::Update()
         
         rot = Math::Rotate(Math::Rotation(b->m_InvBMatrix * Math::Rotate(q) * b->m_BMatrix));
 
-        b->m_Matrix = Math::Scale(b->m_Scale) * rot * Math::Translate(b->m_Head + b->m_Location) * b->m_Matrix  ;
+        b->m_Matrix = Math::Scale(b->m_Scale) * rot * Math::Translate((b->m_Head + b->m_InvBMatrix *b->m_Location)) * b->m_Matrix  ;
     }
 }
 
@@ -279,6 +280,25 @@ void Armature::Read(BXON::Map * entry){
         m_Bones[i]->Read(bones->GetMap(i), m_Bones);
     }
     
+    for (unsigned int i = 0; i<m_Bones.size(); i++)
+    {
+        Bone *b = m_Bones[i];
+
+        /// Process bone transformation matrix.
+        b->m_Matrix = Math::Identity();
+
+        if (b->m_Parent) {
+            b->m_Matrix = Math::Translate(b->m_Parent->m_Tail - b->m_Parent->m_Head) *  b->m_Parent->m_Matrix;
+        }
+
+        b->m_Matrix = Math::Scale(b->m_Scale) * Math::Translate(b->m_Head + b->m_Location) * b->m_Matrix;
+    }
+
+    for (unsigned int i = 0; i < m_Bones.size(); i++)
+    {
+        m_Bones[i]->m_RestPos = Math::TranslationPart(m_Bones[i]->m_Matrix);
+    }
+
     if(entry->HasKey("animation")){
         BXON::Map * anim = entry->GetMap("animation");
         BXON::Array * tracks = anim->GetArray("tracks");

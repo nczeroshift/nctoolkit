@@ -61,7 +61,7 @@ bool VertexSkinning::Parse(BXON::Map * mesh, std::list<Vertex*> * v, const std::
                 
                 for(int j = 0; j < va->GetSize(); j+=2){
                     int gId = va->GetInteger(j);
-                    int weight = va->GetFloat(j+1);
+                    float weight = va->GetFloat(j+1);
                     
                     VertexSkinning * vs = new VertexSkinning();
                     vs->m_Group = groups[gId];
@@ -327,10 +327,17 @@ void Face::operator =(const Face &f)
 void Face::Parse(BXON::Map * mesh, std::list<Face*> * fOut, const std::vector<VertexIterator> & vIter)
 {
     BXON::Array * faces = mesh->GetArray("faces_vertices");
+    BXON::Array * mats = NULL;
+
+    if (mesh->HasKey("faces_materials"))
+        mats = mesh->GetArray("faces_materials");
+
     int32_t vIterSize = (int32_t)vIter.size();
     
     int uvlCount = mesh->HasKey("uv_layers") ? mesh->GetArray("uv_layers")->GetSize() : 0;
     
+  
+       
     for(uint32_t i = 0, j = 0; i < faces->GetSize(); i += 4){
         int f1 = faces->GetInteger(i);
         int f2 = faces->GetInteger(i+1);
@@ -350,8 +357,11 @@ void Face::Parse(BXON::Map * mesh, std::list<Face*> * fOut, const std::vector<Ve
             f->m_Verts.push_back(vIter[f4]);
         }
         
+        if (mats != NULL)
+            f->m_MatIndex = mats->GetInteger(j);
+
         f->m_Id = j++;
-        
+      
         fOut->push_back(f);
     }
     
@@ -838,7 +848,7 @@ void GetTangentVectorBuffer(int vertices,int faces, Math::Vec3 * vb,
 
 XVertexSkinning::XVertexSkinning()
 {
-    memset(m_Bone_Id,0,sizeof(int)*16);
+    memset(m_Bone_Id,0,sizeof(float)*16);
     memset(m_Bone_Weight,0,sizeof(float)*16);
     m_Bone_Count = 0;
 }

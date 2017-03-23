@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Lu’s F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -150,6 +150,9 @@ void Mesh_GL2::Disable(){
 
 void Mesh_GL2::Render(unsigned int subset)
 {
+    if (subset >= m_IndexBuffer.size())
+        return;
+
     m_Device->UpdateMatrix();
 
     glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);

@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -266,7 +266,7 @@ public:
     XVertexSkinning();
     
     /// Bone id's
-    int m_Bone_Id[16];
+    float m_Bone_Id[16];
     
     /// Bones weights (0.0f - 1.0f)
     float m_Bone_Weight[16];

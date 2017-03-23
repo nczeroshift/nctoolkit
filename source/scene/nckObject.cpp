@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -237,7 +237,8 @@ void Object::Parse(BXON::Map * entry, const std::map<std::string, Object *> & ob
                    const std::map<std::string, Datablock*> & modMap,
                    const std::map<std::string, Datablock*> & camMap,
                    const std::map<std::string, Datablock*> & lampMap,
-                   const std::map<std::string, Datablock*> & armMap){
+                   const std::map<std::string, Datablock*> & armMap,
+                    const std::map<std::string, Datablock*> & curMap){
     m_Name = entry->GetString("name");
     
     m_Local = entry->GetVec3("position");
@@ -269,6 +270,8 @@ void Object::Parse(BXON::Map * entry, const std::map<std::string, Object *> & ob
                 m_Data = lampMap.find(dbName)->second;
             }else if(dbType == "armature" && armMap.find(dbName) != armMap.end()){
                 m_Data = armMap.find(dbName)->second;
+            }else if (dbType == "camp" && curMap.find(dbName) != curMap.end()) {
+                m_Data = curMap.find(dbName)->second;
             }
         }
     }

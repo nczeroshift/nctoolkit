@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -85,7 +85,8 @@ public:
                const std::map<std::string, Datablock*> & modMap,
                const std::map<std::string, Datablock*> & camMap,
                const std::map<std::string, Datablock*> & lampMap,
-               const std::map<std::string, Datablock*> & armMap);
+               const std::map<std::string, Datablock*> & armMap,
+               const std::map<std::string, Datablock*> & curMap);
 #endif
     
     /// Get object parent.
@@ -130,13 +131,7 @@ public:
 
     /// Return datablock type.
     DatablockType GetType();
-    
-    /// Set object action.
-    //	void SetAction(ObjectAction *act);
-    //
-    //	/// Set reference for object action.
-    //	ObjectAction *GetAction();
-    
+        
     /// Reproduce object action.
     void Play(float time);
     

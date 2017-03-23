@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -11,8 +11,6 @@
 #include <algorithm>
 
 _SCENE_BEGIN
-
-//-------------------------------------------------------------------
 
 Compound::~Compound()
 {
@@ -60,7 +58,28 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
     std::map<std::string,Datablock*> arm_map;
     std::map<std::string,Object*> obj_map;
     std::map<std::string,Datablock*> lmp_map;
-    
+    std::map<std::string,Datablock*> cur_map;
+
+    if (entry->GetArray("curve")) {
+        BXON::Array * curves = entry->GetArray("curve");
+
+        for (unsigned int i = 0; i < curves->GetSize(); i++) {
+            Curve * c = new Curve(m_Device);
+            BXON::Map * entry = curves->GetMap(i);
+
+            try {
+                c->Read(entry);
+                cur_map.insert(std::pair<std::string, Datablock *>(c->GetName(), c));
+            }
+            catch (Core::Exception & ex) {
+                delete c;
+                THROW_EXCEPTION_STACK("Unable load curve", ex);
+            }
+
+            m_Curves.push_back(c);
+        }
+    }
+
     if(entry->HasKey("texture")){
         BXON::Array * textures  = entry->GetArray("texture");
         
@@ -216,7 +235,7 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
             BXON::Map * entry = objects->GetMap(idx++);
             
             try{
-                obj->Parse(entry, obj_map, mod_map, cam_map, lmp_map, arm_map);
+                obj->Parse(entry, obj_map, mod_map, cam_map, lmp_map, arm_map, cur_map);
             }
             catch(Core::Exception & ex){
                 THROW_EXCEPTION_STACK("Unable to load compound object resource",ex);
@@ -284,9 +303,7 @@ bool Compound::Read(Core::DataReader *f)
     f->Read(&armatures,sizeof(unsigned int));
     f->Read(&curves,sizeof(unsigned int));
     f->Read(&objects,sizeof(unsigned int));
-    
-    // ...............................
-    
+       
     // Load textures.
     std::vector<Texture *> tex_vec;
     tex_vec.reserve(textures);
@@ -305,9 +322,7 @@ bool Compound::Read(Core::DataReader *f)
         m_Textures.push_back(tex);
         tex_vec.push_back(tex);
     }
-    
-    // ...............................
-    
+        
     // Load materials.
     std::vector<Material *> mat_vec;
     mat_vec.reserve(materials);
@@ -326,9 +341,7 @@ bool Compound::Read(Core::DataReader *f)
         m_Materials.push_back(mat);
         mat_vec.push_back(mat);
     }
-    
-    // ...............................
-    
+        
     // Load models.
     std::vector<Model *> mod_vec;
     mod_vec.reserve(models);
@@ -347,9 +360,7 @@ bool Compound::Read(Core::DataReader *f)
         m_Models.push_back(mod);
         mod_vec.push_back(mod);
     }
-    
-    // ...............................
-    
+        
     // Load cameras.
     std::vector<Camera*> cam_vec;
     cam_vec.reserve(cameras);
@@ -368,9 +379,7 @@ bool Compound::Read(Core::DataReader *f)
         m_Cameras.push_back(cam);
         cam_vec.push_back(cam);
     }
-    
-    // ...............................
-    
+        
     // Load lamps.
     std::vector<Lamp*> lmp_vec;
     lmp_vec.reserve(lamps);
@@ -390,7 +399,6 @@ bool Compound::Read(Core::DataReader *f)
         lmp_vec.push_back(lmp);
     }
     
-    // ...............................
     // Load armature
     std::vector<Armature*> arm_vec;
     arm_vec.reserve(armatures);
@@ -409,8 +417,6 @@ bool Compound::Read(Core::DataReader *f)
         m_Armatures.push_back(arm);
         arm_vec.push_back(arm);
     }
-    
-    // ...............................
     
     // Load objects.
     std::vector<Object*> obj_vec;
@@ -461,6 +467,11 @@ Datablock *Compound::GetDatablock(DatablockType type, std::string name)
 {
     switch(type)
     {
+        case DATABLOCK_CURVE:
+            ListFor(Curve *, m_Curves, i)
+                if ((*i)->GetName() == name)
+                    return (*i);
+            return NULL;
         case DATABLOCK_CAMERA:
             ListFor(Camera *,m_Cameras,i)
             if((*i)->GetName() == name)
@@ -504,18 +515,18 @@ Datablock *Compound::GetDatablock(DatablockType type, std::string name)
 }
 
 
-//-------------------------------------------------------------------
 
-Compound_Basic::Compound_Basic(Graph::Device *dev) : Compound(dev){
+
+Compound_Base::Compound_Base(Graph::Device *dev) : Compound(dev){
     
 }
 
-Compound_Basic::~Compound_Basic()
+Compound_Base::~Compound_Base()
 {
     m_MObjects.clear();
 }
 
-void Compound_Basic::Load(const std::string & filename, Processor * processor)
+void Compound_Base::Load(const std::string & filename, Processor * processor)
 {
     Core::FileReader * f = Core::FileReader::Open(filename);
     
@@ -571,11 +582,11 @@ void Compound_Basic::Load(const std::string & filename, Processor * processor)
     m_Boundbox = tmpBB;
 }
 
-Math::BoundBox Compound_Basic::GetBoundBox(){
+Math::BoundBox Compound_Base::GetBoundBox(){
     return m_Boundbox;
 }
 
-void Compound_Basic::Load(BXON::Map * entry, Processor * processor){
+void Compound_Base::Load(BXON::Map * entry, Processor * processor){
     ReadBXON(entry);
     
     Math::BoundBox tmpBB;
@@ -591,13 +602,16 @@ void Compound_Basic::Load(BXON::Map * entry, Processor * processor){
     m_Boundbox = tmpBB;
 }
 
-void Compound_Basic::Render(Math::Frustum * fr, Material *overlap)
+void Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask)
 {
     ListFor(Object*,m_MObjects,i)
     {
         Object * o = (*i);
         Model * m = (Model*)o->GetData();
-        
+
+        if (layer_mask != LAYER_ALL && (((layer_mask>>1) & (1 << (o->GetLayer()))) == 0))
+            continue;
+
         if(fr){
             m_Device->PushMatrix();
             
@@ -621,8 +635,109 @@ void Compound_Basic::Render(Math::Frustum * fr, Material *overlap)
 
 }
 
-std::vector<std::pair<int, Scene::Camera*>> Compound::fetchCamerasWithKeyframes(BXON::Map * map, Scene::Compound * compound) {
-    std::vector<std::pair<int, Scene::Camera*>> ret;
+
+Object * Compound_Base::GetObject(const std::string & name) {
+    ListFor(Object*, m_Objects, i) 
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Material * Compound_Base::GetMaterial(const std::string & name) {
+    ListFor(Material*, m_Materials, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Texture * Compound_Base::GetTexture(const std::string & name) {
+    ListFor(Texture*, m_Textures, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Armature * Compound_Base::GetArmature(const std::string & name) {
+    ListFor(Armature*, m_Armatures, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Curve * Compound_Base::GetCurve(const std::string & name) {
+    ListFor(Curve*, m_Curves, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Camera * Compound_Base::GetCamera(const std::string & name) {
+    ListFor(Camera*, m_Cameras, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+Compound_Stage::Compound_Stage(Graph::Device * dev) : Compound_Base(dev) {
+
+}
+
+Compound_Stage::~Compound_Stage() {
+    m_OCameras.clear();
+    m_OLamps.clear();
+}
+
+Camera * Compound_Stage::GetActiveCamera(float keyframe) {
+    int keyCount = m_CamerasKeyframes.size();
+
+    if (keyCount != 0) {
+        if (keyframe > m_CamerasKeyframes[keyCount - 1].first)
+            return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
+      
+        if (keyframe < m_CamerasKeyframes[0].first)
+            return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
+
+        for (size_t i = 0; i < m_CamerasKeyframes.size(); i++) {
+            if(keyframe >= m_CamerasKeyframes[i].first)
+                return dynamic_cast<Camera*>(m_CamerasKeyframes[i].second->GetData());
+        }
+    }
+
+    if (m_OCameras.size() > 0)
+        return dynamic_cast<Camera*>(m_OCameras.front()->GetData());
+
+    return NULL;
+}
+
+Compound_Stage * Compound_Stage::LoadFromFilename(Graph::Device * dev, const std::string & filename) {
+    Compound_Stage * ret = new Compound_Stage(dev);
+    try {
+        ret->Load(filename, dynamic_cast<Processor*>(ret));
+        return ret;
+    }
+    catch (Core::Exception & ex) {
+        SafeDelete(ret);
+        THROW_EXCEPTION_STACK("Unable to load Compound_Scene from filename \"" + filename + "\"", ex);
+    }
+};
+
+void Compound_Stage::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
+    fetchCamerasWithKeyframes(map);
+
+    ListFor(Object*, m_Objects, i) {
+        if ((*i)->GetData() == NULL)
+            continue;
+        
+        if ((*i)->GetData()->GetType() == DATABLOCK_CAMERA)
+            m_OCameras.push_back((*i));
+        
+        else if ((*i)->GetData()->GetType() == DATABLOCK_LAMP)
+            m_OLamps.push_back((*i));
+    }
+}
+
+void Compound_Stage::fetchCamerasWithKeyframes(BXON::Map * map){
+    std::vector<std::pair<float, Object*>> ret;
     if (map->HasKey("tl_markers")) {
         BXON::Array * markers = map->GetArray("tl_markers");
 
@@ -649,14 +764,24 @@ std::vector<std::pair<int, Scene::Camera*>> Compound::fetchCamerasWithKeyframes(
             int key = orderedFrames[k];
             if (camKeyMap.find(key) != camKeyMap.end()) {
                 std::string name = camKeyMap.find(key)->second;
-                Scene::Camera * cam = dynamic_cast<Scene::Camera*>(compound->GetDatablock(Scene::DATABLOCK_CAMERA, name));
-                if (cam != NULL)
-                    ret.push_back(std::pair<int, Scene::Camera*>(key, cam));
+                Scene::Object * camObj = GetObject(name);
+                if (camObj != NULL)
+                    ret.push_back(std::pair<float, Object*>(key, camObj));
+
+                //Scene::Camera * cam = dynamic_cast<Scene::Camera*>(this->GetDatablock(Scene::DATABLOCK_CAMERA, name));
+                //if (cam != NULL)
+                //    ret.push_back(std::pair<float, Scene::Camera*>(key, cam));
             }
         }
     }
 
-    return ret;
+    m_CamerasKeyframes = ret;
+}
+
+void Compound_Stage::Play(float keyframe) {
+    ListFor(Object*, m_Objects, i) {
+        (*i)->Play(keyframe);
+    }
 }
 
 _SCENE_END

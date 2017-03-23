@@ -1,6 +1,6 @@
 
 /**
- * NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+ * NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
  * https://github.com/nczeroshift/nctoolkit
  */
 
@@ -93,15 +93,15 @@ void Material::Enable(){
     m_Device->Material(Graph::MATERIAL_SHININESS,&m_kShininess);
     m_Device->Material(Graph::MATERIAL_AMBIENT,(float*)&(m_kAmbient));
     m_Device->Material(Graph::MATERIAL_ALPHA, (float*)&(m_Alpha));
-
-    if(m_Program)
-        m_Program->Enable();
     
     for(int i = 0;i<8;i++)
         if(!m_Layers[i])
             break;
         else
             m_Layers[i]->Enable(i);
+
+    if (m_Program)
+        m_Program->Enable();
 }
 
 void Material::Disable(){
