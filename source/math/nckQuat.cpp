@@ -112,19 +112,19 @@ Quat LinearInterpolation(const Quat & p0,const Quat & p1,float t)
 	return p0*(t-1.0f) + p1*t;
 }
 
-Quat EulerToQuat(const Vec3 & quat)
+Quat EulerToQuat(const Vec3 & e)
 {
 	// 3D Math Primer For Graphics & Game Development
 	// page 190-191
 	float cr, cp, cy, sr, sp, sy, cpcy, spsy;
 
-	cr = cos(quat.GetX()/2);
-	cp = cos(quat.GetY()/2);
-	cy = cos(quat.GetZ()/2);
+	cr = cos(e.GetX()/2);
+	cp = cos(e.GetY()/2);
+	cy = cos(e.GetZ()/2);
 
-	sr = sin(quat.GetX()/2);
-	sp = sin(quat.GetY()/2);
-	sy = sin(quat.GetZ()/2);
+	sr = sin(e.GetX()/2);
+	sp = sin(e.GetY()/2);
+	sy = sin(e.GetZ()/2);
 
 	cpcy = cp * cy;
 	spsy = sp * sy;
