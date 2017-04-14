@@ -337,9 +337,9 @@ Vec3 TranslationPart(const Mat44 & mat){
 
 Mat44 Ortho(float left, float top, float right, float bottom, float znear, float zfar) {
     float m[16] = {
-       2.0 / (right - left), 0, 0, 0,
-       0, 2.0 / (top - bottom), 0, 0,
-       0, 0, -2.0 / (zfar - znear), 0,
+       2.0f / (right - left), 0, 0, 0,
+       0, 2.0f / (top - bottom), 0, 0,
+       0, 0, -2.0f / (zfar - znear), 0,
        -(right + left) / (right - left), -(top + bottom) / (top - bottom), -(zfar + znear) / (zfar - znear), 1
     };
     return Mat44(m);

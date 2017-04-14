@@ -23,7 +23,7 @@ public:
 	void Render(float dt);
 	void UpdateWndEvents();
 	
-	Scene::Compound_Basic * model;
+	Scene::Compound_Base * model;
 	Graph::Texture3D * volume;
 	Graph::Program * shader;
 	Scene::Camera * camera;

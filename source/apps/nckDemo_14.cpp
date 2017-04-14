@@ -40,7 +40,7 @@ void Demo14::Load() {
     BXON::Object * obj = BXON::Object::Parse(dynamic_cast<BXON::Context*>(frCtx));
 
     BXON::Map * map = dynamic_cast<BXON::Map*>(obj);
-    scene = new Scene::Compound_Basic(dev);
+    scene = new Scene::Compound_Base(dev);
     scene->Load(map);
 
     program = dev->LoadProgram("shader://material.cpp");

@@ -29,7 +29,7 @@ public:
 	Core::Mutex * mutex;
 	Video::Camera * cameraDev;
 	Gui::ShapeRenderer * shape;
-	Scene::Compound_Basic * model;
+	Scene::Compound_Base * model;
 	Scene::Camera * cam;
 
 	void * targetData;

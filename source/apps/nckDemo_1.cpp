@@ -30,7 +30,7 @@ void Demo1::Load(){
 	shader = dev->LoadProgram("shader://caravela.cpp");
 
 	// Create the compound where the caravela model will be loaded.
-	model = new Scene::Compound_Basic(dev);
+	model = new Scene::Compound_Base(dev);
 
 	// Load the caravela compound model from the data/models folder.
 	model->Load("model://caravela.nc");

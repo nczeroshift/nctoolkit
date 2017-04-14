@@ -26,7 +26,7 @@ void Demo15::Load() {
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
  
-    scene = new Scene::Compound_Basic(dev);
+    scene = new Scene::Compound_Base(dev);
     scene->Load("model://timeline.bxon", this);
 }
 

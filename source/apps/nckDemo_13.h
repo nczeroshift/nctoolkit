@@ -26,7 +26,7 @@ public:
 	void UpdateWndEvents();
     
 private:
-    Scene::Compound_Basic * scene;
+    Scene::Compound_Base * scene;
     Scene::Camera * camera;
     Graph::Program * basic;
 

@@ -28,7 +28,7 @@ public:
 private:
     virtual void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     std::map<int, Scene::Camera*> cameras;
-    Scene::Compound_Basic * scene;
+    Scene::Compound_Base * scene;
     float time;
 };
 

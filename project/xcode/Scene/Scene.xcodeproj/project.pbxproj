@@ -35,6 +35,8 @@
 		CCC9B611189712CF00771D4E /* nckModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B605189712CF00771D4E /* nckModel.cpp */; };
 		CCC9B612189712CF00771D4E /* nckObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B606189712CF00771D4E /* nckObject.cpp */; };
 		CCC9B613189712CF00771D4E /* nckTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B607189712CF00771D4E /* nckTexture.cpp */; };
+		CCE1652D1EA0D5B400358B8F /* nckCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE1652B1EA0D5B400358B8F /* nckCurve.cpp */; };
+		CCE1652E1EA0D5B400358B8F /* nckCurve.h in Headers */ = {isa = PBXBuildFile; fileRef = CCE1652C1EA0D5B400358B8F /* nckCurve.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +69,8 @@
 		CCC9B605189712CF00771D4E /* nckModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckModel.cpp; path = ../../../source/scene/nckModel.cpp; sourceTree = "<group>"; };
 		CCC9B606189712CF00771D4E /* nckObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckObject.cpp; path = ../../../source/scene/nckObject.cpp; sourceTree = "<group>"; };
 		CCC9B607189712CF00771D4E /* nckTexture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckTexture.cpp; path = ../../../source/scene/nckTexture.cpp; sourceTree = "<group>"; };
+		CCE1652B1EA0D5B400358B8F /* nckCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckCurve.cpp; path = ../../../source/scene/nckCurve.cpp; sourceTree = "<group>"; };
+		CCE1652C1EA0D5B400358B8F /* nckCurve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckCurve.h; path = ../../../source/scene/nckCurve.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 		CCC9B54A189710BC00771D4E /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CCE1652B1EA0D5B400358B8F /* nckCurve.cpp */,
+				CCE1652C1EA0D5B400358B8F /* nckCurve.h */,
 				CC22D14F1B739EE40027EDF7 /* nckGeometry.cpp */,
 				CC22D1501B739EE40027EDF7 /* nckGeometry.h */,
 				CCC9B5FC189712CF00771D4E /* nckAnimation.cpp */,
@@ -139,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCC9B5F9189712C600771D4E /* nckObject.h in Headers */,
+				CCE1652E1EA0D5B400358B8F /* nckCurve.h in Headers */,
 				CCC9B5F1189712C600771D4E /* nckCompound.h in Headers */,
 				CCC9B5EF189712C600771D4E /* nckArmature.h in Headers */,
 				CC22D1521B739EE40027EDF7 /* nckGeometry.h in Headers */,
@@ -217,6 +224,7 @@
 				CCC9B60A189712CF00771D4E /* nckCamera.cpp in Sources */,
 				CCC9B611189712CF00771D4E /* nckModel.cpp in Sources */,
 				CCC9B612189712CF00771D4E /* nckObject.cpp in Sources */,
+				CCE1652D1EA0D5B400358B8F /* nckCurve.cpp in Sources */,
 				CCC9B609189712CF00771D4E /* nckArmature.cpp in Sources */,
 				CCC9B60D189712CF00771D4E /* nckEffect.cpp in Sources */,
 				CCC9B610189712CF00771D4E /* nckMaterial.cpp in Sources */,

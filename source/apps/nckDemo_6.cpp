@@ -30,7 +30,7 @@ void Demo6::Load(){
 	dev->BlendFunc(Graph::BLEND_SRC_ALPHA,Graph::BLEND_INV_SRC_ALPHA);
 	
 	shader = dev->LoadProgram("shader://dotpattern.cpp");
-	model = new Scene::Compound_Basic(dev);
+	model = new Scene::Compound_Base(dev);
 	model->Load("model://caravela.nc");
 
 	volume = dynamic_cast<Graph::Texture3D*>(dev->LoadTexture("texture://tex3d_mangadots.tar",false));

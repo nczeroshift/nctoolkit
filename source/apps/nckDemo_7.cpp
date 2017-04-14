@@ -47,7 +47,7 @@ void Demo7::Load(){
 	dev->Enable(Graph::STATE_DEPTH_TEST);
 	dev->BlendFunc(Graph::BLEND_SRC_ALPHA,Graph::BLEND_INV_SRC_ALPHA);
 	
-	model = new Scene::Compound_Basic(dev);
+	model = new Scene::Compound_Base(dev);
 	model->Load("model://cube.nc");
 
 	zRotation = 0;
