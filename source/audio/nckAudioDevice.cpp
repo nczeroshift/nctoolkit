@@ -12,6 +12,8 @@
     #include "windows/nckDeviceWaveOut.h"
 #elif defined(NCK_ALSA)
     #include "alsa/nckDeviceAlsa.h"
+#elif defined(NCK_AUDIOQUEUE)
+    #include "apple/nckDeviceAudioQueue.h"
 #endif
 
 _AUDIO_BEGIN
@@ -37,7 +39,11 @@ Device * CreateDevice(Type type, int samplerate, int channels, Format format, in
          DeviceAlsaOutput * tmp = new DeviceAlsaOutput("default",samplerate,channels,format,bufferSize,bufferCount);
          tmp->Create();
          dev = tmp;
-#endif	
+#elif defined (NCK_AUDIOQUEUE)
+         DeviceAudioQueue * tmp = new DeviceAudioQueue(samplerate,channels,format,bufferSize,bufferCount);
+         tmp->Create();
+         dev = tmp;
+#endif
 	}
 	catch(const Core::Exception & ex)
 	{

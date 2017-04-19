@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		CC27B3921899C7CC005F37E5 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC27B38A1899C7B1005F37E5 /* libCore.a */; };
 		CC27B3931899C7CC005F37E5 /* libMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC27B38D1899C7B1005F37E5 /* libMath.a */; };
+		CC393A8C1EA6CE0C00E6351B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */; };
+		CC393A8D1EA6CE0C00E6351B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */; };
+		CC393A9D1EA6D27F00E6351B /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A9B1EA6D27F00E6351B /* libogg.a */; };
+		CC393A9E1EA6D27F00E6351B /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A9C1EA6D27F00E6351B /* libvorbis.a */; };
 		CC3A189C18E78B3600D0C95D /* libAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A188B18E788B300D0C95D /* libAudio.a */; };
 		CC3A189D18E78B3600D0C95D /* libGUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A188518E788AC00D0C95D /* libGUI.a */; };
 		CC3A189E18E78B3600D0C95D /* libIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A189118E788C200D0C95D /* libIO.a */; };
@@ -206,6 +210,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		CC393A9B1EA6D27F00E6351B /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../../extern/macosx/lib_64/libogg.a; sourceTree = "<group>"; };
+		CC393A9C1EA6D27F00E6351B /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../../extern/macosx/lib_64/libvorbis.a; sourceTree = "<group>"; };
 		CC3A187418E7888900D0C95D /* Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Network.xcodeproj; path = ../../Network/Network.xcodeproj; sourceTree = "<group>"; };
 		CC3A187A18E7889C00D0C95D /* Video.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Video.xcodeproj; path = ../../Video/Video.xcodeproj; sourceTree = "<group>"; };
 		CC3A188018E788AC00D0C95D /* GUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GUI.xcodeproj; path = ../../GUI/GUI.xcodeproj; sourceTree = "<group>"; };
@@ -277,6 +285,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC393A9D1EA6D27F00E6351B /* libogg.a in Frameworks */,
+				CC393A9E1EA6D27F00E6351B /* libvorbis.a in Frameworks */,
+				CC393A8C1EA6CE0C00E6351B /* AudioToolbox.framework in Frameworks */,
+				CC393A8D1EA6CE0C00E6351B /* CoreAudio.framework in Frameworks */,
 				CC49A4E01B7107C60000ED36 /* libBXON.a in Frameworks */,
 				CCFEBD351B70C4C600D7D531 /* libpng.a in Frameworks */,
 				CCFEBD361B70C4C600D7D531 /* libjpeg.a in Frameworks */,
@@ -434,6 +446,10 @@
 		CCC9B5571897111200771D4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC393A9B1EA6D27F00E6351B /* libogg.a */,
+				CC393A9C1EA6D27F00E6351B /* libvorbis.a */,
+				CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */,
+				CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */,
 				CCFEBD331B70C4C600D7D531 /* libpng.a */,
 				CCFEBD341B70C4C600D7D531 /* libjpeg.a */,
 				CC7ED01218DF350900706A97 /* libz.dylib */,
@@ -921,6 +937,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -953,6 +970,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
