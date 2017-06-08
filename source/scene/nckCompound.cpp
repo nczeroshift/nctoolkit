@@ -93,8 +93,9 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
                 tex_map.insert(std::pair<std::string, Datablock *>(tex->GetName(), tex));
             }
             catch(Core::Exception & ex){
+                const std::string name = tex->GetName();
                 delete tex;
-                THROW_EXCEPTION_STACK("Unable to load compound texture resource",ex);
+                THROW_EXCEPTION_STACK("Unable to load compound texture resource \""+ name +"\"",ex);
             }
             
             if (processor) tex = processor->HandleTexture(tex);
@@ -643,6 +644,27 @@ Object * Compound_Base::GetObject(const std::string & name) {
     return NULL;
 }
 
+int Compound_Base::GetObjectsWithDataType(DatablockType type, std::vector<Object*> * objects) {
+    objects->reserve(m_Objects.size());
+
+    ListFor(Object*, m_Objects, i)
+    {
+        if ((*i)->GetData()!= NULL && (*i)->GetData()->GetType() == type)
+            objects->push_back((*i));
+    }
+    return objects->size();
+}
+
+int Compound_Base::GetEmptyObjects(std::vector<Object*> * objects) {
+    objects->reserve(m_Objects.size());
+    ListFor(Object*, m_Objects, i)
+    {
+        if ((*i)->GetData() == NULL)
+            objects->push_back((*i));
+    }
+    return objects->size();
+}
+
 Material * Compound_Base::GetMaterial(const std::string & name) {
     ListFor(Material*, m_Materials, i)
         if ((*i)->GetName() == name)
@@ -678,65 +700,8 @@ Camera * Compound_Base::GetCamera(const std::string & name) {
     return NULL;
 }
 
-Compound_Stage::Compound_Stage(Graph::Device * dev) : Compound_Base(dev) {
 
-}
-
-Compound_Stage::~Compound_Stage() {
-    m_OCameras.clear();
-    m_OLamps.clear();
-}
-
-Camera * Compound_Stage::GetActiveCamera(float keyframe) {
-    int keyCount = m_CamerasKeyframes.size();
-
-    if (keyCount != 0) {
-        if (keyframe > m_CamerasKeyframes[keyCount - 1].first)
-            return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
-      
-        if (keyframe < m_CamerasKeyframes[0].first)
-            return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
-
-        for (size_t i = 0; i < m_CamerasKeyframes.size(); i++) {
-            if(keyframe >= m_CamerasKeyframes[i].first)
-                return dynamic_cast<Camera*>(m_CamerasKeyframes[i].second->GetData());
-        }
-    }
-
-    if (m_OCameras.size() > 0)
-        return dynamic_cast<Camera*>(m_OCameras.front()->GetData());
-
-    return NULL;
-}
-
-Compound_Stage * Compound_Stage::LoadFromFilename(Graph::Device * dev, const std::string & filename) {
-    Compound_Stage * ret = new Compound_Stage(dev);
-    try {
-        ret->Load(filename, dynamic_cast<Processor*>(ret));
-        return ret;
-    }
-    catch (Core::Exception & ex) {
-        SafeDelete(ret);
-        THROW_EXCEPTION_STACK("Unable to load Compound_Scene from filename \"" + filename + "\"", ex);
-    }
-};
-
-void Compound_Stage::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
-    fetchCamerasWithKeyframes(map);
-
-    ListFor(Object*, m_Objects, i) {
-        if ((*i)->GetData() == NULL)
-            continue;
-        
-        if ((*i)->GetData()->GetType() == DATABLOCK_CAMERA)
-            m_OCameras.push_back((*i));
-        
-        else if ((*i)->GetData()->GetType() == DATABLOCK_LAMP)
-            m_OLamps.push_back((*i));
-    }
-}
-
-void Compound_Stage::fetchCamerasWithKeyframes(BXON::Map * map){
+std::vector<std::pair<float, Scene::Object*>> Compound_Base::fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound){
     std::vector<std::pair<float, Object*>> ret;
     if (map->HasKey("tl_markers")) {
         BXON::Array * markers = map->GetArray("tl_markers");
@@ -764,24 +729,79 @@ void Compound_Stage::fetchCamerasWithKeyframes(BXON::Map * map){
             int key = orderedFrames[k];
             if (camKeyMap.find(key) != camKeyMap.end()) {
                 std::string name = camKeyMap.find(key)->second;
-                Scene::Object * camObj = GetObject(name);
+                Scene::Object * camObj = compound->GetObject(name);
                 if (camObj != NULL)
                     ret.push_back(std::pair<float, Object*>(key, camObj));
-
-                //Scene::Camera * cam = dynamic_cast<Scene::Camera*>(this->GetDatablock(Scene::DATABLOCK_CAMERA, name));
-                //if (cam != NULL)
-                //    ret.push_back(std::pair<float, Scene::Camera*>(key, cam));
             }
         }
     }
 
-    m_CamerasKeyframes = ret;
+    return ret;
 }
 
+/*
 void Compound_Stage::Play(float keyframe) {
     ListFor(Object*, m_Objects, i) {
         (*i)->Play(keyframe);
     }
 }
 
+Compound_Stage::Compound_Stage(Graph::Device * dev) : Compound_Base(dev) {
+
+}
+
+Compound_Stage::~Compound_Stage() {
+m_OCameras.clear();
+m_OLamps.clear();
+}
+
+Camera * Compound_Stage::GetActiveCamera(float keyframe) {
+int keyCount = m_CamerasKeyframes.size();
+
+if (keyCount != 0) {
+if (keyframe > m_CamerasKeyframes[keyCount - 1].first)
+return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
+
+if (keyframe < m_CamerasKeyframes[0].first)
+return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
+
+for (size_t i = 0; i < m_CamerasKeyframes.size(); i++) {
+if(keyframe >= m_CamerasKeyframes[i].first)
+return dynamic_cast<Camera*>(m_CamerasKeyframes[i].second->GetData());
+}
+}
+
+if (m_OCameras.size() > 0)
+return dynamic_cast<Camera*>(m_OCameras.front()->GetData());
+
+return NULL;
+}
+
+Compound_Stage * Compound_Stage::LoadFromFilename(Graph::Device * dev, const std::string & filename) {
+Compound_Stage * ret = new Compound_Stage(dev);
+try {
+ret->Load(filename, dynamic_cast<Processor*>(ret));
+return ret;
+}
+catch (Core::Exception & ex) {
+SafeDelete(ret);
+THROW_EXCEPTION_STACK("Unable to load Compound_Scene from filename \"" + filename + "\"", ex);
+}
+};
+
+void Compound_Stage::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
+fetchCamerasWithKeyframes(map);
+
+ListFor(Object*, m_Objects, i) {
+if ((*i)->GetData() == NULL)
+continue;
+
+if ((*i)->GetData()->GetType() == DATABLOCK_CAMERA)
+m_OCameras.push_back((*i));
+
+else if ((*i)->GetData()->GetType() == DATABLOCK_LAMP)
+m_OLamps.push_back((*i));
+}
+}
+*/
 _SCENE_END

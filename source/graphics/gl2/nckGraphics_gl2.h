@@ -237,10 +237,13 @@ public:
 	bool Attach(unsigned int target,TextureCubeMap *tex);
 	bool Disable();
     bool InvertedY();
+    GLuint GetWidth();
+    GLuint GetHeight();
 protected:
 	std::list<AttachedTexture> m_Textures;
 	GLuint m_RenderBuffer;
 	GLuint m_FrameBuffer;
+    GLuint m_Width, m_Height;
 	Device_GL2 *m_Device;
 };
 
@@ -544,6 +547,9 @@ public:
 
 	/// Active shader program.
 	Program_GL2 *m_ActiveProgram;
+
+    /// Active FBO.
+    RTManager_GL2 * m_ActiveManager;
 
 	/// Target render window.
 	Core::Window *m_Window;

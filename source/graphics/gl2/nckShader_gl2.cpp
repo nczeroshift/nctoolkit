@@ -243,7 +243,7 @@ int Program_GL2::Reload() {
     Core::DataReader * f = Core::FileReader::Open(m_Filename);
 
     if (!f) {
-        THROW_EXCEPTION("File not found: " + m_Filename);
+        THROW_EXCEPTION("File \"" + m_Filename+"\" not found");
     }
 
     int size = (int)Core::FileReader::Size(m_Filename);
@@ -331,7 +331,7 @@ void Program_GL2::LoadFromFilename(const std::string & filename)
 	Core::DataReader * f = Core::FileReader::Open(filename);
 
 	if(!f)
-		THROW_EXCEPTION("File not found");
+		THROW_EXCEPTION("File \"" + filename + "\" not found");
 
     m_Filename = filename;
     m_LastModified = Core::GetFileLastModified(filename);

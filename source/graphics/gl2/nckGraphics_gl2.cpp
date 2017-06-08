@@ -35,6 +35,7 @@ Device_GL2::Device_GL2(Core::Window * wnd,
 	m_ActiveVertex = 0;
 	m_PrimitiveType = PRIMITIVE_QUADS;
     m_IsModelMatrixActive = false;
+    m_ActiveManager = NULL;
 
     m_Alpha = 1.0;
 
@@ -210,8 +211,8 @@ void Device_GL2::Viewport(unsigned int x,unsigned int y, unsigned int w,
 #if defined(NCK_MACOSX)
     GLLock(m_Window);
 #endif
-	if(m_InsideFBO)
-		glViewport(0,0,w,h);
+	if(m_ActiveManager!=NULL)
+        glViewport(x, m_ActiveManager->GetHeight() - h - y, w, h);
 	else
 		glViewport(x,m_Window->GetHeight()-h-y,w,h);
 }
@@ -847,7 +848,7 @@ Program * Device_GL2::LoadProgram(const std::string & filename, ShaderModelType 
 	}
 	catch(Core::Exception & e){
 		delete prog;
-		THROW_EXCEPTION_STACK("Load program exception from file " + filename,e);
+		THROW_EXCEPTION_STACK("Load program exception from file \"" + filename+"\"",e);
 	}
 
 	return prog;

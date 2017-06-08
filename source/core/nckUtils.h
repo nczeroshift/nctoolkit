@@ -17,7 +17,7 @@ _CORE_BEGIN
 
 /// Shortcut to iterate through std::list
 #define	ListFor(for_type,for_list,for_iter) \
-    for(typename std::list<for_type>::iterator for_iter = for_list.begin(); \
+    for(std::list<for_type>::iterator for_iter = for_list.begin(); \
         for_iter!=for_list.end();for_iter++)
 
 /// Shorcut to iterate through std::list, without incrementing

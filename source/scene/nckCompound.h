@@ -134,7 +134,8 @@ public:
     /// Get the boundbox wrapping all elements.
     Math::BoundBox GetBoundBox();
     
-
+    int GetObjectsWithDataType(DatablockType type, std::vector<Object*> * objects);
+    int GetEmptyObjects(std::vector<Object*> * objects);
     Object * GetObject(const std::string & name);
     Material * GetMaterial(const std::string & name);
     Texture * GetTexture(const std::string & name);
@@ -142,6 +143,7 @@ public:
     Curve * GetCurve(const std::string & name);
     Camera * GetCamera(const std::string & name);
 
+    static std::vector<std::pair<float, Scene::Object*>> fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound);
 private:
     Math::BoundBox m_Boundbox;
     
@@ -151,7 +153,7 @@ private:
 
 /**
 * Scene compound.
-*/
+
 class Compound_Stage : public Compound_Base, public Processor {
 public:
     Compound_Stage(Graph::Device * dev);
@@ -160,13 +162,12 @@ public:
     /// Get active of best camera for a keyframe.
     Camera * GetActiveCamera(float keyframe);
 
-    /// Play all objects animations.
-    void Play(float keyframe);
-
     /// Load compound scene from filename.
     /// @throws Exception
     static Compound_Stage * LoadFromFilename(Graph::Device * dev, const std::string & filename);
 
+    /// Play all objects animations.
+    void Play(float keyframe);
 private:
     void HandleFinish(BXON::Map * map, Scene::Compound * compound);
 
@@ -175,7 +176,7 @@ private:
 
     void fetchCamerasWithKeyframes(BXON::Map * map);
     std::vector<std::pair<float, Scene::Object*>> m_CamerasKeyframes;
-};
+};*/
 
 
 _SCENE_END

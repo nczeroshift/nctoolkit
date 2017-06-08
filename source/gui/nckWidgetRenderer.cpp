@@ -214,7 +214,7 @@ void BlenderWidgetRenderer::Label(float x,float y, const std::string & text,floa
 		const Math::Color4ub & color,FontAlignment align){
 	fontTexture->Enable();
 	device->Color(color.GetR(),color.GetG(),color.GetB(),color.GetA());
-	fontMap->Draw(x*shapeRenderer->GetDensity(),y*shapeRenderer->GetDensity(),size*shapeRenderer->GetDensity(),text,bold,align);
+	fontMap->Draw(x,y,size,text,bold,align);
 	fontTexture->Disable();
 }
 

@@ -1,16 +1,4 @@
 
-varying vec3 v_nm_nor;
-varying vec3 v_mv_pos;
-uniform vec4 lamp_mv_pos;
-uniform vec4 gphDiffuseColor, gphSpecularColor, gphAmbientColor;
-uniform float gphSpecularPower;
-uniform float gphAlpha;
-
-void material_vsh_prepare(vec3 pos, vec3 nor){
-	v_mv_pos = (gl_ModelViewMatrix * vec4(pos,1.0)).xyz;
-	v_nm_nor = (gl_NormalMatrix * nor);
-}
-
 /**
 * Lambert diffuse reflectance model.
 *@param N Normalized surface normal in MV space.
@@ -69,14 +57,14 @@ vec3 Specular_Phong(
 	float hardness,
 	float k)
 {
-	float3 R = reflect(-L, N);
+	vec3 R = reflect(-L, N);
 	return color * pow( clamp(dot(R, E), 0.0,1.0), hardness ) * k;				   	
 }
 
 	
 vec3 material_diffuse_phong(vec3 lamp_pos, vec2 attFactors){
 	vec3 N = normalize(v_nm_nor);
-	vec3 L = lamp_mv_pos.xyz - v_mv_pos;
+	vec3 L = lamp_pos.xyz - v_mv_pos;
 	float dist = length(L);
 	L *= 1.0 / dist;
 	float diff = clamp(dot(N,L),0.0,1.0);
@@ -97,14 +85,14 @@ vec3 material_diffuse_phong(vec3 lamp_pos, vec2 attFactors){
 
 vec3 material_diffuse_blinn(vec3 lamp_pos, vec2 attFactors){
 	vec3 N = normalize(v_nm_nor);
-	vec3 L = lamp_mv_pos.xyz - v_mv_pos;
+	vec3 L = lamp_pos.xyz - v_mv_pos;
 	float dist = length(L);
 	L *= 1.0 / dist;
 	float diff = clamp(dot(N,L),0.0,1.0);
 	float attenuation = 1.0 / (1.0 + dist * attFactors.x + dist * dist * attFactors.y);
 	
 	vec3 E = -normalize(v_mv_pos);
-	vec3 H = normalize(normalize(lamp_mv_pos.xyz) + E);
+	vec3 H = normalize(normalize(lamp_pos.xyz) + E);
 	
 	float spec_blinn_phong = pow(clamp(dot(N,H),0.0,1.0),gphSpecularPower) *gphSpecularColor.w ;
 

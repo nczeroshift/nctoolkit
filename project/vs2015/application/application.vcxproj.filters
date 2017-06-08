@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\demos">
+      <UniqueIdentifier>{e3aaf557-738b-42ae-baec-4dfaa9aa44a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\source\core\win32\appicon.ico">
@@ -31,53 +34,101 @@
     <ClInclude Include="..\..\..\source\apps\nckDemo.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_1.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_2.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_3.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_4.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_5.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_6.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_7.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_8.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_9.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_10.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_11.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\apps\nckDemo_Selector.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_12.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Triangles.h">
+      <Filter>Source Files\demos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_13.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_TextureNPT.h">
+      <Filter>Source Files\demos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_14.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Webcam.h">
+      <Filter>Source Files\demos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\nckDemo_15.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_TextureWrapping.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_TextureFiltering.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_TextureCubemap.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture3D.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture2D.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Shadows.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Quadtree.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_OcclusionQuery.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_MultiCamera.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Model.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Material.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_HttpStream.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_HttpServer.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_FBO.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Compound.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Bumpmap.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioOut.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioOgg.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Armature.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Animation.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioFFT.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Particles.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_GUI.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Curves.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Metaballs.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Serial.h">
+      <Filter>Source Files\demos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,53 +138,101 @@
     <ClCompile Include="..\..\..\source\apps\nckDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_5.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_6.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_7.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_8.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_9.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_10.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_11.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\apps\nckDemo_Selector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_12.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Triangles.cpp">
+      <Filter>Source Files\demos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_13.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_TextureNPT.cpp">
+      <Filter>Source Files\demos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_14.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Webcam.cpp">
+      <Filter>Source Files\demos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\nckDemo_15.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_TextureWrapping.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_TextureFiltering.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_TextureCubemap.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture3D.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture2D.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Shadows.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Quadtree.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_OcclusionQuery.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_MultiCamera.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Model.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Material.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_HttpStream.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_HttpServer.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_FBO.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Compound.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Bumpmap.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioOut.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioOgg.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Armature.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Animation.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioFFT.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Particles.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_GUI.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Curves.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Metaballs.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Serial.cpp">
+      <Filter>Source Files\demos</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

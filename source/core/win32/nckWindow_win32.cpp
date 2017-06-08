@@ -335,11 +335,15 @@ Window_Win32 *CreateWindow_Win32(const std::string & Title, unsigned int Width, 
 	}
 	else
 	{
-		m_Window->m_Flags =	WS_OVERLAPPED	|
-							WS_CAPTION		|
-                            WS_SYSMENU		|
-							WS_OVERLAPPEDWINDOW;
-	}
+#ifdef NCK_WINDOW_CAN_MAXIMIZE
+        m_Window->m_Flags = WS_OVERLAPPED |
+            WS_CAPTION |
+            WS_SYSMENU |
+            WS_OVERLAPPEDWINDOW;
+#else
+        m_Window->m_Flags = WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX;
+#endif
+    }
 
 	AdjustWindowRectEx( &rc, m_Window->m_Flags, FALSE, WS_EX_APPWINDOW );
 

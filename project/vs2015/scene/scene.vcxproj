@@ -17,7 +17,6 @@
     <ClCompile Include="..\..\..\source\scene\nckCompound.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckCurve.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckDatablock.cpp" />
-    <ClCompile Include="..\..\..\source\scene\nckEffect.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckGeometry.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckLamp.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckMarchingCubes.cpp" />
@@ -33,7 +32,6 @@
     <ClInclude Include="..\..\..\source\scene\nckCompound.h" />
     <ClInclude Include="..\..\..\source\scene\nckCurve.h" />
     <ClInclude Include="..\..\..\source\scene\nckDatablock.h" />
-    <ClInclude Include="..\..\..\source\scene\nckEffect.h" />
     <ClInclude Include="..\..\..\source\scene\nckGeometry.h" />
     <ClInclude Include="..\..\..\source\scene\nckLamp.h" />
     <ClInclude Include="..\..\..\source\scene\nckMarchingCubes.h" />

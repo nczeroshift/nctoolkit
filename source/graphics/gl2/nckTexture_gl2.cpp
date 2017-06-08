@@ -860,8 +860,16 @@ bool RTManager_GL2::Enable(int face){
 	glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_RenderBuffer);
 
 	m_Device->m_InsideFBO = true;
-
+    m_Device->m_ActiveManager = this;
 	return true;
+}
+
+GLuint RTManager_GL2::GetWidth() {
+    return m_Width;
+}
+
+GLuint RTManager_GL2::GetHeight() {
+    return m_Height;
 }
 
 void RTManager_GL2::Load(GLuint width, GLuint height){
@@ -872,11 +880,13 @@ void RTManager_GL2::Load(GLuint width, GLuint height){
 
 	GLenum depth = GL_DEPTH_COMPONENT24;
 
-	glRenderbufferStorage( GL_RENDERBUFFER,depth, width, height );
+	glRenderbufferStorage( GL_RENDERBUFFER, depth, width, height );
+    
+    m_Width = width;
+    m_Height = height;
 
 	glBindFramebuffer( GL_FRAMEBUFFER, 0 );
 	glBindRenderbuffer( GL_RENDERBUFFER, 0 );
-
 }
 
 bool RTManager_GL2::Attach(unsigned int target,Texture2D *tex){
@@ -890,6 +900,7 @@ bool RTManager_GL2::Attach(unsigned int target,TextureCubeMap *tex){
 }
 
 bool RTManager_GL2::Disable(){
+    m_Device->m_ActiveManager = NULL;
 	m_Device->m_InsideFBO = false;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);

@@ -496,7 +496,7 @@ Image * Image::Load(const std::string & filename)
 		reader = FileReader::Open(filename);
 
         if(reader == NULL)
-            THROW_EXCEPTION("Unable to open image file");
+            THROW_EXCEPTION("Image file \"" +filename+"\" not found");
         
 		switch(type)
 		{
@@ -532,7 +532,7 @@ Image * Image::Load(const std::string & filename)
 	{
 		SafeDelete(img);
 		SafeDelete(reader);
-		THROW_EXCEPTION_STACK("Unable to load image",ex);
+		THROW_EXCEPTION_STACK("Unable to load image data",ex);
 	}
     
     SafeDelete(reader);

@@ -1,9 +1,7 @@
 
 /**
-* NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+* NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
 * https://github.com/nczeroshift/nctoolkit
-*
-* Demo Selector FrontEnd
 */
 
 #ifndef _NCK_DEMO_SELECTOR_H_
@@ -34,10 +32,12 @@ public:
 	void Render(float dt);
 	void UpdateWndEvents();
 	void SetCallback(DemoSelector_Callback * callback);
+    std::vector<std::string> GetKeywords();
+    std::string GetDescription();
+
 private:
 	DemoSelector_Callback * m_Callback;
 	Graph::Texture2D * m_FontTexture;
-	Graph::Texture2D * m_BlurryBg;
 	Graph::Texture2D * m_IconNck;
 	Gui::FontMap * m_FontMap;
 

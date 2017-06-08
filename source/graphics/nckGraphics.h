@@ -590,7 +590,7 @@ public:
 	/// Apply ortho 2D projection to current matrix.
 	/// @param width Visualization volume width.
 	/// @param height Visualization volume height.
-	virtual void Ortho2D(float width,float height,float znear=0.0f,float zfar=1.0f)=0;
+	virtual void Ortho2D(float width,float height,float znear=-1.0f,float zfar=1.0f)=0;
 
 	/// Set material properties.
 	virtual void Material(MaterialProperty prop,const float *v)=0; 

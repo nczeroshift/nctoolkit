@@ -1,9 +1,7 @@
 
 /**
-* NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+* NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
 * https://github.com/nczeroshift/nctoolkit
-*
-* Demo selector frontend
 */
 
 #include "nckDemo_Selector.h"
@@ -11,33 +9,23 @@
 
 class DemoDetails{
 public:
-	enum Platform{
-		ALL,
-		LINUX,
-		WINDOWS,
-		MACOS,
-		ANDROID,
-		IOS,
-		RASPBERRYPI,		
-	};
-
 	DemoDetails();
 	~DemoDetails();
 
 	void SetKeywords(const std::vector<std::string> & keywords);
 	void AddKeyword(const std::string & keyword);
-	void AddPlatform(Platform p);
+	//void SetPlatform(int p);
 	void SetDescription(const std::string & description);
 	bool SupportsCurrentPlatform();
 	void SetScreenshotFilename(const std::string & filename);
 
-	std::vector<Platform> GetPlatforms() const;
+	//std::vector<Platform> GetPlatforms() const;
 	std::string GetDescription() const;
 	std::vector<std::string> GetKeywords() const;
 	std::string GetScreenshotFilename() const;
 private:
 	std::vector<std::string> m_Keywords;
-	std::vector<Platform> m_Platforms;
+	int m_Platforms;
 	std::string m_Description;
 	std::string m_ScreenshotFilename;
 };
@@ -58,9 +46,9 @@ std::vector<std::string> DemoDetails::GetKeywords() const{
 	return m_Keywords;
 }
 
-std::vector<DemoDetails::Platform> DemoDetails::GetPlatforms() const{
-	return m_Platforms;
-}
+//std::vector<DemoDetails::Platform> DemoDetails::GetPlatforms() const{
+//	return m_Platforms;
+//}
 
 void DemoDetails::SetKeywords(const std::vector<std::string> & keywords){
 	m_Keywords = keywords;
@@ -82,12 +70,11 @@ std::string DemoDetails::GetScreenshotFilename() const{
 	return m_ScreenshotFilename;
 }
 
-
 bool DemoDetails::SupportsCurrentPlatform(){
-	if(m_Platforms.size() == 0)
-		return true;
+	//if(m_Platforms.size() == 0)
+	//	return true;
 
-	for(uint32_t i = 0;i<m_Platforms.size();i++){
+	/*for(uint32_t i = 0;i<m_Platforms.size();i++){
 		Platform p = m_Platforms[i];
 		if(p == ALL)
 			return true;
@@ -101,12 +88,10 @@ bool DemoDetails::SupportsCurrentPlatform(){
 		if(p == MACOS)
 			return true;
 #endif
-	}
+	*/
+
 	return false;
 }
-
-
-
 
 DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
@@ -115,7 +100,6 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
 	m_FontTexture = NULL;
 	m_FontMap = NULL;
 	m_Callback = NULL;
-	m_BlurryBg = NULL;
 	m_IconNck = NULL;
 
 	m_ScrollPosition = 0;
@@ -124,110 +108,19 @@ DemoSelector::DemoSelector(Core::Window * wnd, Graph::Device * dev){
 	m_ActiveDemoId = 0;
 	m_TotalDeslocation = 0;
 
-	DemoDetails * d1 = new DemoDetails();
-	d1->SetDescription("Textured 3D model loading and rendering with a shader");
-	d1->AddKeyword("Basic");
-	d1->AddKeyword("Model");
-	d1->AddKeyword("Shader");
+    for (int i = 0; i < DemoCount(); i++) {
+        DemoDetails * dd = new DemoDetails();
 
-	DemoDetails * d2 = new DemoDetails();
-	d2->SetDescription("Graphical user interface creation and rendering");
-	d2->AddKeyword("Basic");
-	d2->AddKeyword("GUI");
+        Demo * demo = DemoCreate(i, wnd, dev);
+        dd->SetDescription(demo->GetDescription());
+        std::vector<std::string> keywords = demo->GetKeywords();
+        for (size_t k = 0; k < keywords.size(); k++) {
+            dd->AddKeyword(keywords[k]);
+        }
+        SafeDelete(demo);
 
-	DemoDetails * d3 = new DemoDetails();
-	d3->SetDescription("Http server creation and interaction");
-	d3->AddKeyword("Basic");
-	d3->AddKeyword("HTTP");
-	d3->AddKeyword("Server");
-	
-	DemoDetails * d4 = new DemoDetails();
-	d4->SetDescription("OGG audio playback");
-	d4->AddKeyword("Basic");
-	d4->AddKeyword("Audio");
-	d4->AddKeyword("Playback");
-	d4->AddKeyword("OGG");
-
-	DemoDetails * d5 = new DemoDetails();
-	d5->SetDescription("Marching Cubes Rendering");
-	d5->AddKeyword("Basic");
-	d5->AddKeyword("Marching Cubes");
-
-	DemoDetails * d6 = new DemoDetails();
-	d6->SetDescription("3D Texture usage");
-	d6->AddKeyword("Basic");
-	d6->AddKeyword("3D Texture");
-
-	DemoDetails * d7 = new DemoDetails();
-	d7->SetDescription("Webcam video capture");
-	d7->AddKeyword("Advanced");
-	d7->AddKeyword("Webcam");
-	d7->AddKeyword("v4l");
-	d7->AddKeyword("Linux");
-
-	DemoDetails * d8 = new DemoDetails();
-	d8->SetDescription("Rendering graphics to Http server");
-	d8->AddKeyword("Advanced");
-	d8->AddKeyword("Rendering");
-	d8->AddKeyword("HTTP");
-	d8->AddKeyword("Server");
-
-	DemoDetails * d9 = new DemoDetails();
-	d9->SetDescription("Arduino serial port communication");
-	d9->AddKeyword("Advanced");
-	d9->AddKeyword("Serial Port");
-	d9->AddKeyword("IO");
-	d9->AddKeyword("Arduino");
-
-	DemoDetails * d10 = new DemoDetails();
-	d10->SetDescription("Simple 2D physics simulation");
-	d10->AddKeyword("Advanced");
-	d10->AddKeyword("Physics");
-	d10->AddKeyword("Simulation");
-	d10->AddKeyword("WIP");
-
-    DemoDetails * d11 = new DemoDetails();
-    d11->SetDescription("BXON Models & Animation");
-    d11->AddKeyword("Model");
-    d11->AddKeyword("Animation");
-    d11->AddKeyword("BXON");
-
-    DemoDetails * d12 = new DemoDetails();
-    d12->SetDescription("Multi Texture");
-    d12->AddKeyword("Textures");
-    
-    DemoDetails * d13 = new DemoDetails();
-    d13->SetDescription("BumpMapping");
-    d13->AddKeyword("Model");
-    d13->AddKeyword("Textures");
-    d13->AddKeyword("Shaders");
-    
-    DemoDetails * d14 = new DemoDetails();
-    d14->SetDescription("Shadows");
-    d14->AddKeyword("Model");
-    d14->AddKeyword("Textures");
-    d14->AddKeyword("Shaders");
-
-    DemoDetails * d15 = new DemoDetails();
-    d15->SetDescription("Timeline markers");
-    d15->AddKeyword("Animation");
-    d15->AddKeyword("Markers");
-    
-	m_DemoDetails.push_back(d1);
-	m_DemoDetails.push_back(d2);
-	m_DemoDetails.push_back(d3);
-	m_DemoDetails.push_back(d4);
-	m_DemoDetails.push_back(d5);
-	m_DemoDetails.push_back(d6);
-	m_DemoDetails.push_back(d7);
-	m_DemoDetails.push_back(d8);
-	m_DemoDetails.push_back(d9);
-    m_DemoDetails.push_back(d10);  
-	m_DemoDetails.push_back(d11);
-    m_DemoDetails.push_back(d12);
-    m_DemoDetails.push_back(d13);
-    m_DemoDetails.push_back(d14);
-    m_DemoDetails.push_back(d15);
+        m_DemoDetails.push_back(dd);
+    }
 }
 
 DemoSelector::~DemoSelector(){
@@ -237,20 +130,10 @@ DemoSelector::~DemoSelector(){
 	}
 	SafeDelete(m_FontTexture);
 	SafeDelete(m_FontMap);
-	SafeDelete(m_BlurryBg);
 	SafeDelete(m_IconNck);
 }
 
-void DemoSelector::Load(){
-	dev->Enable(Graph::STATE_BLEND);
-	dev->Enable(Graph::STATE_DEPTH_TEST);
-	dev->BlendFunc(Graph::BLEND_SRC_ALPHA,Graph::BLEND_INV_SRC_ALPHA);
-	dev->ClearColor(0.5,0.5,0.5,1.0);
-
-	dev->Enable(Graph::STATE_BLEND);
-	dev->Disable(Graph::STATE_DEPTH_TEST);
-	dev->BlendFunc(Graph::BLEND_SRC_ALPHA,Graph::BLEND_INV_SRC_ALPHA);
-	
+void DemoSelector::Load(){	
 	m_FontTexture = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://tex2d_font_ubuntu.png"));
 	m_FontTexture->SetFilter(Graph::FILTER_MAGNIFICATION,Graph::FILTER_LINEAR);
 	m_FontTexture->SetFilter(Graph::FILTER_MINIFICATION,Graph::FILTER_LINEAR);
@@ -258,9 +141,7 @@ void DemoSelector::Load(){
 
 	m_FontMap = new Gui::FontMap(dev);
 	m_FontMap->Load("script://font_ubuntu.txt");
-
-	m_BlurryBg = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://tex2d_blurrybg.png"));
-	m_IconNck = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://tex2d_icon_nck.png"));
+	m_IconNck = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://icons/tex2d_icon_nck.png"));
 }
 
 void DemoSelector::SetCallback(DemoSelector_Callback * callback){
@@ -282,22 +163,21 @@ void DemoSelector::RenderSquare(float x,float y,float w, float h, const Math::Co
 }
 
 void DemoSelector::Render(float dt){
-    dev->ClearColor(0.5,0.5,0.5,1);
+    dev->Enable(Graph::STATE_BLEND);
+    dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
+    dev->Disable(Graph::STATE_DEPTH_TEST);
+
+    dev->ClearColor(0.0, 0.0, 0.0, 1.0);
+
 	dev->Viewport(0,0,wnd->GetWidth(),wnd->GetHeight());
     dev->Clear();
     
-	dev->Disable(Graph::STATE_DEPTH_TEST);
-
 	dev->MatrixMode(Graph::MATRIX_PROJECTION);
 	dev->Identity();
 	dev->Ortho2D((float)wnd->GetWidth(),(float)wnd->GetHeight());
 
 	dev->MatrixMode(Graph::MATRIX_MODEL);
 	dev->Identity();
-
-	m_BlurryBg->Enable();
-	RenderSquare(0,0,(float)wnd->GetWidth(),(float)wnd->GetHeight(),Math::Color4ub());
-	m_BlurryBg->Disable();
 
 	Core::Point p = wnd->GetMousePosition();
 
@@ -323,7 +203,7 @@ void DemoSelector::Render(float dt){
 		dev->PushMatrix();
 		dev->Translate(margin,m_ScrollPosition+i*(cellHeight+cellSplitHeight)+margin,0);
 
-		Math::Color4ub bgColor = Math::Color4ub(20,20,20,150);
+		Math::Color4ub bgColor = Math::Color4ub(80,80,80,150);
 
 		if(p.GetY() > (m_ScrollPosition+i*(cellHeight+cellSplitHeight)+margin) && 
 			p.GetY() < (m_ScrollPosition+i*(cellHeight+cellSplitHeight)+margin+cellHeight) && 
@@ -346,7 +226,7 @@ void DemoSelector::Render(float dt){
 		dev->Color(125,125,125);
 		m_FontMap->Draw(cellHeight+margin,18,16,text);
 
-		dev->Color(64,119,47);
+		dev->Color(180, 100,40);
 		m_FontMap->Draw(demoTitleX+10,25,32,"Demo "+Math::IntToString(i+1),true,Gui::FONT_ALIGNMENT_LEFT);
 
 		std::vector<std::string> keywords = m_DemoDetails[i]->GetKeywords();
@@ -400,8 +280,8 @@ void DemoSelector::UpdateWndEvents()
             
             if(m_TotalDeslocation == 0){
                 if(m_Callback != NULL){
-					wnd->SetTitle("Demo #" + Math::IntToString(m_ActiveDemoId) + " - " + m_DemoDetails[m_ActiveDemoId]->GetDescription());
-                    m_Callback->SelectDemo(m_ActiveDemoId+1);
+					wnd->SetTitle("Demo #" + Math::IntToString(m_ActiveDemoId+1) + " - " + m_DemoDetails[m_ActiveDemoId]->GetDescription());
+                    m_Callback->SelectDemo(m_ActiveDemoId);
 				}
             }
 
@@ -429,6 +309,13 @@ void DemoSelector::UpdateWndEvents()
 	
 }
 
+std::vector<std::string> DemoSelector::GetKeywords() {
+    return std::vector<std::string>();
+}
+
+std::string DemoSelector::GetDescription() {
+    return "";
+}
 
 Demo * CreateDemo_Selector(Core::Window * wnd, Graph::Device * dev){
 	return new DemoSelector(wnd,dev);

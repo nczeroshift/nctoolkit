@@ -1,28 +1,12 @@
 
 /**
-* NCtoolKit © 2007-2015 Luís F.Loureiro, under zlib software license.
+* NCtoolKit © 2007-2017 Luís F.Loureiro, under zlib software license.
 * https://github.com/nczeroshift/nctoolkit
 */
 
 #include "nckDemo_Selector.h"
 
-#include "nckDemo_1.h"
-#include "nckDemo_2.h"
-#include "nckDemo_3.h"
-#include "nckDemo_4.h"
-#include "nckDemo_5.h"
-#include "nckDemo_6.h"
-#include "nckDemo_7.h"
-#include "nckDemo_8.h"
-#include "nckDemo_9.h"
-#include "nckDemo_11.h"
-#include "nckDemo_10.h"
-#include "nckDemo_12.h"
-#include "nckDemo_13.h"
-#include "nckDemo_14.h"
-#include "nckDemo_15.h"
-
-#define FRONTEND
+//#define RUN_DEMO 3
 
 class GraphicRendering : public virtual Core::Threadable, public virtual DemoSelector_Callback
 {
@@ -42,13 +26,19 @@ public:
 	~GraphicRendering(){
 		SafeDelete(mutex);
 	}
-	
+
+    void SelectDemo(int demoId)
+    {
+        Demo * tmp = NULL;
+        tmp = DemoCreate(demoId, wnd, dev);
+        demoLoad = tmp;
+    }
+
 	void Run(){
 		wnd->SetTitle("nctoolkit");
 		
 		try{
 			dev = Graph::CreateDevice(wnd,Graph::DEVICE_AUTO,wnd->GetWidth(),wnd->GetHeight());
-			dev->ClearColor(0.5,0.5,0.5,1);
 			dev->ClearFlags(Graph::BUFFER_COLOR_BIT|Graph::BUFFER_DEPTH_BIT);
 		}
 		catch(const Core::Exception & ex){
@@ -60,22 +50,25 @@ public:
 		Demo * tmp = NULL;
 
 		mutex->Lock();
+
 		try{
-#ifdef FRONTEND
-			tmp = CreateDemo_Selector(wnd,dev);
-			tmp->Load();
-			((DemoSelector*)tmp)->SetCallback(this);
-			demoSelector = tmp;
+#ifdef RUN_DEMO
+            tmp = DemoCreate(RUN_DEMO,wnd, dev);
+            tmp->Load();
+            demoActive = tmp;
 #else
-			tmp = CreateDemo_14(wnd,dev);
-			tmp->Load();
-			demoActive = tmp;
+            tmp = CreateDemo_Selector(wnd, dev);
+            tmp->Load();
+            ((DemoSelector*)tmp)->SetCallback(this);
+            demoSelector = tmp;
 #endif
-		}catch(const Core::Exception & ex){
+		}
+        catch(const Core::Exception & ex){
 			ex.PrintStackTrace();
 			SafeDelete(tmp);
 			SafeDelete(dev);
 		}
+
 		mutex->Unlock();
 				
 
@@ -102,7 +95,6 @@ public:
 
 				demoLoad = NULL;
 			}
-
 
 			if(demoActive) 
 				demoActive->Render();
@@ -134,7 +126,7 @@ public:
 				if(demoActive){
 					demoDestroy = demoActive;
 					demoActive = NULL;
-	#ifndef FRONTEND
+	#ifdef RUNDEMO
 					Teardown();
 	#endif
 				}
@@ -151,39 +143,9 @@ public:
 		mutex->Unlock();
 	}
 
-	void SelectDemo(int demoId)
-	{
-		Demo * tmp = NULL;
-		try{
-			switch(demoId)
-			{
-				case 1: tmp = new Demo1(wnd,dev); break;
-				case 2: tmp = new Demo2(wnd,dev); break;
-				case 3:	tmp = new Demo3(wnd,dev); break;
-				case 4:	tmp = new Demo4(wnd,dev); break;
-				case 5: tmp = new Demo5(wnd,dev); break;
-				case 6: tmp = new Demo6(wnd,dev); break;
-				case 7: tmp = new Demo7(wnd,dev); break;
-				case 8: tmp = new Demo8(wnd,dev); break;
-				case 9: tmp = new Demo9(wnd,dev); break;
-                case 10: tmp = new Demo10(wnd,dev); break;
-				case 11: tmp = new Demo11(wnd,dev); break;
-                case 12: tmp = new Demo12(wnd, dev); break;
-                case 13: tmp = new Demo13(wnd, dev); break;
-                case 14: tmp = new Demo14(wnd, dev); break;
-                case 15: tmp = new Demo15(wnd, dev); break;
-			};
-		}
-		catch(const Core::Exception & ex){
-			ex.PrintStackTrace();
-			SafeDelete(tmp);
-			tmp = NULL;
-		}
-		demoLoad = tmp;
-	}
-
 private:
-	bool			pressedEscape;
+
+    bool			pressedEscape;
 	Demo			*demoSelector,*demoActive,*demoDestroy,*demoLoad;
 	Core::Mutex		*mutex;
 	Graph::Device	*dev;
@@ -193,7 +155,7 @@ private:
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
 	// Create a window.
-	Core::Window * wnd = Core::CreateWindow("nctoolkit",800,600,false);
+	Core::Window * wnd = Core::CreateWindow("nctoolkit", 1024, 600, false);
 
 	// Create the thread where the graphics rendering will run.
 	GraphicRendering * grThread = new GraphicRendering(wnd);
