@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		CC27B3921899C7CC005F37E5 /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC27B38A1899C7B1005F37E5 /* libCore.a */; };
 		CC27B3931899C7CC005F37E5 /* libMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC27B38D1899C7B1005F37E5 /* libMath.a */; };
+		CC393A8C1EA6CE0C00E6351B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */; };
+		CC393A8D1EA6CE0C00E6351B /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */; };
+		CC393A9D1EA6D27F00E6351B /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A9B1EA6D27F00E6351B /* libogg.a */; };
+		CC393A9E1EA6D27F00E6351B /* libvorbis.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC393A9C1EA6D27F00E6351B /* libvorbis.a */; };
 		CC3A189C18E78B3600D0C95D /* libAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A188B18E788B300D0C95D /* libAudio.a */; };
 		CC3A189D18E78B3600D0C95D /* libGUI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A188518E788AC00D0C95D /* libGUI.a */; };
 		CC3A189E18E78B3600D0C95D /* libIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC3A189118E788C200D0C95D /* libIO.a */; };
@@ -26,6 +30,11 @@
 		CCC9B5711897111200771D4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC9B5701897111200771D4E /* Images.xcassets */; };
 		CCD7EF1618D4A939009D1489 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1518D4A939009D1489 /* libstdc++.dylib */; };
 		CCD7EF1818D4A94C009D1489 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1718D4A94C009D1489 /* libc++.dylib */; };
+		CCE165491EA0D69E00358B8F /* nckDemo_10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */; };
+		CCE1654C1EA0D6A400358B8F /* nckDemo_12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */; };
+		CCE1654F1EA0D6AC00358B8F /* nckDemo_13.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */; };
+		CCE165521EA0D6B300358B8F /* nckDemo_14.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */; };
+		CCE165551EA0D6B800358B8F /* nckDemo_15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */; };
 		CCFEBD351B70C4C600D7D531 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFEBD331B70C4C600D7D531 /* libpng.a */; };
 		CCFEBD361B70C4C600D7D531 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFEBD341B70C4C600D7D531 /* libjpeg.a */; };
 		CCFFE0A51C16593900A13D39 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE08A1C16593900A13D39 /* main.cpp */; };
@@ -201,6 +210,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		CC393A9B1EA6D27F00E6351B /* libogg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libogg.a; path = ../../extern/macosx/lib_64/libogg.a; sourceTree = "<group>"; };
+		CC393A9C1EA6D27F00E6351B /* libvorbis.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libvorbis.a; path = ../../extern/macosx/lib_64/libvorbis.a; sourceTree = "<group>"; };
 		CC3A187418E7888900D0C95D /* Network.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Network.xcodeproj; path = ../../Network/Network.xcodeproj; sourceTree = "<group>"; };
 		CC3A187A18E7889C00D0C95D /* Video.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Video.xcodeproj; path = ../../Video/Video.xcodeproj; sourceTree = "<group>"; };
 		CC3A188018E788AC00D0C95D /* GUI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GUI.xcodeproj; path = ../../GUI/GUI.xcodeproj; sourceTree = "<group>"; };
@@ -227,6 +240,16 @@
 		CCC9B5701897111200771D4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CCD7EF1518D4A939009D1489 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CCD7EF1718D4A94C009D1489 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_10.cpp; path = ../../../../source/apps/nckDemo_10.cpp; sourceTree = "<group>"; };
+		CCE165481EA0D69D00358B8F /* nckDemo_10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_10.h; path = ../../../../source/apps/nckDemo_10.h; sourceTree = "<group>"; };
+		CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_12.cpp; path = ../../../../source/apps/nckDemo_12.cpp; sourceTree = "<group>"; };
+		CCE1654B1EA0D6A400358B8F /* nckDemo_12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_12.h; path = ../../../../source/apps/nckDemo_12.h; sourceTree = "<group>"; };
+		CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_13.cpp; path = ../../../../source/apps/nckDemo_13.cpp; sourceTree = "<group>"; };
+		CCE1654E1EA0D6AC00358B8F /* nckDemo_13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_13.h; path = ../../../../source/apps/nckDemo_13.h; sourceTree = "<group>"; };
+		CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_14.cpp; path = ../../../../source/apps/nckDemo_14.cpp; sourceTree = "<group>"; };
+		CCE165511EA0D6B300358B8F /* nckDemo_14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_14.h; path = ../../../../source/apps/nckDemo_14.h; sourceTree = "<group>"; };
+		CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_15.cpp; path = ../../../../source/apps/nckDemo_15.cpp; sourceTree = "<group>"; };
+		CCE165541EA0D6B800358B8F /* nckDemo_15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_15.h; path = ../../../../source/apps/nckDemo_15.h; sourceTree = "<group>"; };
 		CCF7752618D62E89000D6EAD /* Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Graphics.xcodeproj; path = ../../Graphics/Graphics.xcodeproj; sourceTree = "<group>"; };
 		CCFEBD331B70C4C600D7D531 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../extern/macosx/lib_64/libpng.a; sourceTree = "<group>"; };
 		CCFEBD341B70C4C600D7D531 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../../extern/macosx/lib_64/libjpeg.a; sourceTree = "<group>"; };
@@ -262,6 +285,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC393A9D1EA6D27F00E6351B /* libogg.a in Frameworks */,
+				CC393A9E1EA6D27F00E6351B /* libvorbis.a in Frameworks */,
+				CC393A8C1EA6CE0C00E6351B /* AudioToolbox.framework in Frameworks */,
+				CC393A8D1EA6CE0C00E6351B /* CoreAudio.framework in Frameworks */,
 				CC49A4E01B7107C60000ED36 /* libBXON.a in Frameworks */,
 				CCFEBD351B70C4C600D7D531 /* libpng.a in Frameworks */,
 				CCFEBD361B70C4C600D7D531 /* libjpeg.a in Frameworks */,
@@ -379,27 +406,8 @@
 		CCBFA69A1B70C0420092B4EF /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				CCE165561EA0D73D00358B8F /* Demos */,
 				CCFFE08A1C16593900A13D39 /* main.cpp */,
-				CCFFE08B1C16593900A13D39 /* nckDemo_1.cpp */,
-				CCFFE08C1C16593900A13D39 /* nckDemo_1.h */,
-				CCFFE08D1C16593900A13D39 /* nckDemo_2.cpp */,
-				CCFFE08E1C16593900A13D39 /* nckDemo_2.h */,
-				CCFFE08F1C16593900A13D39 /* nckDemo_3.cpp */,
-				CCFFE0901C16593900A13D39 /* nckDemo_3.h */,
-				CCFFE0911C16593900A13D39 /* nckDemo_4.cpp */,
-				CCFFE0921C16593900A13D39 /* nckDemo_4.h */,
-				CCFFE0931C16593900A13D39 /* nckDemo_5.cpp */,
-				CCFFE0941C16593900A13D39 /* nckDemo_5.h */,
-				CCFFE0951C16593900A13D39 /* nckDemo_6.cpp */,
-				CCFFE0961C16593900A13D39 /* nckDemo_6.h */,
-				CCFFE0971C16593900A13D39 /* nckDemo_7.cpp */,
-				CCFFE0981C16593900A13D39 /* nckDemo_7.h */,
-				CCFFE0991C16593900A13D39 /* nckDemo_8.cpp */,
-				CCFFE09A1C16593900A13D39 /* nckDemo_8.h */,
-				CCFFE09B1C16593900A13D39 /* nckDemo_9.cpp */,
-				CCFFE09C1C16593900A13D39 /* nckDemo_9.h */,
-				CCFFE09F1C16593900A13D39 /* nckDemo_11.cpp */,
-				CCFFE0A01C16593900A13D39 /* nckDemo_11.h */,
 				CCFFE0A11C16593900A13D39 /* nckDemo_Selector.cpp */,
 				CCFFE0A21C16593900A13D39 /* nckDemo_Selector.h */,
 				CCFFE0A31C16593900A13D39 /* nckDemo.cpp */,
@@ -438,6 +446,10 @@
 		CCC9B5571897111200771D4E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC393A9B1EA6D27F00E6351B /* libogg.a */,
+				CC393A9C1EA6D27F00E6351B /* libvorbis.a */,
+				CC393A8A1EA6CE0C00E6351B /* AudioToolbox.framework */,
+				CC393A8B1EA6CE0C00E6351B /* CoreAudio.framework */,
 				CCFEBD331B70C4C600D7D531 /* libpng.a */,
 				CCFEBD341B70C4C600D7D531 /* libjpeg.a */,
 				CC7ED01218DF350900706A97 /* libz.dylib */,
@@ -481,6 +493,43 @@
 				CCC9B5661897111200771D4E /* App-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CCE165561EA0D73D00358B8F /* Demos */ = {
+			isa = PBXGroup;
+			children = (
+				CCFFE08B1C16593900A13D39 /* nckDemo_1.cpp */,
+				CCFFE08C1C16593900A13D39 /* nckDemo_1.h */,
+				CCFFE08D1C16593900A13D39 /* nckDemo_2.cpp */,
+				CCFFE08E1C16593900A13D39 /* nckDemo_2.h */,
+				CCFFE08F1C16593900A13D39 /* nckDemo_3.cpp */,
+				CCFFE0901C16593900A13D39 /* nckDemo_3.h */,
+				CCFFE0911C16593900A13D39 /* nckDemo_4.cpp */,
+				CCFFE0921C16593900A13D39 /* nckDemo_4.h */,
+				CCFFE0931C16593900A13D39 /* nckDemo_5.cpp */,
+				CCFFE0941C16593900A13D39 /* nckDemo_5.h */,
+				CCFFE0951C16593900A13D39 /* nckDemo_6.cpp */,
+				CCFFE0961C16593900A13D39 /* nckDemo_6.h */,
+				CCFFE0971C16593900A13D39 /* nckDemo_7.cpp */,
+				CCFFE0981C16593900A13D39 /* nckDemo_7.h */,
+				CCFFE0991C16593900A13D39 /* nckDemo_8.cpp */,
+				CCFFE09A1C16593900A13D39 /* nckDemo_8.h */,
+				CCFFE09B1C16593900A13D39 /* nckDemo_9.cpp */,
+				CCFFE09C1C16593900A13D39 /* nckDemo_9.h */,
+				CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */,
+				CCE165481EA0D69D00358B8F /* nckDemo_10.h */,
+				CCFFE09F1C16593900A13D39 /* nckDemo_11.cpp */,
+				CCFFE0A01C16593900A13D39 /* nckDemo_11.h */,
+				CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */,
+				CCE1654B1EA0D6A400358B8F /* nckDemo_12.h */,
+				CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */,
+				CCE1654E1EA0D6AC00358B8F /* nckDemo_13.h */,
+				CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */,
+				CCE165511EA0D6B300358B8F /* nckDemo_14.h */,
+				CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */,
+				CCE165541EA0D6B800358B8F /* nckDemo_15.h */,
+			);
+			name = Demos;
 			sourceTree = "<group>";
 		};
 		CCF7752718D62E89000D6EAD /* Products */ = {
@@ -693,10 +742,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCE165491EA0D69E00358B8F /* nckDemo_10.cpp in Sources */,
 				CCFFE0A51C16593900A13D39 /* main.cpp in Sources */,
 				CCFFE0AE1C16593900A13D39 /* nckDemo_9.cpp in Sources */,
+				CCE1654F1EA0D6AC00358B8F /* nckDemo_13.cpp in Sources */,
 				CCFFE0AD1C16593900A13D39 /* nckDemo_8.cpp in Sources */,
 				CCFFE0B21C16593900A13D39 /* nckDemo.cpp in Sources */,
+				CCE1654C1EA0D6A400358B8F /* nckDemo_12.cpp in Sources */,
 				CCFFE0AA1C16593900A13D39 /* nckDemo_5.cpp in Sources */,
 				CCFFE0A91C16593900A13D39 /* nckDemo_4.cpp in Sources */,
 				CCFFE0B11C16593900A13D39 /* nckDemo_Selector.cpp in Sources */,
@@ -706,6 +758,8 @@
 				CCFFE0B01C16593900A13D39 /* nckDemo_11.cpp in Sources */,
 				CCFFE0AB1C16593900A13D39 /* nckDemo_6.cpp in Sources */,
 				CCFFE0A61C16593900A13D39 /* nckDemo_1.cpp in Sources */,
+				CCE165521EA0D6B300358B8F /* nckDemo_14.cpp in Sources */,
+				CCE165551EA0D6B800358B8F /* nckDemo_15.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +937,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -915,6 +970,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../../../project/extern/macosx/lib_64/",
+					/Users/zeroshift/Workspace/git/nctoolkit/project/extern/macosx/lib_64,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

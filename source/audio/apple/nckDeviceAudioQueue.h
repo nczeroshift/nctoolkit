@@ -16,11 +16,12 @@
 #include "nckThread.h"
 #include "nckUtils.h"
 
+#import <AudioToolbox/AudioToolbox.h>
+
 _AUDIO_BEGIN
 
-class DeviceAudioQueue : public virtual OutputDevice, public virtual Core::Threadable{
+class DeviceAudioQueue : public virtual OutputDevice{
 public:
-	DeviceAudioQueue();
 	DeviceAudioQueue(int sampleRate, int channels, Format format,int buffers, int buffersSize);
 	~DeviceAudioQueue();
 	
@@ -32,8 +33,8 @@ public:
 	void Pause();
 	State GetState();
 	void Play();	
-	void Run();
 
+    int64_t GetTime();
 	Stream * LoadStream(const std::string & filename);
 	Stream * LoadStreamFromReader(Core::DataReader * reader);
 
@@ -47,6 +48,11 @@ private:
 	int m_BufferSize;
 
 	State m_CurrentState;
+    
+    AudioStreamBasicDescription   mDataFormat;
+    AudioQueueRef                 mQueue;
+    AudioQueueBufferRef           *mBuffers;
+    AudioStreamPacketDescription  *mPacketDescs;
 };
 
 _AUDIO_END

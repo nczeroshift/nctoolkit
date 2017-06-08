@@ -45,4 +45,9 @@
     #define NCK_WAVEOUT
 #endif
 
+#if defined(NCK_APPLE)
+#define NCK_AUDIOQUEUE
+#define NCK_OGG
+#endif
+
 #endif // #ifndef _NCK_CONFIG_H_

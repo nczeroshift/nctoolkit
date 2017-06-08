@@ -18,6 +18,10 @@
 		CCC9B5311897107600771D4E /* nckAudioDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B52C1897107600771D4E /* nckAudioDevice.h */; };
 		CCC9B5321897107600771D4E /* nckOggStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCC9B52D1897107600771D4E /* nckOggStream.cpp */; };
 		CCC9B5331897107600771D4E /* nckOggStream.h in Headers */ = {isa = PBXBuildFile; fileRef = CCC9B52E1897107600771D4E /* nckOggStream.h */; };
+		CCE165741EA0DC0400358B8F /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE165731EA0DC0400358B8F /* CoreAudio.framework */; };
+		CCE165761EA0DC0C00358B8F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE165751EA0DC0C00358B8F /* AudioToolbox.framework */; };
+		CCE165791EA0DC1400358B8F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE165771EA0DC1400358B8F /* CoreFoundation.framework */; };
+		CCE1657A1EA0DC1400358B8F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCE165781EA0DC1400358B8F /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		CCC9B52C1897107600771D4E /* nckAudioDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckAudioDevice.h; path = ../../../source/audio/nckAudioDevice.h; sourceTree = "<group>"; };
 		CCC9B52D1897107600771D4E /* nckOggStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckOggStream.cpp; path = ../../../source/audio/nckOggStream.cpp; sourceTree = "<group>"; };
 		CCC9B52E1897107600771D4E /* nckOggStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckOggStream.h; path = ../../../source/audio/nckOggStream.h; sourceTree = "<group>"; };
+		CCE165731EA0DC0400358B8F /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		CCE165751EA0DC0C00358B8F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		CCE165771EA0DC1400358B8F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		CCE165781EA0DC1400358B8F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +48,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCE165791EA0DC1400358B8F /* CoreFoundation.framework in Frameworks */,
+				CCE1657A1EA0DC1400358B8F /* Foundation.framework in Frameworks */,
+				CCE165761EA0DC0C00358B8F /* AudioToolbox.framework in Frameworks */,
+				CCE165741EA0DC0400358B8F /* CoreAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +81,7 @@
 		CCC9B5181897104400771D4E = {
 			isa = PBXGroup;
 			children = (
+				CCE165721EA0DBD500358B8F /* Libraries */,
 				CCC9B5281897104A00771D4E /* Source */,
 				CCC9B5221897104400771D4E /* Products */,
 			);
@@ -104,6 +117,17 @@
 				CC10887F1916A7B70086C781 /* nckDeviceAlsa.h */,
 			);
 			name = alsa;
+			sourceTree = "<group>";
+		};
+		CCE165721EA0DBD500358B8F /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				CCE165771EA0DC1400358B8F /* CoreFoundation.framework */,
+				CCE165781EA0DC1400358B8F /* Foundation.framework */,
+				CCE165751EA0DC0C00358B8F /* AudioToolbox.framework */,
+				CCE165731EA0DC0400358B8F /* CoreAudio.framework */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +284,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../../source/core/",
 					"$(SRCROOT)/../../../project/extern/include/macosx",
+					"$(SRCROOT)/../../extern/macosx/include/",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -273,6 +298,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../../../source/core/",
 					"$(SRCROOT)/../../../project/extern/include/macosx",
+					"$(SRCROOT)/../../extern/macosx/include/",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
