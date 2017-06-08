@@ -23,6 +23,38 @@
 		CC7ED01418DF351100706A97 /* libGraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF7752B18D62E89000D6EAD /* libGraphics.a */; };
 		CC7ED01518DF351100706A97 /* libXML.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7ED00E18DF34A000706A97 /* libXML.a */; };
 		CC7ED02818DF3BD200706A97 /* libScene.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7ED02518DF3BC200706A97 /* libScene.a */; };
+		CC8207A41EEA03D5003EF92A /* nckDemo_Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207641EEA03D4003EF92A /* nckDemo_Animation.cpp */; };
+		CC8207A51EEA03D5003EF92A /* nckDemo_Armature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207661EEA03D4003EF92A /* nckDemo_Armature.cpp */; };
+		CC8207A61EEA03D5003EF92A /* nckDemo_AudioFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207681EEA03D4003EF92A /* nckDemo_AudioFFT.cpp */; };
+		CC8207A71EEA03D5003EF92A /* nckDemo_AudioOgg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82076A1EEA03D4003EF92A /* nckDemo_AudioOgg.cpp */; };
+		CC8207A81EEA03D5003EF92A /* nckDemo_AudioOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82076C1EEA03D4003EF92A /* nckDemo_AudioOut.cpp */; };
+		CC8207A91EEA03D5003EF92A /* nckDemo_Bumpmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82076E1EEA03D4003EF92A /* nckDemo_Bumpmap.cpp */; };
+		CC8207AA1EEA03D5003EF92A /* nckDemo_Compound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207701EEA03D4003EF92A /* nckDemo_Compound.cpp */; };
+		CC8207AB1EEA03D5003EF92A /* nckDemo_CubemapFBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207721EEA03D4003EF92A /* nckDemo_CubemapFBO.cpp */; };
+		CC8207AC1EEA03D5003EF92A /* nckDemo_Curves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207741EEA03D4003EF92A /* nckDemo_Curves.cpp */; };
+		CC8207AD1EEA03D5003EF92A /* nckDemo_FBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207761EEA03D4003EF92A /* nckDemo_FBO.cpp */; };
+		CC8207AE1EEA03D5003EF92A /* nckDemo_GUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207781EEA03D4003EF92A /* nckDemo_GUI.cpp */; };
+		CC8207AF1EEA03D5003EF92A /* nckDemo_HttpServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82077A1EEA03D4003EF92A /* nckDemo_HttpServer.cpp */; };
+		CC8207B01EEA03D5003EF92A /* nckDemo_HttpStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82077C1EEA03D4003EF92A /* nckDemo_HttpStream.cpp */; };
+		CC8207B11EEA03D5003EF92A /* nckDemo_Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82077E1EEA03D4003EF92A /* nckDemo_Material.cpp */; };
+		CC8207B21EEA03D5003EF92A /* nckDemo_Metaballs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207801EEA03D4003EF92A /* nckDemo_Metaballs.cpp */; };
+		CC8207B31EEA03D5003EF92A /* nckDemo_Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207821EEA03D4003EF92A /* nckDemo_Model.cpp */; };
+		CC8207B41EEA03D5003EF92A /* nckDemo_MotionBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207841EEA03D4003EF92A /* nckDemo_MotionBlur.cpp */; };
+		CC8207B51EEA03D5003EF92A /* nckDemo_MultiCamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207861EEA03D4003EF92A /* nckDemo_MultiCamera.cpp */; };
+		CC8207B61EEA03D5003EF92A /* nckDemo_OcclusionQuery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207881EEA03D4003EF92A /* nckDemo_OcclusionQuery.cpp */; };
+		CC8207B71EEA03D5003EF92A /* nckDemo_Particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82078A1EEA03D4003EF92A /* nckDemo_Particles.cpp */; };
+		CC8207B81EEA03D5003EF92A /* nckDemo_Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82078C1EEA03D4003EF92A /* nckDemo_Quadtree.cpp */; };
+		CC8207B91EEA03D5003EF92A /* nckDemo_Serial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82078E1EEA03D4003EF92A /* nckDemo_Serial.cpp */; };
+		CC8207BA1EEA03D5003EF92A /* nckDemo_ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207901EEA03D4003EF92A /* nckDemo_ShaderProgram.cpp */; };
+		CC8207BB1EEA03D5003EF92A /* nckDemo_Shadows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207921EEA03D4003EF92A /* nckDemo_Shadows.cpp */; };
+		CC8207BC1EEA03D5003EF92A /* nckDemo_Texture2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207941EEA03D4003EF92A /* nckDemo_Texture2D.cpp */; };
+		CC8207BD1EEA03D5003EF92A /* nckDemo_Texture3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207961EEA03D4003EF92A /* nckDemo_Texture3D.cpp */; };
+		CC8207BE1EEA03D5003EF92A /* nckDemo_TextureCubemap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207981EEA03D4003EF92A /* nckDemo_TextureCubemap.cpp */; };
+		CC8207BF1EEA03D5003EF92A /* nckDemo_TextureFiltering.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82079A1EEA03D4003EF92A /* nckDemo_TextureFiltering.cpp */; };
+		CC8207C01EEA03D5003EF92A /* nckDemo_TextureNPT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82079C1EEA03D4003EF92A /* nckDemo_TextureNPT.cpp */; };
+		CC8207C11EEA03D5003EF92A /* nckDemo_TextureWrapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC82079E1EEA03D5003EF92A /* nckDemo_TextureWrapping.cpp */; };
+		CC8207C21EEA03D5003EF92A /* nckDemo_Triangles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207A01EEA03D5003EF92A /* nckDemo_Triangles.cpp */; };
+		CC8207C31EEA03D5003EF92A /* nckDemo_Webcam.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC8207A21EEA03D5003EF92A /* nckDemo_Webcam.cpp */; };
 		CCBBB72818DD0F9700430F06 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCBBB72718DD0F9700430F06 /* OpenGL.framework */; };
 		CCC9B33318D62D8800B5B400 /* NCKMainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = CC6113FC1899C3C3003538E8 /* NCKMainMenu.xib */; };
 		CCC9B5591897111200771D4E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC9B5581897111200771D4E /* Cocoa.framework */; };
@@ -30,24 +62,9 @@
 		CCC9B5711897111200771D4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCC9B5701897111200771D4E /* Images.xcassets */; };
 		CCD7EF1618D4A939009D1489 /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1518D4A939009D1489 /* libstdc++.dylib */; };
 		CCD7EF1818D4A94C009D1489 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD7EF1718D4A94C009D1489 /* libc++.dylib */; };
-		CCE165491EA0D69E00358B8F /* nckDemo_10.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */; };
-		CCE1654C1EA0D6A400358B8F /* nckDemo_12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */; };
-		CCE1654F1EA0D6AC00358B8F /* nckDemo_13.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */; };
-		CCE165521EA0D6B300358B8F /* nckDemo_14.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */; };
-		CCE165551EA0D6B800358B8F /* nckDemo_15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */; };
 		CCFEBD351B70C4C600D7D531 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFEBD331B70C4C600D7D531 /* libpng.a */; };
 		CCFEBD361B70C4C600D7D531 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCFEBD341B70C4C600D7D531 /* libjpeg.a */; };
 		CCFFE0A51C16593900A13D39 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE08A1C16593900A13D39 /* main.cpp */; };
-		CCFFE0A61C16593900A13D39 /* nckDemo_1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE08B1C16593900A13D39 /* nckDemo_1.cpp */; };
-		CCFFE0A71C16593900A13D39 /* nckDemo_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE08D1C16593900A13D39 /* nckDemo_2.cpp */; };
-		CCFFE0A81C16593900A13D39 /* nckDemo_3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE08F1C16593900A13D39 /* nckDemo_3.cpp */; };
-		CCFFE0A91C16593900A13D39 /* nckDemo_4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0911C16593900A13D39 /* nckDemo_4.cpp */; };
-		CCFFE0AA1C16593900A13D39 /* nckDemo_5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0931C16593900A13D39 /* nckDemo_5.cpp */; };
-		CCFFE0AB1C16593900A13D39 /* nckDemo_6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0951C16593900A13D39 /* nckDemo_6.cpp */; };
-		CCFFE0AC1C16593900A13D39 /* nckDemo_7.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0971C16593900A13D39 /* nckDemo_7.cpp */; };
-		CCFFE0AD1C16593900A13D39 /* nckDemo_8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0991C16593900A13D39 /* nckDemo_8.cpp */; };
-		CCFFE0AE1C16593900A13D39 /* nckDemo_9.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE09B1C16593900A13D39 /* nckDemo_9.cpp */; };
-		CCFFE0B01C16593900A13D39 /* nckDemo_11.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE09F1C16593900A13D39 /* nckDemo_11.cpp */; };
 		CCFFE0B11C16593900A13D39 /* nckDemo_Selector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0A11C16593900A13D39 /* nckDemo_Selector.cpp */; };
 		CCFFE0B21C16593900A13D39 /* nckDemo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCFFE0A31C16593900A13D39 /* nckDemo.cpp */; };
 /* End PBXBuildFile section */
@@ -225,6 +242,70 @@
 		CC7ED00918DF34A000706A97 /* XML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = XML.xcodeproj; path = ../../XML/XML.xcodeproj; sourceTree = "<group>"; };
 		CC7ED01218DF350900706A97 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CC7ED02018DF3BC200706A97 /* Scene.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Scene.xcodeproj; path = ../../Scene/Scene.xcodeproj; sourceTree = "<group>"; };
+		CC8207641EEA03D4003EF92A /* nckDemo_Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Animation.cpp; path = ../../../../source/apps/demos/nckDemo_Animation.cpp; sourceTree = "<group>"; };
+		CC8207651EEA03D4003EF92A /* nckDemo_Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Animation.h; path = ../../../../source/apps/demos/nckDemo_Animation.h; sourceTree = "<group>"; };
+		CC8207661EEA03D4003EF92A /* nckDemo_Armature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Armature.cpp; path = ../../../../source/apps/demos/nckDemo_Armature.cpp; sourceTree = "<group>"; };
+		CC8207671EEA03D4003EF92A /* nckDemo_Armature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Armature.h; path = ../../../../source/apps/demos/nckDemo_Armature.h; sourceTree = "<group>"; };
+		CC8207681EEA03D4003EF92A /* nckDemo_AudioFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_AudioFFT.cpp; path = ../../../../source/apps/demos/nckDemo_AudioFFT.cpp; sourceTree = "<group>"; };
+		CC8207691EEA03D4003EF92A /* nckDemo_AudioFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_AudioFFT.h; path = ../../../../source/apps/demos/nckDemo_AudioFFT.h; sourceTree = "<group>"; };
+		CC82076A1EEA03D4003EF92A /* nckDemo_AudioOgg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_AudioOgg.cpp; path = ../../../../source/apps/demos/nckDemo_AudioOgg.cpp; sourceTree = "<group>"; };
+		CC82076B1EEA03D4003EF92A /* nckDemo_AudioOgg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_AudioOgg.h; path = ../../../../source/apps/demos/nckDemo_AudioOgg.h; sourceTree = "<group>"; };
+		CC82076C1EEA03D4003EF92A /* nckDemo_AudioOut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_AudioOut.cpp; path = ../../../../source/apps/demos/nckDemo_AudioOut.cpp; sourceTree = "<group>"; };
+		CC82076D1EEA03D4003EF92A /* nckDemo_AudioOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_AudioOut.h; path = ../../../../source/apps/demos/nckDemo_AudioOut.h; sourceTree = "<group>"; };
+		CC82076E1EEA03D4003EF92A /* nckDemo_Bumpmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Bumpmap.cpp; path = ../../../../source/apps/demos/nckDemo_Bumpmap.cpp; sourceTree = "<group>"; };
+		CC82076F1EEA03D4003EF92A /* nckDemo_Bumpmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Bumpmap.h; path = ../../../../source/apps/demos/nckDemo_Bumpmap.h; sourceTree = "<group>"; };
+		CC8207701EEA03D4003EF92A /* nckDemo_Compound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Compound.cpp; path = ../../../../source/apps/demos/nckDemo_Compound.cpp; sourceTree = "<group>"; };
+		CC8207711EEA03D4003EF92A /* nckDemo_Compound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Compound.h; path = ../../../../source/apps/demos/nckDemo_Compound.h; sourceTree = "<group>"; };
+		CC8207721EEA03D4003EF92A /* nckDemo_CubemapFBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_CubemapFBO.cpp; path = ../../../../source/apps/demos/nckDemo_CubemapFBO.cpp; sourceTree = "<group>"; };
+		CC8207731EEA03D4003EF92A /* nckDemo_CubemapFBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_CubemapFBO.h; path = ../../../../source/apps/demos/nckDemo_CubemapFBO.h; sourceTree = "<group>"; };
+		CC8207741EEA03D4003EF92A /* nckDemo_Curves.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Curves.cpp; path = ../../../../source/apps/demos/nckDemo_Curves.cpp; sourceTree = "<group>"; };
+		CC8207751EEA03D4003EF92A /* nckDemo_Curves.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Curves.h; path = ../../../../source/apps/demos/nckDemo_Curves.h; sourceTree = "<group>"; };
+		CC8207761EEA03D4003EF92A /* nckDemo_FBO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_FBO.cpp; path = ../../../../source/apps/demos/nckDemo_FBO.cpp; sourceTree = "<group>"; };
+		CC8207771EEA03D4003EF92A /* nckDemo_FBO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_FBO.h; path = ../../../../source/apps/demos/nckDemo_FBO.h; sourceTree = "<group>"; };
+		CC8207781EEA03D4003EF92A /* nckDemo_GUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_GUI.cpp; path = ../../../../source/apps/demos/nckDemo_GUI.cpp; sourceTree = "<group>"; };
+		CC8207791EEA03D4003EF92A /* nckDemo_GUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_GUI.h; path = ../../../../source/apps/demos/nckDemo_GUI.h; sourceTree = "<group>"; };
+		CC82077A1EEA03D4003EF92A /* nckDemo_HttpServer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_HttpServer.cpp; path = ../../../../source/apps/demos/nckDemo_HttpServer.cpp; sourceTree = "<group>"; };
+		CC82077B1EEA03D4003EF92A /* nckDemo_HttpServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_HttpServer.h; path = ../../../../source/apps/demos/nckDemo_HttpServer.h; sourceTree = "<group>"; };
+		CC82077C1EEA03D4003EF92A /* nckDemo_HttpStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_HttpStream.cpp; path = ../../../../source/apps/demos/nckDemo_HttpStream.cpp; sourceTree = "<group>"; };
+		CC82077D1EEA03D4003EF92A /* nckDemo_HttpStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_HttpStream.h; path = ../../../../source/apps/demos/nckDemo_HttpStream.h; sourceTree = "<group>"; };
+		CC82077E1EEA03D4003EF92A /* nckDemo_Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Material.cpp; path = ../../../../source/apps/demos/nckDemo_Material.cpp; sourceTree = "<group>"; };
+		CC82077F1EEA03D4003EF92A /* nckDemo_Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Material.h; path = ../../../../source/apps/demos/nckDemo_Material.h; sourceTree = "<group>"; };
+		CC8207801EEA03D4003EF92A /* nckDemo_Metaballs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Metaballs.cpp; path = ../../../../source/apps/demos/nckDemo_Metaballs.cpp; sourceTree = "<group>"; };
+		CC8207811EEA03D4003EF92A /* nckDemo_Metaballs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Metaballs.h; path = ../../../../source/apps/demos/nckDemo_Metaballs.h; sourceTree = "<group>"; };
+		CC8207821EEA03D4003EF92A /* nckDemo_Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Model.cpp; path = ../../../../source/apps/demos/nckDemo_Model.cpp; sourceTree = "<group>"; };
+		CC8207831EEA03D4003EF92A /* nckDemo_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Model.h; path = ../../../../source/apps/demos/nckDemo_Model.h; sourceTree = "<group>"; };
+		CC8207841EEA03D4003EF92A /* nckDemo_MotionBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_MotionBlur.cpp; path = ../../../../source/apps/demos/nckDemo_MotionBlur.cpp; sourceTree = "<group>"; };
+		CC8207851EEA03D4003EF92A /* nckDemo_MotionBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_MotionBlur.h; path = ../../../../source/apps/demos/nckDemo_MotionBlur.h; sourceTree = "<group>"; };
+		CC8207861EEA03D4003EF92A /* nckDemo_MultiCamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_MultiCamera.cpp; path = ../../../../source/apps/demos/nckDemo_MultiCamera.cpp; sourceTree = "<group>"; };
+		CC8207871EEA03D4003EF92A /* nckDemo_MultiCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_MultiCamera.h; path = ../../../../source/apps/demos/nckDemo_MultiCamera.h; sourceTree = "<group>"; };
+		CC8207881EEA03D4003EF92A /* nckDemo_OcclusionQuery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_OcclusionQuery.cpp; path = ../../../../source/apps/demos/nckDemo_OcclusionQuery.cpp; sourceTree = "<group>"; };
+		CC8207891EEA03D4003EF92A /* nckDemo_OcclusionQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_OcclusionQuery.h; path = ../../../../source/apps/demos/nckDemo_OcclusionQuery.h; sourceTree = "<group>"; };
+		CC82078A1EEA03D4003EF92A /* nckDemo_Particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Particles.cpp; path = ../../../../source/apps/demos/nckDemo_Particles.cpp; sourceTree = "<group>"; };
+		CC82078B1EEA03D4003EF92A /* nckDemo_Particles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Particles.h; path = ../../../../source/apps/demos/nckDemo_Particles.h; sourceTree = "<group>"; };
+		CC82078C1EEA03D4003EF92A /* nckDemo_Quadtree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Quadtree.cpp; path = ../../../../source/apps/demos/nckDemo_Quadtree.cpp; sourceTree = "<group>"; };
+		CC82078D1EEA03D4003EF92A /* nckDemo_Quadtree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Quadtree.h; path = ../../../../source/apps/demos/nckDemo_Quadtree.h; sourceTree = "<group>"; };
+		CC82078E1EEA03D4003EF92A /* nckDemo_Serial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Serial.cpp; path = ../../../../source/apps/demos/nckDemo_Serial.cpp; sourceTree = "<group>"; };
+		CC82078F1EEA03D4003EF92A /* nckDemo_Serial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Serial.h; path = ../../../../source/apps/demos/nckDemo_Serial.h; sourceTree = "<group>"; };
+		CC8207901EEA03D4003EF92A /* nckDemo_ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_ShaderProgram.cpp; path = ../../../../source/apps/demos/nckDemo_ShaderProgram.cpp; sourceTree = "<group>"; };
+		CC8207911EEA03D4003EF92A /* nckDemo_ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_ShaderProgram.h; path = ../../../../source/apps/demos/nckDemo_ShaderProgram.h; sourceTree = "<group>"; };
+		CC8207921EEA03D4003EF92A /* nckDemo_Shadows.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Shadows.cpp; path = ../../../../source/apps/demos/nckDemo_Shadows.cpp; sourceTree = "<group>"; };
+		CC8207931EEA03D4003EF92A /* nckDemo_Shadows.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Shadows.h; path = ../../../../source/apps/demos/nckDemo_Shadows.h; sourceTree = "<group>"; };
+		CC8207941EEA03D4003EF92A /* nckDemo_Texture2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Texture2D.cpp; path = ../../../../source/apps/demos/nckDemo_Texture2D.cpp; sourceTree = "<group>"; };
+		CC8207951EEA03D4003EF92A /* nckDemo_Texture2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Texture2D.h; path = ../../../../source/apps/demos/nckDemo_Texture2D.h; sourceTree = "<group>"; };
+		CC8207961EEA03D4003EF92A /* nckDemo_Texture3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Texture3D.cpp; path = ../../../../source/apps/demos/nckDemo_Texture3D.cpp; sourceTree = "<group>"; };
+		CC8207971EEA03D4003EF92A /* nckDemo_Texture3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Texture3D.h; path = ../../../../source/apps/demos/nckDemo_Texture3D.h; sourceTree = "<group>"; };
+		CC8207981EEA03D4003EF92A /* nckDemo_TextureCubemap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_TextureCubemap.cpp; path = ../../../../source/apps/demos/nckDemo_TextureCubemap.cpp; sourceTree = "<group>"; };
+		CC8207991EEA03D4003EF92A /* nckDemo_TextureCubemap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_TextureCubemap.h; path = ../../../../source/apps/demos/nckDemo_TextureCubemap.h; sourceTree = "<group>"; };
+		CC82079A1EEA03D4003EF92A /* nckDemo_TextureFiltering.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_TextureFiltering.cpp; path = ../../../../source/apps/demos/nckDemo_TextureFiltering.cpp; sourceTree = "<group>"; };
+		CC82079B1EEA03D4003EF92A /* nckDemo_TextureFiltering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_TextureFiltering.h; path = ../../../../source/apps/demos/nckDemo_TextureFiltering.h; sourceTree = "<group>"; };
+		CC82079C1EEA03D4003EF92A /* nckDemo_TextureNPT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_TextureNPT.cpp; path = ../../../../source/apps/demos/nckDemo_TextureNPT.cpp; sourceTree = "<group>"; };
+		CC82079D1EEA03D5003EF92A /* nckDemo_TextureNPT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_TextureNPT.h; path = ../../../../source/apps/demos/nckDemo_TextureNPT.h; sourceTree = "<group>"; };
+		CC82079E1EEA03D5003EF92A /* nckDemo_TextureWrapping.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_TextureWrapping.cpp; path = ../../../../source/apps/demos/nckDemo_TextureWrapping.cpp; sourceTree = "<group>"; };
+		CC82079F1EEA03D5003EF92A /* nckDemo_TextureWrapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_TextureWrapping.h; path = ../../../../source/apps/demos/nckDemo_TextureWrapping.h; sourceTree = "<group>"; };
+		CC8207A01EEA03D5003EF92A /* nckDemo_Triangles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Triangles.cpp; path = ../../../../source/apps/demos/nckDemo_Triangles.cpp; sourceTree = "<group>"; };
+		CC8207A11EEA03D5003EF92A /* nckDemo_Triangles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Triangles.h; path = ../../../../source/apps/demos/nckDemo_Triangles.h; sourceTree = "<group>"; };
+		CC8207A21EEA03D5003EF92A /* nckDemo_Webcam.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Webcam.cpp; path = ../../../../source/apps/demos/nckDemo_Webcam.cpp; sourceTree = "<group>"; };
+		CC8207A31EEA03D5003EF92A /* nckDemo_Webcam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Webcam.h; path = ../../../../source/apps/demos/nckDemo_Webcam.h; sourceTree = "<group>"; };
 		CCBBB72718DD0F9700430F06 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CCBFA69B1B70C0B70092B4EF /* BXON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = BXON.xcodeproj; path = ../../bxon/BXON.xcodeproj; sourceTree = "<group>"; };
 		CCC9B33418D62DA000B5B400 /* libGraphics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGraphics.a; path = ../Graphics/build/Debug/libGraphics.a; sourceTree = "<group>"; };
@@ -240,40 +321,10 @@
 		CCC9B5701897111200771D4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CCD7EF1518D4A939009D1489 /* libstdc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; };
 		CCD7EF1718D4A94C009D1489 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
-		CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_10.cpp; path = ../../../../source/apps/nckDemo_10.cpp; sourceTree = "<group>"; };
-		CCE165481EA0D69D00358B8F /* nckDemo_10.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_10.h; path = ../../../../source/apps/nckDemo_10.h; sourceTree = "<group>"; };
-		CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_12.cpp; path = ../../../../source/apps/nckDemo_12.cpp; sourceTree = "<group>"; };
-		CCE1654B1EA0D6A400358B8F /* nckDemo_12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_12.h; path = ../../../../source/apps/nckDemo_12.h; sourceTree = "<group>"; };
-		CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_13.cpp; path = ../../../../source/apps/nckDemo_13.cpp; sourceTree = "<group>"; };
-		CCE1654E1EA0D6AC00358B8F /* nckDemo_13.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_13.h; path = ../../../../source/apps/nckDemo_13.h; sourceTree = "<group>"; };
-		CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_14.cpp; path = ../../../../source/apps/nckDemo_14.cpp; sourceTree = "<group>"; };
-		CCE165511EA0D6B300358B8F /* nckDemo_14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_14.h; path = ../../../../source/apps/nckDemo_14.h; sourceTree = "<group>"; };
-		CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_15.cpp; path = ../../../../source/apps/nckDemo_15.cpp; sourceTree = "<group>"; };
-		CCE165541EA0D6B800358B8F /* nckDemo_15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_15.h; path = ../../../../source/apps/nckDemo_15.h; sourceTree = "<group>"; };
 		CCF7752618D62E89000D6EAD /* Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Graphics.xcodeproj; path = ../../Graphics/Graphics.xcodeproj; sourceTree = "<group>"; };
 		CCFEBD331B70C4C600D7D531 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../../extern/macosx/lib_64/libpng.a; sourceTree = "<group>"; };
 		CCFEBD341B70C4C600D7D531 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../../extern/macosx/lib_64/libjpeg.a; sourceTree = "<group>"; };
 		CCFFE08A1C16593900A13D39 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../../../source/apps/main.cpp; sourceTree = "<group>"; };
-		CCFFE08B1C16593900A13D39 /* nckDemo_1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_1.cpp; path = ../../../../source/apps/nckDemo_1.cpp; sourceTree = "<group>"; };
-		CCFFE08C1C16593900A13D39 /* nckDemo_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_1.h; path = ../../../../source/apps/nckDemo_1.h; sourceTree = "<group>"; };
-		CCFFE08D1C16593900A13D39 /* nckDemo_2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_2.cpp; path = ../../../../source/apps/nckDemo_2.cpp; sourceTree = "<group>"; };
-		CCFFE08E1C16593900A13D39 /* nckDemo_2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_2.h; path = ../../../../source/apps/nckDemo_2.h; sourceTree = "<group>"; };
-		CCFFE08F1C16593900A13D39 /* nckDemo_3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_3.cpp; path = ../../../../source/apps/nckDemo_3.cpp; sourceTree = "<group>"; };
-		CCFFE0901C16593900A13D39 /* nckDemo_3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_3.h; path = ../../../../source/apps/nckDemo_3.h; sourceTree = "<group>"; };
-		CCFFE0911C16593900A13D39 /* nckDemo_4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_4.cpp; path = ../../../../source/apps/nckDemo_4.cpp; sourceTree = "<group>"; };
-		CCFFE0921C16593900A13D39 /* nckDemo_4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_4.h; path = ../../../../source/apps/nckDemo_4.h; sourceTree = "<group>"; };
-		CCFFE0931C16593900A13D39 /* nckDemo_5.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_5.cpp; path = ../../../../source/apps/nckDemo_5.cpp; sourceTree = "<group>"; };
-		CCFFE0941C16593900A13D39 /* nckDemo_5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_5.h; path = ../../../../source/apps/nckDemo_5.h; sourceTree = "<group>"; };
-		CCFFE0951C16593900A13D39 /* nckDemo_6.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_6.cpp; path = ../../../../source/apps/nckDemo_6.cpp; sourceTree = "<group>"; };
-		CCFFE0961C16593900A13D39 /* nckDemo_6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_6.h; path = ../../../../source/apps/nckDemo_6.h; sourceTree = "<group>"; };
-		CCFFE0971C16593900A13D39 /* nckDemo_7.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_7.cpp; path = ../../../../source/apps/nckDemo_7.cpp; sourceTree = "<group>"; };
-		CCFFE0981C16593900A13D39 /* nckDemo_7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_7.h; path = ../../../../source/apps/nckDemo_7.h; sourceTree = "<group>"; };
-		CCFFE0991C16593900A13D39 /* nckDemo_8.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_8.cpp; path = ../../../../source/apps/nckDemo_8.cpp; sourceTree = "<group>"; };
-		CCFFE09A1C16593900A13D39 /* nckDemo_8.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_8.h; path = ../../../../source/apps/nckDemo_8.h; sourceTree = "<group>"; };
-		CCFFE09B1C16593900A13D39 /* nckDemo_9.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_9.cpp; path = ../../../../source/apps/nckDemo_9.cpp; sourceTree = "<group>"; };
-		CCFFE09C1C16593900A13D39 /* nckDemo_9.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_9.h; path = ../../../../source/apps/nckDemo_9.h; sourceTree = "<group>"; };
-		CCFFE09F1C16593900A13D39 /* nckDemo_11.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_11.cpp; path = ../../../../source/apps/nckDemo_11.cpp; sourceTree = "<group>"; };
-		CCFFE0A01C16593900A13D39 /* nckDemo_11.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_11.h; path = ../../../../source/apps/nckDemo_11.h; sourceTree = "<group>"; };
 		CCFFE0A11C16593900A13D39 /* nckDemo_Selector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo_Selector.cpp; path = ../../../../source/apps/nckDemo_Selector.cpp; sourceTree = "<group>"; };
 		CCFFE0A21C16593900A13D39 /* nckDemo_Selector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nckDemo_Selector.h; path = ../../../../source/apps/nckDemo_Selector.h; sourceTree = "<group>"; };
 		CCFFE0A31C16593900A13D39 /* nckDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nckDemo.cpp; path = ../../../../source/apps/nckDemo.cpp; sourceTree = "<group>"; };
@@ -498,36 +549,70 @@
 		CCE165561EA0D73D00358B8F /* Demos */ = {
 			isa = PBXGroup;
 			children = (
-				CCFFE08B1C16593900A13D39 /* nckDemo_1.cpp */,
-				CCFFE08C1C16593900A13D39 /* nckDemo_1.h */,
-				CCFFE08D1C16593900A13D39 /* nckDemo_2.cpp */,
-				CCFFE08E1C16593900A13D39 /* nckDemo_2.h */,
-				CCFFE08F1C16593900A13D39 /* nckDemo_3.cpp */,
-				CCFFE0901C16593900A13D39 /* nckDemo_3.h */,
-				CCFFE0911C16593900A13D39 /* nckDemo_4.cpp */,
-				CCFFE0921C16593900A13D39 /* nckDemo_4.h */,
-				CCFFE0931C16593900A13D39 /* nckDemo_5.cpp */,
-				CCFFE0941C16593900A13D39 /* nckDemo_5.h */,
-				CCFFE0951C16593900A13D39 /* nckDemo_6.cpp */,
-				CCFFE0961C16593900A13D39 /* nckDemo_6.h */,
-				CCFFE0971C16593900A13D39 /* nckDemo_7.cpp */,
-				CCFFE0981C16593900A13D39 /* nckDemo_7.h */,
-				CCFFE0991C16593900A13D39 /* nckDemo_8.cpp */,
-				CCFFE09A1C16593900A13D39 /* nckDemo_8.h */,
-				CCFFE09B1C16593900A13D39 /* nckDemo_9.cpp */,
-				CCFFE09C1C16593900A13D39 /* nckDemo_9.h */,
-				CCE165471EA0D69D00358B8F /* nckDemo_10.cpp */,
-				CCE165481EA0D69D00358B8F /* nckDemo_10.h */,
-				CCFFE09F1C16593900A13D39 /* nckDemo_11.cpp */,
-				CCFFE0A01C16593900A13D39 /* nckDemo_11.h */,
-				CCE1654A1EA0D6A400358B8F /* nckDemo_12.cpp */,
-				CCE1654B1EA0D6A400358B8F /* nckDemo_12.h */,
-				CCE1654D1EA0D6AC00358B8F /* nckDemo_13.cpp */,
-				CCE1654E1EA0D6AC00358B8F /* nckDemo_13.h */,
-				CCE165501EA0D6B300358B8F /* nckDemo_14.cpp */,
-				CCE165511EA0D6B300358B8F /* nckDemo_14.h */,
-				CCE165531EA0D6B800358B8F /* nckDemo_15.cpp */,
-				CCE165541EA0D6B800358B8F /* nckDemo_15.h */,
+				CC8207641EEA03D4003EF92A /* nckDemo_Animation.cpp */,
+				CC8207651EEA03D4003EF92A /* nckDemo_Animation.h */,
+				CC8207661EEA03D4003EF92A /* nckDemo_Armature.cpp */,
+				CC8207671EEA03D4003EF92A /* nckDemo_Armature.h */,
+				CC8207681EEA03D4003EF92A /* nckDemo_AudioFFT.cpp */,
+				CC8207691EEA03D4003EF92A /* nckDemo_AudioFFT.h */,
+				CC82076A1EEA03D4003EF92A /* nckDemo_AudioOgg.cpp */,
+				CC82076B1EEA03D4003EF92A /* nckDemo_AudioOgg.h */,
+				CC82076C1EEA03D4003EF92A /* nckDemo_AudioOut.cpp */,
+				CC82076D1EEA03D4003EF92A /* nckDemo_AudioOut.h */,
+				CC82076E1EEA03D4003EF92A /* nckDemo_Bumpmap.cpp */,
+				CC82076F1EEA03D4003EF92A /* nckDemo_Bumpmap.h */,
+				CC8207701EEA03D4003EF92A /* nckDemo_Compound.cpp */,
+				CC8207711EEA03D4003EF92A /* nckDemo_Compound.h */,
+				CC8207721EEA03D4003EF92A /* nckDemo_CubemapFBO.cpp */,
+				CC8207731EEA03D4003EF92A /* nckDemo_CubemapFBO.h */,
+				CC8207741EEA03D4003EF92A /* nckDemo_Curves.cpp */,
+				CC8207751EEA03D4003EF92A /* nckDemo_Curves.h */,
+				CC8207761EEA03D4003EF92A /* nckDemo_FBO.cpp */,
+				CC8207771EEA03D4003EF92A /* nckDemo_FBO.h */,
+				CC8207781EEA03D4003EF92A /* nckDemo_GUI.cpp */,
+				CC8207791EEA03D4003EF92A /* nckDemo_GUI.h */,
+				CC82077A1EEA03D4003EF92A /* nckDemo_HttpServer.cpp */,
+				CC82077B1EEA03D4003EF92A /* nckDemo_HttpServer.h */,
+				CC82077C1EEA03D4003EF92A /* nckDemo_HttpStream.cpp */,
+				CC82077D1EEA03D4003EF92A /* nckDemo_HttpStream.h */,
+				CC82077E1EEA03D4003EF92A /* nckDemo_Material.cpp */,
+				CC82077F1EEA03D4003EF92A /* nckDemo_Material.h */,
+				CC8207801EEA03D4003EF92A /* nckDemo_Metaballs.cpp */,
+				CC8207811EEA03D4003EF92A /* nckDemo_Metaballs.h */,
+				CC8207821EEA03D4003EF92A /* nckDemo_Model.cpp */,
+				CC8207831EEA03D4003EF92A /* nckDemo_Model.h */,
+				CC8207841EEA03D4003EF92A /* nckDemo_MotionBlur.cpp */,
+				CC8207851EEA03D4003EF92A /* nckDemo_MotionBlur.h */,
+				CC8207861EEA03D4003EF92A /* nckDemo_MultiCamera.cpp */,
+				CC8207871EEA03D4003EF92A /* nckDemo_MultiCamera.h */,
+				CC8207881EEA03D4003EF92A /* nckDemo_OcclusionQuery.cpp */,
+				CC8207891EEA03D4003EF92A /* nckDemo_OcclusionQuery.h */,
+				CC82078A1EEA03D4003EF92A /* nckDemo_Particles.cpp */,
+				CC82078B1EEA03D4003EF92A /* nckDemo_Particles.h */,
+				CC82078C1EEA03D4003EF92A /* nckDemo_Quadtree.cpp */,
+				CC82078D1EEA03D4003EF92A /* nckDemo_Quadtree.h */,
+				CC82078E1EEA03D4003EF92A /* nckDemo_Serial.cpp */,
+				CC82078F1EEA03D4003EF92A /* nckDemo_Serial.h */,
+				CC8207901EEA03D4003EF92A /* nckDemo_ShaderProgram.cpp */,
+				CC8207911EEA03D4003EF92A /* nckDemo_ShaderProgram.h */,
+				CC8207921EEA03D4003EF92A /* nckDemo_Shadows.cpp */,
+				CC8207931EEA03D4003EF92A /* nckDemo_Shadows.h */,
+				CC8207941EEA03D4003EF92A /* nckDemo_Texture2D.cpp */,
+				CC8207951EEA03D4003EF92A /* nckDemo_Texture2D.h */,
+				CC8207961EEA03D4003EF92A /* nckDemo_Texture3D.cpp */,
+				CC8207971EEA03D4003EF92A /* nckDemo_Texture3D.h */,
+				CC8207981EEA03D4003EF92A /* nckDemo_TextureCubemap.cpp */,
+				CC8207991EEA03D4003EF92A /* nckDemo_TextureCubemap.h */,
+				CC82079A1EEA03D4003EF92A /* nckDemo_TextureFiltering.cpp */,
+				CC82079B1EEA03D4003EF92A /* nckDemo_TextureFiltering.h */,
+				CC82079C1EEA03D4003EF92A /* nckDemo_TextureNPT.cpp */,
+				CC82079D1EEA03D5003EF92A /* nckDemo_TextureNPT.h */,
+				CC82079E1EEA03D5003EF92A /* nckDemo_TextureWrapping.cpp */,
+				CC82079F1EEA03D5003EF92A /* nckDemo_TextureWrapping.h */,
+				CC8207A01EEA03D5003EF92A /* nckDemo_Triangles.cpp */,
+				CC8207A11EEA03D5003EF92A /* nckDemo_Triangles.h */,
+				CC8207A21EEA03D5003EF92A /* nckDemo_Webcam.cpp */,
+				CC8207A31EEA03D5003EF92A /* nckDemo_Webcam.h */,
 			);
 			name = Demos;
 			sourceTree = "<group>";
@@ -742,24 +827,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCE165491EA0D69E00358B8F /* nckDemo_10.cpp in Sources */,
+				CC8207C31EEA03D5003EF92A /* nckDemo_Webcam.cpp in Sources */,
+				CC8207AB1EEA03D5003EF92A /* nckDemo_CubemapFBO.cpp in Sources */,
+				CC8207AE1EEA03D5003EF92A /* nckDemo_GUI.cpp in Sources */,
+				CC8207AA1EEA03D5003EF92A /* nckDemo_Compound.cpp in Sources */,
+				CC8207B01EEA03D5003EF92A /* nckDemo_HttpStream.cpp in Sources */,
+				CC8207B11EEA03D5003EF92A /* nckDemo_Material.cpp in Sources */,
+				CC8207AD1EEA03D5003EF92A /* nckDemo_FBO.cpp in Sources */,
+				CC8207B41EEA03D5003EF92A /* nckDemo_MotionBlur.cpp in Sources */,
+				CC8207BB1EEA03D5003EF92A /* nckDemo_Shadows.cpp in Sources */,
+				CC8207B91EEA03D5003EF92A /* nckDemo_Serial.cpp in Sources */,
 				CCFFE0A51C16593900A13D39 /* main.cpp in Sources */,
-				CCFFE0AE1C16593900A13D39 /* nckDemo_9.cpp in Sources */,
-				CCE1654F1EA0D6AC00358B8F /* nckDemo_13.cpp in Sources */,
-				CCFFE0AD1C16593900A13D39 /* nckDemo_8.cpp in Sources */,
+				CC8207C01EEA03D5003EF92A /* nckDemo_TextureNPT.cpp in Sources */,
+				CC8207C21EEA03D5003EF92A /* nckDemo_Triangles.cpp in Sources */,
+				CC8207C11EEA03D5003EF92A /* nckDemo_TextureWrapping.cpp in Sources */,
+				CC8207B71EEA03D5003EF92A /* nckDemo_Particles.cpp in Sources */,
+				CC8207A71EEA03D5003EF92A /* nckDemo_AudioOgg.cpp in Sources */,
+				CC8207A91EEA03D5003EF92A /* nckDemo_Bumpmap.cpp in Sources */,
+				CC8207BD1EEA03D5003EF92A /* nckDemo_Texture3D.cpp in Sources */,
+				CC8207BC1EEA03D5003EF92A /* nckDemo_Texture2D.cpp in Sources */,
+				CC8207B31EEA03D5003EF92A /* nckDemo_Model.cpp in Sources */,
+				CC8207AF1EEA03D5003EF92A /* nckDemo_HttpServer.cpp in Sources */,
 				CCFFE0B21C16593900A13D39 /* nckDemo.cpp in Sources */,
-				CCE1654C1EA0D6A400358B8F /* nckDemo_12.cpp in Sources */,
-				CCFFE0AA1C16593900A13D39 /* nckDemo_5.cpp in Sources */,
-				CCFFE0A91C16593900A13D39 /* nckDemo_4.cpp in Sources */,
+				CC8207A41EEA03D5003EF92A /* nckDemo_Animation.cpp in Sources */,
+				CC8207A61EEA03D5003EF92A /* nckDemo_AudioFFT.cpp in Sources */,
+				CC8207B81EEA03D5003EF92A /* nckDemo_Quadtree.cpp in Sources */,
+				CC8207B21EEA03D5003EF92A /* nckDemo_Metaballs.cpp in Sources */,
+				CC8207B61EEA03D5003EF92A /* nckDemo_OcclusionQuery.cpp in Sources */,
+				CC8207BF1EEA03D5003EF92A /* nckDemo_TextureFiltering.cpp in Sources */,
 				CCFFE0B11C16593900A13D39 /* nckDemo_Selector.cpp in Sources */,
-				CCFFE0A81C16593900A13D39 /* nckDemo_3.cpp in Sources */,
-				CCFFE0A71C16593900A13D39 /* nckDemo_2.cpp in Sources */,
-				CCFFE0AC1C16593900A13D39 /* nckDemo_7.cpp in Sources */,
-				CCFFE0B01C16593900A13D39 /* nckDemo_11.cpp in Sources */,
-				CCFFE0AB1C16593900A13D39 /* nckDemo_6.cpp in Sources */,
-				CCFFE0A61C16593900A13D39 /* nckDemo_1.cpp in Sources */,
-				CCE165521EA0D6B300358B8F /* nckDemo_14.cpp in Sources */,
-				CCE165551EA0D6B800358B8F /* nckDemo_15.cpp in Sources */,
+				CC8207BA1EEA03D5003EF92A /* nckDemo_ShaderProgram.cpp in Sources */,
+				CC8207A51EEA03D5003EF92A /* nckDemo_Armature.cpp in Sources */,
+				CC8207A81EEA03D5003EF92A /* nckDemo_AudioOut.cpp in Sources */,
+				CC8207BE1EEA03D5003EF92A /* nckDemo_TextureCubemap.cpp in Sources */,
+				CC8207B51EEA03D5003EF92A /* nckDemo_MultiCamera.cpp in Sources */,
+				CC8207AC1EEA03D5003EF92A /* nckDemo_Curves.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

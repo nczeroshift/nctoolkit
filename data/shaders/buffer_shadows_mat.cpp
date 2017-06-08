@@ -17,7 +17,7 @@ void main()
 	vec4 P = gl_Vertex;
 	vec3 N = gl_Normal;
 	
-	material_vsh_prepare(gl_ModelViewMatrix,gl_NormalMatrix,P, N);
+	material_vsh_prepare(gl_ModelViewMatrix,gl_NormalMatrix,P.xyz, N);
 	
 	gl_Position = gl_ModelViewProjectionMatrix * P;
 	
@@ -37,8 +37,8 @@ varying vec4 vPosInLight;
 void main()
 {
 	float bias = 0.00001;
-	float shadowFactor = texture2DShadowLerp(gphTexture0, texSize, vPosInLight, bias); 
-	vec3 color = material_diffuse_phong(lamp_mv_pos,vec2(0.0,0.0));
+	float shadowFactor = texture2DShadowLerp(gphTexture0, vec2(texSize), vPosInLight, bias); 
+	vec3 color = material_diffuse_phong(lamp_mv_pos.xyz,vec2(0.0,0.0));
 	gl_FragColor = vec4( vec3(color)*(0.5 + shadowFactor * 0.5), gphAlpha);
 }
 
