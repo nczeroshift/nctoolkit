@@ -394,11 +394,11 @@ int Texture2D_GL2::Reload() {
 
     Format imgFormat;
     if (img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-        imgFormat = Format::FORMAT_A_8B;
+        imgFormat = FORMAT_A_8B;
     else if (img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-        imgFormat = Format::FORMAT_RGBA_8B;
+        imgFormat = FORMAT_RGBA_8B;
     else if (img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-        imgFormat = Format::FORMAT_RGB_8B;
+        imgFormat = FORMAT_RGB_8B;
 
     GLuint target;
     glEnable(this->m_Target);
@@ -460,11 +460,11 @@ Texture2D_GL2 * Texture2D_GL2::Load(Device_GL2 *dev,const std::string & filename
 	tex->m_Height = img->GetHeight();
 	
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		tex->m_Format = Format::FORMAT_A_8B;
+		tex->m_Format = FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		tex->m_Format = Format::FORMAT_RGBA_8B;
+		tex->m_Format = FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		tex->m_Format = Format::FORMAT_RGB_8B;
+		tex->m_Format = FORMAT_RGB_8B;
 
 	glEnable(tex->m_Target);
 	glGenTextures(1,&tex->m_Texture);
@@ -791,11 +791,11 @@ TextureCubemap_GL2 * TextureCubemap_GL2::Load(Device_GL2 * dev, const std::vecto
 	ret->m_Height = height;
 
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		ret->m_Format = Format::FORMAT_A_8B;
+		ret->m_Format = FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		ret->m_Format = Format::FORMAT_RGBA_8B;
+		ret->m_Format = FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		ret->m_Format = Format::FORMAT_RGB_8B;
+		ret->m_Format = FORMAT_RGB_8B;
 
 	int components = 3;
 	GLenum format = GL_RGB;
@@ -1099,11 +1099,11 @@ Texture3D_GL2 * Texture3D_GL2::Load(Device_GL2 * dev, const std::vector<Core::Im
 	ret->m_Height = height;
 
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		ret->m_Format = Format::FORMAT_A_8B;
+		ret->m_Format = FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		ret->m_Format = Format::FORMAT_RGBA_8B;
+		ret->m_Format = FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		ret->m_Format = Format::FORMAT_RGB_8B;
+		ret->m_Format = FORMAT_RGB_8B;
 
 	ret->m_Depth = depth;
 
