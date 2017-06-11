@@ -50,10 +50,10 @@ uniform float p4;
 void main()
 {
     float d = 1.0 - length(vertex.xy * 0.5)*2.0;
-    if(d<0)
-        d = 0;
+    if(d<0.0)
+        d = 0.0;
     float v = pow(d,p4);
-	gl_FragColor = vec4(vec3(1.0),(1-alpha) * v);
+	gl_FragColor = vec4(vec3(1.0),(1.0-alpha) * v);
 }
 
 

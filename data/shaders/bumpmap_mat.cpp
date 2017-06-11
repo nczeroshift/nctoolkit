@@ -62,8 +62,8 @@ void main()
 	
 	// compute diffuse lighting
 	float lamberFactor= max (dot (lightVec, normal), 0.0) ;
-	vec4 diffuseMaterial = 0.0;
-	vec4 diffuseLight  = 0.0;
+	vec4 diffuseMaterial = vec4(0.0);
+	vec4 diffuseLight  = vec4(0.0);
 	
 	// compute specular lighting
 	vec4 specularMaterial ;

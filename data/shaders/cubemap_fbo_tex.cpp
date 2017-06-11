@@ -35,7 +35,7 @@ uniform sampler2D gphTexture0;
 void main()
 {
     vec4 tex = texture2D(gphTexture0, gl_TexCoord[0].xy);
-	vec3 color = material_diffuse_phong(lamp_mv_pos,vec2(0.0,0.0));
+	vec3 color = material_diffuse_phong(lamp_mv_pos.xyz,vec2(0.0,0.0));
 	gl_FragColor = vec4(mix(color,tex.xyz * color,tex.w), gphAlpha);
 }
 
