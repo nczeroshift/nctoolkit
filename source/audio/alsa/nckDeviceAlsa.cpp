@@ -261,6 +261,10 @@ Stream * DeviceAlsaOutput::LoadStreamFromReader(Core::DataReader * reader){
 	return OggStream::Load(reader);
 }
 
+ int64_t DeviceAlsaOutput::GetTime(){ 
+    return 0;
+}
+ 
 void DeviceAlsaOutput::Run()
 {
 	int err;

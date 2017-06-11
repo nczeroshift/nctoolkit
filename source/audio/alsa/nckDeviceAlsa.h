@@ -39,6 +39,7 @@ public:
 	virtual ~DeviceAlsaOutput();
 
 	void Create();
+    int64_t GetTime();
 	int GetSampleRate();
 	int GetChannelsCount();
 	Format GetDataFormat();

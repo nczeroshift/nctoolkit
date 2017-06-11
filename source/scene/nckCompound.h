@@ -143,7 +143,7 @@ public:
     Curve * GetCurve(const std::string & name);
     Camera * GetCamera(const std::string & name);
 
-    static std::vector<std::pair<float, Scene::Object*>> fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound);
+    static std::vector< std::pair<float, Scene::Object*> > fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound);
 private:
     Math::BoundBox m_Boundbox;
     

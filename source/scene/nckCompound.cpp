@@ -701,8 +701,8 @@ Camera * Compound_Base::GetCamera(const std::string & name) {
 }
 
 
-std::vector<std::pair<float, Scene::Object*>> Compound_Base::fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound){
-    std::vector<std::pair<float, Object*>> ret;
+std::vector<std ::pair<float, Scene::Object*> > Compound_Base::fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound){
+    std::vector< std::pair<float, Object*> > ret;
     if (map->HasKey("tl_markers")) {
         BXON::Array * markers = map->GetArray("tl_markers");
 

@@ -286,7 +286,7 @@ void Texture2D_GL2::Enable(unsigned int sampler_id)
     
 	SetFilterAndWrapping();
 
-	m_Device->m_TextureCache.SetTexture((Graph::Texture2D*)(this),true,sampler_id);
+	m_Device->m_TextureCache.SetTexture((Texture2D*)(this),true,sampler_id);
 }
 
 void Texture2D_GL2::Disable(unsigned int sampler_id)
@@ -313,7 +313,7 @@ void Texture2D_GL2::Disable(unsigned int sampler_id)
 	}
 
 	// Scheduled texture to be disabled.
-	m_Device->m_TextureCache.SetTexture((Graph::Texture2D*)(this),false,sampler_id);
+	m_Device->m_TextureCache.SetTexture((Texture2D*)(this),false,sampler_id);
 }
 
 void *Texture2D_GL2::Lock(unsigned int level)
@@ -392,13 +392,13 @@ int Texture2D_GL2::Reload() {
     int width = img->GetWidth();
     int height = img->GetHeight();
 
-    Graph::Format imgFormat;
+    Format imgFormat;
     if (img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-        imgFormat = Graph::FORMAT_A_8B;
+        imgFormat = Format::FORMAT_A_8B;
     else if (img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-        imgFormat = Graph::FORMAT_RGBA_8B;
+        imgFormat = Format::FORMAT_RGBA_8B;
     else if (img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-        imgFormat = Graph::FORMAT_RGB_8B;
+        imgFormat = Format::FORMAT_RGB_8B;
 
     GLuint target;
     glEnable(this->m_Target);
@@ -460,11 +460,11 @@ Texture2D_GL2 * Texture2D_GL2::Load(Device_GL2 *dev,const std::string & filename
 	tex->m_Height = img->GetHeight();
 	
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		tex->m_Format = Graph::FORMAT_A_8B;
+		tex->m_Format = Format::FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		tex->m_Format = Graph::FORMAT_RGBA_8B;
+		tex->m_Format = Format::FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		tex->m_Format = Graph::FORMAT_RGB_8B;
+		tex->m_Format = Format::FORMAT_RGB_8B;
 
 	glEnable(tex->m_Target);
 	glGenTextures(1,&tex->m_Texture);
@@ -791,11 +791,11 @@ TextureCubemap_GL2 * TextureCubemap_GL2::Load(Device_GL2 * dev, const std::vecto
 	ret->m_Height = height;
 
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		ret->m_Format = Graph::FORMAT_A_8B;
+		ret->m_Format = Format::FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		ret->m_Format = Graph::FORMAT_RGBA_8B;
+		ret->m_Format = Format::FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		ret->m_Format = Graph::FORMAT_RGB_8B;
+		ret->m_Format = Format::FORMAT_RGB_8B;
 
 	int components = 3;
 	GLenum format = GL_RGB;
@@ -846,11 +846,11 @@ bool RTManager_GL2::Enable(int face){
 	int count = 0;
 
 	for(std::list<AttachedTexture>::iterator i = m_Textures.begin();i!=m_Textures.end();i++,count++){
-        if (i->texture->GetType() == Graph::TEXTURE_CUBEMAP) {
+        if (i->texture->GetType() == TEXTURE_CUBEMAP) {
             TextureCubemap_GL2 * tex = dynamic_cast<TextureCubemap_GL2*>(i->texture);
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, tex->getTextureId(), i->target);
         }
-        else if (i->texture->GetType() == Graph::TEXTURE_2D) {
+        else if (i->texture->GetType() == TEXTURE_2D) {
             Texture2D_GL2 * tex = dynamic_cast<Texture2D_GL2*>(i->texture);
             glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_2D, tex->getTextureId(), i->target);
         }
@@ -952,7 +952,7 @@ void Texture3D_GL2::Enable(unsigned int sampler_id){
 
 	SetFilterAndWrapping();
 
-	m_Device->m_TextureCache.SetTexture((Graph::Texture3D*)(this),true,sampler_id);
+	m_Device->m_TextureCache.SetTexture((Texture3D*)(this),true,sampler_id);
 }
 
 void Texture3D_GL2::Disable(unsigned int sampler_id){
@@ -978,7 +978,7 @@ void Texture3D_GL2::Disable(unsigned int sampler_id){
 	}
 
 	// Scheduled texture to be disabled.
-	m_Device->m_TextureCache.SetTexture((Graph::Texture3D*)(this),false,sampler_id);
+	m_Device->m_TextureCache.SetTexture((Texture3D*)(this),false,sampler_id);
 }
 
 TextureType Texture3D_GL2::GetType(){
@@ -1099,11 +1099,11 @@ Texture3D_GL2 * Texture3D_GL2::Load(Device_GL2 * dev, const std::vector<Core::Im
 	ret->m_Height = height;
 
 	if(img->GetFormat() == Core::PIXEL_FORMAT_ALPHA_8B)
-		ret->m_Format = Graph::FORMAT_A_8B;
+		ret->m_Format = Format::FORMAT_A_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGBA_8B)
-		ret->m_Format = Graph::FORMAT_RGBA_8B;
+		ret->m_Format = Format::FORMAT_RGBA_8B;
 	else if(img->GetFormat() == Core::PIXEL_FORMAT_RGB_8B)
-		ret->m_Format = Graph::FORMAT_RGB_8B;
+		ret->m_Format = Format::FORMAT_RGB_8B;
 
 	ret->m_Depth = depth;
 

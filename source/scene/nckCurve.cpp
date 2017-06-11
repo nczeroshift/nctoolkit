@@ -111,7 +111,7 @@ void Curve::Render(float resolution) {
 }
 
 DatablockType Curve::GetType() {
-    return DatablockType::DATABLOCK_CURVE;
+    return DATABLOCK_CURVE;
 }
 
 _SCENE_END

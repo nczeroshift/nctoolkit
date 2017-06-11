@@ -31,7 +31,7 @@ void Demo_MultiCamera::HandleFinish(BXON::Map * map, Scene::Compound * compound)
 }
 
 Scene::Object * Demo_MultiCamera::findNearestCamera(int keyframe) {
-    auto vec = camerasPerMarker;
+    std::vector< std::pair<float, Scene::Object*> > vec = camerasPerMarker;
 
     if (vec.size() == 0)
         return NULL;

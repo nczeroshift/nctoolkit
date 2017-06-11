@@ -1026,7 +1026,7 @@ int Device_GL2::ReloadPrograms(int * reloaded, std::list<std::string> * errors) 
 int Device_GL2::ReloadTextures(int * reloaded, std::list<std::string> * errors) {
     int total = 0;
     MapFor(std::string, ResourceProxy<Texture_GL2>*, m_TextureProxys, i) {
-        if (i->second->GetReference()->GetType() == Graph::TextureType::TEXTURE_2D) {
+        if (i->second->GetReference()->GetType() == TEXTURE_2D) {
             try {
                 if (dynamic_cast<Texture2D_GL2*>(i->second->GetReference())->Reload()) 
                     (*reloaded)++;

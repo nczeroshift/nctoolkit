@@ -5,6 +5,7 @@
 */
 
 #include "nckDemo_Webcam.h"
+#include <string.h>
 
 Demo_Webcam::Demo_Webcam(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;

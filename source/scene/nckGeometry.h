@@ -209,7 +209,7 @@ private:
 
     void Check(int layer, int vid);
     std::vector<int> m_Channels;
-    std::vector<std::vector<Math::Vec4>> m_Coordinates;
+    std::vector< std::vector<Math::Vec4> > m_Coordinates;
 };
 
 /**
@@ -235,7 +235,7 @@ public:
     //std::vector<std::vector<Math::Vec2>> m_UV;
       
     /// Assigned vertex color values.
-    std::vector<std::vector<Math::Color4ub>> m_Color;
+    std::vector< std::vector<Math::Color4ub> > m_Color;
     
     /// Reference for auxiliar information used in algoritms.
     Auxiliar * m_Auxiliar;

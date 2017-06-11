@@ -10,6 +10,7 @@
 #include "nckPoint.h"
 #include "nckDataIO.h"
 #include "../nckConfig.h"
+#include <string.h>
 
 #if defined(__APPLE__) 
 #include "macosx/nckWindow_macosx.h"

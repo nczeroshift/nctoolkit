@@ -2,6 +2,7 @@
 #include <math.h>
 #include "nckGeometry.h"
 #include "nckException.h"
+#include <string.h>
 
 _GEOMETRY_BEGIN
 
@@ -485,7 +486,7 @@ void GetVertexSkinning(Mesh * mesh, const std::map<std::string, int> & boneIds, 
     }
     
     if(!ret){
-        printf("Critical error, some groups may not be assigned to a bone\n");
+        Core::DebugLog("Critical error, some groups may not be assigned to a bone\n");
     }
 }
 

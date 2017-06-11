@@ -10,6 +10,7 @@
 #include "nckDataIO.h"
 #include "nckException.h"
 #include "nckUtils.h"
+#include <string.h>
 
 _GRAPHICS_BEGIN
 

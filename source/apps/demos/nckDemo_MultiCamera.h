@@ -24,7 +24,7 @@ private:
     virtual void HandleFinish(BXON::Map * map, Scene::Compound * compound);
     Scene::Object* findNearestCamera(int keyframe);
 
-    std::vector<std::pair<float, Scene::Object*>> camerasPerMarker;
+    std::vector< std::pair<float, Scene::Object*> > camerasPerMarker;
     Scene::Compound_Base * scene;
 	float time;
 };

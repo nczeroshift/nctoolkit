@@ -36,7 +36,6 @@
 #include "demos/nckDemo_GUI.h"
 #include "demos/nckDemo_Curves.h"
 #include "demos/nckDemo_Metaballs.h"
-#include "demos/nckDemo_WebCam.h"
 #include "demos/nckDemo_Serial.h"
 
 int DemoCount() {

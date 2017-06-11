@@ -210,7 +210,7 @@ void Armature::Render()
         float len = vec.Length();
         float pLen = len * 0.1;
         
-        Math::Mat44 baseMatrix = Math::VecToMat(vec, Math::VectorAxis::AXIS_Z, Math::VectorAxis::AXIS_Y);
+        Math::Mat44 baseMatrix = Math::VecToMat(vec, Math::AXIS_Z, Math::AXIS_Y);
         
         dev->MultMatrix((float*)&baseMatrix);
         

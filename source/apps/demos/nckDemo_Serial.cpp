@@ -5,6 +5,7 @@
 */
 
 #include "nckDemo_Serial.h"
+#include <string.h>
 
 Demo_Serial::Demo_Serial(Core::Window * wnd, Graph::Device * dev) {
     this->dev = dev;
