@@ -138,6 +138,7 @@ public:
     int GetEmptyObjects(std::vector<Object*> * objects);
     Object * GetObject(const std::string & name);
     Material * GetMaterial(const std::string & name);
+    Model * GetModel(const std::string & name);
     Texture * GetTexture(const std::string & name);
     Armature * GetArmature(const std::string & name);
     Curve * GetCurve(const std::string & name);

@@ -672,6 +672,14 @@ Material * Compound_Base::GetMaterial(const std::string & name) {
     return NULL;
 }
 
+Model * Compound_Base::GetModel(const std::string & name) {
+    ListFor(Model*, m_Models, i)
+        if ((*i)->GetName() == name)
+            return (*i);
+    return NULL;
+}
+
+
 Texture * Compound_Base::GetTexture(const std::string & name) {
     ListFor(Texture*, m_Textures, i)
         if ((*i)->GetName() == name)
