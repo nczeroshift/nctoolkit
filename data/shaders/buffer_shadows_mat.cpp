@@ -7,7 +7,7 @@
 #pragma vertex_shader_glx2
 
 #include "vsh.cpp"
-#include "material_vsh.cpp"
+#include "material.cpp"
 
 uniform mat4 matLampProjView;
 varying vec4 vPosInLight;

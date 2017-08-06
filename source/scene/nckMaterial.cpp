@@ -19,7 +19,7 @@ Material::Material(Graph::Device *dev): Datablock(dev){
     m_kDiffuse = 1.0f;
     m_kSpecular = 0.3f;
     m_kShininess = 16.0f;
-    m_kAmbient = 0.1f;
+    m_kAmbient = 0.0f;
     m_AlphaBlending = false;
     m_AlphaTest = false;
     m_CullFlag = false;
@@ -220,6 +220,15 @@ void Material::SetProgram(Graph::Program *prog){
 Graph::Program *Material::GetProgram(){
     return m_Program;
 }
+
+void Material::SetAlpha(float alpha) {
+    m_Alpha = alpha;
+}
+
+float Material::GetAlpha() {
+    return m_Alpha;
+}
+
 
 #ifdef NCK_BXON
 

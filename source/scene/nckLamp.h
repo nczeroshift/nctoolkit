@@ -12,6 +12,12 @@
 
 _SCENE_BEGIN
 
+enum LampType {
+    LAMP_TYPE_POINT = 0,
+    LAMP_TYPE_SPOT  = 1,
+    LAMP_TYPE_SUN   = 2,
+    LAMP_TYPE_AREA  = 3,
+};
 /**
  * Generic representation of a light source.
  */
@@ -65,6 +71,12 @@ public:
     /// Get datablock type.
     DatablockType GetType();
     
+    LampType GetLampType();
+
+    float GetSpotSize();
+    float GetSpotBlend();
+    float GetClipStart();
+    float GetClipEnd();
 private:
     
     /// Reference to graphics device.
@@ -81,7 +93,15 @@ private:
     
     /// Lamp range.
     float m_Distance;
-    
+
+    LampType m_LampType;
+
+    float m_Spot_Size;
+    float m_Spot_Blend;
+
+    float m_Clip_Start;
+    float m_Clip_End;
+
 };
 
 _SCENE_END

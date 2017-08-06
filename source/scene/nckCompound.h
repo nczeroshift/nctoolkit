@@ -122,7 +122,7 @@ public:
     /// @param overlap Reference to material used to replace all
     /// @param layer_mask Filter model rendering by layers
     /// models materials.
-    void Render(Math::Frustum * fr = NULL, Material * overlap = NULL, int layer_mask = 0xFFFFFFFF);
+    void Render(Math::Frustum * fr = NULL, Material * overlap = NULL, int layer_mask = LAYER_ALL);
     
     /// Load data data from filename.
     /// @throws Exception
@@ -134,8 +134,13 @@ public:
     /// Get the boundbox wrapping all elements.
     Math::BoundBox GetBoundBox();
     
-    int GetObjectsWithDataType(DatablockType type, std::vector<Object*> * objects);
-    int GetEmptyObjects(std::vector<Object*> * objects);
+    int GetEmptyObjects(std::vector<Object*> * objects, int layer_mask = LAYER_ALL);
+    int GetObjectsWithLayer(std::vector<Object*> * datablocks, int layer_mask = LAYER_ALL);
+    int GetObjectsWithLayer(std::vector<Object*> * datablocks, DatablockType type, int layer_mask = LAYER_ALL);
+
+    int GetAllMaterials(std::vector<Material*> * materials);
+    int GetAllTextures(std::vector<Texture*> * textures);
+
     Object * GetObject(const std::string & name);
     Material * GetMaterial(const std::string & name);
     Model * GetModel(const std::string & name);
@@ -151,33 +156,6 @@ private:
     /// List of objects assigned with models.
     std::list<Object*> m_MObjects;
 };
-
-/**
-* Scene compound.
-
-class Compound_Stage : public Compound_Base, public Processor {
-public:
-    Compound_Stage(Graph::Device * dev);
-    virtual ~Compound_Stage();
-
-    /// Get active of best camera for a keyframe.
-    Camera * GetActiveCamera(float keyframe);
-
-    /// Load compound scene from filename.
-    /// @throws Exception
-    static Compound_Stage * LoadFromFilename(Graph::Device * dev, const std::string & filename);
-
-    /// Play all objects animations.
-    void Play(float keyframe);
-private:
-    void HandleFinish(BXON::Map * map, Scene::Compound * compound);
-
-    std::list<Object*> m_OLamps;
-    std::list<Object*> m_OCameras;
-
-    void fetchCamerasWithKeyframes(BXON::Map * map);
-    std::vector<std::pair<float, Scene::Object*>> m_CamerasKeyframes;
-};*/
 
 
 _SCENE_END

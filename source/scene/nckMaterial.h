@@ -14,9 +14,10 @@
 _SCENE_BEGIN
 
 enum MaterialFlag{
-    MATERIAL_ALPHA_BLENDING,// Use alpha blending for material transparency.
-    MATERIAL_ALPHA_TEST,// Use alpha test for billboards.
-    MATERIAL_FACE_CULLING,// Set material face culling state.
+    MATERIAL_ALPHA_BLENDING = 1 << 0,   // Use alpha blending for material transparency.
+    MATERIAL_ALPHA_TEST     = 1 << 1,   // Use alpha test for billboards.
+    MATERIAL_FACE_CULLING   = 1 << 2,   // Set material face culling state.
+    MATERIAL_SHADELESS      = 1 << 3,   // Dont use lighting
 };
 
 /// Material properties.
@@ -74,6 +75,12 @@ public:
     /// Set specular color.
     void SetSpecular(const Math::Color4f &col);
     
+    // Set transparency.
+    void SetAlpha(float alpha);
+
+    // Set transparency.
+    float GetAlpha();
+
     /// Get ambient blending factor.
     float GetKAmbient();
     

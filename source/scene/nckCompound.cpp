@@ -12,6 +12,7 @@
 
 _SCENE_BEGIN
 
+
 Compound::~Compound()
 {
     ListFor(Camera*,m_Cameras,i)
@@ -264,6 +265,27 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
         
     }
     
+    // Order objects to move the transparent ones to last in render onder.
+    std::list<Object*> tObjects;
+    ListFor(Object*, m_Objects, i) {
+        if ((*i)->GetData() != NULL && (*i)->GetData()->GetType() == DATABLOCK_MODEL) {
+            Model * m = dynamic_cast<Scene::Model*>((*i)->GetData());
+            std::vector<Scene::Material*> mats = m->GetMaterials();
+            for (int j = 0; j < mats.size(); j++)
+                if (mats[j]->GetAlpha() < 1.0 || mats[j]->GetFlag(MATERIAL_ALPHA_BLENDING)){
+                    tObjects.push_back((*i));
+                    break;
+                }
+        }
+    }
+
+    if (tObjects.size() > 0) {
+        ListFor(Object*, tObjects, i) {
+            m_Objects.remove((*i));
+            m_Objects.push_back((*i));
+        }
+    }
+
     return true;
 }
 
@@ -644,18 +666,27 @@ Object * Compound_Base::GetObject(const std::string & name) {
     return NULL;
 }
 
-int Compound_Base::GetObjectsWithDataType(DatablockType type, std::vector<Object*> * objects) {
-    objects->reserve(m_Objects.size());
-
+int Compound_Base::GetObjectsWithLayer(std::vector<Object*> * datablocks, int layer_mask) {
+    datablocks->reserve(m_Objects.size());
     ListFor(Object*, m_Objects, i)
     {
-        if ((*i)->GetData()!= NULL && (*i)->GetData()->GetType() == type)
-            objects->push_back((*i));
+        if (((1 << (*i)->GetLayer()) & layer_mask) != 0)
+            datablocks->push_back((*i));
     }
-    return objects->size();
+    return datablocks->size();
 }
 
-int Compound_Base::GetEmptyObjects(std::vector<Object*> * objects) {
+int Compound_Base::GetObjectsWithLayer(std::vector<Object*> * datablocks, DatablockType type, int layer_mask) {
+    datablocks->reserve(m_Objects.size());
+    ListFor(Object*, m_Objects, i)
+    {
+        if ((*i)->GetData() != NULL && (*i)->GetData()->GetType() == type && ((1 << (*i)->GetLayer()) & layer_mask) != 0)
+            datablocks->push_back((*i));
+    }
+    return datablocks->size();
+}
+
+int Compound_Base::GetEmptyObjects(std::vector<Object*> * objects, int layer_mask) {
     objects->reserve(m_Objects.size());
     ListFor(Object*, m_Objects, i)
     {
@@ -747,69 +778,20 @@ std::vector<std ::pair<float, Scene::Object*> > Compound_Base::fetchCamerasWithK
     return ret;
 }
 
-/*
-void Compound_Stage::Play(float keyframe) {
-    ListFor(Object*, m_Objects, i) {
-        (*i)->Play(keyframe);
+int Compound_Base::GetAllMaterials(std::vector<Material*> * materials) {
+    materials->reserve(m_Materials.size());
+    ListFor(Material*, m_Materials, i) {
+        materials->push_back((*i));
     }
+    return materials->size();
 }
 
-Compound_Stage::Compound_Stage(Graph::Device * dev) : Compound_Base(dev) {
-
+int Compound_Base::GetAllTextures(std::vector<Texture*> * textures) {
+    textures->reserve(m_Textures.size());
+    ListFor(Texture*, m_Textures, i) {
+        textures->push_back((*i));
+    }
+    return textures->size();
 }
 
-Compound_Stage::~Compound_Stage() {
-m_OCameras.clear();
-m_OLamps.clear();
-}
-
-Camera * Compound_Stage::GetActiveCamera(float keyframe) {
-int keyCount = m_CamerasKeyframes.size();
-
-if (keyCount != 0) {
-if (keyframe > m_CamerasKeyframes[keyCount - 1].first)
-return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
-
-if (keyframe < m_CamerasKeyframes[0].first)
-return dynamic_cast<Camera*>(m_CamerasKeyframes[keyCount - 1].second->GetData());
-
-for (size_t i = 0; i < m_CamerasKeyframes.size(); i++) {
-if(keyframe >= m_CamerasKeyframes[i].first)
-return dynamic_cast<Camera*>(m_CamerasKeyframes[i].second->GetData());
-}
-}
-
-if (m_OCameras.size() > 0)
-return dynamic_cast<Camera*>(m_OCameras.front()->GetData());
-
-return NULL;
-}
-
-Compound_Stage * Compound_Stage::LoadFromFilename(Graph::Device * dev, const std::string & filename) {
-Compound_Stage * ret = new Compound_Stage(dev);
-try {
-ret->Load(filename, dynamic_cast<Processor*>(ret));
-return ret;
-}
-catch (Core::Exception & ex) {
-SafeDelete(ret);
-THROW_EXCEPTION_STACK("Unable to load Compound_Scene from filename \"" + filename + "\"", ex);
-}
-};
-
-void Compound_Stage::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
-fetchCamerasWithKeyframes(map);
-
-ListFor(Object*, m_Objects, i) {
-if ((*i)->GetData() == NULL)
-continue;
-
-if ((*i)->GetData()->GetType() == DATABLOCK_CAMERA)
-m_OCameras.push_back((*i));
-
-else if ((*i)->GetData()->GetType() == DATABLOCK_LAMP)
-m_OLamps.push_back((*i));
-}
-}
-*/
 _SCENE_END

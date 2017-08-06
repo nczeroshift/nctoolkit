@@ -150,18 +150,19 @@ void Object::SetParent(Object *parent){
 
 void Object::Update()
 {
-    if(m_Parent)
-        m_Matrix = m_Parent->m_Matrix;
+    Math::Mat44 tmp = Math::Scale(m_Scale) * Math::Rotate(m_Rotation) * Math::Translate(m_Local);
+    if (m_Parent) {
+        m_Parent->Update();
+        m_Matrix = tmp * m_Parent->m_Matrix;
+    }
     else
-        m_Matrix = Math::Identity();
-    
-    m_Matrix *=  Math::Scale(m_Scale) * Math::Rotate (m_Rotation) * Math::Translate(m_Local);
+        m_Matrix = tmp;
 }
 
 void Object::Bind(Graph::MatrixType type)
 {
-    if (m_Parent)
-        m_Parent->Bind(type);
+    //if (m_Parent)
+    //    m_Parent->Bind(type);
     m_Device->MatrixMode(type);
     m_Device->MultMatrix((float*)&m_Matrix);
 }

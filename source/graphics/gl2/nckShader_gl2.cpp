@@ -72,10 +72,10 @@ Program_GL2::~Program_GL2()
 }
 
 void Program_GL2::Load(const std::string & source){
-	std::string vertex;
-	std::string fragment;
+	std::list<std::string> vertex;
+	std::list<std::string> fragment;
 
-	std::map<std::string,std::string> shaderMap = ShaderParser::Map(source);
+	std::map<std::string,std::list<std::string>> shaderMap = ShaderParser::Map(source);
 
 	if(shaderMap.find("vertex_shader_glx2")!=shaderMap.end())
 	{
@@ -87,52 +87,81 @@ void Program_GL2::Load(const std::string & source){
 		}
 	}
 
-	if(vertex.length()==0)
+	if(vertex.size()==0 || vertex.back().size() == 0)
 		THROW_EXCEPTION("Vertex shader required");
-
-
+    
 	// Load vertex shader
 	{
-		GLuint vshd  = m_VertexShader = glCreateShader(GL_VERTEX_SHADER);
-		GLint len = (GLint)vertex.length();
-		const char * src = vertex.c_str();
-		glShaderSource(vshd, 1, (const GLcharARB **)&src, &len);
-		glCompileShader(vshd);
+        int count = vertex.size();
+        char **sources = new char*[count + 2];
+        sources[0] = "#version 120\n#define VSH\n";
+        sources[count+1] = NULL;
 
-		int isCompiled;
-		glGetShaderiv(vshd, GL_COMPILE_STATUS,&isCompiled );
+        int index = 1;
+        ListFor(std::string, vertex, i) {
+            const std::string src = *i;
+            sources[index] = (char*)calloc((*i).size() + 1,1);
+            memcpy(sources[index], src.c_str(), src.size());
+            index++;
+        }
 
-		if(!isCompiled){
-			int maxLength = 4096;
-			char buffer[4096]="";
-			glGetShaderiv(vshd, GL_INFO_LOG_LENGTH, &maxLength);
-			glGetShaderInfoLog(vshd, maxLength, &maxLength, buffer);
+        GLuint vshd = m_VertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(vshd, count+1, sources, NULL);
+        glCompileShader(vshd);
 
-			THROW_EXCEPTION(std::string("Vertex shader compiled error : ") + std::string(buffer));
-		}
+        int isCompiled;
+        glGetShaderiv(vshd, GL_COMPILE_STATUS, &isCompiled);
+
+        for (int i = 1; i < count; i++)
+            free(sources[i]);
+        
+        delete[] sources;
+
+        if (!isCompiled) {
+            int maxLength = 4096;
+            char buffer[4096] = "";
+            glGetShaderiv(vshd, GL_INFO_LOG_LENGTH, &maxLength);
+            glGetShaderInfoLog(vshd, maxLength, &maxLength, buffer);
+            THROW_EXCEPTION(std::string("Vertex shader compiled error : ") + std::string(buffer));
+        }
 	}
 
 	// Load fragment shader
-	if(fragment.length()>0)
+	if(fragment.size()>0)
 	{
-		GLuint fshd = m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-		GLint len = (GLint)fragment.length();
-		const char * src = fragment.c_str();
-		glShaderSource(fshd, 1, (const GLcharARB **)&src, &len);
+        int count = fragment.size();
+        char **sources = new char*[count + 2];
+        sources[0] = "#version 120\n#define FSH\n";
+        sources[count + 1] = NULL;
 
-		glCompileShader(fshd);
+        int index = 1;
+        ListFor(std::string, fragment, i) {
+            const std::string src = *i;
+            sources[index] = (char*)calloc((*i).size() + 1, 1);
+            memcpy(sources[index], src.c_str(), src.size());
+            index++;
+        }
 
-		int isCompiled;
-		glGetShaderiv(fshd, GL_COMPILE_STATUS,&isCompiled );
+        GLuint fshd = m_FragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(fshd, count+1, sources, NULL);
+        glCompileShader(fshd);
 
-		if(!isCompiled){
-			int maxLength = 4096;
-			char buffer[4096]="";
-			glGetShaderiv(fshd, GL_INFO_LOG_LENGTH, &maxLength);
-			glGetShaderInfoLog(fshd, maxLength, &maxLength, buffer);
+        int isCompiled;
+        glGetShaderiv(count+1, GL_COMPILE_STATUS, &isCompiled);
 
-			THROW_EXCEPTION(std::string("Fragment shader compiled error : ") +std::string(buffer));
-		}
+        for (int i = 1; i < count; i++)
+            free(sources[i]);
+
+        delete[] sources;
+
+        if (!isCompiled) {
+            int maxLength = 4096;
+            char buffer[4096] = "";
+            glGetShaderiv(fshd, GL_INFO_LOG_LENGTH, &maxLength);
+            glGetShaderInfoLog(fshd, maxLength, &maxLength, buffer);
+
+            THROW_EXCEPTION(std::string("Fragment shader compiled error : ") + std::string(buffer));
+        }
 	}
 
 	m_Program =  glCreateProgram();
@@ -535,9 +564,9 @@ bool Program_GL2::SetArray4f(const std::string & name,int count,const float *val
 			var = new Shader_GL2_Variable();
 			var->m_Name = name;
 			var->m_Handle = id;
-			var->m_Type = Shader_GL2_Variable::FLOAT4;
+			var->m_Type = Shader_GL2_Variable::FLOAT4_ARRAY;
 			var->m_Count = count;
-			var->m_Data = new float[4];
+			var->m_Data = new float[4* count];
 			m_Variables.insert(std::pair<std::string,Shader_GL2_Variable*>(name,var));
 		}
 	}

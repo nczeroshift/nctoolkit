@@ -53,7 +53,7 @@ std::string FloatToString(float value){
 
 std::string FloatToString(float value, int decimal_precision){
 	std::stringstream sstream;
-	sstream << std::setprecision (decimal_precision) << value;
+    	sstream << std::fixed << std::setprecision (decimal_precision) << value;
 	return sstream.str();
 }
 

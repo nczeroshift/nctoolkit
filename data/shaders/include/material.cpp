@@ -1,4 +1,17 @@
 
+#ifdef VSH
+
+void material_vsh_prepare(mat4 mv, mat3 nm, vec3 pos, vec3 nor){
+    /*gl_ModelViewMatrix*/
+	v_mv_pos = (mv * vec4(pos,1.0)).xyz;
+    /*gl_NormalMatrix*/
+	v_nm_nor = (nm * nor);
+}
+
+#endif
+
+#ifdef FSH
+
 /**
 * Lambert diffuse reflectance model.
 *@param N Normalized surface normal in MV space.
@@ -103,3 +116,5 @@ vec3 material_diffuse_blinn(vec3 lamp_pos, vec2 attFactors){
 	
 	return res * attenuation + gphAmbientColor.xyz;
 }
+
+#endif

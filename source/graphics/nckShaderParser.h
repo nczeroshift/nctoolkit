@@ -10,6 +10,7 @@
 #include "nckGraphicsConfig.h"
 #include <string>
 #include <map>
+#include <list>
 
 _GRAPHICS_BEGIN
 
@@ -23,7 +24,7 @@ public:
 	* @param srcText Shader source code.
 	* @return Map with the diferent shaders
 	*/
-	static std::map<std::string,std::string> Map(const std::string & srcText);
+	static std::map<std::string,std::list<std::string>> Map(const std::string & srcText);
 };
 
 _GRAPHICS_END

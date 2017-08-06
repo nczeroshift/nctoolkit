@@ -15,6 +15,11 @@ Lamp::Lamp(Graph::Device *dev): Datablock(dev){
     m_Color = Math::Color4f(1,1,1,1);
     m_Object = NULL;
     m_gDevice = NULL;
+    m_Clip_End = 20;
+    m_Clip_Start = 0;
+    m_Spot_Size = 45;
+    m_Spot_Blend = 0.150;
+    m_LampType = LAMP_TYPE_POINT;
 }
 
 Lamp::~Lamp()
@@ -41,6 +46,21 @@ void Lamp::Read(BXON::Map * entry){
     m_Distance = entry->GetFloat("distance");
     m_Energy = entry->GetFloat("energy");
     m_Color = entry->GetColor3f("color");
+
+    if (entry->HasKey("type"))
+        m_LampType = (LampType)entry->GetInteger("type");
+    
+    if (entry->HasKey("clip_start")) 
+        m_Clip_Start = entry->GetFloat("clip_start");
+
+    if (entry->HasKey("clip_end"))
+        m_Clip_End = entry->GetFloat("clip_end");
+
+    if (entry->HasKey("spot_blend"))
+        m_Spot_Blend = entry->GetFloat("spot_blend");
+
+    if (entry->HasKey("spot_size"))
+        m_Spot_Size = entry->GetFloat("spot_size");
 }
 
 #endif
@@ -88,6 +108,27 @@ Object *Lamp::GetObject()
 DatablockType Lamp::GetType()
 {
     return DATABLOCK_LAMP;
+}
+
+
+LampType Lamp::GetLampType() {
+    return m_LampType;
+}
+
+float Lamp::GetSpotSize() {
+    return m_Spot_Size;
+}
+
+float Lamp::GetSpotBlend() {
+    return m_Spot_Blend;
+}
+
+float Lamp::GetClipStart() {
+    return m_Clip_Start;
+}
+
+float Lamp::GetClipEnd() {
+    return m_Clip_End;
 }
 
 _SCENE_END

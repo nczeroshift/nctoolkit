@@ -72,14 +72,14 @@ private:
 };
 
 
-std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
+std::map<std::string,std::list<std::string>> ShaderParser::Map(const std::string & srcText)
 {
 	ShaderToken ltoken;
 	int state = 0;
 	std::string * curstr = NULL;
 
 	std::string currEntryName = "";
-	std::map<std::string,std::string> retMap;
+	std::map<std::string,std::list<std::string>> retMap;
 	std::set<std::string> supportedShaders;
 
 	supportedShaders.insert("vertex_shader_gl2");
@@ -100,7 +100,7 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
 	supportedShaders.insert("pixel_shader_gl4");
 	supportedShaders.insert("geometry_shader_gl4");
     
-	std::map<std::string,std::string>::iterator currentIt = retMap.end();
+	std::map<std::string,std::list<std::string>>::iterator currentIt = retMap.end();
 
 	for(size_t i = 0;i<srcText.length();i++)
 	{
@@ -128,7 +128,9 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
 					}
 					else if(ltoken.GetType()==ShaderToken::STRING && supportedShaders.find(ltoken.GetString()) != supportedShaders.end())
 					{
-						retMap.insert(std::pair<std::string,std::string>(ltoken.GetString(),""));
+                        std::list<std::string> vec = std::list<std::string>();
+                        vec.push_back("");
+						retMap.insert(std::pair<std::string, std::list<std::string>>(ltoken.GetString(), vec));
 						currentIt = retMap.find(ltoken.GetString());
 						state = 2; 
 					}
@@ -158,11 +160,11 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
                 if (state == 3)
                 {
                     if (ltoken.GetType() == ShaderToken::SPACE)
-                        currentIt->second += " ";
+                        currentIt->second.back() += " ";
                     else if (ltoken.GetType() == ShaderToken::NEWLINE)
-                        currentIt->second += "\n";
+                        currentIt->second.back() += "\n";
                     else
-                        currentIt->second += ltoken.GetString();
+                        currentIt->second.back() += ltoken.GetString();
                 }
                 else if (state == 4)
                 {
@@ -183,12 +185,16 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
                             fReader->Read(text, fSize);
                             std::string tmp = std::string(text);
                             SafeArrayDelete(text);
-                            SafeDelete(fReader)
+                            SafeDelete(fReader);
 
-                                tmp.erase(std::remove(tmp.begin(), tmp.end(), '\n'), tmp.end());
-                            tmp.erase(std::remove(tmp.begin(), tmp.end(), '\r'), tmp.end());
+                            //tmp.erase(std::remove(tmp.begin(), tmp.end(), '\n'), tmp.end());
+                            //tmp.erase(std::remove(tmp.begin(), tmp.end(), '\r'), tmp.end());
 
-                            currentIt->second += tmp + "\n";
+                            std::list<std::string>::iterator it = currentIt->second.end();
+                            it--;
+                            currentIt->second.insert(it, tmp + "\n");
+
+                            currentIt->second.back() += "//"+ includeName+"\n";
                         }
                         state = 3;
                     }
@@ -203,7 +209,7 @@ std::map<std::string,std::string> ShaderParser::Map(const std::string & srcText)
 	if(ltoken.GetType() == ShaderToken::STRING && 
 		ltoken.GetString().length()>0 && 
 			currentIt != retMap.end()){
-		currentIt->second+=ltoken.GetString();
+		currentIt->second.back() += ltoken.GetString();
 	}
 
 	return retMap;
