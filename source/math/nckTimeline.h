@@ -102,6 +102,7 @@ public:
 		if (mB != NULL)
 			mB->Get(time, items);
 
+
 		(*items).sort(compareItemsLayer);
 	}
 

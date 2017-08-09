@@ -624,9 +624,13 @@ void Device_GL2::MatrixMode(MatrixType mode){
 
 void Device_GL2::LoadMatrix(const float *v){
 	glLoadMatrixf(v);
+
     if (m_IsModelMatrixActive) {
         m_ModelMatrix = Math::Mat44(v);
     }
+
+    if (m_CurrentMatrix == MATRIX_VIEW)
+        m_ViewMatrix = Math::Mat44(v);
 }
 
 void Device_GL2::MultMatrix(const float *mat){
@@ -634,6 +638,9 @@ void Device_GL2::MultMatrix(const float *mat){
     if (m_IsModelMatrixActive) {
         m_ModelMatrix *= Math::Mat44(mat);
     }
+
+    if (m_CurrentMatrix == MATRIX_VIEW)
+        m_ViewMatrix *= Math::Mat44(mat);
 }
 
 void Device_GL2::Identity(){

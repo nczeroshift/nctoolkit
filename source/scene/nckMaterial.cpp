@@ -75,12 +75,12 @@ void Material::Read(Core::DataReader *f, std::vector<Texture *> *tex_vec){
 
 void Material::Enable(){
     
-    if(m_CullFlag){
+    /*if(m_CullFlag){
         m_Device->Enable(Graph::STATE_CULL_FACE);
         m_Device->CullMode(m_CullingMode);
     }
     else
-        m_Device->Disable(Graph::STATE_CULL_FACE);
+        m_Device->Disable(Graph::STATE_CULL_FACE);*/
     
     if(m_AlphaTest)
         m_Device->Enable(Graph::STATE_ALPHA_TEST);

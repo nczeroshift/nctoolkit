@@ -219,8 +219,19 @@ void Program_GL2::BindUniforms() {
     m_ProjectionViewMatrix = glGetUniformLocation(m_Program, "gphProjectionViewMatrix");
     m_ViewMatrix = glGetUniformLocation(m_Program, "gphViewMatrix");
 
-    if (m_ModelMatrix>-1)
+    GLint m_ProjMatrix = glGetUniformLocation(m_Program, "gphProjectionMatrix");
+
+    if (m_ProjMatrix > -1) {
+        float mat[16];
+        glGetFloatv(GL_PROJECTION_MATRIX, mat);
+        glUniformMatrix4fv(m_ProjMatrix, 1, false, (float*)mat);
+    }
+
+    if (m_ModelMatrix > -1)
         glUniformMatrix4fv(m_ModelMatrix, 1, false, (float*)&m_Device->m_ModelMatrix);
+
+    if (m_ViewMatrix > -1)
+        glUniformMatrix4fv(m_ViewMatrix, 1, false, (float*)&m_Device->m_ViewMatrix);
 
     if(m_Alpha > -1)
         glUniform1f(m_Alpha, m_Device->m_Alpha);
@@ -246,9 +257,8 @@ void Program_GL2::BindUniforms() {
             m_Device->m_AmbientColor[2],
             m_Device->m_AmbientColor[3]);
 
-    /*if(m_ViewMatrix>-1)
-    glUniformMatrix4fv(m_ViewMatrix,1,false,(float*)&m_Device->m_ViewMatrix);
 
+    /*
     if(m_ModelMatrix>-1)
     glUniformMatrix4fv(m_ModelMatrix,1,false,(float*)&m_Device->m_ModelMatrix);
 
