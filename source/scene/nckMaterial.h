@@ -17,7 +17,8 @@ enum MaterialFlag{
     MATERIAL_ALPHA_BLENDING = 1 << 0,   // Use alpha blending for material transparency.
     MATERIAL_ALPHA_TEST     = 1 << 1,   // Use alpha test for billboards.
     MATERIAL_FACE_CULLING   = 1 << 2,   // Set material face culling state.
-    MATERIAL_SHADELESS      = 1 << 3,   // Dont use lighting
+    MATERIAL_SHADELESS      = 1 << 3,   // Don't use lighting
+    MATERIAL_USE_SHADOWS     = 1 << 4,   // Use shadows
 };
 
 /// Material properties.
@@ -158,6 +159,10 @@ private:
     /// Material face culling flag.
     bool m_CullFlag;
     
+    bool m_Shadeless;
+
+    bool m_UseShadows;
+
     /// Material face culling mode.
     Graph::CullFaceMode m_CullingMode;
     

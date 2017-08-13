@@ -6,7 +6,7 @@
 
 #include "nckDemo_Selector.h"
 
-//#define RUN_DEMO 3
+#define RUN_DEMO 31
 
 class GraphicRendering : public virtual Core::Threadable, public virtual DemoSelector_Callback
 {
@@ -40,6 +40,7 @@ public:
 		try{
 			dev = Graph::CreateDevice(wnd,Graph::DEVICE_AUTO,wnd->GetWidth(),wnd->GetHeight());
 			dev->ClearFlags(Graph::BUFFER_COLOR_BIT|Graph::BUFFER_DEPTH_BIT);
+            dev->ClearColor(1, 1, 1);
 		}
 		catch(const Core::Exception & ex){
 			ex.PrintStackTrace();
@@ -126,7 +127,7 @@ public:
 				if(demoActive){
 					demoDestroy = demoActive;
 					demoActive = NULL;
-	#ifdef RUNDEMO
+	#ifdef RUN_DEMO
 					Teardown();
 	#endif
 				}

@@ -12,6 +12,7 @@
 
 _SCENE_BEGIN
 
+static bool objNameSort(Scene::Object* a, Scene::Object* b) { return a->GetName() < b->GetName(); }
 
 Compound::~Compound()
 {
@@ -280,6 +281,8 @@ bool Compound::ReadBXON(BXON::Map * entry, Processor * processor){
     }
 
     if (tObjects.size() > 0) {
+        tObjects.sort(objNameSort);
+
         ListFor(Object*, tObjects, i) {
             m_Objects.remove((*i));
             m_Objects.push_back((*i));

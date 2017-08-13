@@ -130,6 +130,9 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Serial.h">
       <Filter>Source Files\demos</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AutoMaterial.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\apps\main.cpp">
@@ -232,6 +235,9 @@
       <Filter>Source Files\demos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Serial.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AutoMaterial.cpp">
       <Filter>Source Files\demos</Filter>
     </ClCompile>
   </ItemGroup>

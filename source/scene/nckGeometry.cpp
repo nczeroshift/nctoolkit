@@ -710,6 +710,9 @@ void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int * face_count, 
             total_tri_faces++;
         else if(size == 4)
             total_tri_faces+=2;
+        else {
+            Core::DebugLog("Invalid number of vertices");
+        }
     }
     
     *face_count = total_tri_faces;
@@ -762,7 +765,7 @@ void GetFaceBuffer(Mesh * mesh, XTriangleFace ** tf, unsigned int * face_count, 
                 }
             }
             
-            if(min!=i)
+            if(min!=i && j < total_tri_faces)
             {
                 XTriangleFace temp = (*tf)[min];
                 

@@ -37,9 +37,10 @@
 #include "demos/nckDemo_Curves.h"
 #include "demos/nckDemo_Metaballs.h"
 #include "demos/nckDemo_Serial.h"
+#include "demos/nckDemo_AutoMaterial.h"
 
 int DemoCount() {
-    return 30;
+    return 32;
 }
 
 Demo * DemoCreate(int i, Core::Window * wnd, Graph::Device * dev) {
@@ -75,6 +76,7 @@ Demo * DemoCreate(int i, Core::Window * wnd, Graph::Device * dev) {
         CreateDemo_Animation,
         CreateDemo_Webcam,
         CreateDemo_Serial,
+        CreateDemo_AutoMaterial,
     };
     
     if (i < DemoCount())

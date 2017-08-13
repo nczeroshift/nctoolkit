@@ -25,7 +25,9 @@ Material::Material(Graph::Device *dev): Datablock(dev){
     m_CullFlag = false;
     m_CullingMode = Graph::CULL_BACK;
     m_Program = NULL;
-    
+    m_Shadeless = false;
+    m_UseShadows = true;
+
     for (unsigned int i = 0;i<8;i++)
         m_Layers[i] = NULL;
 }
@@ -140,6 +142,10 @@ bool Material::GetFlag(MaterialFlag flag){
             return m_AlphaTest;
         case MATERIAL_FACE_CULLING:
             return m_CullFlag;
+        case MATERIAL_SHADELESS:
+            return m_Shadeless;
+        case MATERIAL_USE_SHADOWS:
+            return m_UseShadows;
     }
     return false;
 }
@@ -253,6 +259,12 @@ void Material::Read(BXON::Map * entry, const std::map<std::string, Datablock *> 
     if (entry->HasKey("specular_intensity")) {
         m_kSpecular = entry->GetFloat("specular_intensity");
     }
+
+    if (entry->HasKey("use_shadeless"))
+        m_Shadeless = entry->GetBoolean("use_shadeless");
+
+    if (entry->HasKey("use_shadows"))
+        m_UseShadows = entry->GetBoolean("use_shadows");
 
     if(entry->HasKey("textures")){
         BXON::Array * textures = entry->GetArray("textures");

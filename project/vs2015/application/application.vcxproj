@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioFFT.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioOgg.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AudioOut.h" />
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_AutoMaterial.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Bumpmap.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Compound.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.h" />
@@ -188,6 +189,7 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioFFT.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioOgg.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AudioOut.cpp" />
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_AutoMaterial.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Bumpmap.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Compound.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.cpp" />

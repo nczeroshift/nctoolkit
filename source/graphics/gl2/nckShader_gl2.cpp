@@ -221,10 +221,19 @@ void Program_GL2::BindUniforms() {
 
     GLint m_ProjMatrix = glGetUniformLocation(m_Program, "gphProjectionMatrix");
 
+    GLint m_ModelNormalMatrix = glGetUniformLocation(m_Program, "gphModelNormalMatrix");
+
     if (m_ProjMatrix > -1) {
         float mat[16];
         glGetFloatv(GL_PROJECTION_MATRIX, mat);
         glUniformMatrix4fv(m_ProjMatrix, 1, false, (float*)mat);
+    }
+
+    if (m_ModelNormalMatrix > -1) {
+        Math::Mat44 inv,trans;
+        Math::Invert(m_Device->m_ModelMatrix, &inv);
+        trans = Math::Transpose(inv);
+        glUniformMatrix4fv(m_ModelNormalMatrix, 1, false, (float*)&trans);
     }
 
     if (m_ModelMatrix > -1)
