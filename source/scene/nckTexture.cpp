@@ -168,6 +168,10 @@ void TextureLayer::Read(BXON::Map * entry, const std::map<std::string, Datablock
     
     if(entry->HasKey("uv_layer")){
         std::string uvName = entry->GetString("uv_layer");
+        if (uvName.size() > 0)
+        {
+            
+        }
     }
     
     if(entry->HasKey("offset") && entry->HasKey("scale")){

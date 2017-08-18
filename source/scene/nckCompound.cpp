@@ -635,7 +635,7 @@ void Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask
         Object * o = (*i);
         Model * m = (Model*)o->GetData();
 
-        if (layer_mask != LAYER_ALL && (((layer_mask>>1) & (1 << (o->GetLayer()))) == 0))
+        if (layer_mask != LAYER_ALL && ((1 << (*i)->GetLayer()) & layer_mask) == 0)
             continue;
 
         if(fr){

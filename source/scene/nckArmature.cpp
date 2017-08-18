@@ -13,6 +13,7 @@ _SCENE_BEGIN
 
 Bone::Bone()
 {
+    m_Rotation = Math::Quat(0, 0, 0, 1);
     m_Scale= Math::Vec3(1,1,1);
     m_Parent = NULL;
     m_InvBMatrix = m_BMatrix = m_Matrix = Math::Mat44();
@@ -348,6 +349,8 @@ void ArmatureTrack::UpdateBone(Bone * b, float time){
         if(time >= s->GetStart()  && time < s->GetEnd() ){
             if(s->HasQuaternion(b->m_Name))
                 b->m_Rotation = s->GetQuaternion(b->m_Name, time);
+            if (s->HasEuler(b->m_Name))
+                b->m_Rotation = Math::EulerToQuat(s->GetEuler(b->m_Name, time));
             if(s->HasPosition(b->m_Name))
                 b->m_Location = s->GetPosition(b->m_Name, time);
             

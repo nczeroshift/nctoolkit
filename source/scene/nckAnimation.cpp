@@ -8,8 +8,133 @@
 #include "nckVec4.h"
 #include "nckException.h"
 #include "nckUtils.h"
+#include "nckMathUtils.h"
 
 _SCENE_BEGIN
+
+// https://stackoverflow.com/questions/5883264/interpolating-values-between-interval-interpolation-as-per-bezier-curve
+class BPoint {
+public:
+    BPoint() {
+        X = 0;
+        Y = 0;
+    }
+
+    BPoint(double x, double y) {
+        X = x;
+        Y = y;
+    }
+    double X, Y;
+};
+
+class BCurve {
+public:
+    BCurve(BPoint p0, BPoint p1, BPoint p2, BPoint p3){
+        P0 = p0;
+        P1 = p1;
+        P2 = p2;
+        P3 = p3;
+    }
+
+    BPoint P0, P1, P2, P3;
+
+    double GetY(double x) {
+        // Determine t
+        double t;
+        if (x == P0.X) {
+            // Handle corner cases explicitly to prevent rounding errors
+            t = 0;
+        }
+        else if (x == P3.X) {
+            t = 1;
+        }
+        else {
+            // Calculate t
+            double a = -P0.X + 3 * P1.X - 3 * P2.X + P3.X;
+            double b = 3 * P0.X - 6 * P1.X + 3 * P2.X;
+            double c = -3 * P0.X + 3 * P1.X;
+            double d = P0.X - x;
+            double  tTemp = SolveCubic(a, b, c, d);
+            if (tTemp == NAN) return NAN;
+            t = tTemp;
+        }
+
+        // Calculate y from t
+        return Cubed(1 - t) * P0.Y
+            + 3 * t * Squared(1 - t) * P1.Y
+            + 3 * Squared(t) * (1 - t) * P2.Y
+            + Cubed(t) * P3.Y;
+    }
+
+    // Solves the equation ax³+bx²+cx+d = 0 for x ϵ ℝ
+    // and returns the first result in [0, 1] or null.
+    static double SolveCubic(double a, double b, double c, double d) {
+        if (a == 0) return SolveQuadratic(b, c, d);
+        if (d == 0) return 0;
+
+        b /= a;
+        c /= a;
+        d /= a;
+        double q = (3.0 * c - Squared(b)) / 9.0;
+        double r = (-27.0 * d + b * (9.0 * c - 2.0 * Squared(b))) / 54.0;
+        double disc = Cubed(q) + Squared(r);
+        double term1 = b / 3.0;
+
+        if (disc > 0) {
+            double s = r + sqrt(disc);
+            s = (s < 0) ? -CubicRoot(-s) : CubicRoot(s);
+            double t = r - sqrt(disc);
+            t = (t < 0) ? -CubicRoot(-t) : CubicRoot(t);
+
+            double result = -term1 + s + t;
+            if (result >= 0 && result <= 1) return result;
+        }
+        else if (disc == 0) {
+            double r13 = (r < 0) ? -CubicRoot(-r) : CubicRoot(r);
+
+            double result = -term1 + 2.0 * r13;
+            if (result >= 0 && result <= 1) return result;
+
+            result = -(r13 + term1);
+            if (result >= 0 && result <= 1) return result;
+        }
+        else {
+            q = -q;
+            double dum1 = q * q * q;
+            dum1 = acos(r / sqrt(dum1));
+            double r13 = 2.0 * sqrt(q);
+
+            double result = -term1 + r13 * cos(dum1 / 3.0);
+            if (result >= 0 && result <= 1) return result;
+
+            result = -term1 + r13 * cos((dum1 + 2.0 * M_PI) / 3.0);
+            if (result >= 0 && result <= 1) return result;
+
+            result = -term1 + r13 * cos((dum1 + 4.0 * M_PI) / 3.0);
+            if (result >= 0 && result <= 1) return result;
+        }
+
+        return NAN;
+    }
+
+    // Solves the equation ax² + bx + c = 0 for x ϵ ℝ
+    // and returns the first result in [0, 1] or null.
+    static double SolveQuadratic(double a, double b, double c) {
+        double result = (-b + sqrt(Squared(b) - 4 * a * c)) / (2 * a);
+        if (result >= 0 && result <= 1) return result;
+
+        result = (-b - sqrt(Squared(b) - 4 * a * c)) / (2 * a);
+        if (result >= 0 && result <= 1) return result;
+
+        return NAN;
+    }
+
+    static double Squared(double f) { return f * f; }
+
+    static double Cubed(double f) { return f * f * f; }
+
+    static double CubicRoot(double f) { return pow(f, 1.0 / 3.0); }
+};
 
 AnimationNode::AnimationNode()
 {
@@ -128,7 +253,7 @@ void AnimationGraph::Read(Core::DataReader *f)
 }
 
 void AnimationGraph::ComputeBlendMatrix(){
-    if(m_Nodes.size()>1)
+    /*if(m_Nodes.size()>1)
         m_BlendMatrix.reserve(m_Nodes.size()-1);
     
     for(int i = 0;i< m_Nodes.size();i++)
@@ -156,7 +281,7 @@ void AnimationGraph::ComputeBlendMatrix(){
             
             m_BlendMatrix.push_back(res);
         }
-    }
+    }*/
 }
 float AnimationGraph::GetValue(float time)
 {
@@ -193,6 +318,7 @@ float AnimationGraph::GetValue(float time)
             break;
     }
     
+    /*
     float rt = (time-m_Nodes[min].m_C_Time)/(m_Nodes[min+1].m_C_Time-m_Nodes[min].m_C_Time);
     
     // U Vector.
@@ -200,13 +326,22 @@ float AnimationGraph::GetValue(float time)
     
     // A Matrix = UxB
     Math::Vec4 A = U * m_BlendMatrix[min];
+    */
     
-    float val = A.GetX() * m_Nodes[min].m_C_Value +
+    /*float val = A.GetX() * m_Nodes[min].m_C_Value +
 				A.GetY() * m_Nodes[min].m_N_Value +
 				A.GetZ() * m_Nodes[min+1].m_P_Value +
 				A.GetW() * m_Nodes[min+1].m_C_Value;
     
-    return val;
+    return val;*/
+
+    //return m_Nodes[min].m_C_Value * (1 - rt) + m_Nodes[min + 1].m_C_Value * rt;
+    BCurve c(BPoint(m_Nodes[min].m_C_Time, m_Nodes[min].m_C_Value),
+        BPoint(m_Nodes[min].m_N_Time, m_Nodes[min].m_N_Value),
+        BPoint(m_Nodes[min+1].m_P_Time, m_Nodes[min+1].m_P_Value),
+        BPoint(m_Nodes[min+1].m_C_Time, m_Nodes[min+1].m_C_Value)
+        );
+    return c.GetY(time);
 }
 
 void AnimationGraph::SetChannel(AnimationChannel channel)
@@ -432,72 +567,76 @@ std::string AnimationTrack::GetName(){
 
 Math::Vec3 AnimationTrack::GetPosition(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
+        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd())
             return m_Strips[i]->GetPosition(t);
-        }
+        else if(t < m_Strips[i]->GetStart())
+            return m_Strips[i]->GetPosition(m_Strips[i]->GetStart());
+        else if (t > m_Strips[i]->GetEnd())
+            return m_Strips[i]->GetPosition(m_Strips[i]->GetEnd());
     }
     return Math::Vec3();
 }
 
 Math::Vec3 AnimationTrack::GetScale(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
+        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd())
             return m_Strips[i]->GetScale(t);
-        }
+        else if (t < m_Strips[i]->GetStart())
+            return m_Strips[i]->GetScale(m_Strips[i]->GetStart());
+        else if (t > m_Strips[i]->GetEnd())
+            return m_Strips[i]->GetScale(m_Strips[i]->GetEnd());
     }
     return Math::Vec3(1,1,1);
 }
 
 Math::Vec3 AnimationTrack::GetEuler(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
+        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd())
             return m_Strips[i]->GetEuler(t);
-        }
+        else if (t < m_Strips[i]->GetStart())
+            return m_Strips[i]->GetEuler(m_Strips[i]->GetStart());
+        else if (t > m_Strips[i]->GetEnd())
+            return m_Strips[i]->GetEuler(m_Strips[i]->GetEnd());
     }
     return Math::Vec3();
 }
 
 Math::Quat AnimationTrack::GetQuaternion(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
+        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd())
             return m_Strips[i]->GetQuaternion(t);
-        }
+        else if (t < m_Strips[i]->GetStart())
+            return m_Strips[i]->GetQuaternion(m_Strips[i]->GetStart());
+        else if (t > m_Strips[i]->GetEnd())
+            return m_Strips[i]->GetQuaternion(m_Strips[i]->GetEnd());
     }
     return Math::Quat();
 }
 
 bool AnimationTrack::HasPosition(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
-            return m_Strips[i]->HasPosition();
-        }
+        return m_Strips[i]->HasPosition();
     }
     return false;
 }
 
 bool AnimationTrack::HasScale(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
-            return m_Strips[i]->HasScale();
-        }
+        return m_Strips[i]->HasScale();
     }
     return false;
 }
 
 bool AnimationTrack::HasEuler(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
-            return m_Strips[i]->HasEuler();
-        }
+        return m_Strips[i]->HasEuler();
     }
     return false;
 }
 
 bool AnimationTrack::HasQuaternion(float t){
     for(uint32_t i = 0; i < m_Strips.size(); i++){
-        if(t >= m_Strips[i]->GetStart() && t < m_Strips[i]->GetEnd()){
             return m_Strips[i]->HasQuaternion();
-        }
     }
     return false;
 }
