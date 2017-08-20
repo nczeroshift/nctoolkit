@@ -56,6 +56,9 @@
     <ClCompile Include="..\..\..\source\math\nckTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\math\nckPolynomialSolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\math\nckBoundBox.h">
@@ -110,6 +113,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\math\nckTimeline.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\math\nckPolynomialSolver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

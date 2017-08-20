@@ -7,6 +7,7 @@
 #include "nckVec3.h"
 #include "nckVec2.h"
 #include "nckVec4.h"
+#include "nckPolynomialSolver.h"
 #include "nckMat44.h"
 #include <sstream>
 #include <math.h>
@@ -154,6 +155,41 @@ std::string Vec2::GetString(){
 
 Vec2 Vec2::operator - () const{
 	return Vec2(-m_X,-m_Y);
+}
+
+Vec2 BezierInterpolationWithSolver(const Vec2 & p0, const Vec2 & p1,
+    const Vec2 & p2, const Vec2 & p3,
+    float x) {
+    // from Stackoverflow "interpolating values between interval interpolation as per bezier curve2"
+    // by Daniel Wolf
+
+    // Determine t
+    double t;
+    if (x == p0.GetX()) {
+        // Handle corner cases explicitly to prevent rounding errors
+        t = 0;
+    }
+    else if (x == p3.GetX()) {
+        t = 1;
+    }
+    else {
+        // Calculate t
+        double a = -p0.GetX() + 3 * p1.GetX() - 3 * p2.GetX() + p3.GetX();
+        double b = 3 * p0.GetX() - 6 * p1.GetX() + 3 * p2.GetX();
+        double c = -3 * p0.GetX() + 3 * p1.GetX();
+        double d = p0.GetX() - x;
+        double  tTemp = PolynomialSolver::SolveCubic(a, b, c, d);
+        if (tTemp == NAN) return Math::Vec2(x,NAN);
+        t = tTemp;
+    }
+
+    float val = pow(1 - t,3) * p0.GetY()
+        + 3 * t * pow(1 - t,2) * p1.GetY()
+        + 3 * pow(t,2) * (1 - t) * p2.GetY()
+        + pow(t,3) * p3.GetY();
+
+    // Calculate y from t
+    return Math::Vec2(x, val);
 }
 
 _MATH_END

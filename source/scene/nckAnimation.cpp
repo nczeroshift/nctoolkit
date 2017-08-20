@@ -179,7 +179,6 @@ AnimationGraph::~AnimationGraph()
 
 void AnimationGraph::Read(Core::DataReader *f)
 {
-    
     //	AnimationType l_type_table[16] =
     //	{
     //		ANIMATION_GRAPH_LOC_X,
@@ -232,8 +231,7 @@ void AnimationGraph::Read(Core::DataReader *f)
      
      float t1 =  (m_Nodes[i-1].m_N_Time - start)/(end-start);
      float t2 =  (m_Nodes[i].m_P_Time - start)/(end-start);
-     
-     
+      
      const float l_val[16] = {1,0,0,0, 1,t1,0,0, 1,t2,t1,0, 1,1,1,1};
      const float l_standart[16] = {1,0,0,0,-3,3,0,0, 0,-1.5,1.5,0, 2,-1.5,1.5,1};
      
@@ -319,6 +317,8 @@ float AnimationGraph::GetValue(float time)
     }
     
     /*
+    // Old interpolation method.
+
     float rt = (time-m_Nodes[min].m_C_Time)/(m_Nodes[min+1].m_C_Time-m_Nodes[min].m_C_Time);
     
     // U Vector.
@@ -326,22 +326,22 @@ float AnimationGraph::GetValue(float time)
     
     // A Matrix = UxB
     Math::Vec4 A = U * m_BlendMatrix[min];
-    */
     
-    /*float val = A.GetX() * m_Nodes[min].m_C_Value +
+    float val = A.GetX() * m_Nodes[min].m_C_Value +
 				A.GetY() * m_Nodes[min].m_N_Value +
 				A.GetZ() * m_Nodes[min+1].m_P_Value +
 				A.GetW() * m_Nodes[min+1].m_C_Value;
     
     return val;*/
 
-    //return m_Nodes[min].m_C_Value * (1 - rt) + m_Nodes[min + 1].m_C_Value * rt;
-    BCurve c(BPoint(m_Nodes[min].m_C_Time, m_Nodes[min].m_C_Value),
-        BPoint(m_Nodes[min].m_N_Time, m_Nodes[min].m_N_Value),
-        BPoint(m_Nodes[min+1].m_P_Time, m_Nodes[min+1].m_P_Value),
-        BPoint(m_Nodes[min+1].m_C_Time, m_Nodes[min+1].m_C_Value)
-        );
-    return c.GetY(time);
+    Math::Vec2 res = Math::BezierInterpolationWithSolver(
+        Math::Vec2(m_Nodes[min].m_C_Time, m_Nodes[min].m_C_Value),
+        Math::Vec2(m_Nodes[min].m_N_Time, m_Nodes[min].m_N_Value),
+        Math::Vec2(m_Nodes[min+1].m_P_Time, m_Nodes[min+1].m_P_Value),
+        Math::Vec2(m_Nodes[min+1].m_C_Time, m_Nodes[min+1].m_C_Value)
+        ,time);
+    
+    return res.GetY();
 }
 
 void AnimationGraph::SetChannel(AnimationChannel channel)

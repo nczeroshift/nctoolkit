@@ -109,6 +109,11 @@ public:
 										const Vec2 & p1,const Vec2 & p2,
 										const Vec2 & p3, float t);
 
+    /// Cubic bezier interpolation method with solver.
+    friend Vec2 BezierInterpolationWithSolver(const Vec2 & p0, const Vec2 & p1,
+        const Vec2 & p2, const Vec2 & p3,
+        float x);
+
 	/// Linear interpolation function.
 	friend Vec2 LinearInterpolation(const Vec2 & p0, const Vec2 & p1,float t);
 
@@ -143,6 +148,10 @@ Vec2 BezierInterpolation(const Mat44 & inv_mat,const Vec2 & p0,
 										const Vec2 & p1,const Vec2 & p2,
 										const Vec2 & p3, float t);
 Vec2 LinearInterpolation(const Vec2 & p0, const Vec2 & p1,float t);
+
+Vec2 BezierInterpolationWithSolver(const Vec2 & p0, const Vec2 & p1,
+    const Vec2 & p2, const Vec2 & p3,
+    float x);
 
 _MATH_END
 
