@@ -19,7 +19,7 @@ uniform float depth;
 
 void main()
 {
-    vec4 col = tex3D(texture0, vec3(gl_TexCoord[0].xy,depth));
+    vec4 col = texture3D(texture0, vec3(gl_TexCoord[0].xy,depth));
 	gl_FragColor = col;
 }
 
