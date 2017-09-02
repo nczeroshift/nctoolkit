@@ -839,7 +839,6 @@ RTManager_GL2::~RTManager_GL2(){
 }
 
 bool RTManager_GL2::Enable(int face){
-
 	glBindFramebuffer( GL_FRAMEBUFFER, m_FrameBuffer );
 	glBindRenderbuffer( GL_RENDERBUFFER, m_RenderBuffer );
 

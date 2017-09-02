@@ -75,7 +75,13 @@ enum FactorFlag{
     FACTOR_SPECULAR_COLOR = 32,
     FACTOR_HARDNESS       = 64,
     FACTOR_NORMAL         = 128,
-    FACTOR_DISPLACEMENT   = 256
+    FACTOR_DISPLACEMENT   = 256,
+    FACTOR_SHADOW         = 512
+};
+
+enum TextureBlendMode {
+    TEX_BLEND_MODE_MIX = 0,
+    TEX_BLEND_MODE_MULTIPLY = 1,
 };
 
 /// Texture layer properties.
@@ -105,6 +111,9 @@ public:
     /// Get the mapping object reference.
     Object *GetMappingObject();
     
+    /// Get assigned layer name (empty for default).
+    std::string GetLayerName();
+
     /// Load texture layer data from file.
     /// @throws Core::Exception
     void Read(Core::DataReader *f,std::vector<Texture *> * tex_vec);
@@ -130,7 +139,12 @@ public:
     float GetFactorHardness();
     float GetFactorNormal();
     float GetFactorDisplacement();
-    
+    float GetShadowFactor();
+
+    void SetShadowFactor(float value);
+
+    TextureBlendMode GetBlendMode() { return m_BlendMode; };
+
 private:
     
     float m_Factor_Diffuse_Color;
@@ -142,7 +156,12 @@ private:
     float m_Factor_Hardness;
     float m_Factor_Normal;
     float m_Factor_Displacement;
-    
+    float m_Factor_Shadow;
+
+    TextureBlendMode m_BlendMode;
+
+    std::string m_LayerName;
+
     uint32_t m_FactorFlag;
     
     /// Texture mapping transformation data.

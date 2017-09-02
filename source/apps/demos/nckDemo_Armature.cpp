@@ -27,10 +27,10 @@ void Demo_Armature::Load(){
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     scene = new Scene::Compound_Base(dev);
-    scene->Load("model://armature_scene.bxon");
+    scene->Load("model://armature.bxon");
 
     program = dev->LoadProgram("shader://armature_mat.cpp");
-    scene->GetMaterial("BugMat")->SetProgram(program);
+    scene->GetMaterial("Material")->SetProgram(program);
 
     Scene::Armature* arm = scene->GetArmature("Armature");
     boneMatrix = new Math::Mat44[arm->GetBones().size()];
@@ -59,10 +59,13 @@ void Demo_Armature::Render(float dt){
 
     dev->Enable(Graph::STATE_DEPTH_TEST);
 
-    float span = 19;
+    float bFrameRate = 24.0;
+    float duration = 200;
+
+    float keyframe_t = time * bFrameRate - floor((time *  bFrameRate) / duration) * duration;
 
     Scene::Armature* arm = dynamic_cast<Scene::Armature*>(scene->GetDatablock(Scene::DATABLOCK_ARMATURE, "Armature"));
-    arm->Play("", 440 * (time - floor(time / span) * span) / span, 0.0, true);
+    arm->Play("", keyframe_t, 0.0, true);
 
     std::vector<Scene::Bone*> bones = arm->GetBones();
     for (int i = 0; i < bones.size(); i++) {
@@ -70,11 +73,12 @@ void Demo_Armature::Render(float dt){
     }
 
     program->SetMatrixArray("bones_matrix", bones.size(), (float*)boneMatrix);
+
     scene->Render();
  
     dev->Color(255, 150, 10);
     dev->Disable(Graph::STATE_DEPTH_TEST);
-    Scene::Object* obj = dynamic_cast<Scene::Object*>(scene->GetDatablock(Scene::DATABLOCK_OBJECT, "Bug"));
+    Scene::Object* obj = dynamic_cast<Scene::Object*>(scene->GetDatablock(Scene::DATABLOCK_OBJECT, "Plane"));
 
     dev->PushMatrix();
     obj->Bind();

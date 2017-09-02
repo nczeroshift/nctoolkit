@@ -84,7 +84,7 @@ void Exception::PrintStackTrace() const
 		if((*i).GetText().size()>0)
 			fprintf(f,"\n\t, Text:%s",(*i).GetText().c_str());
 		if((*i).GetMetadata().size()>0)
-			fprintf(f,"\n\t, Metadata:%s",(*i).GetMetadata().c_str());
+			fprintf(f,"\n\t, Metadata:\n%s",(*i).GetMetadata().c_str());
 		fprintf(f,"\n");
 		//fprintf(f,"Source:%s, Method:%s, Line:%d, Text:%s\n",(*i).GetSource().c_str(),(*i).GetMethod().c_str(),(*i).GetLine(),(*i).GetText().c_str());
 #endif

@@ -93,6 +93,9 @@ TextureLayer::TextureLayer(Graph::Device *dev){
     m_Factor_Hardness = 0;
     m_Factor_Normal = 0;
     m_Factor_Displacement = 0;
+    m_Factor_Shadow = 1.0;
+
+    m_BlendMode = TEX_BLEND_MODE_MIX;
 }
 
 TextureLayer::TextureLayer(Texture *tex, Object *manip,
@@ -170,7 +173,7 @@ void TextureLayer::Read(BXON::Map * entry, const std::map<std::string, Datablock
         std::string uvName = entry->GetString("uv_layer");
         if (uvName.size() > 0)
         {
-            
+            m_LayerName = uvName;
         }
     }
     
@@ -186,6 +189,13 @@ void TextureLayer::Read(BXON::Map * entry, const std::map<std::string, Datablock
         m_Mapping = obj;
     }
     
+    if (entry->HasKey("blend")) {
+        std::string mode = entry->GetString("blend");
+        if (mode == "MULTIPLY") {
+            m_BlendMode = TEX_BLEND_MODE_MULTIPLY;
+        }
+    }
+
     if(entry->HasKey("properties")){
         BXON::Map * properties = entry->GetMap("properties");
         
@@ -239,8 +249,20 @@ void TextureLayer::Read(BXON::Map * entry, const std::map<std::string, Datablock
 }
 #endif
 
+std::string TextureLayer::GetLayerName() {
+    return m_LayerName;
+}
+
 uint32_t TextureLayer::GetFactorFlag(){
     return m_FactorFlag;
+}
+
+float TextureLayer::GetShadowFactor() {
+    return m_Factor_Shadow;
+}
+
+void TextureLayer::SetShadowFactor(float value) {
+    m_Factor_Shadow = value;
 }
 
 void TextureLayer::Enable(unsigned int sampler_id)

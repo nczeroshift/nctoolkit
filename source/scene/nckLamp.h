@@ -18,6 +18,25 @@ enum LampType {
     LAMP_TYPE_SUN   = 2,
     LAMP_TYPE_AREA  = 3,
 };
+
+class Lamp;
+
+/**
+* Collection of lamp variables to the shaders.
+*/
+class LampUniforms {
+public:
+    LampUniforms();
+    ~LampUniforms();
+    void Bind(Graph::Program * program);
+private:
+    Math::Vec4 lamp_pos[8];     // position, energy
+    Math::Vec4 lamp_dir[8];     // normal, type (0 - point, 1 - spot, 2 - sun, 3 -area) 
+    Math::Vec4 lamp_color[8];   // rgb, distance
+    Math::Vec4 lamp_params[8];  // ????
+    friend class Lamp;
+};
+
 /**
  * Generic representation of a light source.
  */
@@ -72,6 +91,8 @@ public:
     DatablockType GetType();
     
     LampType GetLampType();
+
+    static void GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & modelView, LampUniforms * out);
 
     float GetSpotSize();
     float GetSpotBlend();

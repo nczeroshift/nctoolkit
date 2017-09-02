@@ -289,13 +289,13 @@ Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, int channels[8],
     components = 3;
     type = 1;
     ret.PushBack(offset, components, type, layer);
-    offset += 4 * 3; // 3 *float
+    offset += sizeof(float) * 3; // 3 *float
 
     // Normal
     components = 3;
     type = 2;
     ret.PushBack(offset, components, type, layer);
-    offset += 4 * 3; // 3 *float
+    offset += sizeof(float) * 3; // 3 *float
 
     // UV
     type = 4;
@@ -303,7 +303,7 @@ Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, int channels[8],
     for (unsigned int i = 0; i < uvlayers; i++)
     {
         ret.PushBack(offset, channels[i], type, layer);
-        offset += 4 * channels[i];
+        offset += sizeof(float) * channels[i];
         layer++;
     }
 
@@ -314,7 +314,7 @@ Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, int channels[8],
         components = 4;
         type = 4;
         ret.PushBack(offset, components, type, layer);
-        offset += 4 * 4; // 4 *float
+        offset += sizeof(float) * 4; // 4 *float
         layer++;
     }
 
@@ -325,14 +325,14 @@ Graph::VertexProfile CreateVertexProfile(unsigned int uvlayers, int channels[8],
         components = 4;
         type = 4;
         ret.PushBack(offset, components, type, layer);
-        offset += 4 * 4; // 4 *float
+        offset += sizeof(float) * 4; // 4 *float
         layer++;
 
         // pesos dos bones
         components = 4;
         type = 4;
         ret.PushBack(offset, components, type, layer);
-        offset += 4 * 4;  // 4 *float
+        offset += sizeof(float) * 4;  // 4 *float
         layer++;
     }
 

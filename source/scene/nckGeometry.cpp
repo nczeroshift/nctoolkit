@@ -373,12 +373,12 @@ void Face::Parse(BXON::Map * mesh, std::list<Face*> * fOut, const std::vector<Ve
         ListFor(Face*, (*fOut), i){
             
             Face * f = (*i);
-            
-            for(int j = 0; j < (*i)->m_Verts.size(); j++){
-                float x = uvs->GetFloat(uvid++);
-                float y = uvs->GetFloat(uvid++);
-                
-                for(int uvl = 0;uvl < uvlCount; uvl++){
+
+           
+                for(int j = 0; j < (*i)->m_Verts.size(); j++){
+                    for (int uvl = 0; uvl < uvlCount; uvl++) {
+                    float x = uvs->GetFloat(uvid++);
+                    float y = uvs->GetFloat(uvid++);
                     f->m_fUV.SetUV(uvl,j, Math::Vec2(x, y));
                 }
             }

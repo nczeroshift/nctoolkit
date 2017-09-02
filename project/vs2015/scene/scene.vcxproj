@@ -21,6 +21,7 @@
     <ClCompile Include="..\..\..\source\scene\nckLamp.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckMarchingCubes.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckMaterial.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckMaterialToProgram.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckModel.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckObject.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckTexture.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\..\source\scene\nckMarchingCubes.h" />
     <ClInclude Include="..\..\..\source\scene\nckMarchingCubesTable.h" />
     <ClInclude Include="..\..\..\source\scene\nckMaterial.h" />
+    <ClInclude Include="..\..\..\source\scene\nckMaterialToProgram.h" />
     <ClInclude Include="..\..\..\source\scene\nckModel.h" />
     <ClInclude Include="..\..\..\source\scene\nckObject.h" />
     <ClInclude Include="..\..\..\source\scene\nckProcessor.h" />

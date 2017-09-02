@@ -4,6 +4,22 @@
 * https://github.com/nczeroshift/nctoolkit
 */
 
+#ifdef VSH
+
+uniform mat4 shadow_pmv;
+varying vec4 shadow_p_pmv;
+
+void shadow_transform_to_light(vec4 P){
+    shadow_p_pmv = shadow_pmv * gphModelMatrix * P;
+}
+
+#endif 
+
+#ifdef FSH
+
+uniform vec4 shadow_params;
+varying vec4 shadow_p_pmv;
+
 float texture2DCompare(sampler2D depths, vec2 uv, float compare){
     float depth = texture2D(depths, uv).r;
     return step(compare, depth);
@@ -32,3 +48,9 @@ float texture2DShadowLerp(sampler2D depths, vec2 size, vec4 coord, float bias){
 	
     return c;
 }
+
+void shadow_cast(sampler2D tex){
+    return texture2DShadowLerp(tex,shadow_params.xy,shadow_p_pmv,shadow_params.z);
+}
+
+#endif

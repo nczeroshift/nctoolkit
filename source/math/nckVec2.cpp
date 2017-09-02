@@ -160,7 +160,8 @@ Vec2 Vec2::operator - () const{
 Vec2 BezierInterpolationWithSolver(const Vec2 & p0, const Vec2 & p1,
     const Vec2 & p2, const Vec2 & p3,
     float x) {
-    // from Stackoverflow "interpolating values between interval interpolation as per bezier curve2"
+    // from stackoverflow 
+    // "interpolating values between interval interpolation as per bezier curve2"
     // by Daniel Wolf
 
     // Determine t

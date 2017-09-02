@@ -5,6 +5,7 @@
 */
 
 #include "nckDemo_Bumpmap.h"
+#include "nckMaterialToProgram.h"
 
 Demo_Bumpmap::Demo_Bumpmap(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
@@ -25,9 +26,17 @@ void Demo_Bumpmap::Load(){
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     scene = new Scene::Compound_Base(dev);
-    scene->Load("model://bumpmap_scene.bxon");
+    scene->Load("model://tori_scene.bxon");
 
-    material = dev->LoadProgram("shader://bumpmap_mat.cpp");
+    std::vector<Scene::Material*> mats;
+    scene->GetAllMaterials(&mats);
+
+    Scene::MaterialToProgram mtp(dev);
+  
+    for (int i = 0; i < mats.size(); i++) {
+        Scene::Material * mat = mats[i];
+        mat->SetProgram(mtp.Generate(mat));
+    }
 }
 
 void Demo_Bumpmap::Render(float dt){
@@ -42,16 +51,32 @@ void Demo_Bumpmap::Render(float dt){
     cam->SetAspect(wnd->GetWidth() / (float)wnd->GetHeight());
     cam->Enable(Graph::MATRIX_PROJECTION);
 
-    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
     cam->Enable(Graph::MATRIX_VIEW);
+
+    dev->MatrixMode(Graph::MATRIX_MODEL);
+    dev->Identity();
+    
     dev->Rotate(time * 4.0, 0, 0, 1);
 
-    material->Enable();
-    scene->Render();
-    material->Disable();
+    std::vector<Scene::Object*> lampObjs;
+    scene->GetObjectsWithLayer(&lampObjs, Scene::DATABLOCK_LAMP);
 
+    Scene::LampUniforms lUniforms;
+    Scene::Lamp::GenerateUniforms(lampObjs, cam->GetMatrix(), &lUniforms);
+
+    std::vector<Scene::Material*> mats;
+    scene->GetAllMaterials(&mats);
+
+    for (int i = 0; i < mats.size(); i++) {
+        Scene::Material * mat = mats[i];
+        lUniforms.Bind(mat->GetProgram());
+    }
+
+    scene->Render();
+    
     dev->PresentAll();
 
     time += dt;

@@ -9,6 +9,21 @@
 
 _SCENE_BEGIN
 
+LampUniforms::LampUniforms() {
+
+}
+
+LampUniforms::~LampUniforms() {
+
+}
+
+void LampUniforms::Bind(Graph::Program * program) {
+    program->SetArray4f("lamp_pos_mv", 8, (float*)lamp_pos);
+    program->SetArray4f("lamp_dir_mv", 8, (float*)lamp_dir);
+    program->SetArray4f("lamp_color", 8, (float*)lamp_color);
+    program->SetArray4f("lamp_params", 8, (float*)lamp_params);
+}
+
 Lamp::Lamp(Graph::Device *dev): Datablock(dev){
     m_Distance = 10.0;
     m_Energy = 10.0;
@@ -129,6 +144,27 @@ float Lamp::GetClipStart() {
 
 float Lamp::GetClipEnd() {
     return m_Clip_End;
+}
+
+void Lamp::GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & modelView, LampUniforms * out) {
+    for (size_t i = 0; i < lampObjs.size() && i < 8; i++) {
+        Scene::Object * obj = lampObjs[i];
+        Scene::Lamp * lamp = dynamic_cast<Scene::Lamp*>(obj->GetData());
+
+        Math::Vec4 pMV = Math::Vec4(obj->GetPosition(), 1.0) * modelView;
+        Math::Vec4 dMV = Math::Vec4(0, 0, 0, 0);
+
+        if (lamp->GetLampType() == Scene::LAMP_TYPE_SPOT || lamp->GetLampType() == Scene::LAMP_TYPE_SUN)
+            dMV = (Math::Vec4(0, 0, 1, 0) * obj->GetMatrix()) * modelView;
+
+        out->lamp_pos[i] = Math::Vec4(Math::Vec3(pMV), lamp->GetEnergy());
+        out->lamp_dir[i] = Math::Vec4(Math::Vec3(dMV), (float)lamp->GetLampType());
+        out->lamp_color[i] = Math::Vec4(lamp->GetColor().GetR(), lamp->GetColor().GetG(), lamp->GetColor().GetB(), lamp->GetDistance());
+        out->lamp_params[i] = Math::Vec4();
+    }
+
+    if (lampObjs.size() < 8)
+        out->lamp_pos[lampObjs.size()] = Math::Vec4(0, 0, 0, -1); // Early terminator.
 }
 
 _SCENE_END

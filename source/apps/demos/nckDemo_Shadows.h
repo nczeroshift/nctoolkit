@@ -32,6 +32,7 @@ private:
     void CaptureLightBuffer();
 
     Math::Mat44 lampProjViewMat;
+    Math::Mat44 lampViewMat;
 
     Graph::Program * program, *depth;
 

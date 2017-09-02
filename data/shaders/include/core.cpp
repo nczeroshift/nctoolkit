@@ -1,8 +1,13 @@
 
 varying vec3 v_pos_mv;
 varying vec3 v_nor_mv;
+varying vec3 v_nor_w;
 
 #ifdef VSH
+
+uniform mat4 gphModelMatrix;
+uniform mat4 gphViewMatrix;
+uniform mat4 gphProjectionMatrix;
 
 void core_transform_to_screen(vec4 P){
     gl_Position = gl_ModelViewProjectionMatrix * P;
@@ -37,6 +42,5 @@ vec3 rgb_to_srgb_approx(vec3 rgb) {
 vec3 srgb_to_rgb_approx(vec3 srgb) {
     return pow(srgb, vec3(SRGB_INVERSE_GAMMA));
 }
-
 
 #endif
