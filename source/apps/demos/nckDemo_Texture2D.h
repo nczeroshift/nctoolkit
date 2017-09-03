@@ -21,9 +21,18 @@ public:
     std::string GetDescription();
 
 private:
+    Graph::Texture2D * m_R16Tex;
     Graph::Texture2D * m_R32Tex;
+    
+    Graph::Texture2D * m_RGBA16Tex;
+    Graph::Texture2D * m_RGBA32Tex;
+
     Graph::Texture2D * m_RGBTex;
-    Graph::Texture * m_Texture;
+    Graph::Texture2D * m_RGBATex;
+
+    Graph::Texture * m_TextureJpg;
+    Graph::Texture * m_TexturePng;
+
 	float time;
 };
 

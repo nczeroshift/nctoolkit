@@ -40,7 +40,7 @@ public:
     Object *GetObject();
     
     /// Get camera view matrix.
-    Math::Mat44 GetMatrix();
+    Math::Mat44 GetMatrix(Graph::MatrixType mat = Graph::MATRIX_VIEW);
     
     /// Enable camera transformation.
     /// @param mat Use GPH_PROJECTION_MATRIX to set perspective

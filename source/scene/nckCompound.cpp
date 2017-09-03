@@ -628,8 +628,10 @@ void Compound_Base::Load(BXON::Map * entry, Processor * processor){
     m_Boundbox = tmpBB;
 }
 
-void Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask)
+RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask)
 {
+    int rendered = 0;
+
     ListFor(Object*,m_MObjects,i)
     {
         Object * o = (*i);
@@ -646,19 +648,22 @@ void Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask
             if(fr->CheckCube(bb.GetMax(),bb.GetMin()) ){
                 o->Bind();
                 m->Render(overlap);
+                rendered++;
             }
             
             m_Device->PopMatrix();
+          
         }
         else{	
             m_Device->PushMatrix();
             o->Bind();
             m->Render(overlap);	
             m_Device->PopMatrix();
+            rendered++;
         }
-        
     }
 
+    return RenderStatistics(m_MObjects.size() ,rendered);
 }
 
 

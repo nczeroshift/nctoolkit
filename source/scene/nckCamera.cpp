@@ -69,10 +69,15 @@ void Camera::Enable(Graph::MatrixType mat)
     }
 }
 
-Math::Mat44 Camera::GetMatrix()
+Math::Mat44 Camera::GetMatrix(Graph::MatrixType mat)
 {
-    Math::Mat44 mat = Math::Translate(-m_Object->GetPosition()) * Math::Rotate(-m_Object->GetRotation());
-    return mat;
+    if (mat == Graph::MATRIX_VIEW) {
+        Math::Mat44 mat = Math::Translate(-m_Object->GetPosition()) * Math::Rotate(-m_Object->GetRotation());
+        return mat;
+    } else if (mat == Graph::MATRIX_PROJECTION) {
+        Math::Mat44 mat = Math::Perspective(m_Aspect,m_Fov,m_Start,m_End);
+        return mat;
+    }
 }
 
 void Camera::SetObject(Object *obj)

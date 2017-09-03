@@ -417,10 +417,15 @@ Mesh * Mesh::Parse(BXON::Map * entry){
     
     vIterators.reserve(ret->m_Vertices.size());
     
+    Math::BoundBox bb;
+
     ListFor(Vertex*, ret->m_Vertices, i){
+        bb.Insert((*i)->m_Pos);
         vIterators.push_back(i);
     }
     
+    ret->m_BoundBox = bb;
+
     Face::Parse(entry, &ret->m_Faces, vIterators);
     
     BXON::Array * uv_layers = NULL;
@@ -435,7 +440,7 @@ Mesh * Mesh::Parse(BXON::Map * entry){
     VertexGroup::Parse(entry, &ret->m_Groups);
     
     ret->m_HasVertexSkinning = VertexSkinning::Parse(entry, &ret->m_Vertices, ret->m_Groups);
-    
+
     return ret;
 }
 #endif

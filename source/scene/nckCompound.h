@@ -20,8 +20,9 @@
 _SCENE_BEGIN
 
 /**
-* 
+* Layers mask flags.
 */
+
 enum LayerMask{
     LAYER_ALL = 0xFFFFFFFF,
     LAYER_1 = 1 << 0,
@@ -46,6 +47,19 @@ enum LayerMask{
     LAYER_20 = 1 << 19,
 };
 
+/**
+* Compound rendering statistics.
+*/
+class RenderStatistics {
+public:
+    RenderStatistics() { checkedObjects = 0; renderedObjects = 0; }
+    RenderStatistics(int checked, int rendered) { checkedObjects = checked; renderedObjects = rendered; }
+    int GetCheckedObjects() { return checkedObjects; }
+    int GetRenderedObjects() { return renderedObjects; }
+private:
+    int checkedObjects;
+    int renderedObjects;
+};
 
 /**
 * Abstract class to load and store scene elements.
@@ -122,7 +136,7 @@ public:
     /// @param overlap Reference to material used to replace all
     /// @param layer_mask Filter model rendering by layers
     /// models materials.
-    void Render(Math::Frustum * fr = NULL, Material * overlap = NULL, int layer_mask = LAYER_ALL);
+    RenderStatistics Render(Math::Frustum * fr = NULL, Material * overlap = NULL, int layer_mask = LAYER_ALL);
     
     /// Load data data from filename.
     /// @throws Exception
