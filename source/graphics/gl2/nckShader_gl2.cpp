@@ -288,13 +288,13 @@ int Program_GL2::Reload() {
         return 0;
     }
 
-    Core::DataReader * f = Core::FileReader::Open(m_Filename);
+    Core::DataReader * f = Core::DataReader::Open(m_Filename);
 
     if (!f) {
         THROW_EXCEPTION("File \"" + m_Filename+"\" not found");
     }
 
-    int size = (int)Core::FileReader::Size(m_Filename);
+    int size = f->Length();//(int)Core::FileReader::Size(m_Filename);
 
     char * buffer = new char[size + 1];
 
@@ -376,7 +376,7 @@ void Program_GL2::LoadFromFilename(const std::string & filename)
 		return;
 	}
 #endif 
-	Core::DataReader * f = Core::FileReader::Open(filename);
+	Core::DataReader * f = Core::DataReader::Open(filename);
 
 	if(!f)
 		THROW_EXCEPTION("File \"" + filename + "\" not found");
@@ -384,7 +384,7 @@ void Program_GL2::LoadFromFilename(const std::string & filename)
     m_Filename = filename;
     m_LastModified = Core::GetFileLastModified(filename);
 
-	int size = (int)Core::FileReader::Size(filename);
+    int size = f->Length();//(int)Core::FileReader::Size(filename);
 
 	char * buffer = new char[size+1];
 

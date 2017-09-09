@@ -9,14 +9,14 @@ _BXON_BEGIN
 
 class ReaderContext : public BXON::Context{
 public:
-    ReaderContext(Core::FileReader * reader);
+    ReaderContext(Core::DataReader * reader);
     virtual ~ReaderContext();
     uint32_t Read(int32_t size, uint8_t * d);
     uint32_t Write(int32_t size, uint8_t * d);
     uint64_t Seek(int64_t offset);
     uint64_t Tell();
 protected:
-    Core::FileReader * reader;
+    Core::DataReader * reader;
 };
 
 _BXON_END

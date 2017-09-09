@@ -719,7 +719,7 @@ TextureCubemap_GL2 * TextureCubemap_GL2::Load(Device_GL2 * dev, const std::strin
 	}
 #endif
 	// New resource, read from file
-	Core::FileReader * reader = Core::FileReader::Open(packageFilename);
+	Core::DataReader * reader = Core::DataReader::Open(packageFilename);
 
 	if(!reader)
 		THROW_EXCEPTION("Unable to open package file");
@@ -1011,7 +1011,7 @@ Texture3D_GL2 * Texture3D_GL2::Load(Device_GL2 * dev,const std::string & package
 #endif 
 	std::map<std::string,Core::Image*> images;
 
-	Core::FileReader * reader = Core::FileReader::Open(packageFilename);
+	Core::DataReader * reader = Core::DataReader::Open(packageFilename);
 	if(!reader)
 		THROW_EXCEPTION("Unable to open package file");
 

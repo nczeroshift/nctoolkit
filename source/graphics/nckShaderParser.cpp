@@ -173,10 +173,11 @@ std::map<std::string,std::list<std::string>> ShaderParser::Map(const std::string
                         tStr.find_last_of("\"") == tStr.length()-1)
                     {
                         std::string includeName = ltoken.GetString().substr(1, tStr.length() - 2);
-                        int64_t fSize = Core::FileReader::Size("shader://include/" + includeName);
-                        Core::FileReader * fReader = Core::FileReader::Open("shader://include/" + includeName);
+                        //int64_t fSize = Core::FileReader::Size("shader://include/" + includeName);
+                        Core::DataReader * fReader = Core::DataReader::Open("shader://include/" + includeName);
                         if (fReader == NULL)
                             THROW_EXCEPTION("Include \"" + includeName + "\" not found");
+                        int64_t fSize = fReader->Length();
 
                         if (fSize > 0) {
                             char * text = new char[fSize + 1];

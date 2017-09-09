@@ -53,7 +53,7 @@ FontMap::~FontMap()
 void FontMap::Load(const std::string & filename)
 {
 	char ch;
-	Core::FileReader * reader = Core::FileReader::Open(filename);
+	Core::DataReader * reader = Core::DataReader::Open(filename);
 	
 	if(!reader)
 		THROW_EXCEPTION("Unable to open the font map file : \"" + filename);

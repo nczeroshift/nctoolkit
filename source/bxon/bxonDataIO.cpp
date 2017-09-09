@@ -4,7 +4,7 @@
 
 _BXON_BEGIN
 
-ReaderContext::ReaderContext(Core::FileReader * reader){
+ReaderContext::ReaderContext(Core::DataReader * reader){
     this->reader = reader;
 }
 

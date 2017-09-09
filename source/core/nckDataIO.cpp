@@ -13,6 +13,8 @@
 #include <fstream>
 #include <time.h>
 
+#include <list>
+
 #if defined(NCK_LINUX)
     #include <unistd.h>
 #elif defined(NCK_WINDOWS)
@@ -24,6 +26,7 @@
 #define _FILE_OFFSET_BITS = 64
 
 static std::string * app_data_folder = NULL;
+static std::list<Core::TarReader*> * app_mounted_tar = NULL;
 
 void initAppDataFolder(void){
 	app_data_folder = new std::string();
@@ -144,8 +147,46 @@ std::string ResolveFilename(const std::string & filename){
 	return ret;
 }
 
+DataReader * DataReader::Open(const std::string & filename) {
+    std::string fFilename = filename;
+
+    if (filename.find("://") != std::string::npos)
+    {
+        std::string newFilename;
+        if (filename.find("audio://") != std::string::npos) {
+            newFilename += "audio/";
+        }
+        else if (filename.find("shader://") != std::string::npos) {
+            newFilename += "shaders/";
+        }
+        else if (filename.find("texture://") != std::string::npos) {
+            newFilename += "textures/";
+        }
+        else if (filename.find("script://") != std::string::npos) {
+            newFilename += "scripts/";
+        }
+        else if (filename.find("scene://") != std::string::npos) {
+            newFilename += "scenes/";
+        }
+        else if (filename.find("model://") != std::string::npos) {
+            newFilename += "models/";
+        }
+
+        std::string rest = filename.substr(filename.find_first_of("://") + 3);
+        fFilename = "data/"+newFilename + rest;
+    }
+
+    if (app_mounted_tar != NULL) {
+        ListFor(TarReader*, (*app_mounted_tar), i) {
+            return dynamic_cast<DataReader*>((*i)->Find(fFilename));
+        }
+    }
+    return dynamic_cast<DataReader*>(FileReader::Open(filename));
+}
+
 FileReader * FileReader::Open(const std::string & filename){
-	FILE * temp = fopen(ResolveFilename(filename).c_str(),"rb");
+    std::string resolved = ResolveFilename(filename);
+	FILE * temp = fopen(resolved.c_str(),"rb");
 
 	if(!temp)
 		return NULL;
@@ -153,6 +194,7 @@ FileReader * FileReader::Open(const std::string & filename){
 	FileReader * reader = new FileReader();
 
 	reader->fHandle = temp;
+    reader->fPath = resolved;
 
 	return reader;
 }
@@ -232,6 +274,19 @@ int64_t FileReader::Size(const std::string & filename){
 	return buf.st_size;
 }
 
+int64_t FileReader::Length(){
+#if defined(NCK_WINDOWS)
+    struct __stat64 buf;
+    memset(&buf, 0, sizeof(struct __stat64));
+    _stati64(fPath.c_str(), &buf);
+#else
+    struct stat buf;
+    memset(&buf, 0, sizeof(struct stat));
+    stat(ResolveFilename(filename).c_str(), &buf);
+#endif
+    return buf.st_size;
+}
+
 MemoryReader::MemoryReader(uint8_t *data,int64_t size, bool copy){
 	if(copy){
 		mData = new uint8_t[size];
@@ -252,6 +307,10 @@ MemoryReader::~MemoryReader(){
 
 int64_t MemoryReader::GetSize(){
 	return mSize;
+}
+
+int64_t MemoryReader::Length() {
+    return mSize;
 }
 
 size_t MemoryReader::Read(void * data, size_t size){
@@ -335,6 +394,13 @@ TarReader::~TarReader(){
 
 }
 
+void TarReader::Mount() {
+    if (app_mounted_tar == NULL) {
+        app_mounted_tar = new std::list<TarReader*>();
+    }
+    app_mounted_tar->push_back(this);
+}
+
 TarReader::Entry * TarReader::Next()
 {
 	TarHeader header;
@@ -362,6 +428,51 @@ TarReader::Entry * TarReader::Next()
 	SafeDelete(data);
 
 	return ret;
+}
+
+TarReader::Entry * TarReader::Find(const std::string & filename){
+    fReader->Seek(0, SEEK_OFFSET_BEGIN);
+
+    do {
+        TarHeader header;
+        size_t hsize = fReader->Read(&header, sizeof(TarHeader));
+
+        if (hsize != sizeof(TarHeader))
+            return NULL;
+
+        size_t fsize = strtol(header.size, NULL, 0);
+
+        std::string name = std::string(header.name);
+
+        if (fsize == 0)
+            continue;
+
+        size_t maxSize = ((fsize + 512 - 1) / 512) * 512;
+
+        if (name == filename) {
+            uint8_t * data = new uint8_t[maxSize];
+
+            size_t rsize = fReader->Read(data, (uint32_t)maxSize);
+
+            if (rsize != maxSize) {
+                SafeDelete(data);
+                return NULL;
+            }
+
+            TarReader::Entry * ret = new TarReader::Entry(name, data, fsize);
+
+            SafeDelete(data);
+
+            return ret;
+        }
+        else {
+            if (!fReader->Seek(maxSize, Core::SEEK_OFFSET_CURRENT))
+                return NULL;
+        }
+
+    } while (true);
+
+    return NULL;
 }
 
 std::string FindExtension(const std::string & filename){

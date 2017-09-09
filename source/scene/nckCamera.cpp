@@ -78,6 +78,7 @@ Math::Mat44 Camera::GetMatrix(Graph::MatrixType mat)
         Math::Mat44 mat = Math::Perspective(m_Aspect,m_Fov,m_Start,m_End);
         return mat;
     }
+    return Math::Mat44();
 }
 
 void Camera::SetObject(Object *obj)

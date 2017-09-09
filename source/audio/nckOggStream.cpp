@@ -226,7 +226,7 @@ void OggStream::updateGranulate(int dataSize) {
 
 OggStream * OggStream::Load(const std::string & filename)
 {
-	Core::FileReader * f = Core::FileReader::Open(filename);
+	Core::DataReader * f = Core::DataReader::Open(filename);
 
 	if(!f)
 		THROW_EXCEPTION("Unable to open the ogg file");

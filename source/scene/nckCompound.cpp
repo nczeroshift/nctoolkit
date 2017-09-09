@@ -554,7 +554,7 @@ Compound_Base::~Compound_Base()
 
 void Compound_Base::Load(const std::string & filename, Processor * processor)
 {
-    Core::FileReader * f = Core::FileReader::Open(filename);
+    Core::DataReader * f = Core::DataReader::Open(filename);
     
     if(!f){
         THROW_EXCEPTION("Unable to open file \"" + filename + "\"");

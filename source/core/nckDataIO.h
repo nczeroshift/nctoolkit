@@ -48,6 +48,12 @@ class DataReader{
 public:
 	virtual ~DataReader(){};
 
+    /**
+    * Open a file reader from a file or mounted tar
+    * @return NULL if file not found or open failure.
+    */
+    static DataReader * Open(const std::string & filename);
+
 	/**
 	 * Read data from stream.
 	 * @return Number of bytes read, 0 on failure.
@@ -72,6 +78,11 @@ public:
 	 * @return True if seek was successfull.
 	 */
 	virtual bool Seek(int64_t pos, SeekOffsetMode mode) = 0;
+
+    /**
+    * Return stream total length.
+    */
+    virtual int64_t Length() = 0;
 };
 
 /**
@@ -79,6 +90,8 @@ public:
  */
 class FileReader: public virtual DataReader{
 public:
+    virtual ~FileReader();
+
     /**
      * Open a file reader from path.
      * @return NULL if file not found or open failure.
@@ -96,13 +109,18 @@ public:
 	 */
 	static bool Exists(const std::string & filename);
 
-	virtual ~FileReader();
-	size_t Read(void * data, size_t size);
-	bool Read(std::string * str);
-	int64_t Tell();
+    /**
+    * Read string from binary.
+    */
+    bool Read(std::string * str);
+	
+    int64_t Tell();
 	bool Seek(int64_t pos,SeekOffsetMode mode);
+    size_t Read(void * data, size_t size);
+    int64_t Length();
 
 private:
+    std::string fPath;
 	FILE * fHandle;
 };
 
@@ -125,7 +143,7 @@ public:
 	bool Read(std::string * str);
 	int64_t Tell();
 	bool Seek(int64_t pos,SeekOffsetMode mode);
-
+    int64_t Length();
 protected:
 	bool mCopy;
 	int64_t mStart;
@@ -156,10 +174,20 @@ public:
 	TarReader(DataReader * reader);
 	~TarReader();
 
+    /**
+    * Mounts this tar reader as a virtual file system. 
+    */
+    void Mount();
+
 	/**
 	 * Returns the next archive file inside the Tar file.
 	 */
 	Entry * Next();
+    
+    /**
+    * Returns the entry with the filename.
+    */
+    Entry * Find(const std::string & filename);
 
 private:
 	DataReader * fReader;

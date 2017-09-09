@@ -494,7 +494,7 @@ Image * Image::Load(const std::string & filename)
 	try{			
 		ImageType type = Core::Image::GetImageType(filename);
 
-		reader = FileReader::Open(filename);
+		reader = DataReader::Open(filename);
 
         if(reader == NULL)
             THROW_EXCEPTION("Image file \"" +filename+"\" not found");
