@@ -31,7 +31,7 @@ public:
     // Enable depth buffer generation for lights shadow buffers.
     void EnableLightDepth(bool flag);
 
-    void EnawbleShadows(bool flag);
+    void EnableShadows(bool flag);
 private:
     bool m_Shadows;
     bool m_sRGB_support;

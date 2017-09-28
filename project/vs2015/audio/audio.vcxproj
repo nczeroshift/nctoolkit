@@ -14,11 +14,13 @@
     <ClInclude Include="..\..\..\source\audio\nckAudioConfig.h" />
     <ClInclude Include="..\..\..\source\audio\nckAudioDevice.h" />
     <ClInclude Include="..\..\..\source\audio\nckOggStream.h" />
+    <ClInclude Include="..\..\..\source\audio\nckWavStream.h" />
     <ClInclude Include="..\..\..\source\audio\windows\nckDeviceWaveOut.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\audio\nckAudioDevice.cpp" />
     <ClCompile Include="..\..\..\source\audio\nckOggStream.cpp" />
+    <ClCompile Include="..\..\..\source\audio\nckWavStream.cpp" />
     <ClCompile Include="..\..\..\source\audio\windows\nckDeviceWaveOut.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

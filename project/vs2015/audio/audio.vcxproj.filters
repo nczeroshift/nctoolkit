@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\..\source\audio\windows\nckDeviceWaveOut.h">
       <Filter>windows</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\audio\nckWavStream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\audio\nckAudioDevice.cpp">
@@ -40,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\audio\windows\nckDeviceWaveOut.cpp">
       <Filter>windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\audio\nckWavStream.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

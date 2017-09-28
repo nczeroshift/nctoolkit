@@ -236,6 +236,16 @@ float Material::GetAlpha() {
 }
 
 
+bool Material::GetUseShadows() {
+    return m_UseShadows;
+}
+
+void Material::SetUseShadows(bool flag) {
+    m_UseShadows = flag;
+}
+
+
+
 #ifdef NCK_BXON
 
 void Material::Read(BXON::Map * entry, const std::map<std::string, Datablock *> & tMap){

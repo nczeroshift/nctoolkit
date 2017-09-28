@@ -257,6 +257,10 @@ uint32_t TextureLayer::GetFactorFlag(){
     return m_FactorFlag;
 }
 
+void TextureLayer::SetFactorFlag(uint32_t flags) {
+    m_FactorFlag = flags;
+}
+
 float TextureLayer::GetShadowFactor() {
     return m_Factor_Shadow;
 }

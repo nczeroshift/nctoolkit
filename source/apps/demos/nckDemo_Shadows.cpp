@@ -21,9 +21,11 @@ Demo_Shadows::Demo_Shadows(Core::Window * wnd, Graph::Device * dev){
     depth = NULL;
     rtManager = NULL;
     rtTexture = NULL;
+    display = NULL;
 }
 
 Demo_Shadows::~Demo_Shadows(){
+    SafeDelete(display);
     SafeDelete(scene);
     SafeDelete(program);
     SafeDelete(depth);
@@ -36,35 +38,59 @@ void Demo_Shadows::Load(){
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
+    // 1. Create shadow buffer.
+    rtTexture = dynamic_cast<Graph::Texture2D*>(
+        dev->CreateTexture(Graph::TEXTURE_2D, bufferSize, bufferSize, 0, Graph::FORMAT_RGBA_32F, true)
+        );
+
+    rtTexture->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
+    rtTexture->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
+    rtTexture->SetAdressMode(Graph::ADRESS_CLAMP);
+
+    // 2. Create render target and assign texture.
+    rtManager = dev->CreateRTManager(bufferSize, bufferSize);
+    rtManager->Attach(0, rtTexture);
+
+
+    // Load scene geometry and other stuff.
     scene = new Scene::Compound_Base(dev);
-    scene->Load("model://buffer_shadows_scene.bxon");
+    scene->Load("model://buffer_shadows_scene.bxon");    
 
-    //program = dev->LoadProgram("shader://buffer_shadows_mat.cpp");
-    // depth = dev->LoadProgram("shader://buffer_shadows_depth.cpp");
 
-    Scene::MaterialToProgram mtp(dev);
-
-    Scene::Material diffuseSimple(dev);
-    program = mtp.Generate(&diffuseSimple);
+    // 3. Prepare generic material that accepts shadows.
     
+    // Wrap shadow buffer texture into a scene texture.
+    Scene::Texture * shadowTex = new Scene::Texture(dev);
+    shadowTex->SetTexture(rtTexture);
+    
+    // Assign texture to a layer with shadow properties.
+    Scene::TextureLayer * shadowTL = new Scene::TextureLayer(dev);
+    shadowTL->SetTexture(shadowTex);
+    shadowTL->SetShadowFactor(1.0);
+    shadowTL->SetFactorFlag(Scene::FACTOR_SHADOW);
 
-    mtp.EnableLightDepth(true);
+    // Define a simple material with support to shadows.
+    Scene::Material diffuseSimple(dev);
+    diffuseSimple.SetTextureLayer(0, shadowTL);
+    diffuseSimple.SetUseShadows(true);
+    
+    // 4. Generate necessary materials.
+
+    // Diffuse material with shadows support.
+    Scene::MaterialToProgram diffuseMTP(dev);
+    diffuseMTP.EnableShadows(true);
+    program = diffuseMTP.Generate(&diffuseSimple);
+    
+    // Depth generation for shadow buffer
+    Scene::MaterialToProgram shadowMTP(dev);
+    shadowMTP.EnableLightDepth(true);
     Scene::Material matDepth(dev);
-    depth = mtp.Generate(&matDepth);
+    depth = shadowMTP.Generate(&matDepth);
 
     camera = (Scene::Camera*)scene->GetDatablock(Scene::DATABLOCK_CAMERA, "Camera");
     lamp = (Scene::Lamp*)scene->GetDatablock(Scene::DATABLOCK_LAMP, "Lamp");
 
-    rtManager = dev->CreateRTManager(bufferSize, bufferSize);
-    rtTexture = dynamic_cast<Graph::Texture2D*>(
-        dev->CreateTexture(Graph::TEXTURE_2D, bufferSize, bufferSize, 0, Graph::FORMAT_RGBA_32F, true)
-        );
-    rtTexture->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
-    rtTexture->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
-
-    rtTexture->SetAdressMode(Graph::ADRESS_CLAMP);
-
-    rtManager->Attach(0, rtTexture);
+    display = dev->LoadProgram("shader://shadow_depth_display.cpp");
 }
 
 void Demo_Shadows::Render(float dt){
@@ -83,47 +109,44 @@ void Demo_Shadows::Render(float dt){
     camera->SetAspect(wnd->GetWidth() / (float)wnd->GetHeight());
     camera->Enable(Graph::MATRIX_PROJECTION);
 
-
+    // View Matrix Mode
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
     // Set camera properties as view matrix (rotation & position).
     Math::Mat44 modelView = camera->GetMatrix();
+    modelView *= Math::RotateZ(time );
     dev->LoadMatrix((float*)&modelView);
 
-    //Math::Vec3 lampPos = lamp->GetObject()->GetPosition();
-    //Math::Vec4 lamp_mv_pos = Math::Vec4(lamp->GetObject()->GetPosition(), 1.0) * mvMat; 
-             
+    // Model Matrix Mode            
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
-    dev->Rotate(time*4, 0, 0, 1);
-
+ 
     dev->Enable(Graph::STATE_DEPTH_TEST);
-
-    //program->SetVariable4f("lamp_mv_pos", lamp_mv_pos.GetX(), lamp_mv_pos.GetY(), lamp_mv_pos.GetZ(), 0.0);
-    //program->SetMatrix("matLampProjView", (float*)&lampProjViewMat);
-    //program->SetVariable1f("texSize", bufferSize);
 
     Scene::LampUniforms lu;
     Scene::Lamp::GenerateUniforms(lampObjs, modelView, &lu);
     lu.Bind(program);
 
-    program->Enable();
-    program->SetMatrix("pmv_shadow", (float*)&lampProjViewMat);
-    program->SetMatrix("mv_shadow", (float*)&lampViewMat);
+    float bias = 0.0005;
 
+    program->Enable();
+
+    // Set lamp projection model view matrix
+    program->SetMatrix("shadow_pmv", (float*)&lampProjViewMat); 
+    
+    // Set shadow sampling properties.
+    program->SetVariable4f("shadow_params", bufferSize, bufferSize, bias, 0);
+
+    // Set shadow texture sampler
     program->SetVariable1i("gphTexture0", 0);
+
     rtTexture->Enable();
     scene->Render();
     rtTexture->Disable();
+    
     program->Disable();
     
-    /*
-    rtTexture->Enable();
-    scene->Render();
-    rtTexture->Disable();
-    */
-
     for (int i = 0; i < lampObjs.size(); i++) {
         Scene::Object * obj = lampObjs[i];
         Math::Vec3 lampPos = obj->GetPosition();
@@ -147,9 +170,11 @@ void Demo_Shadows::Render(float dt){
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
 
+    display->Enable();
     rtTexture->Enable();
     RenderSquare2D(0, 0, 128, 128, Math::Color4ub());
     rtTexture->Disable();
+    display->Disable();
 
     dev->PresentAll();
 
@@ -182,17 +207,11 @@ void Demo_Shadows::RenderFromLight(float width, float height) {
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
-
     lampProjViewMat = lampViewMat * matLampProj;
 
-  
     depth->Enable();
-    //depth->SetMatrix("mv_shadow", (float*)&lampViewMat);
-
     scene->Render();
     depth->Disable();
-
-    //dev->Disable(Graph::STATE_FLIP_CULL_FACE);
     dev->Enable(Graph::STATE_BLEND);
 }
 

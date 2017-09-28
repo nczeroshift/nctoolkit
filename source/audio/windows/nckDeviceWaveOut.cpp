@@ -6,6 +6,7 @@
 
 #include "nckDeviceWaveOut.h"
 #include "../nckOggStream.h"
+#include "../nckWavStream.h"
 #include <sstream>
 
 #if defined(NCK_WAVEOUT)
@@ -201,11 +202,23 @@ int64_t DeviceWaveOut::GetTime() {
 }
 
 Stream * DeviceWaveOut::LoadStream(const std::string & filename){
-	return OggStream::Load(filename);
+    std::string extension = Core::FindExtension(filename);
+    if(extension == "ogg")
+	    return OggStream::Load(filename);
+    else if (extension == "wav")
+        return WavStream::Load(filename);
 }
 
 Stream * DeviceWaveOut::LoadStreamFromReader(Core::DataReader * reader){
-	return OggStream::Load(reader);
+
+    char header[4];
+    reader->Read(header, 4);
+    reader->Seek(-4, Core::SEEK_OFFSET_CURRENT);
+
+    if(header[0] == 'R' && header[0] == 'I' && header[0] == 'F' && header[1] == 'F')
+	    return WavStream::Load(reader);
+    else
+        return OggStream::Load(reader);
 }
 
 _AUDIO_END

@@ -19,37 +19,6 @@
 
 _SCENE_BEGIN
 
-class Object;
-
-/// Group of animation graphs for object motion.
-/*class ObjectAction{
- public:
-	/// Default constructor.
-	ObjectAction();
- 
-	/// Destructor.
-	~ObjectAction();
- 
-	/// Play object action animation.
-	void Play(Object *obj, float time);
- 
-	/// Load object action data.
-	void Read(Core::DataReader *f);
- 
- private:
-	/// Reference to position graphs.
-	AnimationGraph *m_Position[3];
-	
-	/// Reference to rotation graphs.
-	AnimationGraph *m_Rotation[4];
- 
-	/// Reference to scale graphs.
-	AnimationGraph *m_Scale[3];
- 
-	/// Last valid Keyframe
-	unsigned int m_LastKeyFrame;
- };*/
-
 /// Datablock responsible for space transformation manipulation.
 class Object: public Datablock
 {
@@ -135,7 +104,15 @@ public:
     /// Reproduce object action.
     void Play(float time);
     
+    /// Return object visiblity flag.
+    bool GetVisible();
+
+    /// Set object visiblity flag.
+    void SetVisible(bool flag);
 private:
+    // Object visiblity flag.
+    bool m_Visible;
+
     /// Object data link.
     Datablock *m_Data;
     

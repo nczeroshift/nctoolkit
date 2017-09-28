@@ -49,8 +49,8 @@ float texture2DShadowLerp(sampler2D depths, vec2 size, vec4 coord, float bias){
     return c;
 }
 
-void shadow_cast(sampler2D tex){
-    return texture2DShadowLerp(tex,shadow_params.xy,shadow_p_pmv,shadow_params.z);
+float shadow_cast(sampler2D tex){
+    return texture2DShadowLerp(tex,shadow_params.xy,shadow_p_pmv, shadow_params.z);
 }
 
 #endif

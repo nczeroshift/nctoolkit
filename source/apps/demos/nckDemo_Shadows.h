@@ -34,7 +34,7 @@ private:
     Math::Mat44 lampProjViewMat;
     Math::Mat44 lampViewMat;
 
-    Graph::Program * program, *depth;
+    Graph::Program * program, *depth, *display;
 
 	float time;
 };

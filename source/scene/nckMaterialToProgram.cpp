@@ -145,7 +145,7 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
         // This will write the distance to the camera in all the 4 channels, 
         // use a float texture with single change to save resources.
         std::string src = "#pragma fragment_shader_glx2\n"
-            "#include \"core.cpp\"\n"
+            //"#include \"core.cpp\"\n"
             "varying vec4 v_pos_pmv;\n"
             "void main(void){\n"
             "\tgl_FragColor = vec4(vec3(v_pos_pmv.z / v_pos_pmv.w),1.0);\n"
@@ -347,7 +347,7 @@ void MaterialToProgram::EnableLightDepth(bool flag) {
     m_light_depth_generation = flag;
 }
 
-void MaterialToProgram::EnawbleShadows(bool flag) {
+void MaterialToProgram::EnableShadows(bool flag) {
     m_Shadows = flag;
 }
 

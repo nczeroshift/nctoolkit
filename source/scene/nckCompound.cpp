@@ -640,6 +640,9 @@ RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, in
         if (layer_mask != LAYER_ALL && ((1 << (*i)->GetLayer()) & layer_mask) == 0)
             continue;
 
+        if (!o->GetVisible())
+            continue;
+
         if(fr){
             m_Device->PushMatrix();
             

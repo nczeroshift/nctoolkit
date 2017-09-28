@@ -129,7 +129,8 @@ public:
     void Disable(unsigned int sampler_id = 0);
     
     uint32_t GetFactorFlag();
-    
+    void SetFactorFlag(uint32_t flags);
+
     float GetFactorDiffuseColor();
     float GetFactorAlpha();
     float GetFactorDiffuse();

@@ -58,6 +58,10 @@ public:
     /// Get material state flags.
     bool GetFlag(MaterialFlag flag);
     
+    bool GetUseShadows();
+
+    void SetUseShadows(bool flag);
+
     /// Get face culling mode.
     Graph::CullFaceMode GetCullMode();
     

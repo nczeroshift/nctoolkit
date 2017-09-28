@@ -11,117 +11,6 @@
 #include <stdio.h>
 
 _SCENE_BEGIN
-/*
- ObjectAction::ObjectAction()
- {
-	for(int i = 0;i<3;i++)
- m_Position[i] = NULL;
-	for(int i = 0;i<4;i++)
- m_Rotation[i] = NULL;
-	for(int i = 0;i<3;i++)
- m_Scale[i] = NULL;
- 
-	m_LastKeyFrame = 0;
- }
- 
- ObjectAction::~ObjectAction()
- {
-	for(int i = 0;i<3;i++)
- SafeDelete(m_Position[i]);
-	for(int i = 0;i<4;i++)
- SafeDelete(m_Rotation[i]);
-	for(int i = 0;i<3;i++)
- SafeDelete(m_Scale[i]);
- 
- }
- 
- void ObjectAction::Play(Object *obj, float time)
- {
-	Math::Vec3 l_pos = obj->GetPosition();
-	Math::Vec3 l_scale = obj->GetScale();
-	Math::Quat l_quat = obj->GetRotation();
- 
-	if(m_Position[0])
- l_pos.SetX(m_Position[0]->GetValue(time));
-	if(m_Position[1])
- l_pos.SetY(m_Position[1]->GetValue(time));
-	if(m_Position[2])
- l_pos.SetZ(m_Position[2]->GetValue(time));
- 
-	// Euler
-	if(m_Rotation[0] && m_Rotation[1] && m_Rotation[2] && !m_Rotation[3]){
- Math::Vec3 l_r_euler;
- l_r_euler.SetX(m_Rotation[0]->GetValue(time));
- l_r_euler.SetY(m_Rotation[1]->GetValue(time));
- l_r_euler.SetZ(m_Rotation[2]->GetValue(time));
- 
- l_quat = Math::Normalize(Math::EulerToQuat(l_r_euler));
-	}
-	// Quaternion
-	else if(m_Rotation[0] && m_Rotation[1] && m_Rotation[2] && m_Rotation[3])
-	{
- l_quat.SetX(m_Rotation[0]->GetValue(time));
- l_quat.SetY(m_Rotation[1]->GetValue(time));
- l_quat.SetZ(m_Rotation[2]->GetValue(time));
- l_quat.SetW(m_Rotation[3]->GetValue(time));
-	}
- 
-	if(m_Scale[0])
- l_scale.SetX(m_Scale[0]->GetValue(time));
-	if(m_Scale[1])
- l_scale.SetY(m_Scale[1]->GetValue(time));
-	if(m_Scale[2])
- l_scale.SetZ(m_Scale[2]->GetValue(time));
- 
-	obj->SetPosition(l_pos);
-	obj->SetRotation(l_quat);
-	obj->SetScale(l_scale);
- }
- 
- void ObjectAction::Read(Core::DataReader *f)
- {
-	int graphs;
-	f->Read(&graphs,sizeof(int));
-	
-	for(int i = 0 ;i<graphs;i++)
-	{
- AnimationGraph *g = new AnimationGraph();
- 
- g->Read(f);
- 
- switch(g->GetType())
- {
- case ANIMATION_GRAPH_LOC_X:
- m_Position[0] = g;break;
- case ANIMATION_GRAPH_LOC_Y:
- m_Position[1] = g;break;
- case ANIMATION_GRAPH_LOC_Z:
- m_Position[2] = g;break;
- 
- case ANIMATION_GRAPH_ROT_X:
- m_Rotation[0] = g;break;
- case ANIMATION_GRAPH_ROT_Y:
- m_Rotation[1] = g;break;
- case ANIMATION_GRAPH_ROT_Z:
- m_Rotation[2] = g;break;
- case ANIMATION_GRAPH_ROT_W:
- m_Rotation[3] = g;break;
- 
- case ANIMATION_GRAPH_SCALE_X:
- m_Scale[0] = g;break;
- case ANIMATION_GRAPH_SCALE_Y:
- m_Scale[1] = g;break;
- case ANIMATION_GRAPH_SCALE_Z:
- m_Scale[2] = g;break;
- 
- 
- default:
- delete g; // Discard graph
- break;
- }
-	}
- }
- */
 
 Object::Object(Graph::Device *dev) : Datablock(dev){
     m_Name = "temp";
@@ -129,9 +18,9 @@ Object::Object(Graph::Device *dev) : Datablock(dev){
     m_Local = Math::Vec3(0,0,0);
     m_Rotation = Math::Quat(0,0,0,1);
     m_Scale = Math::Vec3(1,1,1);
-    //m_Action = NULL;
     m_Data = NULL;
     m_Layer = 0;
+    m_Visible = true;
 }
 
 Object::~Object(){
@@ -331,6 +220,15 @@ void Object::Play(float time)
         break;
     }
     
+}
+/// Return object visiblity flag.
+bool Object::GetVisible() {
+    return m_Visible;
+}
+
+/// Set object visiblity flag.
+void Object::SetVisible(bool flag) {
+    m_Visible = flag;
 }
 
 _SCENE_END
