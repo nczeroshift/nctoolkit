@@ -167,4 +167,12 @@ void Lamp::GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & m
         out->lamp_pos[lampObjs.size()] = Math::Vec4(0, 0, 0, -1); // Early terminator.
 }
 
+void Lamp::BindShadow(Graph::Program * p, const Math::Mat44 & lampPVM, int bufferSize, float bias) {
+    // Set lamp projection model view matrix
+    p->SetMatrix("shadow_pmv", (float*)&lampPVM);
+
+    // Set shadow sampling properties.
+    p->SetVariable4f("shadow_params", bufferSize, bufferSize, bias, 0);
+}
+
 _SCENE_END

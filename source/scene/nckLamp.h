@@ -93,6 +93,7 @@ public:
     LampType GetLampType();
 
     static void GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & modelView, LampUniforms * out);
+    static void BindShadow(Graph::Program * p,const Math::Mat44 & lampPVM, int bufferSize, float bias);
 
     float GetSpotSize();
     float GetSpotBlend();

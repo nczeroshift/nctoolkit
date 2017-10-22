@@ -6,7 +6,7 @@
 
 #include "nckDemo_Selector.h"
 
-//#define RUN_DEMO 31
+//#define RUN_DEMO 20
 
 class GraphicRendering : public virtual Core::Threadable, public virtual DemoSelector_Callback
 {
@@ -155,6 +155,10 @@ private:
 
 void Core::Application_Main(const std::vector<std::string> & CmdLine)
 {
+    //Core::FileReader * data = Core::FileReader::Open("data.tar");
+    //Core::TarReader * tar = new Core::TarReader(data);
+    //tar->Mount();
+
 	// Create a window.
 	Core::Window * wnd = Core::CreateWindow("nctoolkit", 1024, 600, false);
 

@@ -40,7 +40,7 @@ void Demo_Shadows::Load(){
 
     // 1. Create shadow buffer.
     rtTexture = dynamic_cast<Graph::Texture2D*>(
-        dev->CreateTexture(Graph::TEXTURE_2D, bufferSize, bufferSize, 0, Graph::FORMAT_RGBA_32F, true)
+        dev->CreateTexture(Graph::TEXTURE_2D, bufferSize, bufferSize, 0, Graph::FORMAT_R_32F, true)
         );
 
     rtTexture->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
@@ -124,22 +124,26 @@ void Demo_Shadows::Render(float dt){
  
     dev->Enable(Graph::STATE_DEPTH_TEST);
 
+    program->Enable();
+    
+    float bias = 0.0001;
+
     Scene::LampUniforms lu;
+
+    // Set lamps ilumination.
     Scene::Lamp::GenerateUniforms(lampObjs, modelView, &lu);
     lu.Bind(program);
 
-    float bias = 0.0005;
+    // Set shadow caster properties to shader.
+    Scene::Lamp::BindShadow(program, lampProjViewMat, bufferSize, bias);
 
-    program->Enable();
+    Scene::Object * sphere1 = scene->GetObject("Icosphere");
 
-    // Set lamp projection model view matrix
-    program->SetMatrix("shadow_pmv", (float*)&lampProjViewMat); 
-    
-    // Set shadow sampling properties.
-    program->SetVariable4f("shadow_params", bufferSize, bufferSize, bias, 0);
+    Math::Vec3 pos = sphere1->GetPosition();
+    pos.SetZ(3.0 + 2.0 * cos(time*4.0));
 
-    // Set shadow texture sampler
-    program->SetVariable1i("gphTexture0", 0);
+    sphere1->SetPosition(pos);
+    sphere1->Update();
 
     rtTexture->Enable();
     scene->Render();

@@ -145,14 +145,17 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
         // This will write the distance to the camera in all the 4 channels, 
         // use a float texture with single change to save resources.
         std::string src = "#pragma fragment_shader_glx2\n"
-            //"#include \"core.cpp\"\n"
             "varying vec4 v_pos_pmv;\n"
             "void main(void){\n"
-            "\tgl_FragColor = vec4(vec3(v_pos_pmv.z / v_pos_pmv.w),1.0);\n"
+            "\tfloat depth = clamp(v_pos_pmv.z / v_pos_pmv.w,0.0,1.0);\n"
+            //"\tfloat dx = dFdx(depth);\n" // VSM
+            //"\tfloat dy = dFdy(depth);\n" // VSM
+            //"\tgl_FragColor = vec4(depth, pow(depth, 2.0) + 0.25*(dx*dx + dy*dy),0.0,1.0);\n" // VSM
+            "\tgl_FragColor = vec4(depth,0.0,0.0,1.0);\n"
             "}\n";
         return src;
     }
-
+  
     bool hasBumpmap = false;
     bool hasTexture = false;
     bool hasLight = !mat->GetFlag(Scene::MATERIAL_SHADELESS);
@@ -322,7 +325,7 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
     if (hasLight)
     {
         if (m_Shadows && hasShadow)
-            src += "\tgl_FragColor = vec4(shadowMask * (diff * colDiff + spec * colSpec), alpha);\n";
+            src += "\tgl_FragColor = vec4(vec3(shadowMask * (diff * colDiff + spec * colSpec)), alpha);\n"; // 
         else
             src += "\tgl_FragColor = vec4(diff * colDiff + spec * colSpec, alpha);\n";
     }

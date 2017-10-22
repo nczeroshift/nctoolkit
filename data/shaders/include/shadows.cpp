@@ -20,7 +20,21 @@ void shadow_transform_to_light(vec4 P){
 uniform vec4 shadow_params;
 varying vec4 shadow_p_pmv;
 
+//float linstep(float low, float high, float v){
+//    return clamp((v-low)/(high-low), 0.0, 1.0);
+//}
+
+//float VSM(sampler2D depths, vec2 uv, float compare){
+//    vec2 moments = texture2D(depths, uv).xy;
+//    float p = smoothstep(compare-0.02, compare, moments.x);
+//    float variance = max(moments.y - moments.x*moments.x, -0.001);
+//    float d = compare - moments.x;
+//    float p_max = linstep(0.2, 1.0, variance / (variance + d*d));
+//    return clamp(max(p, p_max), 0.0, 1.0);
+//}
+        
 float texture2DCompare(sampler2D depths, vec2 uv, float compare){
+    //return VSM(depths,uv,compare);
     float depth = texture2D(depths, uv).r;
     return step(compare, depth);
 }
@@ -50,7 +64,7 @@ float texture2DShadowLerp(sampler2D depths, vec2 size, vec4 coord, float bias){
 }
 
 float shadow_cast(sampler2D tex){
-    return texture2DShadowLerp(tex,shadow_params.xy,shadow_p_pmv, shadow_params.z);
+    return texture2DShadowLerp(tex,shadow_params.xy,shadow_p_pmv,shadow_params.z);
 }
 
 #endif
