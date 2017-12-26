@@ -163,12 +163,17 @@ public:
     Curve * GetCurve(const std::string & name);
     Camera * GetCamera(const std::string & name);
 
-    static std::vector< std::pair<float, Scene::Object*> > fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound);
+    Scene::Camera * GetCameraForKeyframe(float time);
+        
 private:
+    static std::vector< std::pair<float, Scene::Object*> > fetchCamerasWithKeyframes(BXON::Map * map, Compound_Base * compound);
+
     Math::BoundBox m_Boundbox;
     
     /// List of objects assigned with models.
     std::list<Object*> m_MObjects;
+
+    std::vector < std::pair<float, Scene::Object*> > m_CamerasWithKeyframes;
 };
 
 

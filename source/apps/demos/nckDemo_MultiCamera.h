@@ -9,7 +9,7 @@
 
 #include "../nckDemo.h"
 
-class Demo_MultiCamera : public Demo, Scene::Processor {
+class Demo_MultiCamera : public Demo {
 public:
     Demo_MultiCamera(Core::Window * wnd, Graph::Device * dev);
 	~Demo_MultiCamera();
@@ -21,10 +21,6 @@ public:
     std::string GetDescription();
 
 private:
-    virtual void HandleFinish(BXON::Map * map, Scene::Compound * compound);
-    Scene::Object* findNearestCamera(int keyframe);
-
-    std::vector< std::pair<float, Scene::Object*> > camerasPerMarker;
     Scene::Compound_Base * scene;
 	float time;
 };

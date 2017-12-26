@@ -842,22 +842,39 @@ bool RTManager_GL2::Enable(int face){
 	glBindFramebuffer( GL_FRAMEBUFFER, m_FrameBuffer );
 	glBindRenderbuffer( GL_RENDERBUFFER, m_RenderBuffer );
 
-	int count = 0;
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_RenderBuffer);
 
-	for(std::list<AttachedTexture>::iterator i = m_Textures.begin();i!=m_Textures.end();i++,count++){
+    GLint maxAttach = 0;
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxAttach);
+
+    int count = 0;
+	for(std::list<AttachedTexture>::iterator i = m_Textures.begin();i!=m_Textures.end() && count < maxAttach;i++,count++){
         if (i->texture->GetType() == TEXTURE_CUBEMAP) {
             TextureCubemap_GL2 * tex = dynamic_cast<TextureCubemap_GL2*>(i->texture);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, tex->getTextureId(), i->target);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_CUBE_MAP_POSITIVE_X + face, tex->getTextureId(), 0);
         }
         else if (i->texture->GetType() == TEXTURE_2D) {
             Texture2D_GL2 * tex = dynamic_cast<Texture2D_GL2*>(i->texture);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_2D, tex->getTextureId(), i->target);
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + count, GL_TEXTURE_2D, tex->getTextureId(), 0);
         }
 	
 	}
 
-	glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_RenderBuffer);
+    GLint maxDrawBuf = 0;
+    glGetIntegerv(GL_MAX_DRAW_BUFFERS, &maxDrawBuf);
 
+    GLenum drawBuffers[] = { 
+        GL_COLOR_ATTACHMENT0, 
+        GL_COLOR_ATTACHMENT1,
+        GL_COLOR_ATTACHMENT2,
+        GL_COLOR_ATTACHMENT3,
+        GL_COLOR_ATTACHMENT4,
+        GL_COLOR_ATTACHMENT5,
+        GL_COLOR_ATTACHMENT6,
+        GL_COLOR_ATTACHMENT7 };
+    
+    glDrawBuffers(MIN(maxDrawBuf, count), drawBuffers);
+       
 	m_Device->m_InsideFBO = true;
     m_Device->m_ActiveManager = this;
 	return true;
@@ -899,6 +916,7 @@ bool RTManager_GL2::Attach(unsigned int target,TextureCubeMap *tex){
 }
 
 bool RTManager_GL2::Disable(){
+  
     m_Device->m_ActiveManager = NULL;
 	m_Device->m_InsideFBO = false;
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

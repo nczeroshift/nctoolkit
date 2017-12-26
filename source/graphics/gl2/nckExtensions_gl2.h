@@ -81,6 +81,7 @@ extern PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
 extern PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
 extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 extern PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
+extern PFNGLDRAWBUFFERSPROC glDrawBuffers;
 
 #if defined (NCK_LINUX)
 extern PFNGLXSWAPINTERVALMESAPROC glXSwapInterval;

@@ -625,7 +625,10 @@ void Compound_Base::Load(BXON::Map * entry, Processor * processor){
             m_MObjects.push_back(*i);
         }
     }
+
     m_Boundbox = tmpBB;
+
+    m_CamerasWithKeyframes = fetchCamerasWithKeyframes(entry, this);
 }
 
 RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask)
@@ -787,6 +790,37 @@ std::vector<std ::pair<float, Scene::Object*> > Compound_Base::fetchCamerasWithK
     }
 
     return ret;
+}
+
+Scene::Camera * Compound_Base::GetCameraForKeyframe(float time) {
+    std::vector< std::pair<float, Scene::Object*> > vec = m_CamerasWithKeyframes;
+
+    if (vec.size() == 0)
+        return NULL;
+
+    if (time <= vec[0].first)
+        return dynamic_cast<Camera*>(vec[0].second->GetData());
+    else if (time >= vec[vec.size() - 1].first)
+        return dynamic_cast<Camera*>(vec[vec.size() - 1].second);
+
+    int left = 0;
+    int right = vec.size() - 1;
+    int half;
+
+    while (left <= right) {
+        half = (left + right) / 2;
+        if (vec[half].first == time)
+            return dynamic_cast<Camera*>(vec[half].second);
+        else if (time < vec[half].first)
+            right = half - 1;
+        else
+            left = half + 1;
+    }
+
+    if (half >= 0 && half <= vec.size() - 1)
+        return dynamic_cast<Camera*>(vec[half].second);
+
+    return NULL;
 }
 
 int Compound_Base::GetAllMaterials(std::vector<Material*> * materials) {

@@ -21,6 +21,11 @@ public:
     std::string GetDescription();
 
 private:
+    Graph::Program * prog;
+    Scene::Compound_Base * model;
+    Graph::Texture2D * tex1;
+    Graph::Texture2D * tex2;
+    Graph::RTManager * mng;
 	float time;
 };
 

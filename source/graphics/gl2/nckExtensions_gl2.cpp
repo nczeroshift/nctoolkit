@@ -57,6 +57,7 @@ PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
 PFNGLCHECKFRAMEBUFFERSTATUSPROC glCheckFramebufferStatus;
 PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
 PFNGLFRAMEBUFFERRENDERBUFFERPROC glFramebufferRenderbuffer;
+PFNGLDRAWBUFFERSPROC glDrawBuffers;
 PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D;
 PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
@@ -132,6 +133,7 @@ void nckInitExtensionsGL2()
 	INSERT_EXTENSION("glFramebufferTexture2D",&glFramebufferTexture2D);
 	INSERT_EXTENSION("glDeleteFramebuffers",&glDeleteFramebuffers);
 	INSERT_EXTENSION("glDeleteRenderbuffers",&glDeleteRenderbuffers);
+    INSERT_EXTENSION("glDrawBuffers", &glDrawBuffers);
 
 #if defined(NCK_LINUX)
 	INSERT_EXTENSION("glXSwapIntervalSGI",&glXSwapInterval);

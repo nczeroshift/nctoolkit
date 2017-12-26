@@ -23,49 +23,16 @@ void Demo_MultiCamera::Load(){
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     scene = new Scene::Compound_Base(dev);
-    scene->Load("model://timeline_scene.bxon", this);
-}
-
-void Demo_MultiCamera::HandleFinish(BXON::Map * map, Scene::Compound * compound) {
-    camerasPerMarker = Scene::Compound_Base::fetchCamerasWithKeyframes(map, dynamic_cast<Scene::Compound_Base*>(compound));
-}
-
-Scene::Object * Demo_MultiCamera::findNearestCamera(int keyframe) {
-    std::vector< std::pair<float, Scene::Object*> > vec = camerasPerMarker;
-
-    if (vec.size() == 0)
-        return NULL;
-
-    if (keyframe <= vec[0].first)
-        return vec[0].second;
-    else if (keyframe >= vec[vec.size() - 1].first)
-        return vec[vec.size() - 1].second;
-
-    int left = 0;
-    int right = vec.size() - 1;
-    int half;
-
-    while (left <= right) {
-        half = (left + right) / 2;
-        if (vec[half].first == keyframe)
-            return vec[half].second;
-        else if (keyframe < vec[half].first)
-            right = half - 1;
-        else
-            left = half + 1;
-    }
-
-    if (half >= 0 && half <= vec.size() - 1)
-        return vec[half].second;
-
-    return NULL;
+    scene->Load("model://timeline_scene.bxon");
 }
 
 void Demo_MultiCamera::Render(float dt){
-	dev->Clear();
+    Scene::Camera * cam = scene->GetCameraForKeyframe(time * 25.0);
+    if (!cam)
+        return;
 
-    Scene::Object * camObj = findNearestCamera(time * 25.0);
-    Scene::Camera * cam = dynamic_cast<Scene::Camera*>(camObj->GetData());
+    dev->Clear();
+
     cam->SetAspect(wnd->GetWidth() / (float)wnd->GetHeight());
 
 	dev->Viewport(0,0,wnd->GetWidth(),wnd->GetHeight());

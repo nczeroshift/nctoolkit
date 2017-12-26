@@ -10,10 +10,16 @@ Demo_FBO::Demo_FBO(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
 	this->wnd = wnd;
     time = 0;
+    model = NULL;
+    tex1 = NULL;
+    tex2 = NULL;
+    mng = NULL;
 }
 
 Demo_FBO::~Demo_FBO(){
-
+    SafeDelete(tex1);
+    SafeDelete(tex2);
+    SafeDelete(mng);
 }
 
 void Demo_FBO::Load(){
@@ -24,9 +30,50 @@ void Demo_FBO::Load(){
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
+    mng = dev->CreateRTManager(512, 512);
+    tex1 = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, 512, 512, 0, Graph::FORMAT_RGBA_8B, true));
+    tex2 = dynamic_cast<Graph::Texture2D*>(dev->CreateTexture(Graph::TEXTURE_2D, 512, 512, 0, Graph::FORMAT_RGBA_8B, true));
+
+    mng->Attach(0, tex1);
+    mng->Attach(1, tex2);
+
+    model = new Scene::Compound_Base(dev);
+    model->Load("model://fbo_scene.bxon");
+
+    prog = dev->LoadProgram("shader://fbo.cpp");
 }
 
 void Demo_FBO::Render(float dt){
+    dev->ClearColor(0, 0, 0);
+
+    mng->Enable();
+    {
+        dev->Viewport(0, 0, tex1->GetWidth(), tex1->GetHeight());
+        dev->Clear();
+
+        dev->MatrixMode(Graph::MATRIX_PROJECTION);
+        dev->Identity();
+
+        Scene::Camera * cam = model->GetCamera("Camera");
+        cam->SetAspect(1.0);
+        cam->Enable(Graph::MATRIX_PROJECTION);
+
+
+        dev->MatrixMode(Graph::MATRIX_VIEW);
+        dev->Identity();
+        cam->Enable(Graph::MATRIX_VIEW);
+
+
+        dev->MatrixMode(Graph::MATRIX_MODEL);
+        dev->Identity();
+
+        prog->Enable();
+        model->Render();
+        prog->Disable();
+    }
+    mng->Disable();
+  
+
 	// Clear graphics rendering buffer.
 	dev->Clear();
 
@@ -43,11 +90,17 @@ void Demo_FBO::Render(float dt){
     dev->MatrixMode(Graph::MATRIX_VIEW);
     dev->Identity();
    
-
 	// Set the model matrix.
 	dev->MatrixMode(Graph::MATRIX_MODEL);
 	dev->Identity();
    
+    tex1->Enable();
+    RenderSquare2D(0, 0, 256, 256);
+    tex1->Disable();
+
+    tex2->Enable();
+    RenderSquare2D(256, 0, 256, 256);
+    tex2->Disable();
     time += dt;
 
 	// Finish rendering and present the graphics.

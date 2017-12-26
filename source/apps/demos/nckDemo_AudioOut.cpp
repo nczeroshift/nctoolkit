@@ -5,6 +5,7 @@
 */
 
 #include "nckDemo_AudioOut.h"
+#include "nckWavStream.h"
 
 Demo_AudioOut::Demo_AudioOut(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
@@ -24,6 +25,30 @@ void Demo_AudioOut::Load(){
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
+    Audio::OutputDevice * dev = dynamic_cast<Audio::OutputDevice*>(Audio::CreateDevice(Audio::DEVICE_OUTPUT, 44100, 2, Audio::FORMAT_S16, 8192, 4));
+    Audio::Stream * stream = dev->LoadStream("audio://visinin-fourfold.ogg");
+
+    
+    Core::DataWriter * writer = NULL;
+    THROW_EXCEPTION("File writer not yet implemented!");
+
+    Audio::WavWriter * output = new Audio::WavWriter(writer);
+
+    uint8_t * buffer = new uint8_t[4096];
+    int amountToRead = 1024;
+    int decodedSize = 0;
+    
+    output->SetChannelsCount(stream->GetChannelsCount());
+    output->SetSampleRate(stream->GetSampleRate());
+    output->SetFormat(Audio::FORMAT_S16);
+
+    while ((decodedSize = stream->Read(amountToRead, buffer)) > 0) {
+        output->Write(buffer, decodedSize);
+    }
+
+    output->Finish();
+
+    SafeDelete(writer);
 }
 
 void Demo_AudioOut::Render(float dt){
