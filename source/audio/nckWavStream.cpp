@@ -217,10 +217,11 @@ void WavStream::SetTime(int64_t position) {
 
 WavWriter::WavWriter(Core::DataWriter * writer) {
     this->writer = writer;
-    this->header = new WavHeader();
-    this->header->NumChannels = 2;
-    this->header->SampleRate = 44100;
-
+    header = new WavHeader();
+    header->NumChannels = 2;
+    header->SampleRate = 44100;
+    headerOffset = 0;
+    length = 0;
 }
 
 WavWriter::~WavWriter() {

@@ -27,14 +27,12 @@ void Demo_AudioOut::Load(){
 
     Audio::OutputDevice * dev = dynamic_cast<Audio::OutputDevice*>(Audio::CreateDevice(Audio::DEVICE_OUTPUT, 44100, 2, Audio::FORMAT_S16, 8192, 4));
     Audio::Stream * stream = dev->LoadStream("audio://visinin-fourfold.ogg");
-
     
-    Core::DataWriter * writer = NULL;
-    THROW_EXCEPTION("File writer not yet implemented!");
+    Core::FileWriter * writer = Core::FileWriter::Open("audio://out.wav");
 
     Audio::WavWriter * output = new Audio::WavWriter(writer);
 
-    uint8_t * buffer = new uint8_t[4096];
+    uint8_t * buffer = new uint8_t[stream->GetSampleRate()*stream->GetChannelsCount()*sizeof(float)];
     int amountToRead = 1024;
     int decodedSize = 0;
     
@@ -47,7 +45,7 @@ void Demo_AudioOut::Load(){
     }
 
     output->Finish();
-
+    SafeDelete(output);
     SafeDelete(writer);
 }
 

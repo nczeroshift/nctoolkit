@@ -204,7 +204,12 @@ FileReader::~FileReader(){
 }
 
 size_t FileReader::Read(void * data, size_t size){
-	return fread(data,1,size,fHandle);
+    size_t elements = fread(data, size, 1, fHandle);
+    if (elements == 1) {
+        size_t sz = elements* size;
+        return sz;
+    }
+    return 0;
 }
 
 
@@ -519,6 +524,69 @@ int64_t GetFileLastModified(const std::string & filename) {
     return FileModified_MacOSX(path);
 #else
     return 0;
+#endif
+}
+
+FileWriter::~FileWriter() {
+    fHandle = NULL;
+}
+
+FileWriter * FileWriter::Open(const std::string & filename, bool append) {
+    FileWriter * ret = new FileWriter();
+    ret->m_Length = 0;
+    ret->fHandle = NULL;
+
+    if (FileReader::Exists(filename))
+        ret->m_Length = FileReader::Size(filename);
+    
+    std::string resolved = ResolveFilename(filename);
+    ret->fHandle = fopen(resolved.c_str(), "wb");
+    
+    return ret;
+}
+
+size_t FileWriter::Write(uint8_t * data, size_t size) {
+    size_t elements = fwrite(data, size, 1, fHandle);
+    if (elements == 1) {
+        size_t sz = elements* size;
+        m_Length += sz;
+        return sz;
+    }
+    return 0;
+}
+
+int64_t FileWriter::Tell() 
+{  
+    if (feof(fHandle))
+        return -1;
+#if defined(NCK_WINDOWS)
+    return _ftelli64(fHandle);
+#else
+    return ftello(fHandle);
+#endif
+}
+
+int64_t FileWriter::Length() {
+    return m_Length;
+}
+
+bool FileWriter::Seek(int64_t pos, SeekOffsetMode mode) {
+    int seekFlag = 0;
+    switch (mode) {
+    case SEEK_OFFSET_BEGIN:
+        seekFlag = SEEK_SET;
+        break;
+    case SEEK_OFFSET_END:
+        seekFlag = SEEK_END;
+        break;
+    case SEEK_OFFSET_CURRENT:
+        seekFlag = SEEK_CUR;
+        break;
+    }
+#if defined(NCK_WINDOWS)
+    return _fseeki64(fHandle, pos, seekFlag) == 0;
+#else
+    return fseeko(fHandle, pos, seekFlag) == 0;
 #endif
 }
 

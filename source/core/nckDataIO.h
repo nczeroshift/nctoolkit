@@ -114,11 +114,17 @@ public:
     */
     bool Read(std::string * str);
 	
+    /// Return the current read position in bytes.
     int64_t Tell();
-	bool Seek(int64_t pos,SeekOffsetMode mode);
-    size_t Read(void * data, size_t size);
-    int64_t Length();
 
+    /// Seek within the file.
+	bool Seek(int64_t pos, SeekOffsetMode mode);
+
+    /// Returns the number of bytes read, 0 if an error happen.
+    size_t Read(void * data, size_t size);
+
+    /// File length in bytes.
+    int64_t Length();
 private:
     std::string fPath;
 	FILE * fHandle;
@@ -211,6 +217,31 @@ public:
 
 	/// Change writing position.
 	virtual bool Seek(int64_t pos, SeekOffsetMode mode) = 0;
+};
+
+class FileWriter : public DataWriter{
+public:
+    virtual ~FileWriter();
+
+    static FileWriter * Open(const std::string & filename, bool append = false);
+
+    /**
+    * Write data to stream.
+    * @return Number of bytes writen to stream, 0 on failure.
+    */
+    virtual size_t Write(uint8_t * data, size_t size);
+
+    /// Return current write position.
+    virtual int64_t Tell();
+
+    /// Return file length.
+    virtual int64_t Length();
+
+    /// Change writing position.
+    virtual bool Seek(int64_t pos, SeekOffsetMode mode);
+private:
+    int64_t m_Length;
+    FILE * fHandle;
 };
 
 _CORE_END
