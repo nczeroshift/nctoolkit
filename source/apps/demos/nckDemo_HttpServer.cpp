@@ -63,9 +63,8 @@ public:
     AddMessage("FILE DATA { path : "+path+" }");
     }*/
 
-    virtual std::string JSONRequest(const std::string & srcAddr,
-        std::map<std::string, std::string> params)
-    {
+    virtual std::string GetJSON(const std::string & srcAddr,
+        std::map<std::string, std::string> params) {
         AddMessage("JSON webapp-serverapp");
 
         for (std::map<std::string, std::string>::iterator i = params.begin(); i != params.end(); i++) {
@@ -148,13 +147,13 @@ void Demo_HttpServer::Load(){
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
-    fontTexture = dev->LoadTexture("texture://tex2d_font_ubuntu.png");
+    fontTexture = dev->LoadTexture("texture://tex2d_font_sans_serif.png");
     fontTexture->SetFilter(Graph::FILTER_MAGNIFICATION, Graph::FILTER_NEAREST);
     fontTexture->SetFilter(Graph::FILTER_MINIFICATION, Graph::FILTER_NEAREST);
     fontTexture->SetFilter(Graph::FILTER_MIPMAPPING, Graph::FILTER_NEAREST);
 
     fontMap = new Gui::FontMap(dev);
-    fontMap->Load("script://font_ubuntu.txt");
+    fontMap->Load("script://sans_serif.txt");
 
     server = NULL;
     try {
@@ -197,6 +196,7 @@ void Demo_HttpServer::Render(float dt){
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();
 
+    dev->Disable(Graph::STATE_DEPTH_TEST);
     creqHandler->Render(wnd->GetWidth(), wnd->GetHeight(), this);
 
     dev->PresentAll();

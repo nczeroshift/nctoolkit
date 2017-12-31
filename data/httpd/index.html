@@ -35,7 +35,7 @@ $(document).ready(function(){
 
 	$("#testButton_Default").click(function(){
 		$.ajax({
-			url:"data.json",
+			url:"/x/data.json",
 			data:{background:"default"},
 			dataType:"json",
 			success: function(data) {
@@ -47,7 +47,7 @@ $(document).ready(function(){
 
 	$("#testButton_Yellow").click(function(){
 		$.ajax({
-			url:"data.json",
+			url:"/x/data.json",
 			data:{background:"yellow"},
 			dataType:"json",
 			success: function(data) {
