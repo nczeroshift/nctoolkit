@@ -121,6 +121,7 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Compound.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Curves.h" />
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_FBO.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Frustum.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_GUI.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Compound.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_CubemapFBO.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Curves.cpp" />
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_FBO.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Frustum.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_GUI.cpp" />

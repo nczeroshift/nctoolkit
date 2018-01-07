@@ -13,6 +13,7 @@ MaterialToProgram::MaterialToProgram(Graph::Device * dev) {
     m_sRGB_support = false;
     m_light_depth_generation = false;
     m_Shadows = false;
+    m_Position_Output = false;
 }
 
 MaterialToProgram::~MaterialToProgram() {
@@ -322,15 +323,25 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
         src += "\t" + (*i) + "\n";
     }
 
+    std::string output_target = "\tgl_FragColor";
+    if (m_Position_Output || m_Normal_Ouput) {
+        output_target = "\tgl_FragData[0]";
+        if(m_Position_Output)
+            src += "gl_FragData[1] = vec4(v_pos_mv.xyz,1.0);\n";
+        if (m_Normal_Ouput)
+            src += "gl_FragData[2] = vec4(N,1.0);\n";
+    }
+
     if (hasLight)
     {
         if (m_Shadows && hasShadow)
-            src += "\tgl_FragColor = vec4(vec3(shadowMask * (diff * colDiff + spec * colSpec)), alpha);\n"; // 
+            src += output_target + " = vec4(vec3(shadowMask * (diff * colDiff + spec * colSpec)), alpha);\n";
         else
-            src += "\tgl_FragColor = vec4(diff * colDiff + spec * colSpec, alpha);\n";
+            src += output_target + " = vec4(diff * colDiff + spec * colSpec, alpha);\n";
     }
     else 
-        src += "\tgl_FragColor = vec4(colDiff, alpha);\n";
+        src += output_target + " = vec4(colDiff, alpha);\n";
+
 
     src += "}\n";
 

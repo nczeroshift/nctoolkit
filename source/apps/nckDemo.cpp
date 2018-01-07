@@ -38,9 +38,10 @@
 #include "demos/nckDemo_Metaballs.h"
 #include "demos/nckDemo_Serial.h"
 #include "demos/nckDemo_Frustum.h"
+#include "demos/nckDemo_DepthOfField.h"
 
 int DemoCount() {
-    return 32;
+    return 33;
 }
 
 Demo * DemoCreate(int i, Core::Window * wnd, Graph::Device * dev) {
@@ -77,6 +78,7 @@ Demo * DemoCreate(int i, Core::Window * wnd, Graph::Device * dev) {
         CreateDemo_Webcam,
         CreateDemo_Serial,
         CreateDemo_Frustum,
+        CreateDemo_DepthOfField
     };
     
     if (i < DemoCount())

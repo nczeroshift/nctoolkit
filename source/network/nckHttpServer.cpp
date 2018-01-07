@@ -222,7 +222,7 @@ void HttpServerContext::Stop()
 
 void HttpServerContext::Start(int port, int connections)
 {
-	sockaddr_in6 name;
+	sockaddr_in name;
 	
 #if defined(NCK_WINDOWS)
 	WSADATA wsaData;
@@ -233,7 +233,7 @@ void HttpServerContext::Start(int port, int connections)
 	signal(SIGPIPE, SIG_IGN);
 #endif
 
-	httpdSocket = socket(PF_INET6, SOCK_STREAM, IPPROTO_TCP);
+	httpdSocket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
 	httpdPort = port;
 
 	if (httpdSocket == -1)
@@ -249,9 +249,9 @@ void HttpServerContext::Start(int port, int connections)
 
 	memset(&name, 0, sizeof(name));
 
-	name.sin6_family = AF_INET6;
-	name.sin6_port = htons(httpdPort);
-	name.sin6_addr = in6addr_any;
+	name.sin_family = AF_INET;
+	name.sin_port = htons(httpdPort);
+	name.sin_addr = in4addr_any;
     
 	if (bind(httpdSocket, (struct sockaddr *)&name, sizeof(name)) < 0){
 		THROW_EXCEPTION("Unable to bind address family to socket");
@@ -264,7 +264,7 @@ void HttpServerContext::Start(int port, int connections)
 		if (getsockname(httpdSocket, (struct sockaddr *)&name,(socklen_t*) &namelen) == -1)
 			THROW_EXCEPTION("Unable to get the bounded socket port");
 
-		httpdPort = ntohs(name.sin6_port);
+		httpdPort = ntohs(name.sin_port);
 	}
 
     struct timeval socket_tv;
@@ -342,15 +342,15 @@ void * HttpServerContext::ConnectionCallback(void * data)
 			while(context->dispatcher->GetActiveThreadsCount()>5)
 				Core::Thread::Wait(1);
 
-			struct sockaddr_in6 clientAddr;
+			struct sockaddr_in clientAddr;
 			int clientAddrLen = sizeof(clientAddr);
 
 			int clientSocket = accept(context->httpdSocket,
 							   (struct sockaddr *)&clientAddr,
 							   (socklen_t*)&clientAddrLen);
 
-            char addrStr[INET6_ADDRSTRLEN];
-            inet_ntop(AF_INET6, &(clientAddr.sin6_addr), addrStr, INET6_ADDRSTRLEN);
+            char addrStr[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &(clientAddr.sin_addr), addrStr, INET_ADDRSTRLEN);
                         
             struct timeval socket_tv;
             socket_tv.tv_sec = 10;
@@ -560,13 +560,13 @@ void * HttpServerContext::HandleRequestCallback(void * data)
 		}
 		else if(strType == "POST")
 		{
-            context->SendPostCreated(dCtx->clientSocket);
-            
             std::string dataStr = ReadStream(dCtx);
             std::map<std::string,std::string> dataMap = mapParamaters(dataStr);
             
             if(context->callbackHandler)
                 context->callbackHandler->PostRequest(dCtx->clientAdress, strPath, strVersion, headerMap, dataMap);
+
+            context->SendPostCreated(dCtx->clientSocket);
 		}
 		else
 		{

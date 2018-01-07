@@ -32,7 +32,13 @@ public:
     void EnableLightDepth(bool flag);
 
     void EnableShadows(bool flag);
+
+    void EnablePositionOutput(bool flag) {m_Position_Output = flag;}
+    void EnableNormalOutput(bool flag) { m_Normal_Ouput = flag; }
 private:
+    bool m_Position_Output;
+    bool m_Normal_Ouput;
+
     bool m_Shadows;
     bool m_sRGB_support;
     bool m_armature_support;
