@@ -6,6 +6,8 @@
 
 #include "nckDemo_Selector.h"
 
+//#define RUN_DEMO 32
+
 class GraphicRendering : public virtual Core::Threadable, public virtual DemoSelector_Callback
 {
 public:

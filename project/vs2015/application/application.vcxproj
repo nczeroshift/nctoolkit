@@ -137,6 +137,7 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Serial.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Shadows.h" />
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_SSAO.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture2D.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture3D.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_TextureCubemap.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Serial.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Shadows.cpp" />
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_SSAO.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture2D.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture3D.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_TextureCubemap.cpp" />

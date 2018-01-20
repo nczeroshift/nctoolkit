@@ -136,6 +136,9 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.h">
       <Filter>Source Files\demos</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_SSAO.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\apps\main.cpp">
@@ -244,6 +247,9 @@
       <Filter>Source Files\demos</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_SSAO.cpp">
       <Filter>Source Files\demos</Filter>
     </ClCompile>
   </ItemGroup>
