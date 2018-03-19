@@ -70,11 +70,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\network\nckHttpObjects.cpp" />
     <ClCompile Include="..\..\..\source\network\nckHttpServer.cpp" />
+    <ClCompile Include="..\..\..\source\network\nckUriCodec.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\network\nckHttpObjects.h" />
     <ClInclude Include="..\..\..\source\network\nckHttpServer.h" />
     <ClInclude Include="..\..\..\source\network\nckNetworkConfig.h" />
+    <ClInclude Include="..\..\..\source\network\nckUriCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\core.vcxproj">

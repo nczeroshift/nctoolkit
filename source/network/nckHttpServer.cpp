@@ -38,15 +38,17 @@
 #include "nckUtils.h"
 #include "nckDataIO.h"
 
+#include "nckUriCodec.h"
+
 #if defined (NCK_WINDOWS)
 	#define CLOSE_SOCKET(s) closesocket(s)
 #else
+    extern int errno;
 	#define CLOSE_SOCKET(s) close(s)
 #endif
 
-extern int errno;
-
 _NETWORK_BEGIN
+
 
 class HttpDispatchedThreadContext
 {
@@ -171,7 +173,9 @@ public:
 	void SendHeaders(int client, MIMEType type);
 	MIMEType GetMIMEType(const std::string & filename);
     void SendPostCreated(int client);
+    void SendPostCreated(int client,HttpResponse * r);
     void SendForbiddenRequest(int client);
+    void SendGetCreated(int client, HttpResponse * r);
 };
 
 
@@ -367,24 +371,6 @@ void * HttpServerContext::ConnectionCallback(void * data)
 	return NULL;
 }
 
-static std::string urlDecode(std::string src){
-    std::string ret;
-    for(int i = 0; i < src.length(); i++){
-        std::string sub = src.substr(i,3);
-        if(sub.size() == 3 && sub[0] == '%'){
-            char tmp[3] = {sub[1],sub[2],'\0'};
-            int number = (int)strtol(tmp, NULL, 16);
-            ret += (char)number;
-            i+=2;
-        }
-        else if(src[i] == '+')
-            ret += " ";
-        else
-            ret += src[i];
-    }
-    return ret;
-}
-
 static std::map<std::string, std::string> mapHeader(const std::string & src){
     std::map<std::string, std::string> ret;
     size_t index ;
@@ -413,49 +399,6 @@ static std::map<std::string, std::string> mapHeader(const std::string & src){
     return ret;
 }
 
-static std::map<std::string,std::string> mapParamaters(const std::string & src){
-    std::map<std::string,std::string> parameters;
-    bool newParam = false;
-    bool newValue = false;
-    std::string strParam="";
-    std::string strValue="";
-    
-    for(size_t i = 0; i < src.length(); i++)
-    {
-        if((src[i] == '&' || src[i]== '?' ) && !newParam)
-        {
-            if(strParam.length()!=0)
-            {
-                strValue = urlDecode(strValue);
-                parameters.insert(std::pair<std::string,std::string>(strParam,strValue));
-                strParam = "";
-                strValue = "";
-            }
-            newParam = true;
-        }
-        else if(src[i] == '=' && newParam)
-        {
-            newParam = false;
-            newValue = true;
-        }
-        else if(newParam){
-            strParam+= src[i];
-        }
-        else if(newValue){
-            strValue+= src[i];
-        }
-            
-    }
-        
-    if(strParam.length()!=0)
-    {
-        strValue = urlDecode(strValue);
-        parameters.insert(std::pair<std::string,std::string>(strParam,strValue));
-        strParam = "";
-        strValue = "";
-    }
-    return parameters;
-}
 
 static std::string ReadStream(HttpDispatchedThreadContext * dCtx){
     HttpServerContext * context = dCtx->context;
@@ -478,104 +421,97 @@ void * HttpServerContext::HandleRequestCallback(void * data)
 
 	std::string line;
 
-	if(FetchLine(dCtx->clientSocket,&line))
-	{
+    if (FetchLine(dCtx->clientSocket, &line))
+    {
         line = Core::ltrim(line);
 
-		size_t firstSpace = line.find_first_of(" ");
-		size_t endSpace = line.find_last_of(" ");
+        size_t firstSpace = line.find_first_of(" ");
+        size_t endSpace = line.find_last_of(" ");
 
-		std::string strType = line.substr(0,firstSpace);
-		std::string strPath = Core::ltrim(line.substr(firstSpace,endSpace-firstSpace));
-		std::string strVersion = Core::rtrim(Core::ltrim(line.substr(endSpace,line.length()-endSpace)));
+        std::string strType = line.substr(0, firstSpace);
+        std::string strPath = Core::ltrim(line.substr(firstSpace, endSpace - firstSpace));
+        std::string strVersion = Core::rtrim(Core::ltrim(line.substr(endSpace, line.length() - endSpace)));
 
-		MIMEType mType = context->GetMIMEType(strPath);
+        MIMEType mType = context->GetMIMEType(strPath);
 
-		std::string headerStr = ReadStream(dCtx);
-        std::map<std::string,std::string> headerMap = mapHeader(headerStr);
-        std::map<std::string,std::string> paramMap;
-        if(strPath.find_first_of("?") != std::string::npos)
-            paramMap = mapParamaters(strPath);
-
-		if(strType == "GET")
-		{
-            if(context->callbackHandler && !context->callbackHandler->GetRequest(dCtx->clientAdress, strPath, strVersion, headerMap)){
-                // Content not accessible
-                context->SendForbiddenRequest(dCtx->clientSocket);
+        std::string headerStr = ReadStream(dCtx);
+        std::map<std::string, std::string> headerMap = mapHeader(headerStr);
+        std::map<std::string, std::string> paramMap;
+        if (strPath.find_first_of("?") != std::string::npos) {
+            std::vector<std::pair<std::string, std::string>> p;
+            UriParseParameters((char*)strPath.c_str(), strPath.size(), &p);
+            for (size_t i = 0; i < p.size(); i++) {
+                paramMap.insert(std::pair<std::string, std::string>(p[i].first,p[i].second));
             }
-            else if(strPath == "/")
-			{
-                // Serve root document
-				context->SendRootDocument(dCtx->clientSocket);
-                
-				if(context->callbackHandler)
-					context->callbackHandler->SendFileEvent(dCtx->clientAdress, "index.html", mType);
-			}
-            else if(strPath.find("/x/") != std::string::npos)
+            strPath = strPath.substr(0, strPath.find_first_of("?"));
+        }
+
+        HttpRequest request;
+        request.SetPath(strPath);
+        request.SetType(mType);
+        request.SetAddress(dCtx->clientAdress);
+        request.SetVersion(strVersion);
+
+        MapFor(std::string, std::string, headerMap, i) {
+            request.SetHeader(i->first, i->second);
+        }
+
+        MapFor(std::string, std::string, paramMap, i) {
+            request.SetParameter(i->first, i->second);
+        }
+
+        request.SetMethod(strType);
+
+        HttpResponse response;
+        if (context->callbackHandler && !context->callbackHandler->AllowRequest(&request, &response)) {
+            // Content not accessible
+            context->SendForbiddenRequest(dCtx->clientSocket);
+        }
+        else {
+            if (strType == "GET")
             {
-                // Extended server capabilites
-                bool json = strPath.find(".json") != std::string::npos;
-                bool bmp = strPath.find(".bmp") != std::string::npos;
-                bool jpg = strPath.find(".jpg") != std::string::npos;
-                
-                if(bmp || jpg){
-                    Core::ImageType imgType;
-                    if(bmp) imgType = Core::IMAGE_TYPE_BMP;
-                    else if(jpg) imgType = Core::IMAGE_TYPE_JPEG;
-                    
-                    if(paramMap.size() > 0)
-                    {
-                        if(context->callbackHandler)
-                        {
-                            unsigned char * data = NULL;
-                            size_t size = context->callbackHandler->GetImage(dCtx->clientAdress, imgType, paramMap, &data);
-                            if(size > 0 && data != NULL)
-                                context->SendImageData(dCtx->clientSocket, imgType, data, size);
-                            else
-                                context->SendBadRequest(dCtx->clientSocket);
-                        }
-                    }
-                }
-                else if(json)
+                if (strPath == "/")
                 {
-                    if(context->callbackHandler)
-                        context->SendJSONText(dCtx->clientSocket, context->callbackHandler->GetJSON(dCtx->clientAdress, paramMap));
+                    // Serve root document
+                    context->SendRootDocument(dCtx->clientSocket);
+                }
+                else if (strPath.find("/x/") != std::string::npos)
+                {
+                   
+
+                    if (context->callbackHandler && context->callbackHandler->HandleRequest(&request, &response)) {
+                        context->SendGetCreated(dCtx->clientSocket, &response);
+                    }
+                    else
+                        context->SendBadRequest(dCtx->clientSocket);
+                }
+                else
+                {
+                    context->SendFile(dCtx->clientSocket, strPath, mType);
+                }
+            }
+            else if (strType == "POST")
+            {
+                if (strPath.find("/x/") != std::string::npos) {
+                    std::string dataStr = ReadStream(dCtx);
+                    request.GetBuffer()->Push(dataStr);
+                    if (context->callbackHandler && context->callbackHandler->HandleRequest(&request, &response))
+                        context->SendPostCreated(dCtx->clientSocket, &response);
+                    else
+                        context->SendBadRequest(dCtx->clientSocket);
                 }
                 else
                     context->SendBadRequest(dCtx->clientSocket);
             }
-			else
-			{
-                // Send an existing file.
-                bool sendFile = true;
-                
-				if(context->callbackHandler)
-					sendFile = context->callbackHandler->SendFileEvent(dCtx->clientAdress, strPath, mType);
-                
-                if(sendFile)
-                    context->SendFile(dCtx->clientSocket, strPath, mType);
-                else
-                    context->SendBadRequest(dCtx->clientSocket);
-			}
-		}
-		else if(strType == "POST")
-		{
-            std::string dataStr = ReadStream(dCtx);
-            std::map<std::string,std::string> dataMap = mapParamaters(dataStr);
-            
-            if(context->callbackHandler)
-                context->callbackHandler->PostRequest(dCtx->clientAdress, strPath, strVersion, headerMap, dataMap);
+            else
+            {
+                if (context->callbackHandler)
+                    context->callbackHandler->UnsupportedRequest(&request);
 
-            context->SendPostCreated(dCtx->clientSocket);
-		}
-		else
-		{
-			if(context->callbackHandler)
-				context->callbackHandler->UnsupportedRequest(dCtx->clientAdress, strPath, strVersion, headerMap);
-
-			printf("Unsupported request method (%s)\n",strType.c_str());
-		}
-	}
+                printf("Unsupported request method (%s)\n", strType.c_str());
+            }
+        }
+    }
 
 	CLOSE_SOCKET(dCtx->clientSocket);
 
@@ -613,6 +549,70 @@ void HttpServerContext::SendPostCreated(int client){
     strcpy(buf, "\r\n");
     send(client, buf, strlen(buf), 0);
 
+}
+
+
+void HttpServerContext::SendPostCreated(int client, HttpResponse * r) {
+    char buf[1024];
+    sprintf(buf, "HTTP/1.0 %d CREATED\r\n",r->GetStatusCode());
+    send(client, buf, strlen(buf), 0);
+
+    if (r->GetType() == MIME_JSON_TEXT)
+        sprintf(buf, "Content-Type: application/json\r\n");
+    else if(r->GetType() == MIME_PLAIN_TEXT)
+        sprintf(buf, "Content-Type: text/plain\r\n");
+    
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Accept-Encoding:\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Cache-Control: max-age=0, no-cache, no-store\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Pragma: no-cache\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Content-Length: %d\r\n",r->GetBuffer()->Size());
+    send(client, buf, strlen(buf), 0);
+
+    strcpy(buf, "\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    SendData(client, (unsigned char*)r->GetBuffer()->GetData(), r->GetBuffer()->Size(), 0);
+}
+
+
+void HttpServerContext::SendGetCreated(int client, HttpResponse * r) {
+    char buf[1024];
+    sprintf(buf, "HTTP/1.0 %d CREATED\r\n", r->GetStatusCode());
+    send(client, buf, strlen(buf), 0);
+
+    if (r->GetType() == MIME_JSON_TEXT)
+        sprintf(buf, "Content-Type: application/json\r\n");
+    else if (r->GetType() == MIME_PLAIN_TEXT)
+        sprintf(buf, "Content-Type: text/plain\r\n");
+    else if (r->GetType() == MIME_JPEG_IMAGE)
+        sprintf(buf, "Content-Type: image/jpg\r\n");
+
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Accept-Encoding:\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Cache-Control: max-age=0, no-cache, no-store\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Pragma: no-cache\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    sprintf(buf, "Content-Length: %d\r\n", r->GetBuffer()->Size());
+    send(client, buf, strlen(buf), 0);
+
+    strcpy(buf, "\r\n");
+    send(client, buf, strlen(buf), 0);
+
+    SendData(client, (unsigned char*)r->GetBuffer()->GetData(), r->GetBuffer()->Size(), 0);
 }
 
 void HttpServerContext::SendNotFound(int client)

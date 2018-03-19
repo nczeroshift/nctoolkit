@@ -11,12 +11,16 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\codecs\JSON.cpp" />
+    <ClCompile Include="..\..\..\source\codecs\JSONValue.cpp" />
     <ClCompile Include="..\..\..\source\xml\tinystr.cpp" />
     <ClCompile Include="..\..\..\source\xml\tinyxml.cpp" />
     <ClCompile Include="..\..\..\source\xml\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\source\xml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\source\codecs\JSON.h" />
+    <ClInclude Include="..\..\..\source\codecs\JSONValue.h" />
     <ClInclude Include="..\..\..\source\xml\tinystr.h" />
     <ClInclude Include="..\..\..\source\xml\tinyxml.h" />
   </ItemGroup>

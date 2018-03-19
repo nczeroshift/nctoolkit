@@ -21,9 +21,7 @@ public:
     std::string GetDescription();
 
 private:
-    virtual size_t GetImage(const std::string & srcAddr, Core::ImageType type,
-        std::map<std::string, std::string> params, unsigned char ** data);
-
+    bool HandleRequest(Network::HttpRequest * request, Network::HttpResponse * response);
     static void UpdateTitle(Demo_HttpStream * demo);
 
     Network::HttpServer * server;

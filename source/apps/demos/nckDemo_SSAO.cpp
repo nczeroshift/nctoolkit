@@ -24,6 +24,7 @@ Demo_SSAO::~Demo_SSAO(){
     SafeDelete(tex_direct);
     SafeDelete(tex_position);
     SafeDelete(tex_normal);
+    SafeDelete(model);
     SafeDelete(mng);
     SafeDelete(prog);
     SafeDelete(shape);

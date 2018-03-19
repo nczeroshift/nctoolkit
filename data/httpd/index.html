@@ -1,5 +1,6 @@
 <html>
 <head>
+ <meta charset="UTF-8">
 <title>nctoolkit</title>
 <script type="text/javascript" src="jquery-1.6.4.min.js"></script> 
 <link rel="stylesheet" href="index.css" type="text/css">
@@ -34,27 +35,35 @@ $(document).ready(function(){
 	});
 
 	$("#testButton_Default").click(function(){
+        var js = {background:"grey"};
+        var js_str = JSON.stringify(js);
+        
 		$.ajax({
 			url:"/x/data.json",
-			data:{background:"default"},
-			dataType:"json",
+            method:"POST",
+            type:"POST",
+            contentType:"application/javascript",
+			data:js_str,
 			success: function(data) {
-				//console.warn(data.state);
-				$("#output").html("server response -> " + data.state);
+				$("#output").html("server response -> " +data);
 			}
 		});
 	});
 
 	$("#testButton_Yellow").click(function(){
+        var js = {background:"yellow"};
+        var js_str = JSON.stringify(js);
+        
 		$.ajax({
 			url:"/x/data.json",
-			data:{background:"yellow"},
-			dataType:"json",
+            method:"POST",
+            type:"POST",
+            contentType:"application/javascript",
+			data:js_str,
 			success: function(data) {
-				//console.warn(data.state);
-				$("#output").html("server response -> " +data.state);
+				$("#output").html("server response -> " +data);
 			}
-		});	
+		});
 	});
 });
 

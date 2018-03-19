@@ -5,7 +5,8 @@
 */
 
 #include "nckDemo_HttpServer.h"
-
+#include "nckUriCodec.h"
+#include "../codecs/JSON.h"
 
 class CustomRequestHandler : public Network::HttpCallbackHandler
 {
@@ -31,63 +32,41 @@ public:
         return backgroundYellow;
     }
 
-    virtual bool GetRequest(const std::string & srcAddr,
-        const std::string & path,
-        const std::string & version,
-        const std::map<std::string, std::string> & headers)
-    {
-        AddMessage("GET { path : " + path + ", version : " + version + " }");
+    bool AllowRequest(Network::HttpRequest * request, Network::HttpResponse * response) {
+        AddMessage(request->GetMethod() + " { path : " + request->GetPath() + "}");
         return true;
     }
 
-    virtual void PostRequest(const std::string & srcAddr,
-        const std::string & path,
-        const std::string & version,
-        const std::map<std::string, std::string> & headers,
-        const std::map<std::string, std::string> & params)
-    {
-        AddMessage("POST { path : " + path + ", version : " + version + " }");
+    bool HandleRequest(Network::HttpRequest * request, Network::HttpResponse * response) {
+        if (request->GetMethod() == "POST") {
+            std::string contents;
+            request->GetBuffer()->ToString(&contents);
+            JSONValue * v = JSON::Parse(contents.c_str());
+
+            if (v->HasChild("background")) {
+                JSONValue * bg = v->Child("background");
+                if (bg->AsString() == "grey") {
+                    backgroundYellow = false;
+                    AddMessage("changed to grey");
+                }
+                else {
+                    backgroundYellow = true;
+                    AddMessage("changed to yellow");
+                }
+            }
+
+            SafeDelete(v);
+            
+            response->SetStatusCode(200);
+            response->GetBuffer()->Push("ok!");
+        }
+
+        return true;
     }
 
-    virtual void UnsupportedRequest(const std::string & srcAddr,
-        const std::string & path,
-        const std::string & version,
-        const std::string & headers)
+    virtual void UnsupportedRequest(Network::HttpRequest * request)
     {
         AddMessage("UNSUPPORTED");
-    }
-
-    /*void SendFileEvent(const Network::Ipv6Address & src,
-    const std::string & path,
-    Network::MIMEType type){
-    AddMessage("FILE DATA { path : "+path+" }");
-    }*/
-
-    virtual std::string GetJSON(const std::string & srcAddr,
-        std::map<std::string, std::string> params) {
-        AddMessage("JSON webapp-serverapp");
-
-        for (std::map<std::string, std::string>::iterator i = params.begin(); i != params.end(); i++) {
-            AddMessage("  {" + (*i).first + ":" + (*i).second.c_str() + "}");
-        }
-
-        if (params.find("background") != params.end())
-        {
-            std::string retstate = "";
-
-            if (backgroundYellow)
-                retstate = "{\"state\":\"background was yellow\"}";
-            else
-                retstate = "{\"state\":\"background was gray\"}";
-
-            if (params.find("background")->second == "default")
-                backgroundYellow = false;
-            else if (params.find("background")->second == "yellow")
-                backgroundYellow = true;
-
-            return retstate;
-        }
-        return "";
     }
 
     void AddMessage(const std::string & text)

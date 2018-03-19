@@ -59,32 +59,32 @@ void Demo_HttpStream::Load(){
     wnd->SetTitle(wnd->GetTitle() + " (http://localhost:" + Math::IntToString(server->GetPort()) + "/preview.html)");
 }
 
+bool Demo_HttpStream::HandleRequest(Network::HttpRequest * request, Network::HttpResponse * response) {
+    if (request->GetMethod() == "GET") {
+        fetchPicture = true;
 
-size_t Demo_HttpStream::GetImage(const std::string & srcAddr, Core::ImageType type,
-    std::map<std::string, std::string> params, unsigned char ** data)
-{
-    fetchPicture = true;
+        Core::Chronometer * chron = Core::CreateChronometer(true);
+        chron->Start();
 
-    Core::Chronometer * chron = Core::CreateChronometer(true);
-    chron->Start();
+        // Since we can't know when the thread is canceling, if the picture 
+        // isn't resolved in less than 1 sec, exit.
+        while (fetchPicture && chron->GetElapsedTime()<1000)
+            Core::Thread::Wait(1);
 
-    // Since we can't know when the thread is canceling, if the picture 
-    // isn't resolved in less than 1 sec, exit.
-    while (fetchPicture && chron->GetElapsedTime()<1000)
-        Core::Thread::Wait(1);
+        if (chron->GetElapsedTime()>1e6) {
+            SafeDelete(chron);
+            return 0;
+        }
 
-    if (chron->GetElapsedTime()>1e6) {
         SafeDelete(chron);
-        return 0;
+
+        size_t size = rawBuffer->Save(Core::IMAGE_TYPE_JPEG, 80, &fileBuffer);
+
+        response->SetType(Network::MIME_JPEG_IMAGE);
+        response->GetBuffer()->Push(fileBuffer, size);
+        response->SetStatusCode(200);
     }
-
-    SafeDelete(chron);
-
-    size_t size = rawBuffer->Save(Core::IMAGE_TYPE_JPEG, 80, &fileBuffer);
-
-    *data = fileBuffer;
-
-    return size;
+    return true;
 }
 
 void Demo_HttpStream::Render(float dt) {
