@@ -477,7 +477,7 @@ void * HttpServerContext::HandleRequestCallback(void * data)
                 }
                 else if (strPath.find("/x/") != std::string::npos)
                 {
-                   
+
 
                     if (context->callbackHandler && context->callbackHandler->HandleRequest(&request, &response)) {
                         context->SendGetCreated(dCtx->clientSocket, &response);
@@ -493,8 +493,14 @@ void * HttpServerContext::HandleRequestCallback(void * data)
             else if (strType == "POST")
             {
                 if (strPath.find("/x/") != std::string::npos) {
-                    std::string dataStr = ReadStream(dCtx);
+
+                    //std::string dataStr = ReadStream(dCtx);
+                    std::string dataStr,temp;
+                    while (context->FetchLine(dCtx->clientSocket, &temp)) {
+                        dataStr += temp;
+                    }
                     request.GetBuffer()->Push(dataStr);
+
                     if (context->callbackHandler && context->callbackHandler->HandleRequest(&request, &response))
                         context->SendPostCreated(dCtx->clientSocket, &response);
                     else
@@ -524,7 +530,7 @@ void * HttpServerContext::HandleRequestCallback(void * data)
 
 void HttpServerContext::SendPostCreated(int client){
     char buf[1024];
-    strcpy(buf, "HTTP/1.0 201 CREATED\r\n");
+    strcpy(buf, "HTTP/1.1 201 CREATED\r\n");
     send(client, buf, strlen(buf), 0);
     
     //sprintf(buf,"Accept: application/json, text/javascript, */*; q=0.01\r\n");
@@ -554,7 +560,7 @@ void HttpServerContext::SendPostCreated(int client){
 
 void HttpServerContext::SendPostCreated(int client, HttpResponse * r) {
     char buf[1024];
-    sprintf(buf, "HTTP/1.0 %d CREATED\r\n",r->GetStatusCode());
+    sprintf(buf, "HTTP/1.1 %d CREATED\r\n",r->GetStatusCode());
     send(client, buf, strlen(buf), 0);
 
     if (r->GetType() == MIME_JSON_TEXT)
@@ -585,17 +591,23 @@ void HttpServerContext::SendPostCreated(int client, HttpResponse * r) {
 
 void HttpServerContext::SendGetCreated(int client, HttpResponse * r) {
     char buf[1024];
-    sprintf(buf, "HTTP/1.0 %d CREATED\r\n", r->GetStatusCode());
+    sprintf(buf, "HTTP/1.1 %d CREATED\r\n", r->GetStatusCode());
     send(client, buf, strlen(buf), 0);
 
-    if (r->GetType() == MIME_JSON_TEXT)
-        sprintf(buf, "Content-Type: application/json\r\n");
-    else if (r->GetType() == MIME_PLAIN_TEXT)
-        sprintf(buf, "Content-Type: text/plain\r\n");
-    else if (r->GetType() == MIME_JPEG_IMAGE)
-        sprintf(buf, "Content-Type: image/jpg\r\n");
+    if (!r->HasHeader("Content-Type")) {
+        if (r->GetType() == MIME_JSON_TEXT)
+            sprintf(buf, "Content-Type: application/json\r\n");
+        else if (r->GetType() == MIME_PLAIN_TEXT)
+            sprintf(buf, "Content-Type: text/plain\r\n");
+        else if (r->GetType() == MIME_JPEG_IMAGE)
+            sprintf(buf, "Content-Type: image/jpg\r\n");
+        send(client, buf, strlen(buf), 0);
+    }
 
-    send(client, buf, strlen(buf), 0);
+    MapFor(std::string, std::string, r->m_Headers, i) {
+        sprintf(buf, "%s: %s\r\n",i->first.c_str(),i->second.c_str());
+        send(client, buf, strlen(buf), 0);
+    }
 
     sprintf(buf, "Accept-Encoding:\r\n");
     send(client, buf, strlen(buf), 0);
@@ -619,7 +631,7 @@ void HttpServerContext::SendNotFound(int client)
 {
 	char buf[1024];
 
-	sprintf(buf, "HTTP/1.0 404 NOT FOUND\r\n");
+	sprintf(buf, "HTTP/1.1 404 NOT FOUND\r\n");
 	send(client, buf, strlen(buf), 0);
 	sprintf(buf, NCK_SERVERSTRING);
 	send(client, buf, strlen(buf), 0);
@@ -643,7 +655,7 @@ void HttpServerContext::SendForbiddenRequest(int client)
 {
     char buf[1024];
     
-    sprintf(buf, "HTTP/1.0 403 BAD REQUEST\r\n");
+    sprintf(buf, "HTTP/1.1 403 BAD REQUEST\r\n");
     send(client, buf, sizeof(buf), 0);
     sprintf(buf, "Content-type: text/html\r\n");
     send(client, buf, sizeof(buf), 0);
@@ -655,7 +667,7 @@ void HttpServerContext::SendBadRequest(int client)
 {
 	char buf[1024];
 
-	sprintf(buf, "HTTP/1.0 400 BAD REQUEST\r\n");
+	sprintf(buf, "HTTP/1.1 400 BAD REQUEST\r\n");
 	send(client, buf, sizeof(buf), 0);
 	sprintf(buf, "Content-type: text/html\r\n");
 	send(client, buf, sizeof(buf), 0);
@@ -671,7 +683,7 @@ void HttpServerContext::SendUnimplemented(int client)
 {
 	char buf[1024];
 
-	sprintf(buf, "HTTP/1.0 501 Method Not Implemented\r\n");
+	sprintf(buf, "HTTP/1.1 501 Method Not Implemented\r\n");
 	send(client, buf, strlen(buf), 0);
 	sprintf(buf, NCK_SERVERSTRING);
 	send(client, buf, strlen(buf), 0);
@@ -811,7 +823,7 @@ void HttpServerContext::SendRootDocument(int client){
 void HttpServerContext::SendHeaders(int client,MIMEType type)
 {
 	char buf[1024];
-	strcpy(buf, "HTTP/1.0 200 OK\r\n");
+	strcpy(buf, "HTTP/1.1 200 OK\r\n");
 	send(client, buf, strlen(buf), 0);
 	strcpy(buf, NCK_SERVERSTRING);
 	send(client, buf, strlen(buf), 0);

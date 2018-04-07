@@ -12,17 +12,13 @@
 !*.a
 
 *.build
-*/vs2010/*/Debug/*
-*/vs2010/*/Release/*
-*/vs2010/Debug/*
-*/vs2010/Release/*
-*/vs2010/ipch/*
+*.vs
 
-*/vs2015/*/Debug/*
-*/vs2015/*/Release/*
-*/vs2015/Debug/*
-*/vs2015/Release/*
-*/vs2015/ipch/*
+*/vs/*/Debug/*
+*/vs/*/Release/*
+*/vs/Debug/*
+*/vs/Release/*
+*/vs/ipch/*
 
 */xcode/*/build/*
 xcuserdata

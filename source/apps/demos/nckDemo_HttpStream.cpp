@@ -50,7 +50,7 @@ void Demo_HttpStream::Load(){
             server = Network::HttpServer::Create(0); // Find an available port
         }
         catch (const Core::Exception & ex2) {
-            ex.PrintStackTrace();
+			ex2.PrintStackTrace();
             return;
         }
     }
@@ -114,7 +114,7 @@ void Demo_HttpStream::Render(float dt) {
 
     model->Render();
     shader->Disable();
-    zRotation += 0.1;
+    zRotation += 0.1f;
 
     if (fetchPicture) {
         dev->Capture(0, 0, rawBuffer->GetWidth(), rawBuffer->GetHeight(), Graph::FORMAT_RGB_8B, rawBuffer->GetData());

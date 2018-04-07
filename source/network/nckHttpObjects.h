@@ -63,6 +63,8 @@ public:
     std::string GetHeader(const std::string & name);
 
 private:
+
+
     Core::QueueBuffer * m_Buffer;
     MIMEType m_Type;
     int m_StatusCode;
@@ -73,6 +75,8 @@ private:
     std::string m_Version;
     std::string m_Method;
 };
+
+class HttpServerContext;
 
 /// HTTP Response object
 class HttpResponse {
@@ -92,10 +96,13 @@ public:
     void SetHeader(const std::string & name, const std::string & value);
     std::string GetHeader(const std::string & name);
 private:
+    friend class HttpServerContext;
+    std::map<std::string, std::string> m_Headers;
+
     Core::QueueBuffer * m_Buffer;
     MIMEType m_Type;
     int m_StatusCode;
-    std::map<std::string, std::string> m_Headers;
+
     std::string m_Path;
     std::string m_Address;
     std::string m_Version;

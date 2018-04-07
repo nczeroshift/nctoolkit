@@ -86,11 +86,8 @@ std::string GetDataFolder()
 
 		size_t projectPosition = -1;
 
-		if( ((projectPosition=app_data_folder->find("project/eclipse/")) != std::string::npos) || 
-			((projectPosition=app_data_folder->find("project/pybuild/")) != std::string::npos) || 
-				((projectPosition=app_data_folder->find("project\\vs2010\\")) != std::string::npos) ||
-				((projectPosition = app_data_folder->find("project\\vs2015\\")) != std::string::npos) ||
-				((projectPosition=app_data_folder->find("project/monodevelop/")) != std::string::npos) ||
+		if(((projectPosition=app_data_folder->find("project/pybuild/")) != std::string::npos) || 
+				((projectPosition = app_data_folder->find("project\\vs\\")) != std::string::npos) ||
                 ((projectPosition=app_data_folder->find("project/xcode/")) != std::string::npos))
 		{
 			*app_data_folder = app_data_folder->substr(0,projectPosition);
@@ -528,20 +525,25 @@ int64_t GetFileLastModified(const std::string & filename) {
 }
 
 FileWriter::~FileWriter() {
+    if (fHandle)
+        fclose(fHandle);
     fHandle = NULL;
 }
 
 FileWriter * FileWriter::Open(const std::string & filename, bool append) {
-    FileWriter * ret = new FileWriter();
-    ret->m_Length = 0;
-    ret->fHandle = NULL;
-
+    int64_t length = 0;
     if (FileReader::Exists(filename))
-        ret->m_Length = FileReader::Size(filename);
+        length = FileReader::Size(filename);
     
     std::string resolved = ResolveFilename(filename);
-    ret->fHandle = fopen(resolved.c_str(), "wb");
-    
+    FILE * file = fopen(resolved.c_str(), "wb");
+
+    if (file == NULL)
+        return NULL;
+
+    FileWriter * ret = new FileWriter();
+    ret->fHandle = file;
+    ret->m_Length = length;
     return ret;
 }
 

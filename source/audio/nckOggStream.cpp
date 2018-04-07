@@ -173,7 +173,7 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 								float  *mono=pcm[i];
 								for(j=0;j<bout;j++)
 								{
-									int val=floor(mono[j]*32767.f+.5f);
+									int val = (int)floor(mono[j]*32767.f+.5f);
 
 									/// might as well guard against clipping
 									if(val>32767){
@@ -221,7 +221,7 @@ int OggStream::Read(int dataSize, uint8_t * dataBuffer)
 }
 
 void OggStream::updateGranulate(int dataSize) {
-    currentTime = vorbis_granule_time(&vd, vd.granulepos) * 1e6;
+    currentTime = (int64_t)(vorbis_granule_time(&vd, vd.granulepos) * 1e6);
 }
 
 OggStream * OggStream::Load(const std::string & filename)
@@ -256,7 +256,7 @@ OggStream * OggStream::Load(Core::DataReader * reader){
 }
 
 int64_t OggStream::GetDuration(){
-	return 8 * (1e6 * fLength) / vi.bitrate_nominal;
+	return (int64_t)(8 * (1e6 * fLength) / vi.bitrate_nominal);
 }
 
 int64_t OggStream::GetTime() {

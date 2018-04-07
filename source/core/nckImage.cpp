@@ -292,7 +292,7 @@ int SaveJPG(unsigned int width, unsigned int height,unsigned char *data,float qu
 	cinfo.in_color_space   = JCS_RGB;
 
 	jpeg_set_defaults(&cinfo);
-	jpeg_set_quality (&cinfo, 50, TRUE);
+	jpeg_set_quality (&cinfo, quality, TRUE);
 	jpeg_start_compress(&cinfo, TRUE);
 
 	JSAMPROW row_pointer;
