@@ -36,9 +36,7 @@
     #define NCK_WEBCAM_V2L
 #endif
 
-#if defined(NCK_LINUX) | defined(NCK_MACOSX)
-    #define NCK_SERIAL_PORT
-#endif
+#define NCK_SERIAL_PORT
 
 #if defined(NCK_WINDOWS)
     //#define NCK_DIRECTX9

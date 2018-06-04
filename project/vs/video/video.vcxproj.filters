@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="win32">
+      <UniqueIdentifier>{a32af86c-5da8-4ef5-be43-c9f6c4659a28}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\video\nckCameraDevice.h">
@@ -24,6 +27,9 @@
     <ClInclude Include="..\..\..\source\video\nckVideoConfig.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\video\nckCameraDevice_Win32.h">
+      <Filter>win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\video\nckCameraDevice.cpp">
@@ -31,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\source\video\nckColorSpace.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\video\nckCameraDevice_Win32.cpp">
+      <Filter>win32</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

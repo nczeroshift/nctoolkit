@@ -12,6 +12,7 @@ public:
     MaterialToProgram(Graph::Device * dev);
     ~MaterialToProgram();
     Graph::Program * Generate(Scene::Material * mat);
+	std::string GenerateToString(Scene::Material * mat);
 
     void AddIncludeToVSH(const std::string & name) { m_vsh_includes.push_back(name); };
     void AddIncludeToFSH(const std::string & name) { m_fsh_includes.push_back(name); };

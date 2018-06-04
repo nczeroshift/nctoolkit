@@ -5,6 +5,7 @@
  */
  
 #include "nckTransform.h"
+#include "nckVec2.h"
 
 _MATH_BEGIN
 
@@ -66,5 +67,27 @@ Math::Mat44 LookAt(const Math::Vec3 & target, const Math::Vec3 & position, const
 	 return Math::Mat44(m);
 }
 
+Math::Vec2 Project(const Math::Mat44 & projection, const Math::Mat44 & view,const Math::Vec3 & vec, const Math::Vec2 & vpSize) {
+	 const Math::Vec4 proj_pos = Math::Vec4(vec, 1.0) * view * projection;
+	 float x = (proj_pos.GetX() / proj_pos.GetW() / 2.0 + 0.5) * vpSize.GetX();
+	 float y = (-proj_pos.GetY() / proj_pos.GetW() / 2.0 + 0.5) * vpSize.GetY();
+	 return Math::Vec2(x, y);
+}
+
+Math::Vec3 UnProject(const Math::Mat44 & projection, const Math::Mat44 & view, const Math::Vec2 & point, const Math::Vec2 & vpSize, float winZ) {
+	Math::Mat44 transformMat = (view * projection);
+	Math::Mat44 invMat;
+
+	Math::Invert(transformMat, &invMat);
+		
+	float x = (point.GetX() / vpSize.GetX()) * 2.0 - 1.0;
+	float y = (point.GetY() / vpSize.GetY()) * 2.0 - 1.0;
+	float z = 2.0 * winZ - 1.0;
+	float w = 1.0;
+
+	Math::Vec4 v = Math::Vec4(x, y, z, w) * invMat;
+	w = 1.0 / v.GetW();
+	return Math::Vec3(v) * w;
+}
 
 _MATH_END

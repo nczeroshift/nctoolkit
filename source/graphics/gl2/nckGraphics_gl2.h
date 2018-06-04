@@ -401,7 +401,7 @@ protected:
 	GLint m_BoneMatrix;                 // BoneMatrix
 	GLint m_BoneCount;                  // BoneCount
     GLint m_Alpha;                      // Transparency
-
+	GLint m_Time;						// Absolute time;
 	bool m_Active;
  
 	GLuint m_VertexShader;

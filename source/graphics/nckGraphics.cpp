@@ -14,7 +14,18 @@
     #include "gl2/nckGraphics_gl2.h"
 #endif
 
+double m_pGlobalTime = 0;
+
 _GRAPHICS_BEGIN
+
+void Program::SetGlobalTime(double time) {
+	m_pGlobalTime = time;
+}
+
+double Program::GetGlobalTime() {
+	return m_pGlobalTime;
+}
+
 
 Device* CreateDevice(Core::Window *wnd,DeviceType type,
 								unsigned int width, unsigned int height,

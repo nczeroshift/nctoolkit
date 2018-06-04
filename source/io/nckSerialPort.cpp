@@ -135,10 +135,64 @@ public:
 
 
 #else
+		BOOL status;
+
         // Windows
-		THROW_EXCEPTION("Serial port communication not implemented yet on windows.");
+		commPort = CreateFile(portName.c_str(),          // for COM1—COM9 only
+			GENERIC_READ | GENERIC_WRITE, //Read/Write
+			0,               // No Sharing
+			NULL,            // No Security
+			OPEN_EXISTING,   // Open existing port only
+			0,               // Non Overlapped I/O
+			NULL);
+
+		if (commPort == INVALID_HANDLE_VALUE)
+			THROW_EXCEPTION("Unable to open serial port");
+
+		DCB dcbSerialParams = { 0 }; // Initializing DCB structure
+		dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
+		
+		status = GetCommState(commPort, &dcbSerialParams);
+
+		dcbSerialParams.BaudRate = CBR_9600;
+
+		switch (br) {
+			case BAUDRATE_19200:
+				dcbSerialParams.BaudRate = CBR_19200;
+				break;
+			case BAUDRATE_38400:
+				dcbSerialParams.BaudRate = CBR_38400;
+				break;
+			case BAUDRATE_57600:
+				dcbSerialParams.BaudRate = CBR_57600;
+				break;
+			case BAUDRATE_115200:
+				dcbSerialParams.BaudRate = CBR_115200;
+				break;
+			default:
+				break;
+		}
+
+		dcbSerialParams.ByteSize = 8;         // Setting ByteSize = 8
+		dcbSerialParams.StopBits = ONESTOPBIT;// Setting StopBits = 1
+		dcbSerialParams.Parity = NOPARITY;  // Setting Parity = None
+		
+		SetCommState(commPort, &dcbSerialParams);
+
+		COMMTIMEOUTS timeouts = { 0 };
+		timeouts.ReadIntervalTimeout = 50; // in milliseconds
+		timeouts.ReadTotalTimeoutConstant = 50; // in milliseconds
+		timeouts.ReadTotalTimeoutMultiplier = 10; // in milliseconds
+		timeouts.WriteTotalTimeoutConstant = 50; // in milliseconds
+		timeouts.WriteTotalTimeoutMultiplier = 10; // in milliseconds
+
+		SetCommTimeouts(commPort,&timeouts);
+
+		status = SetCommMask(commPort, EV_RXCHAR);
+
+		return true;
 #endif
-		return false;
+
 	}
 
 	unsigned int SendData(unsigned char * data,unsigned int size){
@@ -150,18 +204,19 @@ public:
 		else
 			return n;
 #else
-        // Windows
-		/*int n;
+		DWORD dNoOfBytesWritten = 0;  
 
-		WriteFile(fd, data, 1, (LPDWORD)((void *)&n), NULL);
+		BOOL status = WriteFile(commPort,      
+			data,     
+			size,  
+			&dNoOfBytesWritten,
+			NULL);
 
-		if(n<0)
+		if (!status || dNoOfBytesWritten != size)
 			return 0;
 		else
-			return n;*/
-
+			return dNoOfBytesWritten;
 #endif
-		return 0;
 	}
 
 	unsigned int ReadData(unsigned char * data, int maxSize){
@@ -173,7 +228,18 @@ public:
 			return 0;
 		return n;
 #else
-        // Windows
+		DWORD dwEventMask;
+		BOOL status = WaitCommEvent(commPort, &dwEventMask, NULL);
+
+		DWORD NoBytesRead;
+		status = ReadFile(commPort,         
+				data,  
+				maxSize,
+				&NoBytesRead, 
+				NULL);
+
+		if (NoBytesRead > 0)
+			return NoBytesRead;
 #endif
 		return 0;
 	}
@@ -205,6 +271,8 @@ private:
 
 #if defined(NCK_LINUX) || defined(NCK_MACOSX)
 	struct termios previousSettings;
+#else
+	HANDLE commPort;
 #endif
 
 };

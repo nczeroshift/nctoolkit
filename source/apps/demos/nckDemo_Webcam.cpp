@@ -18,6 +18,7 @@ Demo_Webcam::Demo_Webcam(Core::Window * wnd, Graph::Device * dev){
     zRotation = 0;
     videoWidth = 640;
     videoHeight = 480;
+	changed = false;
 }
 
 Demo_Webcam::~Demo_Webcam(){
@@ -44,7 +45,7 @@ void Demo_Webcam::Load(){
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     model = new Scene::Compound_Base(dev);
-    model->Load("model://webcam_scene.nc");
+    model->Load("model://cube.bxon");
 
     zRotation = 0;
 
@@ -80,7 +81,7 @@ void Demo_Webcam::Render(float dt){
 
     dev->MatrixMode(Graph::MATRIX_PROJECTION);
     dev->Identity();
-    dev->Ortho2D(640, 480, -1, 1);
+    dev->Ortho2D(wnd->GetWidth(), wnd->GetHeight(), -1, 1);
 
     dev->MatrixMode(Graph::MATRIX_MODEL);
     dev->Identity();

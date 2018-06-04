@@ -382,4 +382,10 @@ Graph::Program * MaterialToProgram::Generate(Scene::Material * mat) {
     return prog;
 }
 
+std::string MaterialToProgram::GenerateToString(Scene::Material * mat) {
+	std::string src = generateVSH(mat);
+	src += generateFSH(mat);
+	return src;
+}
+
 _SCENE_END

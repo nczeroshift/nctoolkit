@@ -165,6 +165,7 @@ public:
 	/// Switch back to default rendering context.
 	virtual bool Disable() = 0;
 
+	/// Check if rendered output is inverted (opengl/directx)
     virtual bool InvertedY() = 0;
 };
 
@@ -324,6 +325,10 @@ public:
 	/// @param v Array contents.
 	/// @return Returns false if variable name is invalid, true otherwise.	
 	virtual bool SetMatrixArray(const std::string & name,int count,const float *v)=0;
+
+	/// Set time variable value.
+	static void SetGlobalTime(double time);
+	static double GetGlobalTime();
 };
 
 /// Geometry primitives types.
@@ -668,7 +673,10 @@ public:
 	/// Capture device color buffer to an image.
 	virtual bool Capture(int x, int y, int width, int height, Format colorFormat, unsigned char * buffer) = 0;
 
+	/// Check if textures loaded from file changed.
     virtual int ReloadTextures(int * reloaded, std::list<std::string> * errors) = 0;
+
+	/// Check if shader programs loaded from file changed.
     virtual int ReloadPrograms(int * reloaded, std::list<std::string> * errors) = 0;
 };
 

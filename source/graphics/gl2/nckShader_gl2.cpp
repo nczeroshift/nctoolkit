@@ -39,6 +39,7 @@ Program_GL2::Program_GL2(Device_GL2 *dev){
 	m_SpecularPower = -1;
 	m_BoneMatrix = -1;
 	m_BoneCount = -1;
+	m_Time = -1;
 #ifdef NCK_GRAPH_RES_PROXY
 	m_Proxy = NULL;
 #endif
@@ -192,6 +193,7 @@ void Program_GL2::Load(const std::string & source){
 }
 
 void Program_GL2::BindUniforms() {
+	m_Time = glGetUniformLocation(m_Program, "gphTime");
 
     m_TextureSampler[0] = glGetUniformLocation(m_Program, "gphTexture0");
     m_TextureSampler[1] = glGetUniformLocation(m_Program, "gphTexture1");
@@ -266,7 +268,9 @@ void Program_GL2::BindUniforms() {
             m_Device->m_AmbientColor[2],
             m_Device->m_AmbientColor[3]);
 
-
+	if (m_Time > -1) {
+		glUniform1f(m_Time, GetGlobalTime());
+	}
     /*
     if(m_ModelMatrix>-1)
     glUniformMatrix4fv(m_ModelMatrix,1,false,(float*)&m_Device->m_ModelMatrix);

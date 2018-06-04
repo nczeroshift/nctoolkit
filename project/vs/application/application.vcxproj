@@ -73,7 +73,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EntryPointSymbol>
       </EntryPointSymbol>
-      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;zlibstat.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;OpenGL32.Lib;GlU32.Lib;jpeg.lib;winmm.lib;libogg_static.lib;libvorbis_static.lib;libpng16.lib;zlibstat.lib;mfplat.lib;mf.lib;mfreadwrite.lib;mfuuid.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
     </Link>

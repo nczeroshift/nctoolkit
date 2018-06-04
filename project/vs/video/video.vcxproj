@@ -12,11 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\video\nckCameraDevice.h" />
+    <ClInclude Include="..\..\..\source\video\nckCameraDevice_Win32.h" />
     <ClInclude Include="..\..\..\source\video\nckColorSpace.h" />
     <ClInclude Include="..\..\..\source\video\nckVideoConfig.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\source\video\nckCameraDevice.cpp" />
+    <ClCompile Include="..\..\..\source\video\nckCameraDevice_Win32.cpp" />
     <ClCompile Include="..\..\..\source\video\nckColorSpace.cpp" />
   </ItemGroup>
   <ItemGroup>
