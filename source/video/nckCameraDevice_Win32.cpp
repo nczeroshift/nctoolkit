@@ -8,6 +8,8 @@
 
 _VIDEO_BEGIN
 
+#ifdef NCK_WINDOWS
+
 BOOL UnicodeToMByte(LPCWSTR unicodeStr, LPSTR multiByteStr, DWORD size)
 {
 	// Get the required size of the buffer that receives the multiByte string. 
@@ -36,10 +38,10 @@ void MFInit(void)
 	MF_CHECK(hr);
 }
 
-CameraWin32::CameraWin32(int width, int height)
+CameraWin32::CameraWin32(const std::string & name, int width, int height)
 {
 	MFInit();
-
+	m_Name = name;
 	m_Width = width;
 	m_Height = height;
 	
@@ -48,8 +50,7 @@ CameraWin32::CameraWin32(int width, int height)
 	outSize = outStride * height;
 
 	m_Data = new uint8_t[m_Width*m_Height*BytesPerPixel];
-
-
+	
 	msAttr = NULL;
 	MF_CHECK(MFCreateAttributes(&msAttr, 1));
 
@@ -65,17 +66,22 @@ CameraWin32::CameraWin32(int width, int height)
 	
 	if(!count) THROW_EXCEPTION("No video devices found");
 
-	UINT32 ind = 0;
+	int ind = 0;
+	for (int i = 0; i < count; i++) {
+		LPWSTR webcamFriendlyName;
+		char * webCamName = new char[128];
+		MF_CHECK(ppDevices[i]->GetAllocatedString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, &webcamFriendlyName, NULL));
 
-	LPWSTR webcamFriendlyName;
-	char * webCamName = new char[128];
-	MF_CHECK(ppDevices[ind]->GetAllocatedString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, &webcamFriendlyName, NULL));
-	
-	UnicodeToMByte(webcamFriendlyName, (LPSTR)webCamName, 128);
+		UnicodeToMByte(webcamFriendlyName, (LPSTR)webCamName, 128);
 
-	m_Name = std::string(webCamName);
+		if (std::string(webCamName) == m_Name) {
+			ind = i;
+		}
 
-	delete webCamName;
+		delete webCamName;
+	}
+
+
 
 	CComPtr<IMFMediaSource> mSrc;
 	CComPtr<IMFAttributes> srAttr;
@@ -94,55 +100,12 @@ CameraWin32::CameraWin32(int width, int height)
 	IAMVideoProcAmp *pProcAmp = NULL;
 	IAMCameraControl *pProcControl = NULL;
 
-	/*if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcAmp))))
-	{
-	long paramVal, paramFlag;
-	HRESULT hr = pProcAmp->Get(VideoProcAmp_Gain, &paramVal, &paramFlag);
-	long minVal, maxVal, stepVal;
-	if (FAILED(hr))
-	hr = pProcAmp->GetRange(VideoProcAmp_Gain, &minVal, &maxVal, &stepVal, &paramVal, &paramFlag);//Unable to get the property, trying to return default value
-	pProcAmp->Release();
-
-	}*/
-
-	/*
-	if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcAmp))))
-	{
-		long paramVal, paramFlag;
-		HRESULT hr = pProcAmp->Get(CameraControl_Exposure, &paramVal, &paramFlag);
-		long minVal, maxVal, stepVal;
-		if (FAILED(hr))
-			hr = pProcAmp->GetRange(CameraControl_Exposure, &minVal, &maxVal, &stepVal, &paramVal, &paramFlag);//Unable to get the property, trying to return default value
-		pProcAmp->Release();	
-	}
-	*/
-
 	if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcControl))))
 	{
 		long paramVal = 0;
 		HRESULT hr = pProcControl->Set(CameraControl_Exposure, paramVal, VideoProcAmp_Flags_Manual);
 		pProcControl->Release();
 	}
-
-
-	if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcControl))))
-	{
-		long paramVal = (long)-8;
-		HRESULT hr = pProcControl->Set(CameraControl_Exposure, paramVal, VideoProcAmp_Flags_Manual);
-		pProcControl->Release();
-	}
-
-	/*
-	if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcAmp))))
-	{
-		float v = -7 / 100.0;
-		long paramVal = (long)v;
-		HRESULT hr = pProcAmp->Set(VideoProcAmp_Gain, paramVal, VideoProcAmp_Flags_Manual);
-		pProcAmp->Release();
-		//return SUCCEEDED(hr);
-	}
-	*/
-
 
 	dwStreamIndex = 0;
 	sampleTime = 0;
@@ -167,6 +130,16 @@ CameraWin32::CameraWin32(int width, int height)
 	MF_CHECK(videoFileSource->SetStreamSelection((DWORD)MF_SOURCE_READER_ALL_STREAMS, false));
 	MF_CHECK(videoFileSource->SetStreamSelection(tryStream, true));
 	MF_CHECK(videoFileSource->SetCurrentMediaType(tryStream, NULL, mediaTypeOut));
+}
+
+void CameraWin32::SetExposition(char value) {
+	IAMCameraControl *pProcControl = NULL;
+	if (SUCCEEDED(videoFileSource->GetServiceForStream((DWORD)MF_SOURCE_READER_MEDIASOURCE, GUID_NULL, IID_PPV_ARGS(&pProcControl))))
+	{
+		long paramVal = (long)value;
+		HRESULT hr = pProcControl->Set(CameraControl_Exposure, paramVal, VideoProcAmp_Flags_Manual);
+		pProcControl->Release();
+	}
 }
 
 CameraWin32::~CameraWin32() {
@@ -218,50 +191,46 @@ void CameraWin32::Run()
 
 				}
 			}
+			videoSample.Release();
 		}
 
 		Core::Thread::Wait(1);
 	}	
+
+
+	videoFileSource.Release();
 }
 
+std::vector<std::string> GetDevicesNames() {
+	CComPtr<IMFAttributes> msAttr = NULL;
+	MF_CHECK(MFCreateAttributes(&msAttr, 1));
+	
+	MF_CHECK(msAttr->SetGUID(
+		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE,
+		MF_DEVSOURCE_ATTRIBUTE_SOURCE_TYPE_VIDCAP_GUID
+	));
 
-/*while (true) {
-CComPtr<IMFSample> videoSample = NULL;
+	IMFActivate ** ppDevices = NULL;
+	UINT32 count = 0;
+	MF_CHECK(MFEnumDeviceSources(msAttr, &ppDevices, &count));
 
-hr = videoFileSource->ReadSample(
-dwStreamIndex, // Stream index.
-0,             // Flags.
-&streamIndex,  // Receives the actual stream index.
-&flags,        // Receives status flags.
-&sampleTime,  // Receives the time stamp.
-&videoSample   // Receives the sample or NULL.
-);
+	std::vector<std::string> ret;
 
-if (videoSample != NULL) {
+	if (count) {
+		for (int i = 0; i < count; i++) {
+			LPWSTR webcamFriendlyName;
+			char * webCamName = new char[128];
+			memset(webCamName, 0, 128);
+			MF_CHECK(ppDevices[i]->GetAllocatedString(MF_DEVSOURCE_ATTRIBUTE_FRIENDLY_NAME, &webcamFriendlyName, NULL));
+			UnicodeToMByte(webcamFriendlyName, (LPSTR)webCamName, 128);
+			ret.push_back(std::string(webCamName));
+			delete webCamName;
+		}
+	}
 
-DWORD bcnt;
-if (videoSample && SUCCEEDED(videoSample->GetBufferCount(&bcnt)) && bcnt > 0)
-{
-CComPtr<IMFMediaBuffer> buf = NULL;
-if (SUCCEEDED(videoSample->GetBufferByIndex(0, &buf)))
-{
-DWORD maxsize, cursize;
-BYTE* ptr = NULL;
-if (SUCCEEDED(buf->Lock(&ptr, &maxsize, &cursize))) {
-//FILE * f = fopen("C:\\tmp\\out.raw", "wb");
-Core::Image * img = Core::Image::Create(width, height, Core::PIXEL_FORMAT_RGB_8B);
-
-memcpy(img->GetData(), ptr, cursize);
-img->Save("C:\\tmp\\out.bmp", Core::IMAGE_TYPE_BMP, 100);
-//fwrite(data, 1, cursize, f);
-//fclose(f);
-buf->Unlock();
+	return ret;
 }
 
-}
-}
-}
-Core::Thread::Wait(1);
-}*/
+#endif
 
 _VIDEO_END

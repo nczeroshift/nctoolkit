@@ -156,11 +156,14 @@ public:
 	/// @param tex Reference to texture to be used as render target.
 	/// @return False if the texture doesn't support usage as RT or invalid
 	/// target ID, true otherwise.
-	virtual bool Attach(unsigned int target,Texture2D *tex) = 0;
+	virtual bool Attach(unsigned int target, Texture2D * tex) = 0;
 
 	/// Attach cubemap texture as a render target.
 	/// @param face Cubemap face ID (0 to 5).
 	virtual bool Attach(unsigned int target, TextureCubeMap *tex) = 0;
+
+	/// Remove all textures
+	virtual void DetachAll() = 0;
 
 	/// Switch back to default rendering context.
 	virtual bool Disable() = 0;

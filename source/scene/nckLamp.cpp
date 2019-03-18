@@ -35,11 +35,17 @@ Lamp::Lamp(Graph::Device *dev): Datablock(dev){
     m_Spot_Size = 45;
     m_Spot_Blend = 0.150;
     m_LampType = LAMP_TYPE_POINT;
+	m_CastShadows = false;
+	m_Texture = NULL;
 }
 
 Lamp::~Lamp()
 {
     
+}
+
+bool Lamp::CastShadow() {
+	return m_CastShadows;
 }
 
 void Lamp::Read(Core::DataReader *f)
@@ -76,6 +82,12 @@ void Lamp::Read(BXON::Map * entry){
 
     if (entry->HasKey("spot_size"))
         m_Spot_Size = entry->GetFloat("spot_size");
+
+	if (entry->HasKey("shadows"))
+		m_CastShadows = entry->GetBoolean("shadows");
+
+	if (entry->HasKey("area_size"))
+		m_AreaSize = entry->GetVec2("area_size");
 }
 
 #endif
@@ -146,8 +158,12 @@ float Lamp::GetClipEnd() {
     return m_Clip_End;
 }
 
+Math::Vec2 Lamp::GetAreaSize() {
+	return m_AreaSize;
+}
+
 void Lamp::GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & modelView, LampUniforms * out) {
-    for (size_t i = 0; i < lampObjs.size() && i < 8; i++) {
+    for (size_t i = 0; i < lampObjs.size() && i < LAMP_MAX; i++) {
         Scene::Object * obj = lampObjs[i];
         Scene::Lamp * lamp = dynamic_cast<Scene::Lamp*>(obj->GetData());
 
@@ -160,10 +176,19 @@ void Lamp::GenerateUniforms(std::vector<Object*> lampObjs, const Math::Mat44 & m
         out->lamp_pos[i] = Math::Vec4(Math::Vec3(pMV), lamp->GetEnergy());
         out->lamp_dir[i] = Math::Vec4(Math::Vec3(dMV), (float)lamp->GetLampType());
         out->lamp_color[i] = Math::Vec4(lamp->GetColor().GetR(), lamp->GetColor().GetG(), lamp->GetColor().GetB(), lamp->GetDistance());
-        out->lamp_params[i] = Math::Vec4();
+
+		if (lamp->GetLampType() == Scene::LAMP_TYPE_SPOT) {
+			out->lamp_params[i] = Math::Vec4(lamp->GetSpotBlend(), lamp->GetSpotSize(), 0, 0);
+		}
+		else if (lamp->GetLampType() == Scene::LAMP_TYPE_AREA) {
+
+		}
+		else {
+			out->lamp_params[i] = Math::Vec4();
+		}
     }
 
-    if (lampObjs.size() < 8)
+    if (lampObjs.size() < LAMP_MAX)
         out->lamp_pos[lampObjs.size()] = Math::Vec4(0, 0, 0, -1); // Early terminator.
 }
 
@@ -173,6 +198,15 @@ void Lamp::BindShadow(Graph::Program * p, const Math::Mat44 & lampPVM, int buffe
 
     // Set shadow sampling properties.
     p->SetVariable4f("shadow_params", bufferSize, bufferSize, bias, 0);
+}
+
+
+Graph::Texture * Lamp::GetTexture() {
+	return m_Texture;
+}
+
+void Lamp::SetTexture(Graph::Texture * tex) {
+	m_Texture = tex;
 }
 
 _SCENE_END

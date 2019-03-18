@@ -24,7 +24,7 @@ Material::Material(Graph::Device *dev): Datablock(dev){
     m_AlphaTest = false;
     m_CullFlag = false;
     m_CullingMode = Graph::CULL_BACK;
-    m_Program = NULL;
+    //m_Program = NULL;
     m_Shadeless = false;
     m_UseShadows = true;
 
@@ -75,8 +75,7 @@ void Material::Read(Core::DataReader *f, std::vector<Texture *> *tex_vec){
     }
 }
 
-void Material::Enable(){
-    
+void Material::Enable(MaterialPass pass){
     /*if(m_CullFlag){
         m_Device->Enable(Graph::STATE_CULL_FACE);
         m_Device->CullMode(m_CullingMode);
@@ -102,14 +101,14 @@ void Material::Enable(){
         else
             m_Layers[i]->Enable(i);
 
-    if (m_Program)
-        m_Program->Enable();
+    if (m_MappedPrograms.find(pass) != m_MappedPrograms.end())
+		m_MappedPrograms.find(pass)->second->Enable();
 }
 
-void Material::Disable(){
+void Material::Disable(MaterialPass pass){
     
-    if(m_Program)
-        m_Program->Disable();
+	if (m_MappedPrograms.find(pass) != m_MappedPrograms.end())
+		m_MappedPrograms.find(pass)->second->Disable();
     
     if(m_AlphaTest)
         m_Device->Disable(Graph::STATE_ALPHA_TEST);
@@ -219,12 +218,15 @@ TextureLayer *Material::GetTextureLayer(unsigned int layer){
     return m_Layers[layer];
 }
 
-void Material::SetProgram(Graph::Program *prog){
-    m_Program  = prog;
+void Material::SetProgram(Graph::Program *prog, MaterialPass pass){
+	if (m_MappedPrograms.find(pass) != m_MappedPrograms.end())
+		m_MappedPrograms.find(pass)->second = prog;
+	else
+		m_MappedPrograms.insert(std::pair<MaterialPass, Graph::Program*>(pass, prog));
 }
 
-Graph::Program *Material::GetProgram(){
-    return m_Program;
+Graph::Program *Material::GetProgram(MaterialPass pass){
+	return m_MappedPrograms.find(pass)->second;
 }
 
 void Material::SetAlpha(float alpha) {

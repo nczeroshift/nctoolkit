@@ -31,7 +31,7 @@ void Demo_Serial::Load(){
 
     shapes = new Gui::ShapeRenderer(dev);
 
-    serial = IO::OpenSerial("/dev/ttyUSB0", IO::BAUDRATE_9600);
+    serial = IO::OpenSerial("COM3", IO::BAUDRATE_115200);
 
     if (!serial)
         THROW_EXCEPTION("Error opening serial port");
@@ -96,9 +96,14 @@ void Demo_Serial::ReceiveData(unsigned char * data, unsigned int size) {
         while (true)
         {
             size_t split = 0;
-            if ((split = bufferedString.find_first_of("\n\r")) != std::string::npos) {
+            if (split = bufferedString.find_first_of("\n") != std::string::npos) {
                 std::string res = bufferedString.substr(0, split);
-                std::string rem = bufferedString.substr(split + 2, bufferedString.length() - 2);
+
+				std::string rem = "";
+				if (bufferedString.length() > 1) {
+					rem = bufferedString.substr(split + 1, bufferedString.length() - 1);
+				}
+
                 HandleLine(res);
                 bufferedString = rem;
             }
@@ -111,12 +116,13 @@ void Demo_Serial::ReceiveData(unsigned char * data, unsigned int size) {
 void Demo_Serial::HandleLine(const std::string & str) {
     int potId = 0;
     int angle = 0;
+	Core::DebugLog(str+"\n");
     // The atmega just has to print "0,512\n\r1,127\n\r" in this format to feed the program. 
-    if (sscanf(str.c_str(), "%d,%d", &potId, &angle) == 2) {
+    /*if (sscanf(str.c_str(), "%d,%d", &potId, &angle) == 2) {
         mutex->Lock();
         potsMap.insert(std::pair<int, float>(potId, angle / 1024.0f));
         mutex->Unlock();
-    }
+    }*/
 }
 
 void Demo_Serial::UpdateWndEvents(){

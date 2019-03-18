@@ -24,6 +24,7 @@
     <ClCompile Include="..\..\..\source\scene\nckMaterialToProgram.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckModel.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckObject.cpp" />
+    <ClCompile Include="..\..\..\source\scene\nckRenderPass.cpp" />
     <ClCompile Include="..\..\..\source\scene\nckTexture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,7 @@
     <ClInclude Include="..\..\..\source\scene\nckModel.h" />
     <ClInclude Include="..\..\..\source\scene\nckObject.h" />
     <ClInclude Include="..\..\..\source\scene\nckProcessor.h" />
+    <ClInclude Include="..\..\..\source\scene\nckRenderPass.h" />
     <ClInclude Include="..\..\..\source\scene\nckSceneConfig.h" />
     <ClInclude Include="..\..\..\source\scene\nckTexture.h" />
   </ItemGroup>

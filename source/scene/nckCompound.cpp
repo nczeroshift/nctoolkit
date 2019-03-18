@@ -14,6 +14,45 @@ _SCENE_BEGIN
 
 static bool objNameSort(Scene::Object* a, Scene::Object* b) { return a->GetName() < b->GetName(); }
 
+RenderControl::RenderControl() { 
+	m_Frustum = NULL; 
+	m_Material = NULL; 
+	m_Layers = LAYER_ALL; 
+	m_Pass = MATERIAL_PASS_DEFAULT;
+};
+
+RenderControl RenderControl::SetFrustum(Math::Frustum * f) { 
+	m_Frustum = f; return *this; 
+};
+
+RenderControl RenderControl::SetMaterial(Scene::Material * mat) {
+	m_Material = mat;  return *this; 
+};
+
+RenderControl RenderControl::SetLayers(LayerMask layers) { 
+	m_Layers = layers; return *this; 
+};
+
+RenderControl RenderControl::SetPass(MaterialPass pass) { 
+	m_Pass = pass;  return *this;
+};
+
+Math::Frustum * RenderControl::GetFrustum() const {
+	return m_Frustum;
+};
+
+Scene::Material * RenderControl::GetMaterial() const {
+	return m_Material;
+}
+
+LayerMask RenderControl::GetLayers() const{
+	return m_Layers;
+}
+
+MaterialPass RenderControl::GetPass() const {
+	return m_Pass;
+}
+
 Compound::~Compound()
 {
     ListFor(Camera*,m_Cameras,i)
@@ -631,6 +670,51 @@ void Compound_Base::Load(BXON::Map * entry, Processor * processor){
     m_CamerasWithKeyframes = fetchCamerasWithKeyframes(entry, this);
 }
 
+RenderStatistics Compound_Base::Render(const RenderControl & control) {
+	int rendered = 0;
+
+	Math::Frustum * fr = control.GetFrustum();
+	Material *overlap = control.GetMaterial();
+	int layer_mask = control.GetLayers();
+	MaterialPass pass = control.GetPass();
+
+	ListFor(Object*, m_MObjects, i)
+	{
+		Object * o = (*i);
+		Model * m = (Model*)o->GetData();
+
+		if (layer_mask != LAYER_ALL && ((1 << (*i)->GetLayer()) & layer_mask) == 0)
+			continue;
+
+		if (!o->GetVisible())
+			continue;
+
+		if (fr) {
+			m_Device->PushMatrix();
+
+			Math::BoundBox bb = m->GetBoundBox()* o->GetMatrix();
+
+			if (fr->CheckCube(bb.GetMax(), bb.GetMin())) {
+				o->Bind();
+				m->Render(pass,overlap);
+				rendered++;
+			}
+
+			m_Device->PopMatrix();
+
+		}
+		else {
+			m_Device->PushMatrix();
+			o->Bind();
+			m->Render(pass,overlap);
+			m_Device->PopMatrix();
+			rendered++;
+		}
+	}
+
+	return RenderStatistics(m_MObjects.size(), rendered);
+}
+
 RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, int layer_mask)
 {
     int rendered = 0;
@@ -653,7 +737,7 @@ RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, in
             
             if(fr->CheckCube(bb.GetMax(),bb.GetMin()) ){
                 o->Bind();
-                m->Render(overlap);
+                m->Render(MATERIAL_PASS_DEFAULT,overlap);
                 rendered++;
             }
             
@@ -663,7 +747,7 @@ RenderStatistics Compound_Base::Render(Math::Frustum * fr, Material *overlap, in
         else{	
             m_Device->PushMatrix();
             o->Bind();
-            m->Render(overlap);	
+            m->Render(MATERIAL_PASS_DEFAULT,overlap);
             m_Device->PopMatrix();
             rendered++;
         }
@@ -784,7 +868,7 @@ std::vector<std ::pair<float, Scene::Object*> > Compound_Base::fetchCamerasWithK
                 std::string name = camKeyMap.find(key)->second;
                 Scene::Object * camObj = compound->GetObject(name);
                 if (camObj != NULL)
-                    ret.push_back(std::pair<float, Object*>(key, camObj));
+                    ret.push_back(std::pair<float, Object*>((float)key, camObj));
             }
         }
     }

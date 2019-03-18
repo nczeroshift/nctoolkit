@@ -51,7 +51,7 @@ void lights_compute(vec3 P, vec3 N, inout vec3 diff, inout vec3 spec){
         float dist = length(vL);
         vec3 L = normalize(vL);
                
-        if(lampType < 0.5){
+        if(lampType < 1.5){
             // Point light
             diff = max(dot(N,L),0.0);
             
@@ -62,9 +62,25 @@ void lights_compute(vec3 P, vec3 N, inout vec3 diff, inout vec3 spec){
 	
             vec3 R = normalize(reflect(-L,N));
             spec = pow(clamp(dot(R,E),0.0,1.0), gphSpecularPower );
-        }
-        else if(lampType < 1.5){
-            // Spot light
+            
+            if(lampType  > 0.5){
+                // spot
+                float ref = lamp_params[i].y; // angle
+       
+                float angle = acos(dot(L,dirL));
+                float maxVal = 0.5 * ref*3.1415/180.0;
+            
+                float att = angle/maxVal;
+                float alphaFactor =  lamp_params[i].x; //blend
+                if(att > 1.0)
+                    att = 0.0;
+                else {
+                    att = clamp(min(mix(0.0, 1.0,(1.0 -att)/alphaFactor),1.0),0.0,1.0);
+                }
+                
+                intensity = att;
+                spec *= att;
+            }
         }
         else if(lampType < 2.5){
             // Sun/Directional light

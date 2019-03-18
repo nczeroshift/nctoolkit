@@ -18,6 +18,7 @@ Object::Object(Graph::Device *dev) : Datablock(dev){
     m_Local = Math::Vec3(0,0,0);
     m_Rotation = Math::Quat(0,0,0,1);
     m_Scale = Math::Vec3(1,1,1);
+	m_Matrix = Math::Identity();
     m_Data = NULL;
     m_Layer = 0;
     m_Visible = true;

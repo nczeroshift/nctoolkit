@@ -12,6 +12,7 @@
 #include "nckThread.h"
 #include "nckUtils.h"
 #include <string.h>
+#include "nckMathUtils.h"
 
 #if defined(NCK_LINUX) || defined(NCK_MACOSX)
 	#include <termios.h>
@@ -24,6 +25,7 @@
 	#include <limits.h>
 #elif defined(NCK_WINDOWS)
 	#include <windows.h>
+#undef CreateMutex
 #endif
 
 _IO_BEGIN
@@ -34,6 +36,8 @@ public:
 	virtual ~SerialPortDevice(){
 		m_TearDown = true;
 		SafeDelete(m_Thread);
+		if(commPort != NULL)
+			CloseHandle(commPort);
 
 #if defined(NCK_LINUX) || defined(NCK_MACOSX)
 		tcsetattr(fd, TCSANOW,&previousSettings);
@@ -43,8 +47,7 @@ public:
 #endif
 	}
 
-	static void * ReadThread(void * data)
-	{
+	static void * ReadThread(void * data){
 		SerialPortDevice * dev = (SerialPortDevice*)data;
 		unsigned char tmpData[4096];
 		int noDataCount = 0;
@@ -73,6 +76,11 @@ public:
 		m_Callback = NULL;
 		fd = 0;
 		m_Thread = Core::CreateThread(ReadThread,this);
+		m_Mutex = Core::CreateMutex();
+
+#ifdef NCK_WINDOWS
+		commPort = NULL;
+#endif
 	}
 
 	bool Open(const std::string & portName, BaudRate br)
@@ -180,13 +188,13 @@ public:
 		SetCommState(commPort, &dcbSerialParams);
 
 		COMMTIMEOUTS timeouts = { 0 };
-		timeouts.ReadIntervalTimeout = 50; // in milliseconds
-		timeouts.ReadTotalTimeoutConstant = 50; // in milliseconds
-		timeouts.ReadTotalTimeoutMultiplier = 10; // in milliseconds
-		timeouts.WriteTotalTimeoutConstant = 50; // in milliseconds
-		timeouts.WriteTotalTimeoutMultiplier = 10; // in milliseconds
+		timeouts.ReadIntervalTimeout = 1;
+		timeouts.ReadTotalTimeoutConstant = 1; 
+		timeouts.ReadTotalTimeoutMultiplier = 0;
+		timeouts.WriteTotalTimeoutConstant = 1; 
+		timeouts.WriteTotalTimeoutMultiplier = 0;
 
-		SetCommTimeouts(commPort,&timeouts);
+		status = SetCommTimeouts(commPort,&timeouts);
 
 		status = SetCommMask(commPort, EV_RXCHAR);
 
@@ -205,13 +213,13 @@ public:
 			return n;
 #else
 		DWORD dNoOfBytesWritten = 0;  
-
+		m_Mutex->Lock();
 		BOOL status = WriteFile(commPort,      
 			data,     
 			size,  
 			&dNoOfBytesWritten,
 			NULL);
-
+		m_Mutex->Unlock();
 		if (!status || dNoOfBytesWritten != size)
 			return 0;
 		else
@@ -228,16 +236,24 @@ public:
 			return 0;
 		return n;
 #else
+	
 		DWORD dwEventMask;
+		BOOL status;
+		/*m_Mutex->Lock();
 		BOOL status = WaitCommEvent(commPort, &dwEventMask, NULL);
+		m_Mutex->Unlock();
+		
+		if ((dwEventMask & EV_RXCHAR) != EV_RXCHAR)
+			return 0;*/
 
+		m_Mutex->Lock();
 		DWORD NoBytesRead;
 		status = ReadFile(commPort,         
 				data,  
 				maxSize,
 				&NoBytesRead, 
 				NULL);
-
+		m_Mutex->Unlock();
 		if (NoBytesRead > 0)
 			return NoBytesRead;
 #endif
@@ -267,6 +283,7 @@ private:
 	SerialCallback * m_Callback;
 	int fd;
 	Core::Thread * m_Thread;
+	Core::Mutex * m_Mutex;
 	bool m_TearDown;
 
 #if defined(NCK_LINUX) || defined(NCK_MACOSX)
@@ -325,17 +342,25 @@ std::vector<std::string> ListSerialPorts()
         pclose(f);
         delete [] buffer;
     }
-#endif // #if defined(NCK_LINUX) | defined(NCK_MACOSX)
+#elif defined(NCK_WINDOWS) 
+	for (int i = 0; i < 20; i++) {
+		std::string portName = "COM" + Math::IntToString(i);
+		HANDLE commPort = CreateFile(portName.c_str(),          // for COM1—COM9 only
+			GENERIC_READ | GENERIC_WRITE, //Read/Write
+			0,               // No Sharing
+			NULL,            // No Security
+			OPEN_EXISTING,   // Open existing port only
+			0,               // Non Overlapped I/O
+			NULL);
+
+		if (commPort != INVALID_HANDLE_VALUE) {
+			ret.push_back(portName);
+			CloseHandle(commPort);
+		}
+	}
+#endif
     
     return ret;
 }
 
 _IO_END
-
-
-
-
-
-
-
-

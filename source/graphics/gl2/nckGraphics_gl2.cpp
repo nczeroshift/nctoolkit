@@ -623,7 +623,13 @@ void Device_GL2::MatrixMode(MatrixType mode){
 }
 
 void Device_GL2::LoadMatrix(const float *v){
-	glLoadMatrixf(v);
+
+	if (m_CurrentMatrix == MATRIX_MODEL) {
+		glLoadMatrixf((float*)&m_ViewMatrix);
+		glMultMatrixf((float*)v);
+	}
+	else
+		glLoadMatrixf(v);
 
     if (m_IsModelMatrixActive) {
         m_ModelMatrix = Math::Mat44(v);
@@ -767,6 +773,7 @@ void Device_GL2::PointSprite(PointSpriteProperty prop, const float &v){
 	case POINT_MIN_SIZE:
 		break;
 	case POINT_SIZE:
+		glPointSize(v);
 		break;
 	}
 }

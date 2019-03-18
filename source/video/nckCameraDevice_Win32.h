@@ -21,7 +21,7 @@ _VIDEO_BEGIN
 
 class CameraWin32 : public Camera, public virtual Core::Threadable {
 public:
-	CameraWin32(int width, int height);
+	CameraWin32(const std::string & name, int width, int height);
 	~CameraWin32();
 
 	int GetWidth() {return m_Width;};
@@ -29,6 +29,7 @@ public:
 	std::string GetDeviceName();
 	void StartCapture();
 	void StopCapture();
+	void SetExposition(char value);
 
 	void Run();
 	

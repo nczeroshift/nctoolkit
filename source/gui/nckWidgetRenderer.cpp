@@ -20,15 +20,18 @@ BlenderWidgetRenderer::~BlenderWidgetRenderer(){
 }
 
 void BlenderWidgetRenderer::Button(float x, float y, float w, float h,const std::string & text,
-			WidgetState state, ShapeRenderer::RoundMode mode){
+			WidgetState state, bool enabled, ShapeRenderer::RoundMode mode){
 	shapeRenderer->SetRoundMode(mode);
 	shapeRenderer->SetRoundRadius(5);
 
 	shapeRenderer->Square(x+2,y+2,w,h,Math::Color4ub(135,135,135));
 	shapeRenderer->Square(x-1,y-1,w+2,h+2,Math::Color4ub(55,55,55));
-	if(state==WIDGET_NORMAL){
+	if(!enabled || state==WIDGET_NORMAL){
 		shapeRenderer->SquareVGrad(x,y,w,h,Math::Color4ub(166,166,166),Math::Color4ub(138,138,138));
-		device->Color(0,0,0, 255);
+		if(enabled)
+			device->Color(0,0,0, 255);
+		else
+			device->Color(80, 80, 80, 255);
 		fontTexture->Enable();
 		fontMap->Draw(x+w/2, y+h/2, 16, text, false, FONT_ALIGNMENT_MIDDLE);
 		fontTexture->Disable();

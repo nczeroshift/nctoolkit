@@ -57,6 +57,9 @@
     <ClCompile Include="..\..\..\source\scene\nckMaterialToProgram.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\scene\nckRenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\scene\nckAnimation.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\source\scene\nckMaterialToProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\scene\nckRenderPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

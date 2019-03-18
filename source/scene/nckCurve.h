@@ -56,6 +56,8 @@ public:
 
     void Render(float resolution = 12.0);
 
+	std::vector< std::vector<BezierNode> > GetSplines() { return m_Splines; }
+
 private:
     std::vector< std::vector<BezierNode> > m_Splines;
 };

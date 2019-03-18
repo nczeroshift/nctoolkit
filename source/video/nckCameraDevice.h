@@ -45,6 +45,8 @@ public:
 	virtual std::string GetDeviceName()=0;
 	virtual void StartCapture()=0;
 	virtual void StopCapture()=0;
+	/// Change camera exposition value from -10 to 10
+	virtual void SetExposition(char value) = 0;
 	void SetCallback(CameraCallback * callback);
 	CameraCallback * GetCallback();
 protected:
@@ -52,6 +54,7 @@ protected:
 };
 
 Camera * OpenCamera(const std::string & devName, int width, int height, Format outFormat);
+std::vector<std::string> GetDevicesNames();
 
 _VIDEO_END
 

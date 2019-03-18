@@ -41,6 +41,7 @@ void p_CreateButtonMap()
 	p_KeyboardButtons->insert(std::pair<KeyboardButton,int>(BUTTON_X,'X'));
 	p_KeyboardButtons->insert(std::pair<KeyboardButton,int>(BUTTON_C,'C'));
 	p_KeyboardButtons->insert(std::pair<KeyboardButton,int>(BUTTON_V,'V'));
+	p_KeyboardButtons->insert(std::pair<KeyboardButton, int>(BUTTON_SHIFT, VK_SHIFT));
 }
 
 LRESULT WINAPI WndProc( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )

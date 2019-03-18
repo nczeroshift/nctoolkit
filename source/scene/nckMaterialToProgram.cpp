@@ -335,7 +335,7 @@ std::string MaterialToProgram::generateFSH(Scene::Material * mat) {
     if (hasLight)
     {
         if (m_Shadows && hasShadow)
-            src += output_target + " = vec4(vec3(shadowMask * (diff * colDiff + spec * colSpec)), alpha);\n";
+            src += output_target + " = vec4(vec3((0.5 + shadowMask * 0.5) * (diff * colDiff + spec * colSpec)), alpha);\n";
         else
             src += output_target + " = vec4(diff * colDiff + spec * colSpec, alpha);\n";
     }

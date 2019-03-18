@@ -27,6 +27,14 @@ Model::Model(Graph::Device *dev) : Datablock(dev){
     m_Faces = 0;
 }
 
+Model::Model(Graph::Device *dev, Graph::Mesh * mesh, std::vector<Material*> materials, Math::BoundBox bb) : Datablock(dev)  {
+	m_Mesh = mesh;
+	m_Materials = materials;
+	m_BoundBox = bb;
+	m_Vertices = mesh->GetVerticesCount();
+	m_Faces = mesh->GetFacesCount();
+}
+
 Model::~Model(){
     m_Materials.clear();
     SafeDelete(m_Mesh);
@@ -80,19 +88,19 @@ Model::~Model(){
 //	m_Device->End();
 //}
 
-void Model::Render(Material *overlap)
+void Model::Render(MaterialPass pass, Material *overlap)
 {
-    if(overlap) overlap->Enable();
+    if(overlap) overlap->Enable(pass);
     
     m_Mesh->Enable();
     for(unsigned int i = 0;i<m_Materials.size();i++)
     {
-        if(!overlap)m_Materials[i]->Enable();
+        if(!overlap)m_Materials[i]->Enable(pass);
         m_Mesh->Render(i);
-        if(!overlap)m_Materials[i]->Disable();
+        if(!overlap)m_Materials[i]->Disable(pass);
     }
     m_Mesh->Disable();
-    if(overlap) overlap->Disable();
+    if(overlap) overlap->Disable(pass);
     
 }
 

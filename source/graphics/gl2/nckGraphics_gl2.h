@@ -235,6 +235,7 @@ public:
 	void Load(GLuint width, GLuint height);
 	bool Attach(unsigned int target,Texture2D *tex);
 	bool Attach(unsigned int target,TextureCubeMap *tex);
+	void DetachAll();
 	bool Disable();
     bool InvertedY();
     GLuint GetWidth();

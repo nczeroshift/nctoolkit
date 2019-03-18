@@ -41,6 +41,7 @@ enum KeyboardButton
 	BUTTON_X		= 8,
 	BUTTON_C		= 9,
 	BUTTON_V		= 10,
+	BUTTON_SHIFT	= 11,
 };
 
 /// Mouse buttons identifiers.

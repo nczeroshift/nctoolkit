@@ -12,6 +12,8 @@
 
 _SCENE_BEGIN
 
+#define LAMP_MAX 32
+
 enum LampType {
     LAMP_TYPE_POINT = 0,
     LAMP_TYPE_SPOT  = 1,
@@ -75,14 +77,8 @@ public:
     /// Set lamp max range.
     void SetDistance(float ra);
     
-    /// Ajustar as propriedades
-    //void SetFlags(unsigned int flags);
-    
-    /// Obter as propriedades
-    //unsigned int GetFlags();
-    
     /// Set lamp transformation manipulator.
-    void	SetObject(Object *obj);
+    void SetObject(Object *obj);
     
     /// Get lamp transformation manipulator.
     Object *GetObject();
@@ -99,8 +95,18 @@ public:
     float GetSpotBlend();
     float GetClipStart();
     float GetClipEnd();
+
+	bool CastShadow();
+
+	Math::Vec2 GetAreaSize();
+
+	Graph::Texture * GetTexture();
+	void SetTexture(Graph::Texture * tex);
+
 private:
     
+	Graph::Texture * m_Texture;
+
     /// Reference to graphics device.
     Graph::Device *m_gDevice;
     
@@ -110,6 +116,8 @@ private:
     /// Lamp color.
     Math::Color4f m_Color;
     
+	bool m_CastShadows;
+
     /// Lamp power factor.
     float m_Energy;
     
@@ -124,6 +132,7 @@ private:
     float m_Clip_Start;
     float m_Clip_End;
 
+	Math::Vec2 m_AreaSize;
 };
 
 _SCENE_END

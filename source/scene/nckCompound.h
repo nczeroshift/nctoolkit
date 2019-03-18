@@ -62,6 +62,27 @@ private:
 };
 
 /**
+* Compound rendering options
+*/
+class RenderControl {
+public:
+	RenderControl();
+	RenderControl SetFrustum(Math::Frustum * f);
+	RenderControl SetMaterial(Scene::Material * mat);
+	RenderControl SetLayers(LayerMask layers);
+	RenderControl SetPass(MaterialPass pass);
+	Math::Frustum * GetFrustum() const;
+	Scene::Material * GetMaterial() const ;
+	LayerMask GetLayers() const;
+	MaterialPass GetPass() const;
+private:
+	MaterialPass m_Pass;
+	LayerMask m_Layers;
+	Scene::Material * m_Material;
+	Math::Frustum * m_Frustum;
+};
+
+/**
 * Abstract class to load and store scene elements.
 */
 class Compound : public Datablock
@@ -137,7 +158,8 @@ public:
     /// @param layer_mask Filter model rendering by layers
     /// models materials.
     RenderStatistics Render(Math::Frustum * fr = NULL, Material * overlap = NULL, int layer_mask = LAYER_ALL);
-    
+	RenderStatistics Render(const RenderControl & control);
+
     /// Load data data from filename.
     /// @throws Exception
     void Load(const std::string & filename, Processor * processor = NULL);

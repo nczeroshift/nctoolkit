@@ -46,6 +46,8 @@ void Demo_Curves::Render(float dt){
     Scene::Curve * cv = curves->GetCurve("Bezier");
     cv->Render();
 
+	cv->GetSplines();
+
 	dev->PresentAll();
 }
 

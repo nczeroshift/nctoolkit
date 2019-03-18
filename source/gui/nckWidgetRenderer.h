@@ -30,7 +30,7 @@ public:
 	virtual ~WidgetRenderer(){};
 
 	virtual void Button(float x, float y, float w, float h,const std::string & text,
-			WidgetState state, ShapeRenderer::RoundMode mode = ShapeRenderer::ROUND_ALL)=0;
+			WidgetState state, bool enabled,  ShapeRenderer::RoundMode mode = ShapeRenderer::ROUND_ALL)=0;
 
 	virtual void RangeOptionButton(float x, float y, float w, float h,const std::string & text,
 			WidgetState state, ShapeRenderer::RoundMode mode = ShapeRenderer::ROUND_ALL)=0;
@@ -70,7 +70,7 @@ public:
 	virtual ~BlenderWidgetRenderer();
 
 	void Button(float x, float y, float w, float h,const std::string & text,
-				WidgetState state, ShapeRenderer::RoundMode mode);
+				WidgetState state, bool enabled, ShapeRenderer::RoundMode mode);
 
 	void RangeOptionButton(float x, float y, float w, float h,const std::string & text,
 			WidgetState state, ShapeRenderer::RoundMode mode = ShapeRenderer::ROUND_ALL);

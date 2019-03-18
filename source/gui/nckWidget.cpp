@@ -76,14 +76,14 @@ void PushButton::SetRoundMode(ShapeRenderer::RoundMode roundMode){
 	m_RoundMode = roundMode;
 }
 void PushButton::Render(WidgetRenderer * wRender){
-	wRender->Button(m_X,m_Y,m_Width,m_Height,m_Text,m_State,m_RoundMode);
+	wRender->Button(m_X,m_Y,m_Width,m_Height,m_Text,m_State,m_Enabled,m_RoundMode);
 }
 
 void PushButton::Update(const UserInputState & input, Widget ** focusWidget)
 {
 	m_LastState = m_State;
 
-	if(CheckCursorOver(input))
+	if(CheckCursorOver(input) && m_Enabled)
 	{
 		if(m_LastState == WIDGET_NORMAL && input.m_State_LMB)
 			return;
@@ -142,6 +142,10 @@ void RangeOptionButton::SetRoundMode(ShapeRenderer::RoundMode roundMode){
 
 void RangeOptionButton::Render(WidgetRenderer * wRender)
 {
+	if (m_CurrentOption >= m_Options.size()) {
+		wRender->RangeOptionButton(m_X, m_Y, m_Width, m_Height, "", m_State, m_RoundMode);
+		return;
+	}
 	std::pair<int,std::string> val = m_Options[m_CurrentOption];
 	wRender->RangeOptionButton(m_X,m_Y,m_Width,m_Height,val.second,m_State,m_RoundMode);
 }
@@ -267,22 +271,28 @@ void RangeValueButton::Update(const UserInputState & input, Widget ** focusWidge
 
 		if(!input.m_State_LMB && m_State == WIDGET_PRESSED)
 		{
+			float changeValue = m_BigChange;
+			if (input.m_State_LShift) {
+				changeValue = m_SmallChange;
+			}
+
 			if(input.m_CursorX >= m_X+m_Width*0.5)
 			{
-				float nextValue = m_Value + m_BigChange;
+				float nextValue = m_Value + changeValue;
 				if(nextValue >= m_Max)
 					nextValue = m_Max;
 				m_Value = nextValue;
 			}
 			else
 			{
-				float nextValue = m_Value - m_BigChange;
+				float nextValue = m_Value - changeValue;
 				if(nextValue <= m_Min)
 					nextValue = m_Min;
 				m_Value = nextValue;
 			}
 
 			if(m_Callback)m_Callback->OnButtonClick(this);
+			if(m_Callback)m_Callback->OnValueChanged(this);
 		}
 
 		if(input.m_State_LMB)
@@ -341,8 +351,9 @@ void CheckBoxButton::Update(const UserInputState & input, Widget ** focusWidget 
 
 		if(!input.m_State_LMB && m_State == WIDGET_PRESSED)
 		{
-			if(m_Callback)m_Callback->OnButtonClick(this);
+			if(m_Callback) m_Callback->OnButtonClick(this);
 			m_Value = !m_Value;
+			if (m_Callback) m_Callback->OnValueChanged(this);
 		}
 
 		if(input.m_State_LMB)
@@ -447,7 +458,7 @@ void SelectionButtonGroup::Render(WidgetRenderer * wRender)
 void SelectionButtonGroup::Update(const UserInputState & input, Widget ** focusWidget)
 {
 	UserInputState iState = UserInputState(input,m_X,m_Y);
-
+	int64_t lastValue = m_Value;
 	int64_t retValue = 0;
 
 	for(std::map<int64_t, Core::SharedPtr<GenericSelectionButton> >::iterator i = m_Buttons.begin();i!=m_Buttons.end();i++)
@@ -472,6 +483,8 @@ void SelectionButtonGroup::Update(const UserInputState & input, Widget ** focusW
 	}
 	else if(m_GroupType == WIDGET_CHECKBOX_BUTTON)
 		m_Value = retValue;
+
+	if (lastValue != m_Value && m_Callback)m_Callback->OnValueChanged(this);
 }
 
 bool SelectionButtonGroup::AddButton(int64_t value,Core::SharedPtr<GenericSelectionButton> button)

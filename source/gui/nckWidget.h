@@ -98,6 +98,8 @@ public:
 	virtual ~Widget()=0;
 	virtual void Render(WidgetRenderer * wRender) = 0;
 	virtual void Update(const UserInputState & input, Widget ** focusWidget = NULL) = 0;
+	inline bool GetEnabled() const { return m_Enabled; };
+	inline void SetEnabled(bool enabled) { m_Enabled = enabled; };
 	inline float GetX() const{return m_X;};
 	inline float GetY() const{return m_Y;};
 	inline float GetWidth() const{return m_Width;};
@@ -135,7 +137,7 @@ class PushButton : public Widget
 public:
 	PushButton(float x, float y, float width, float height, const std::string & text);
 	virtual ~PushButton();
-	void SetText(const std::string & text);
+	inline void SetText(const std::string & label) { m_Text = label; }
 	std::string GetText(const std::string & text);
 	ShapeRenderer::RoundMode GetRoundMode();
 	void SetRoundMode(ShapeRenderer::RoundMode roundMode);
@@ -318,7 +320,8 @@ public:
 	bool GetTextBold(){return m_TextBold;}
 	float GetTextSize(){return m_TextSize;}
 	bool GetTextShadow(){return m_TextDropShadow;};
-
+	Math::Color4ub GetTextColor() { return m_TextColor; }
+	void SetTextColor(const Math::Color4ub & color) { m_TextColor = color; };
 private:
 	bool m_TextDropShadow;
 	FontAlignment m_TextAlign;

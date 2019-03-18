@@ -20,6 +20,9 @@ public:
     /// Constructor.
     Model(Graph::Device *dev);
     
+	/// Constructor from required objects.
+	Model(Graph::Device *dev, Graph::Mesh * mesh, std::vector<Material*> materials, Math::BoundBox bb);
+
     /// Destructor.
     ~Model();
     
@@ -34,7 +37,7 @@ public:
 #endif
     
     /// Render model
-    void Render(Material *overlap = NULL);
+    void Render(MaterialPass pass = MATERIAL_PASS_DEFAULT, Material *overlap = NULL);
     
     /// Get model bound box.
     Math::BoundBox GetBoundBox();

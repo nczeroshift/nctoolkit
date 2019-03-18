@@ -182,7 +182,7 @@ void Demo_Shadows::Render(float dt){
 
     dev->PresentAll();
 
-    time += 0.01;
+    time += 0.001;
 }
 
 

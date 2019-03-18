@@ -449,6 +449,10 @@ public:
 	}
 };
 
+std::vector<std::string> GetDevicesNames() {
+	return std::vector<std::string>();
+}
+
 #endif // #if defined(NCK_WEBCAM_V2L)
 
 Camera * OpenCamera(const std::string & devName, int width, int height, Format outFormat)
@@ -456,8 +460,7 @@ Camera * OpenCamera(const std::string & devName, int width, int height, Format o
 #if defined(NCK_WEBCAM_V2L)
 	return new V4L2Cam(devName,width,height,outFormat);
 #else
-	return new CameraWin32(width,height);
-	//THROW_EXCEPTION("Camera device not yet implemented on this platform");
+	return new CameraWin32(devName,width,height);
 #endif
 	return NULL;
 }

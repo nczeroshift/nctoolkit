@@ -13,6 +13,12 @@
 
 _SCENE_BEGIN
 
+enum MaterialPass{
+	MATERIAL_PASS_DEFAULT,
+	MATERIAL_PASS_SHADOW,
+};
+
+/// Material flags.
 enum MaterialFlag{
     MATERIAL_ALPHA_BLENDING = 1 << 0,   // Use alpha blending for material transparency.
     MATERIAL_ALPHA_TEST     = 1 << 1,   // Use alpha test for billboards.
@@ -47,10 +53,10 @@ public:
 #endif
     
     /// Enable material.
-    void Enable();
+    void Enable(MaterialPass pass = MATERIAL_PASS_DEFAULT);
     
     /// Disable material.
-    void Disable();
+    void Disable(MaterialPass pass = MATERIAL_PASS_DEFAULT);
     
     /// Set material state flags.
     void SetFlag(MaterialFlag flag, bool enabled);
@@ -117,18 +123,19 @@ public:
     TextureLayer *GetTextureLayer(unsigned int layer);
     
     /// Set shader program.
-    void SetProgram(Graph::Program *prog);
+    void SetProgram(Graph::Program *prog, MaterialPass pass = MATERIAL_PASS_DEFAULT);
     
     /// Get shader program.
-    Graph::Program *GetProgram();
+    Graph::Program *GetProgram(MaterialPass pass = MATERIAL_PASS_DEFAULT);
     
     /// Get datablock type.
     DatablockType GetType();
     
 private:
-    
+	std::map<MaterialPass, Graph::Program*> m_MappedPrograms;
+
     /// Reference to shader program.
-    Graph::Program *m_Program;
+    //Graph::Program *m_Program;
     
     /// Diffuse color.
     Math::Color4f	m_Diffuse;

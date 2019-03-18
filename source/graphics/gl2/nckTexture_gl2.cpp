@@ -905,6 +905,10 @@ void RTManager_GL2::Load(GLuint width, GLuint height){
 	glBindRenderbuffer( GL_RENDERBUFFER, 0 );
 }
 
+void RTManager_GL2::DetachAll() {
+	m_Textures.clear();
+}
+
 bool RTManager_GL2::Attach(unsigned int target,Texture2D *tex){
 	m_Textures.push_back(AttachedTexture(dynamic_cast<Texture_GL2*>(tex),target,0));
 	return true;
