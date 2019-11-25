@@ -101,8 +101,9 @@ void Demo_SSAO::Render(float dt){
         
         dev->MatrixMode(Graph::MATRIX_VIEW);
         dev->Identity();
+		dev->Rotate(sin(time) * 2, 0, 1.0, 0);
         cam->Enable(Graph::MATRIX_VIEW);
-
+		
 
         dev->MatrixMode(Graph::MATRIX_MODEL);
         dev->Identity();

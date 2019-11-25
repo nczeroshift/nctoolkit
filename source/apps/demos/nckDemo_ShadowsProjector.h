@@ -4,15 +4,15 @@
 * https://github.com/nczeroshift/nctoolkit
 */
 
-#ifndef _NCK_DEMO_SHADOWS2_H_
-#define _NCK_DEMO_SHADOWS2_H_
+#ifndef _NCK_DEMO_SHADOWSPROJECTOR_H_
+#define _NCK_DEMO_SHADOWSPROJECTOR_H_
 
 #include "../nckDemo.h"
 
-class Demo_Shadows2 : public Demo{
+class Demo_ShadowsProjector : public Demo{
 public:
-	Demo_Shadows2(Core::Window * wnd, Graph::Device * dev);
-	~Demo_Shadows2();
+	Demo_ShadowsProjector(Core::Window * wnd, Graph::Device * dev);
+	~Demo_ShadowsProjector();
 
 	void Load();
 	void Render(float dt);
@@ -37,6 +37,6 @@ private:
 	float time;
 };
 
-Demo * CreateDemo_Shadows2(Core::Window * wnd, Graph::Device * dev);
+Demo * CreateDemo_ShadowsProjector(Core::Window * wnd, Graph::Device * dev);
 
 #endif

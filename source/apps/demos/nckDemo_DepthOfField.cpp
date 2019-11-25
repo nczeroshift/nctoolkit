@@ -86,6 +86,8 @@ void Demo_DepthOfField::Render(float dt){
         dev->Viewport(0, 0, tex1->GetWidth(), tex1->GetHeight());
         dev->Clear();
 
+		dev->Enable(Graph::STATE_DEPTH_TEST);
+
         dev->MatrixMode(Graph::MATRIX_PROJECTION);
         dev->Identity();
             
@@ -125,10 +127,8 @@ void Demo_DepthOfField::Render(float dt){
 	dev->MatrixMode(Graph::MATRIX_MODEL);
 	dev->Identity();
    
-    //tex1->Enable();
-   // shape->Square(0, 0, width, height);
-   // RenderSquare2D(0, 0, 256, 256);
-    //tex1->Disable();
+ 
+
     tex1->Enable(0);
     tex2->Enable(1);
 
@@ -144,7 +144,15 @@ void Demo_DepthOfField::Render(float dt){
 
     tex2->Disable(1);
     tex1->Disable(0);
+	
  
+	dev->Disable(Graph::STATE_DEPTH_TEST);
+
+	/*tex2->Enable();
+	RenderSquare2D(0, 0, 256, 256);
+	tex2->Disable();
+	*/
+
     time += dt;
 
 	// Finish rendering and present the graphics.

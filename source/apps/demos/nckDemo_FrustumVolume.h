@@ -9,10 +9,10 @@
 
 #include "../nckDemo.h"
 
-class Demo_Frustum2 : public Demo{
+class Demo_FrustumVolume : public Demo{
 public:
-	Demo_Frustum2(Core::Window * wnd, Graph::Device * dev);
-	~Demo_Frustum2();
+	Demo_FrustumVolume(Core::Window * wnd, Graph::Device * dev);
+	~Demo_FrustumVolume();
 
 	void Load();
 	void Render(float dt);
@@ -27,6 +27,6 @@ private:
     float time;
 };
 
-Demo * CreateDemo_Frustum2(Core::Window * wnd, Graph::Device * dev);
+Demo * CreateDemo_FrustumVolume(Core::Window * wnd, Graph::Device * dev);
 
 #endif

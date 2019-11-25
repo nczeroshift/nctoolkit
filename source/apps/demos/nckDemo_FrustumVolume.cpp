@@ -4,9 +4,9 @@
 * https://github.com/nczeroshift/nctoolkit
 */
 
-#include "nckDemo_Frustum2.h"
+#include "nckDemo_FrustumVolume.h"
 
-Demo_Frustum2::Demo_Frustum2(Core::Window * wnd, Graph::Device * dev){
+Demo_FrustumVolume::Demo_FrustumVolume(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
 	this->wnd = wnd;
     models = NULL;
@@ -15,25 +15,20 @@ Demo_Frustum2::Demo_Frustum2(Core::Window * wnd, Graph::Device * dev){
     time = 0;
 }
 
-Demo_Frustum2::~Demo_Frustum2(){
+Demo_FrustumVolume::~Demo_FrustumVolume(){
     SafeDelete(models);
 }
 
-void Demo_Frustum2::Load(){
+void Demo_FrustumVolume::Load(){
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
     models = new Scene::Compound_Base(dev);
     models->Load("model://frustum_test.bxon");
-
-    //fontTexture = dev->LoadTexture("texture://tex2d_font_ubuntu.png");
-
-   //// fontMap = new Gui::FontMap(dev);
-    //fontMap->Load("script://font_ubuntu.txt");
 }
 
-void Demo_Frustum2::Render(float dt){
+void Demo_FrustumVolume::Render(float dt){
     Scene::Camera * camera1 = models->GetCamera("Camera");
 	Scene::Camera * camera2 = models->GetCamera("Camera.001"); // view point camera
 
@@ -135,23 +130,22 @@ void Demo_Frustum2::Render(float dt){
     dev->PresentAll();
 }
 
-void Demo_Frustum2::UpdateWndEvents(){
+void Demo_FrustumVolume::UpdateWndEvents(){
 	
 }
 
-std::vector<std::string> Demo_Frustum2::GetKeywords() {
+std::vector<std::string> Demo_FrustumVolume::GetKeywords() {
     std::vector<std::string> ret;
     ret.push_back("Basic");
     ret.push_back("Rendering");
-    ret.push_back("Compound");
     ret.push_back("Frustum");
     return ret;
 }
 
-std::string Demo_Frustum2::GetDescription() {
-    return "Rendering with Frustum";
+std::string Demo_FrustumVolume::GetDescription() {
+    return "Render frustum volume";
 }
 
-Demo * CreateDemo_Frustum2(Core::Window * wnd, Graph::Device * dev){
-	return new Demo_Frustum2(wnd,dev);
+Demo * CreateDemo_FrustumVolume(Core::Window * wnd, Graph::Device * dev){
+	return new Demo_FrustumVolume(wnd,dev);
 }

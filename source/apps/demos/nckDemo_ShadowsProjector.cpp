@@ -4,14 +4,14 @@
 * https://github.com/nczeroshift/nctoolkit
 */
 
-#include "nckDemo_Shadows2.h"
+#include "nckDemo_ShadowsProjector.h"
 #include "nckMaterialToProgram.h"
 #include "nckRenderPass.h"
 
 #include <map>
 #include "bxonDataIO.h"
 
-Demo_Shadows2::Demo_Shadows2(Core::Window * wnd, Graph::Device * dev){
+Demo_ShadowsProjector::Demo_ShadowsProjector(Core::Window * wnd, Graph::Device * dev){
 	this->dev = dev;
 	this->wnd = wnd;
     time = 0;
@@ -28,7 +28,7 @@ Demo_Shadows2::Demo_Shadows2(Core::Window * wnd, Graph::Device * dev){
     display = NULL;
 }
 
-Demo_Shadows2::~Demo_Shadows2(){
+Demo_ShadowsProjector::~Demo_ShadowsProjector(){
     SafeDelete(display);
     SafeDelete(scene);
     SafeDelete(program);
@@ -37,7 +37,7 @@ Demo_Shadows2::~Demo_Shadows2(){
     SafeDelete(rtShadow);
 }
 
-void Demo_Shadows2::Load(){
+void Demo_ShadowsProjector::Load(){
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
@@ -111,7 +111,7 @@ void Demo_Shadows2::Load(){
 }
 
 
-void Demo_Shadows2::Render(float dt){
+void Demo_ShadowsProjector::Render(float dt){
 
 	const float width = wnd->GetWidth();
 	const float height = wnd->GetHeight();
@@ -185,11 +185,11 @@ void Demo_Shadows2::Render(float dt){
 	time += 0.001;
 }
 
-void Demo_Shadows2::UpdateWndEvents(){
+void Demo_ShadowsProjector::UpdateWndEvents(){
 	
 }
 
-std::vector<std::string> Demo_Shadows2::GetKeywords() {
+std::vector<std::string> Demo_ShadowsProjector::GetKeywords() {
     std::vector<std::string> ret;
     ret.push_back("Advanced");
     ret.push_back("Rendering");
@@ -197,11 +197,11 @@ std::vector<std::string> Demo_Shadows2::GetKeywords() {
     return ret;
 }
 
-std::string Demo_Shadows2::GetDescription() {
+std::string Demo_ShadowsProjector::GetDescription() {
     return "Buffer Shadows";
 }
 
-Demo * CreateDemo_Shadows2(Core::Window * wnd, Graph::Device * dev){
-	return new Demo_Shadows2(wnd,dev);
+Demo * CreateDemo_ShadowsProjector(Core::Window * wnd, Graph::Device * dev){
+	return new Demo_ShadowsProjector(wnd,dev);
 }
 

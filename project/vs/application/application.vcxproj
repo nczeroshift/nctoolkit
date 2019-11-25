@@ -125,8 +125,7 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_FBO.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Frustum.h" />
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Frustum2.h" />
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Game.h" />
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_FrustumVolume.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_GUI.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_HttpServer.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_HttpStream.h" />
@@ -140,7 +139,7 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Serial.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Shadows.h" />
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Shadows2.h" />
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_ShadowsProjector.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_SSAO.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture2D.h" />
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture3D.h" />
@@ -203,8 +202,7 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_DepthOfField.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_FBO.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Frustum.cpp" />
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Frustum2.cpp" />
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Game.cpp" />
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_FrustumVolume.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_GUI.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_HttpServer.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_HttpStream.cpp" />
@@ -218,7 +216,7 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Serial.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_ShaderProgram.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Shadows.cpp" />
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Shadows2.cpp" />
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_ShadowsProjector.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_SSAO.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture2D.cpp" />
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture3D.cpp" />

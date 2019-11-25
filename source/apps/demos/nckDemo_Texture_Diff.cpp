@@ -33,8 +33,8 @@ void Demo_TextureDiff::Load(){
     dev->Enable(Graph::STATE_BLEND);
     dev->BlendFunc(Graph::BLEND_SRC_ALPHA, Graph::BLEND_INV_SRC_ALPHA);
 
-    m_Normal = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://normal.png"));
-    m_Laser = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://laser.png"));
+    m_Normal = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://compare_normal.png"));
+    m_Laser = dynamic_cast<Graph::Texture2D*>(dev->LoadTexture("texture://compare_laser.png"));
     
 	dev->ClearColor(0, 0, 0);
 
@@ -100,31 +100,6 @@ void Demo_TextureDiff::Render(float dt){
 		dev->Vertex(i->GetX() / scale+ size, i->GetY() / scale);
 		dev->End();
 	}
-	
-
-	/* m_RGBTex->Enable();
-    RenderSquare2D(512, 0, 256, 256);
-    m_RGBTex->Disable();
-
-    m_RGBATex->Enable();
-    RenderSquare2D(512, 256, 256, 256);
-    m_RGBATex->Disable();
-
-    m_R32Tex->Enable();
-    RenderSquare2D(512+256, 0, 256, 256);
-    m_R32Tex->Disable();
-
-    m_R16Tex->Enable();
-    RenderSquare2D(512+256, 256, 256, 256);
-    m_R16Tex->Disable();
-
-    m_RGBA32Tex->Enable();
-    RenderSquare2D(512, 512, 256, 256);
-    m_RGBA32Tex->Disable();
-
-    m_RGBA16Tex->Enable();
-    RenderSquare2D(512+256, 512, 256, 256);
-    m_RGBA16Tex->Disable();*/
 
     dev->Enable(Graph::STATE_DEPTH_TEST);
     dev->Enable(Graph::STATE_ZBUFFER_WRITE);
@@ -140,14 +115,14 @@ void Demo_TextureDiff::UpdateWndEvents(){
 
 std::vector<std::string> Demo_TextureDiff::GetKeywords() {
     std::vector<std::string> ret;
-    ret.push_back("Basic");
-    ret.push_back("Rendering");
-    ret.push_back("Textures");
+    ret.push_back("Advanced");
+    ret.push_back("Algorithm");
+	ret.push_back("Prototype");
     return ret;
 }
 
 std::string Demo_TextureDiff::GetDescription() {
-    return "2D Textures";
+    return "Line laser detection";
 }
 
 Demo * CreateDemo_Texture_Diff(Core::Window * wnd, Graph::Device * dev){
