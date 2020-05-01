@@ -15,17 +15,17 @@ _MATH_BEGIN
 
 template < typename T > class TimelineItem {
 public:
-	TimelineItem(float start, float end, T object, int layer = 0) {
+	TimelineItem(double start, double end, T object, int layer = 0) {
 		mStart = start;
 		mEnd = end;
 		mObject = object;
 		mLayer = layer;
 	}
 	~TimelineItem() {}
-	float GetStart() const {
+	double GetStart() const {
 		return mStart;
 	}
-	float GetEnd() const {
+	double GetEnd() const {
 		return mEnd;
 	}
 	int GetLayer() const {
@@ -37,8 +37,8 @@ public:
 private:
 	int mLayer;
 	T mObject;
-	float mStart;
-	float mEnd;
+	double mStart;
+	double mEnd;
 };
 
 template < typename T > class TimelineNode {
@@ -52,7 +52,7 @@ public:
 	}
 
 
-	TimelineNode(float start, float end) {
+	TimelineNode(double start, double end) {
 		mDepth = 0;
 		mA = NULL;
 		mB = NULL;
@@ -65,11 +65,11 @@ public:
 		SafeDelete(mB);
 	}
 
-	float GetStart() const {
+	double GetStart() const {
 		return mStart;
 	}
 
-	float GetEnd() const {
+	double GetEnd() const {
 		return mEnd;
 	}
 
@@ -79,7 +79,9 @@ public:
 	}
 		
 	bool IsEmpty() const {
-		return mItems.size() == 0 && mA == NULL && mB == NULL;
+		return mItems.size() == 0 && 
+			(mA == NULL || mA->IsEmpty()) && 
+			(mB == NULL || mB->IsEmpty());
 	}
 
     void GetAll(std::list<T> * items) {
@@ -88,7 +90,7 @@ public:
         }
     }
 
-	void Get(float time, std::list<TimelineItem<T>> * items) {
+	void Get(double time, std::list<TimelineItem<T>> * items) {
 
 		ListFor(TimelineItem<T>, mItems, i) {
 			if (time >= i->GetStart() && time <= i->GetEnd()) {
@@ -108,7 +110,7 @@ public:
 
 	void Build(const int depth = 0, int const maxDepth = 4) {
 		bool inited = false;
-		float s, e;
+		double s, e;
 
 		mDepth = depth;
 
@@ -123,14 +125,14 @@ public:
 			}
 			else {
 				s = MIN(s, i->GetStart());
-				e = MAX(s, i->GetEnd());
+				e = MAX(e, i->GetEnd());
 			}
 		}
 
 		mStart = s;
 		mEnd = e;
 
-		float split = (s + e) / 2.0f;
+		double split = (s + e) / 2.0f;
 
 		if (depth + 1 < maxDepth) {
 			mA = new TimelineNode<T>(mStart, split);
@@ -146,18 +148,26 @@ public:
 					keep.push_back(*i);
 			}
 
-			mA->Build(depth + 1, maxDepth);
-			mB->Build(depth + 1, maxDepth);
-
-			if (mA->IsEmpty())
+			if(!mA->IsEmpty())
+				mA->Build(depth + 1, maxDepth);
+			else
 				SafeDelete(mA);
-
-			if (mB->IsEmpty())
-				SafeDelete(mB);
+			if(!mB->IsEmpty())
+				mB->Build(depth + 1, maxDepth);
+			else
+				SafeDelete(mB);		
 
 			mItems.clear();
 			mItems = keep;
 		}
+	}
+
+	void Clear() {
+		if (mA)mA->Clear();
+		mA = NULL;
+		if (mB)mB->Clear();
+		mB = NULL;
+		mItems.clear();
 	}
 
 private:
@@ -166,8 +176,8 @@ private:
 	}
 	int mDepth;
 	std::list<TimelineItem<T>> mItems;
-	float mStart;
-	float mEnd;
+	double mStart;
+	double mEnd;
 	TimelineNode<T> * mA, *mB;
 };
 
