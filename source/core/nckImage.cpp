@@ -331,9 +331,7 @@ static boolean fill_input_bufferFunc(j_decompress_ptr cinfo) {
 static void skip_input_dataFunc(j_decompress_ptr cinfo, long num_bytes) {
     CustomJPEGReader * src = (CustomJPEGReader*)cinfo->src;
     if (num_bytes > 0) {
-
-		src->reader->Seek(num_bytes,Core::SEEK_OFFSET_CURRENT);
-
+		// src->reader->Seek(num_bytes,Core::SEEK_OFFSET_CURRENT);
         if ((size_t)num_bytes > src->pub.bytes_in_buffer) 
 			src->pub.bytes_in_buffer = 0;
         else {
