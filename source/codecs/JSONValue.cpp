@@ -68,7 +68,7 @@ JSONValue *JSONValue::Parse(const char **data)
 	}
 
 	// Is it a boolean?
-	else if ((strlen(*data) >= 4 && strncasecmp(*data, "true", 4) == 0) || (strlen(*data) >= 5  && strncasecmp(*data, "false", 5 == 0)))
+	else if ((strlen(*data) >= 4 && strncasecmp(*data, "true", 4) == 0) || (strlen(*data) >= 5  && strncasecmp(*data, "false", 5) == 0))
 	{
 		bool value = strncasecmp(*data, "true",4) == 0;
 		(*data) += value ? 4 : 5;
