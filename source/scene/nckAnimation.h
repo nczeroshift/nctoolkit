@@ -60,7 +60,8 @@ class AnimationNode
 public:
     /// Constructor.
     AnimationNode();
-    
+	AnimationNode(float p_t, float p_v, float c_t, float c_v, float n_t, float n_v);
+
     /// Previous anchor time.
     float m_P_Time;
     
@@ -116,6 +117,8 @@ public:
     void Read(BXON::Array * entry);
 #endif
     
+	void AddNode(const AnimationNode & node);
+
 private:
     
     void ComputeBlendMatrix();

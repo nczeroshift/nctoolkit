@@ -22,6 +22,15 @@ AnimationNode::AnimationNode()
     m_N_Value = 0.0f;
 }
 
+AnimationNode::AnimationNode(float p_t, float p_v, float c_t, float c_v, float n_t, float n_v) {
+	m_P_Time = p_t;
+	m_P_Value = p_v;
+	m_C_Time = c_t;
+	m_C_Value = c_v;
+	m_N_Time = n_t;
+	m_N_Value = n_v;
+}
+
 void AnimationNode::Read(Core::DataReader * f){
     f->Read(&m_P_Time,sizeof(float));
     f->Read(&m_P_Value,sizeof(float));
@@ -157,6 +166,11 @@ void AnimationGraph::ComputeBlendMatrix(){
         }
     }*/
 }
+
+void AnimationGraph::AddNode(const AnimationNode & node) {
+	m_Nodes.push_back(node);
+}
+
 float AnimationGraph::GetValue(float time)
 {
     if(m_Nodes.size() == 0)
