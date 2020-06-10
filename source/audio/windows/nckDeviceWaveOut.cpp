@@ -207,6 +207,7 @@ Stream * DeviceWaveOut::LoadStream(const std::string & filename){
 	    return OggStream::Load(filename);
     else if (extension == "wav")
         return WavStream::Load(filename);
+	return NULL;
 }
 
 Stream * DeviceWaveOut::LoadStreamFromReader(Core::DataReader * reader){

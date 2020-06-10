@@ -50,7 +50,7 @@ int DemoCount() {
 
 Demo * DemoCreate(int i, Core::Window * wnd, Graph::Device * dev) {
     Demo * (*demos[])(Core::Window*, Graph::Device*) = {
-        CreateDemo_Triangles,
+		CreateDemo_Triangles,
         CreateDemo_Texture2D,
         CreateDemo_TextureNPT,
         CreateDemo_TextureCubemap,

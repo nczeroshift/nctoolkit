@@ -17,7 +17,7 @@ Demo_Metaballs::Demo_Metaballs(Core::Window * wnd, Graph::Device * dev){
     processor = NULL;
 
     dimensions = 6;
-    currentLod = 20;
+    currentLod = 10;
     maxLod = 40;
     zRotation = 0;
 
@@ -56,7 +56,9 @@ void Demo_Metaballs::Load(){
 void Demo_Metaballs::Render(float dt){
     dev->ClearColor(0.5, 0.5, 0.5);
 
-    dev->Clear();
+	dev->FillMode(Graph::PolygonMode::FILL_WIREFRAME);
+    
+	dev->Clear();
     dev->Viewport(0, 0, wnd->GetWidth(), wnd->GetHeight());
 
     dev->Enable(Graph::STATE_DEPTH_TEST);

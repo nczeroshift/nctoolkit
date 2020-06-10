@@ -723,14 +723,23 @@ void Device_GL2::Quaternion(float x,float y,float z,float w){
 
 void Device_GL2::Perspective(float aspect, float fov, float znear,float zfar){
     gluPerspective(fov, aspect, znear, zfar);
+	if (m_InsideFBO)
+		glScalef(1, -1, 1);
 }
 
 void Device_GL2::Ortho(float left, float right, float bottom, float top, float znear,float zfar){
 	glOrtho(left,right,bottom,top,znear,zfar); 	
+	if (m_InsideFBO) {
+		glScalef(1, -1, 1);
+	}
 }
 
 void Device_GL2::Ortho2D(float width,float height,float znear, float zfar){
 	glOrtho(0,width,height,0,znear,zfar);
+	if (m_InsideFBO) {
+		glScalef(1, -1, 1);
+		glTranslatef(0, -height, 0);
+	}
 }
 
 

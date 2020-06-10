@@ -139,16 +139,13 @@
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_SSAO.h">
       <Filter>Source Files\demos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Shadows2.h">
-      <Filter>Source Files\demos</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Frustum2.h">
-      <Filter>Source Files\demos</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Texture_Diff.h">
       <Filter>Source Files\demos</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_Game.h">
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_ShadowsProjector.h">
+      <Filter>Source Files\demos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\source\apps\demos\nckDemo_FrustumVolume.h">
       <Filter>Source Files\demos</Filter>
     </ClInclude>
   </ItemGroup>
@@ -264,16 +261,13 @@
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_SSAO.cpp">
       <Filter>Source Files\demos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Shadows2.cpp">
-      <Filter>Source Files\demos</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Frustum2.cpp">
-      <Filter>Source Files\demos</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Texture_Diff.cpp">
       <Filter>Source Files\demos</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_Game.cpp">
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_ShadowsProjector.cpp">
+      <Filter>Source Files\demos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\apps\demos\nckDemo_FrustumVolume.cpp">
       <Filter>Source Files\demos</Filter>
     </ClCompile>
   </ItemGroup>
